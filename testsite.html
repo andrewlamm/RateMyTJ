@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>table tests</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+		<style type="text/css">
+			html {
+				font-family: "Red Hat Display";
+			}
+		</style>
+	</head>
+	<body>
+		<div style="display: flex; flex-direction: row">
+			<div style="width: 200px">
+				<div>
+					<b>Category:</b><br>
+					<input type="checkbox" value="Mathematics" checked id="mathematics" onclick="changeCategory(this.id)"><label for="mathematics">Mathematics</label><br>
+					<input type="checkbox" value="Science" checked id="science" onclick="changeCategory(this.id)"><label for="science">Science</label><br>
+				</div>
+				<div style="padding-top: 10px">
+					<b>Type:</b><br>
+					<input type="checkbox" name="Core" checked onclick="changeType()" id="core"><label for="Core">Core</label><br>
+					<input type="checkbox" name="Elective" checked onclick="changeType()" id="elective"><label for="Elective">Elective</label><br>
+				</div>
+				<div style="padding-top: 10px">
+					<b>Length:</b><br>
+					<input type="checkbox" name="FullYear" checked onclick="changeLength()" id="fullyear"><label for="Core">Full Year</label><br>
+					<input type="checkbox" name="Semester" checked onclick="changeLength()" id="semester"><label for="Elective">Semester</label><br>
+				</div>
+				<div style="padding-top: 10px">
+					<b>Weight:</b><br>
+					<input type="checkbox" name="Regular" checked onclick="changeWeight()" id="regular"><label for="Core">Regular (+0.0)</label><br>
+					<input type="checkbox" name="Honors" checked onclick="changeWeight()" id="honors"><label for="Elective">Honors (+0.5)</label><br>
+					<input type="checkbox" name="AP" checked onclick="changeWeight()" id="ap"><label for="Elective">AP/Post-AP (+1.0)</label><br>
+				</div>
+				<div style="padding-top: 10px">
+					<b>Class Score:</b><br>
+					<b>Min:</b><br><input type="number" name="MinClassScore" checked id="minclassscore" onkeyup="filterClassScore()" min="0" max="10"><br>
+					<b>Max:</b><br><input type="number" name="MaxClassScore" checked id="maxclassscore" onkeyup="filterClassScore()" min="0" max="10"><br>
+				</div>
+				<div style="padding-top: 10px">
+					<b>Hours/Week:</b><br>
+					<b>Min:</b><br><input type="number" name="MinHrsWeek" checked id="minhrsweek" onkeyup="filterHrsWeek()" min="0" max="10"><br>
+					<b>Max:</b><br><input type="number" name="MaxHrsWeek" checked id="maxhrsweek" onkeyup="filterHrsWeek()" min="0" max="10"><br>
+				</div>
+			</div>
+			<div>
+				<div id="mathematics_div" style="width: 100%">
+					<table id="mathematics_table" class="display">
+						<thead>
+							<tr>
+								<th>Class Name</th>
+								<th>ID</th>
+								<th>Category</th>
+								<th>Type</th>
+								<th>Length</th>
+								<th>Weight</th>
+								<th>Class Score</th>
+								<th>Hours/Week</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>TJ Math 1</td>
+								<td>314351</td>
+								<td>Mathematics</td>
+								<td>Core</td>
+								<td>Semester</td>
+								<td>+0.5</td>
+								<td>9.21</td>
+								<td>1.71</td>
+							</tr>
+							<tr>
+								<td>TJ Math 2</td>
+								<td>314352</td>
+								<td>Mathematics</td>
+								<td>Core</td>
+								<td>Semester</td>
+								<td>+0.5</td>
+								<td>9.67</td>
+								<td>2.71</td>
+							</tr>
+							<tr>
+								<td>TJ Math 3</td>
+								<td>313753</td>
+								<td>Mathematics</td>
+								<td>Core</td>
+								<td>Semester</td>
+								<td>+0.5</td>
+								<td>8.11</td>
+								<td>3.51</td>
+							</tr>
+							<tr>
+								<td>TJ Math 4</td>
+								<td>316154</td>
+								<td>Mathematics</td>
+								<td>Core</td>
+								<td>Semester</td>
+								<td>+0.5</td>
+								<td>9.81</td>
+								<td>3.71</td>
+							</tr>
+							<tr>
+								<td>TJ Math 5</td>
+								<td>316055</td>
+								<td>Mathematics</td>
+								<td>Core</td>
+								<td>Semester</td>
+								<td>+0.5</td>
+								<td>8.21</td>
+								<td>4.21</td>
+							</tr>
+							<tr>
+								<td>TJ Math 6</td>
+								<td>316055</td>
+								<td>Mathematics</td>
+								<td>Core</td>
+								<td>Semester</td>
+								<td>+0.5</td>
+								<td>6.88</td>
+								<td>3.21</td>
+							</tr>
+							<tr>
+								<td>AP Calculus AB</td>
+								<td>317004</td>
+								<td>Mathematics</td>
+								<td>Core</td>
+								<td>Full Year</td>
+								<td>+1.0</td>
+								<td>8.71</td>
+								<td>4.37</td>
+							</tr>
+							<tr>
+								<td>AP Calculus BC</td>
+								<td>317704</td>
+								<td>Mathematics</td>
+								<td>Core</td>
+								<td>Full Year</td>
+								<td>+1.0</td>
+								<td>8.81</td>
+								<td>4.12</td>
+							</tr>
+							<tr>
+								<td>Machine Learning 1</td>
+								<td>3199T6</td>
+								<td>Mathematics</td>
+								<td>Elective</td>
+								<td>Semester</td>
+								<td>+1.0</td>
+								<td>8.96</td>
+								<td>3.12</td>
+							</tr>
+							<tr>
+								<td>Machine Learning 2</td>
+								<td>3199T7</td>
+								<td>Mathematics</td>
+								<td>Elective</td>
+								<td>Semester</td>
+								<td>+1.0</td>
+								<td>8.97</td>
+								<td>3.22</td>
+							</tr>
+							<tr>
+								<td>Concrete Math</td>
+								<td>3199TB</td>
+								<td>Mathematics</td>
+								<td>Elective</td>
+								<td>Semester</td>
+								<td>+1.0</td>
+								<td>7.97</td>
+								<td>5.12</td>
+							</tr>
+							<tr>
+								<td>AP Biology</td>
+								<td>437004</td>
+								<td>Science</td>
+								<td>Core</td>
+								<td>Full Year</td>
+								<td>+1.0</td>
+								<td>7.21</td>
+								<td>5.71</td>
+							</tr>
+							<tr>
+								<td>Biology 1</td>
+								<td>4310T1</td>
+								<td>Science</td>
+								<td>Core</td>
+								<td>Full Year</td>
+								<td>+0.5</td>
+								<td>7.61</td>
+								<td>4.81</td>
+							</tr>
+							<tr>
+								<td>AP Chemistry</td>
+								<td>447004</td>
+								<td>Science</td>
+								<td>Core</td>
+								<td>Full Year</td>
+								<td>+1.0</td>
+								<td>8.47</td>
+								<td>4.92</td>
+							</tr>
+							<tr>
+								<td>Chemistry 1</td>
+								<td>4410T1</td>
+								<td>Science</td>
+								<td>Core</td>
+								<td>Full Year</td>
+								<td>+0.5</td>
+								<td>8.21</td>
+								<td>2.81</td>
+							</tr>
+							<tr>
+								<td>DNA Science 1</td>
+								<td>4320T6</td>
+								<td>Science</td>
+								<td>Elective</td>
+								<td>Semester</td>
+								<td>+0.5</td>
+								<td>6.98</td>
+								<td>4.32</td>
+							</tr>
+							<tr>
+								<td>DNA Science 2</td>
+								<td>4320T7</td>
+								<td>Science</td>
+								<td>Elective</td>
+								<td>Semester</td>
+								<td>+0.5</td>
+								<td>7.23</td>
+								<td>4.12</td>
+							</tr>
+							<tr>
+								<td>Electrodynamics</td>
+								<td>4520T9</td>
+								<td>Science</td>
+								<td>Elective</td>
+								<td>Full Year</td>
+								<td>+1.0</td>
+								<td>9.13</td>
+								<td>4.89</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		<div>
+		<script type="text/javascript">
+			var table = $('#mathematics_table').DataTable( {
+				'columnDefs': [ 
+	                { 
+	                    'searchable'    : false, 
+	                    'targets'       : [2,3,4,5,6,7] 
+	                },
+	            ],
+				"iDisplayLength": 25, 
+				"language": {                
+            		"infoFiltered": ""
+        		},
+			} );
+
+			function changeCategory(categoryName) {
+				$.fn.dataTable.ext.search.push(
+    				function( settings, searchData, index, rowData, counter ) {
+    					var mathematics_selected = document.getElementById('mathematics').checked ? true : false
+    					var science_selected = document.getElementById('science').checked ? true : false
+
+    					if (rowData[2] === "Mathematics") {
+    						if (mathematics_selected) {
+    							return true
+    						}
+    						else {
+    							return false
+    						}
+    					}
+    					if (rowData[2] === "Science") {
+    						if (science_selected) {
+    							return true
+    						}
+    						else {
+    							return false
+    						}
+    					}
+    				}
+    			);
+				table.draw()
+			}
+
+			function changeType() {
+				$.fn.dataTable.ext.search.push(
+    				function( settings, searchData, index, rowData, counter ) {
+    					var core_selected = document.getElementById('core').checked ? true : false
+    					var elective_selected = document.getElementById('elective').checked ? true : false
+
+    					if (rowData[3] === "Core") {
+    						if (core_selected) {
+    							return true
+    						}
+    						else {
+    							return false
+    						}
+    					}
+    					if (rowData[3] === "Elective") {
+    						if (elective_selected) {
+    							return true
+    						}
+    						else {
+    							return false
+    						}
+    					}
+    				}
+    			);
+				table.draw()
+			}
+
+			function changeLength() {
+				$.fn.dataTable.ext.search.push(
+    				function( settings, searchData, index, rowData, counter ) {
+    					var fullyear_selected = document.getElementById('fullyear').checked ? true : false
+    					var semester_selected = document.getElementById('semester').checked ? true : false
+
+    					if (rowData[4] === "Full Year") {
+    						if (fullyear_selected) {
+    							return true
+    						}
+    						else {
+    							return false
+    						}
+    					}
+    					if (rowData[4] === "Semester") {
+    						if (semester_selected) {
+    							return true
+    						}
+    						else {
+    							return false
+    						}
+    					}
+    				}
+    			);
+				table.draw()
+			}
+
+			function changeWeight() {
+				$.fn.dataTable.ext.search.push(
+    				function( settings, searchData, index, rowData, counter ) {
+    					var regular_selected = document.getElementById('regular').checked ? true : false
+    					var honors_selected = document.getElementById('honors').checked ? true : false
+    					var ap_selected = document.getElementById('ap').checked ? true : false
+
+    					if (rowData[5] === "+0.0") {
+    						if (regular_selected) {
+    							return true
+    						}
+    						else {
+    							return false
+    						}
+    					}
+    					if (rowData[5] === "+0.5") {
+    						if (honors_selected) {
+    							return true
+    						}
+    						else {
+    							return false
+    						}
+    					}
+    					if (rowData[5] === "+1.0") {
+    						if (ap_selected) {
+    							return true
+    						}
+    						else {
+    							return false
+    						}
+    					}
+    				}
+    			);
+				table.draw()
+			}
+
+			function filterClassScore() {
+				$.fn.dataTable.ext.search.push(
+    				function( settings, searchData, index, rowData, counter ) {
+    					var min = parseFloat(document.getElementById('minclassscore').value)
+    					var max = parseFloat(document.getElementById('maxclassscore').value)
+    					var score = parseFloat(rowData[6])
+
+    					// console.log(min)
+    					// console.log(max)
+    					// console.log(score)
+
+    					if ((isNaN(min) && isNaN(max)) || (isNaN(min) && score <= max) || (min <= score && isNaN(max)) || (min <= score && score <= max)) {
+				            return true;
+				        }
+				        return false;
+    				}
+    			);
+				table.draw()
+			}
+
+			function filterHrsWeek() {
+				$.fn.dataTable.ext.search.push(
+    				function( settings, searchData, index, rowData, counter ) {
+    					var min = parseFloat(document.getElementById('minhrsweek').value)
+    					var max = parseFloat(document.getElementById('maxhrsweek').value)
+    					var hrs = parseFloat(rowData[7])
+
+    					// console.log(min)
+    					// console.log(max)
+    					// console.log(hrs)
+
+    					if ((isNaN(min) && isNaN(max)) || (isNaN(min) && hrs <= max) || (min <= hrs && isNaN(max)) || (min <= hrs && hrs <= max)) {
+				            return true;
+				        }
+				        return false;
+    				}
+    			);
+				table.draw()
+			}
+		</script>
+	</body>
+</html>
