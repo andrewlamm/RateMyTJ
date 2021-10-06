@@ -22,7 +22,7 @@ with open("class_names.txt") as f:
 
 print(classes)
 
-num_to_category = {0: "Technology and Engineering Education", 1: "English", 2: "Fine Arts: Music", 3: "Fine Arts: Theatre Arts", 4: "Fine Arts: Visual Arts", 5: "General", 6: "Health/PE", 7: "Mathematics", 8: 'Science', 9: "Social Studies", 10: "World Languages"}
+num_to_category = {0: "Technology and Engineering", 1: "English", 2: "Fine Arts: Music", 3: "Fine Arts: Theatre Arts", 4: "Fine Arts: Visual Arts", 5: "General", 6: "Health/PE", 7: "Mathematics", 8: 'Science', 9: "Social Studies", 10: "World Languages"}
 class_dict = {}
 
 class_id_list = []
@@ -80,7 +80,10 @@ for i in range(len(class_id_list)):
 	class_dict[classes[curr_cat][curr_typ][curr_ind]] = [class_id_list[i], num_to_category[curr_cat], "Core" if curr_typ == 0 else "Elective", class_credit_len[i], class_credit_weight[i]]
 
 	for i in range(NUM_OF_STATS):
-		class_dict[classes[curr_cat][curr_typ][curr_ind]].append(round(random.random() * 10, 2))
+		s = str(round(random.random() * 10, 2))
+		while len(s) < 4:
+			s += "0"
+		class_dict[classes[curr_cat][curr_typ][curr_ind]].append(s)
 
 	curr_ind += 1
 print(class_dict)
