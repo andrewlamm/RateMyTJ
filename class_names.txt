@@ -1,3 +1,23 @@
+
+Intro Engr Acc Adv 
+Audio Electronics 
+ADV MICROPROC SYS 
+MICRO ELECT RES 
+ACC ANALOG ELECT 
+ACC DIGITAL ELECT 
+Aut/Rob-Micro Sys 
+Aut/Rob-Systems 
+AUTO ROBOTICS RES 
+Prototype Dev 1 
+ENERGY SYSTEMS RES 
+Spec Comp Asst Des 
+ENG DESIGN RES 
+Prototype Dev 2 
+PROTOTYPE DEV RES 
+Energy Systems 2 
+Energy Systems 1 
+Engineering Des 
+
 ENGLISH 9
 English 10
 AP ENGLISH LANG
@@ -7,6 +27,7 @@ ENGLISH 11 W/US HIST
 English 12
 AP ENGLISH LIT
 AP ENG LIT W/ AP US GOV
+
 Journalism 1
 Journalism 2
 Journalism 3
@@ -22,12 +43,14 @@ Photo Journalism 4
 Forensics
 Film Study
 
+
 Band
 Percussion Ensemb
 Jazz Ensemble
 Orchestra
 Mixed Chorus
 AP MUSIC THEORY
+
 
 THEATRE ARTS 1 SEM
 THEATRE ARTS 2 SEM
@@ -36,6 +59,7 @@ TECH THEATRE 1 SEM
 THEATRE ARTS 4 SEM
 
 Art for Engineers
+
 Stud Art &amp; Des 1
 Stud Art &amp; Des 2
 Computer Graph 1
@@ -53,12 +77,14 @@ STUDIO ART &amp; DESIGN 4
 SELF EPF ONLINE
 ECON PERS FINANCE
 ECON PERS FINANCE HN
+
 Design and Tech
 Teacher's forTmrw1
 
 Yoga
 HEALTH AND PE 9
 HEALTH AND PE 10
+
 Yoga
 Sports Medicine
 Yoga
@@ -78,6 +104,7 @@ Matrix Algebra
 MULTIVAR CALCULUS
 FOUND COMP SCI
 ACCEL FOUND COMP SCI
+
 MACHINE LEARNING 1
 MACHINE LEARNING 2
 RESEARCH STATISTICS 3
@@ -103,6 +130,7 @@ Chemistry 1
 AP PHYSICS C-MEM
 Geosystems
 Physics 1
+
 MICROBIAL GENOMICS
 Astronomy Ment
 Geosystems Ment
@@ -131,6 +159,7 @@ US VA History
 AP US HISTORY
 AP US GOVERNMENT
 AP US GOV w/AP ENG LIT
+
 AFRICAN AMERICAN HISTORY
 Ethical Leadership
 Ancient &amp; Clas Civ
@@ -145,6 +174,7 @@ Anthro Studies
 History of Science
 Am/Wrld Since 1989
 Law and Society
+
 
 Chinese 1
 Chinese 2
