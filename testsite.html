@@ -8,7 +8,7 @@
 		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
 		<style type="text/css">
 			html {
-				font-family: "Red Hat Display";
+				font-family: "Georgia";
 			}
 		</style>
 	</head>
@@ -17,6 +17,7 @@
 			<div style="width: 200px">
 				<div>
 					<b>Category:</b><br>
+					<span style="font-size: 8pt;"><a href="#" onclick="uncheckCategory()">Uncheck all</a> | <a href="#" onclick="checkCategory()">Check all</a></span><br>
 					<input type="checkbox" value="Technology and Engineering" checked id="Technology and Engineering" onclick="changeCategory(this.id)"><label for="Technology and Engineering">Technology and Engineering</label><br>
 					<input type="checkbox" value="English" checked id="English" onclick="changeCategory(this.id)"><label for="English">English</label><br>
 					<input type="checkbox" value="Fine Arts: Music" checked id="Fine Arts: Music" onclick="changeCategory(this.id)"><label for="Fine Arts: Music">Fine Arts: Music</label><br>
@@ -62,6 +63,7 @@
 						<thead>
 							<tr>
 								<th>Class Name</th>
+								<th>Alternate</th>
 								<th>ID</th>
 								<th>Category</th>
 								<th>Type</th>
@@ -73,1963 +75,2357 @@
 						</thead>
 							<tr>
 								<td>Intro Engr Acc Adv</td>
+								<td></td>
 								<td>9828T5</td>
 								<td>Technology and Engineering</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>5.35</td>
-								<td>6.23</td>
+								<td>5.77</td>
+								<td>9.83</td>
 							</tr>
 							<tr>
 								<td>Audio Electronics</td>
+								<td></td>
 								<td>9826T0</td>
 								<td>Technology and Engineering</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>7.08</td>
-								<td>9.63</td>
+								<td>9.54</td>
+								<td>4.55</td>
 							</tr>
 							<tr>
 								<td>ADV MICROPROC SYS</td>
+								<td></td>
 								<td>9826T1</td>
 								<td>Technology and Engineering</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>0.16</td>
-								<td>1.28</td>
+								<td>6.77</td>
+								<td>4.90</td>
 							</tr>
 							<tr>
 								<td>MICRO ELECT RES</td>
+								<td></td>
 								<td>9826T2</td>
 								<td>Technology and Engineering</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>0.61</td>
-								<td>0.83</td>
+								<td>5.72</td>
+								<td>6.88</td>
 							</tr>
 							<tr>
 								<td>ACC ANALOG ELECT</td>
+								<td></td>
 								<td>9826T5</td>
 								<td>Technology and Engineering</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>6.22</td>
-								<td>8.09</td>
+								<td>9.51</td>
+								<td>9.12</td>
 							</tr>
 							<tr>
 								<td>ACC DIGITAL ELECT</td>
+								<td></td>
 								<td>9826T6</td>
 								<td>Technology and Engineering</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>5.68</td>
-								<td>4.56</td>
+								<td>7.79</td>
+								<td>6.02</td>
 							</tr>
 							<tr>
 								<td>Aut/Rob-Micro Sys</td>
+								<td></td>
 								<td>9826T7</td>
 								<td>Technology and Engineering</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>1.18</td>
-								<td>5.45</td>
+								<td>7.21</td>
+								<td>7.08</td>
 							</tr>
 							<tr>
 								<td>Aut/Rob-Systems</td>
+								<td></td>
 								<td>9826T8</td>
 								<td>Technology and Engineering</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>9.47</td>
-								<td>3.95</td>
+								<td>1.46</td>
+								<td>5.29</td>
 							</tr>
 							<tr>
 								<td>AUTO ROBOTICS RES</td>
+								<td></td>
 								<td>9826T9</td>
 								<td>Technology and Engineering</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>1.99</td>
-								<td>1.99</td>
+								<td>9.39</td>
+								<td>4.24</td>
 							</tr>
 							<tr>
 								<td>Prototype Dev 1</td>
+								<td></td>
 								<td>9828T0</td>
 								<td>Technology and Engineering</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>8.56</td>
-								<td>2.83</td>
+								<td>6.94</td>
+								<td>7.25</td>
 							</tr>
 							<tr>
 								<td>ENERGY SYSTEMS RES</td>
+								<td></td>
 								<td>9828T1</td>
 								<td>Technology and Engineering</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>5.60</td>
-								<td>1.29</td>
+								<td>8.24</td>
+								<td>5.73</td>
 							</tr>
 							<tr>
 								<td>Spec Comp Asst Des</td>
+								<td></td>
 								<td>9828T2</td>
 								<td>Technology and Engineering</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>7.67</td>
-								<td>3.96</td>
+								<td>1.36</td>
+								<td>8.96</td>
 							</tr>
 							<tr>
 								<td>ENG DESIGN RES</td>
+								<td>Engineering Design Research</td>
 								<td>9828T3</td>
 								<td>Technology and Engineering</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>6.30</td>
-								<td>9.48</td>
+								<td>3.46</td>
+								<td>6.90</td>
 							</tr>
 							<tr>
 								<td>Prototype Dev 2</td>
+								<td></td>
 								<td>9828T4</td>
 								<td>Technology and Engineering</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>2.39</td>
-								<td>3.50</td>
+								<td>6.27</td>
+								<td>7.56</td>
 							</tr>
 							<tr>
 								<td>PROTOTYPE DEV RES</td>
+								<td></td>
 								<td>9828T6</td>
 								<td>Technology and Engineering</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>2.56</td>
-								<td>8.02</td>
+								<td>1.93</td>
+								<td>6.70</td>
 							</tr>
 							<tr>
 								<td>Energy Systems 2</td>
+								<td></td>
 								<td>9828T8</td>
 								<td>Technology and Engineering</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>2.43</td>
-								<td>5.45</td>
+								<td>6.63</td>
+								<td>7.29</td>
 							</tr>
 							<tr>
 								<td>Energy Systems 1</td>
+								<td></td>
 								<td>9828T9</td>
 								<td>Technology and Engineering</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>7.98</td>
-								<td>10.0</td>
+								<td>3.67</td>
+								<td>9.11</td>
 							</tr>
 							<tr>
 								<td>Engineering Des</td>
+								<td></td>
 								<td>9828J1</td>
 								<td>Technology and Engineering</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>8.86</td>
-								<td>4.39</td>
+								<td>7.42</td>
+								<td>4.80</td>
 							</tr>
 							<tr>
 								<td>ENGLISH 9</td>
+								<td></td>
 								<td>1130T1</td>
 								<td>English</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>8.46</td>
-								<td>6.16</td>
+								<td>4.57</td>
+								<td>0.89</td>
 							</tr>
 							<tr>
 								<td>English 10</td>
+								<td></td>
 								<td>1140T1</td>
 								<td>English</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>5.63</td>
-								<td>0.00</td>
+								<td>9.24</td>
+								<td>5.20</td>
 							</tr>
 							<tr>
 								<td>AP ENGLISH LANG</td>
+								<td></td>
 								<td>119604</td>
 								<td>English</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>3.15</td>
-								<td>9.93</td>
+								<td>0.97</td>
+								<td>2.35</td>
 							</tr>
 							<tr>
 								<td>AP ENG LANG W/AP US GOV</td>
+								<td></td>
 								<td>119662</td>
 								<td>English</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>0.49</td>
-								<td>5.50</td>
+								<td>3.24</td>
+								<td>6.13</td>
 							</tr>
 							<tr>
 								<td>ENGLISH 11 W/AP US HIST</td>
+								<td></td>
 								<td>1150T1</td>
 								<td>English</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>6.81</td>
-								<td>5.24</td>
+								<td>6.79</td>
+								<td>2.16</td>
 							</tr>
 							<tr>
 								<td>ENGLISH 11 W/US HIST</td>
+								<td></td>
 								<td>1150T2</td>
 								<td>English</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>2.80</td>
-								<td>1.94</td>
+								<td>9.67</td>
+								<td>5.53</td>
 							</tr>
 							<tr>
 								<td>English 12</td>
+								<td></td>
 								<td>1160T1</td>
 								<td>English</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>0.68</td>
-								<td>8.50</td>
+								<td>2.24</td>
+								<td>0.71</td>
 							</tr>
 							<tr>
 								<td>AP ENGLISH LIT</td>
+								<td></td>
 								<td>119504</td>
 								<td>English</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>1.26</td>
-								<td>8.20</td>
+								<td>4.45</td>
+								<td>7.41</td>
 							</tr>
 							<tr>
 								<td>AP ENG LIT W/ AP US GOV</td>
+								<td></td>
 								<td>119505</td>
 								<td>English</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>3.99</td>
-								<td>4.79</td>
+								<td>1.95</td>
+								<td>3.33</td>
 							</tr>
 							<tr>
 								<td>Journalism 1</td>
+								<td></td>
 								<td>120000</td>
 								<td>English</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>8.47</td>
-								<td>3.08</td>
+								<td>7.25</td>
+								<td>5.87</td>
 							</tr>
 							<tr>
 								<td>Journalism 2</td>
+								<td></td>
 								<td>121000</td>
 								<td>English</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>1.10</td>
-								<td>3.83</td>
+								<td>5.72</td>
+								<td>6.83</td>
 							</tr>
 							<tr>
 								<td>Journalism 3</td>
+								<td></td>
 								<td>121100</td>
 								<td>English</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>9.51</td>
-								<td>5.27</td>
+								<td>4.47</td>
+								<td>8.77</td>
 							</tr>
 							<tr>
 								<td>Journalism 4</td>
+								<td></td>
 								<td>121200</td>
 								<td>English</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>1.95</td>
-								<td>4.33</td>
+								<td>4.49</td>
+								<td>9.84</td>
 							</tr>
 							<tr>
 								<td>Broadcast Journ 1</td>
+								<td>Broadcast Journalism 1</td>
 								<td>122000</td>
 								<td>English</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>4.67</td>
-								<td>1.67</td>
+								<td>0.75</td>
+								<td>4.48</td>
 							</tr>
 							<tr>
 								<td>Broadcast Journ 2</td>
+								<td>Broadcast Journalism 2</td>
 								<td>122012</td>
 								<td>English</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>6.19</td>
-								<td>9.91</td>
+								<td>6.44</td>
+								<td>0.73</td>
 							</tr>
 							<tr>
 								<td>Broadcast Journ 3</td>
+								<td>Broadcast Journalism 3</td>
 								<td>122013</td>
 								<td>English</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>0.54</td>
-								<td>7.98</td>
+								<td>3.95</td>
+								<td>4.80</td>
 							</tr>
 							<tr>
 								<td>Broadcast Journ 4</td>
+								<td>Broadcast Journalism 4</td>
 								<td>122014</td>
 								<td>English</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>6.43</td>
-								<td>4.94</td>
+								<td>8.62</td>
+								<td>5.32</td>
 							</tr>
 							<tr>
 								<td>Photo Journalism 1</td>
+								<td></td>
 								<td>121500</td>
 								<td>English</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>1.80</td>
-								<td>6.37</td>
+								<td>3.50</td>
+								<td>6.65</td>
 							</tr>
 							<tr>
 								<td>Photo Journalism 2</td>
+								<td></td>
 								<td>121600</td>
 								<td>English</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>1.78</td>
-								<td>2.46</td>
+								<td>8.88</td>
+								<td>4.43</td>
 							</tr>
 							<tr>
 								<td>Photo Journalism 3</td>
+								<td></td>
 								<td>121700</td>
 								<td>English</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>1.36</td>
-								<td>4.29</td>
+								<td>7.95</td>
+								<td>4.17</td>
 							</tr>
 							<tr>
 								<td>Photo Journalism 4</td>
+								<td></td>
 								<td>121714</td>
 								<td>English</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>9.48</td>
-								<td>0.94</td>
+								<td>9.76</td>
+								<td>0.96</td>
 							</tr>
 							<tr>
 								<td>Forensics</td>
+								<td></td>
 								<td>139000</td>
 								<td>English</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>5.70</td>
-								<td>4.44</td>
+								<td>8.15</td>
+								<td>5.47</td>
 							</tr>
 							<tr>
 								<td>Film Study</td>
+								<td></td>
 								<td>144632</td>
 								<td>English</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.0</td>
-								<td>9.15</td>
-								<td>0.97</td>
+								<td>6.55</td>
+								<td>3.55</td>
 							</tr>
 							<tr>
 								<td>Band</td>
+								<td></td>
 								<td>923315</td>
 								<td>Fine Arts: Music</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>5.54</td>
-								<td>2.89</td>
+								<td>7.07</td>
+								<td>6.21</td>
 							</tr>
 							<tr>
 								<td>Percussion Ensemb</td>
+								<td></td>
 								<td>925015</td>
 								<td>Fine Arts: Music</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>7.67</td>
-								<td>8.67</td>
+								<td>9.94</td>
+								<td>3.04</td>
 							</tr>
 							<tr>
 								<td>Jazz Ensemble</td>
+								<td></td>
 								<td>924015</td>
 								<td>Fine Arts: Music</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>8.83</td>
-								<td>4.38</td>
+								<td>5.13</td>
+								<td>9.48</td>
 							</tr>
 							<tr>
 								<td>Orchestra</td>
+								<td></td>
 								<td>923815</td>
 								<td>Fine Arts: Music</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>5.13</td>
-								<td>5.91</td>
+								<td>7.67</td>
+								<td>7.17</td>
 							</tr>
 							<tr>
 								<td>Mixed Chorus</td>
+								<td></td>
 								<td>926015</td>
 								<td>Fine Arts: Music</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>5.23</td>
-								<td>5.91</td>
+								<td>7.84</td>
+								<td>2.57</td>
 							</tr>
 							<tr>
 								<td>AP MUSIC THEORY</td>
+								<td></td>
 								<td>922604</td>
 								<td>Fine Arts: Music</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>1.44</td>
-								<td>9.38</td>
+								<td>4.06</td>
+								<td>5.82</td>
 							</tr>
 							<tr>
 								<td>THEATRE ARTS 1 SEM</td>
+								<td></td>
 								<td>141032</td>
 								<td>Fine Arts: Theatre Arts</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.0</td>
-								<td>3.56</td>
-								<td>2.35</td>
+								<td>3.57</td>
+								<td>2.79</td>
 							</tr>
 							<tr>
 								<td>THEATRE ARTS 2 SEM</td>
+								<td></td>
 								<td>142032</td>
 								<td>Fine Arts: Theatre Arts</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.0</td>
-								<td>7.52</td>
-								<td>8.96</td>
+								<td>6.03</td>
+								<td>3.44</td>
 							</tr>
 							<tr>
 								<td>THEATRE ARTS 3 SEM</td>
+								<td></td>
 								<td>143032</td>
 								<td>Fine Arts: Theatre Arts</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.0</td>
-								<td>6.64</td>
-								<td>4.74</td>
+								<td>2.33</td>
+								<td>1.29</td>
 							</tr>
 							<tr>
 								<td>TECH THEATRE 1 SEM</td>
+								<td></td>
 								<td>143532</td>
 								<td>Fine Arts: Theatre Arts</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.0</td>
-								<td>7.76</td>
-								<td>7.67</td>
+								<td>2.28</td>
+								<td>2.93</td>
 							</tr>
 							<tr>
 								<td>THEATRE ARTS 4 SEM</td>
+								<td></td>
 								<td>144032</td>
 								<td>Fine Arts: Theatre Arts</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.0</td>
-								<td>1.94</td>
-								<td>7.84</td>
+								<td>2.29</td>
+								<td>2.18</td>
 							</tr>
 							<tr>
 								<td>Art for Engineers</td>
+								<td></td>
 								<td>9153T0</td>
 								<td>Fine Arts: Visual Arts</td>
 								<td>Core</td>
 								<td>Semester</td>
 								<td>+0.0</td>
-								<td>0.27</td>
-								<td>0.59</td>
+								<td>1.21</td>
+								<td>3.69</td>
 							</tr>
 							<tr>
 								<td>Stud Art &amp; Des 1</td>
-								<td>912000</td>
+								<td></td>
+								<td>912032</td>
 								<td>Fine Arts: Visual Arts</td>
 								<td>Elective</td>
-								<td>Full Year</td>
+								<td>Semester</td>
 								<td>+0.0</td>
-								<td>8.02</td>
-								<td>7.67</td>
+								<td>7.48</td>
+								<td>8.04</td>
 							</tr>
 							<tr>
 								<td>Stud Art &amp; Des 2</td>
-								<td>913000</td>
+								<td></td>
+								<td>913032</td>
 								<td>Fine Arts: Visual Arts</td>
 								<td>Elective</td>
-								<td>Full Year</td>
+								<td>Semester</td>
 								<td>+0.0</td>
-								<td>9.01</td>
-								<td>1.65</td>
+								<td>1.27</td>
+								<td>0.78</td>
 							</tr>
 							<tr>
 								<td>Computer Graph 1</td>
+								<td></td>
 								<td>918032</td>
 								<td>Fine Arts: Visual Arts</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.0</td>
-								<td>7.98</td>
-								<td>2.95</td>
+								<td>0.45</td>
+								<td>5.79</td>
 							</tr>
 							<tr>
 								<td>Computer Graph 2</td>
+								<td></td>
 								<td>918132</td>
 								<td>Fine Arts: Visual Arts</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.0</td>
-								<td>8.22</td>
-								<td>0.88</td>
+								<td>1.95</td>
+								<td>8.00</td>
 							</tr>
 							<tr>
 								<td>Photography 1</td>
+								<td></td>
 								<td>919332</td>
 								<td>Fine Arts: Visual Arts</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.0</td>
-								<td>3.63</td>
-								<td>2.18</td>
+								<td>3.94</td>
+								<td>5.83</td>
 							</tr>
 							<tr>
 								<td>Photography 2</td>
+								<td></td>
 								<td>919432</td>
 								<td>Fine Arts: Visual Arts</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.0</td>
-								<td>9.50</td>
-								<td>5.64</td>
+								<td>7.48</td>
+								<td>2.17</td>
 							</tr>
 							<tr>
 								<td>AP ART: STUDIO ART 2-D</td>
+								<td></td>
 								<td>914804</td>
 								<td>Fine Arts: Visual Arts</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>0.99</td>
-								<td>8.84</td>
+								<td>0.58</td>
+								<td>1.99</td>
 							</tr>
 							<tr>
 								<td>AP ART: DRAWING PORTFOLIO</td>
+								<td></td>
 								<td>915004</td>
 								<td>Fine Arts: Visual Arts</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>4.16</td>
-								<td>4.54</td>
+								<td>9.55</td>
+								<td>2.19</td>
 							</tr>
 							<tr>
 								<td>AP ART: ART HISTORY</td>
+								<td></td>
 								<td>915104</td>
 								<td>Fine Arts: Visual Arts</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>9.01</td>
-								<td>2.00</td>
+								<td>2.83</td>
+								<td>7.18</td>
+							</tr>
+							<tr>
+								<td>Stud Art &amp; Des 1</td>
+								<td></td>
+								<td>912000</td>
+								<td>Fine Arts: Visual Arts</td>
+								<td>Elective</td>
+								<td>Full Year</td>
+								<td>+0.0</td>
+								<td>0.19</td>
+								<td>7.20</td>
+							</tr>
+							<tr>
+								<td>Stud Art &amp; Des 2</td>
+								<td></td>
+								<td>913000</td>
+								<td>Fine Arts: Visual Arts</td>
+								<td>Elective</td>
+								<td>Full Year</td>
+								<td>+0.0</td>
+								<td>9.72</td>
+								<td>1.34</td>
 							</tr>
 							<tr>
 								<td>Stud Art &amp; Des 3</td>
+								<td></td>
 								<td>914000</td>
 								<td>Fine Arts: Visual Arts</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>2.24</td>
-								<td>7.61</td>
+								<td>1.29</td>
+								<td>1.49</td>
 							</tr>
 							<tr>
 								<td>STUDIO ART &amp; DESIGN 4</td>
+								<td></td>
 								<td>914700</td>
 								<td>Fine Arts: Visual Arts</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>3.04</td>
-								<td>9.08</td>
+								<td>5.66</td>
+								<td>1.36</td>
 							</tr>
 							<tr>
 								<td>SELF EPF ONLINE</td>
+								<td></td>
 								<td>6120SD</td>
 								<td>General</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>2.08</td>
-								<td>2.74</td>
+								<td>2.95</td>
+								<td>7.61</td>
 							</tr>
 							<tr>
 								<td>ECON PERS FINANCE</td>
+								<td>epf</td>
 								<td>612000</td>
 								<td>General</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>5.50</td>
-								<td>1.76</td>
+								<td>4.58</td>
+								<td>8.44</td>
 							</tr>
 							<tr>
 								<td>ECON PERS FINANCE HN</td>
+								<td>epf</td>
 								<td>612036</td>
 								<td>General</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>5.29</td>
-								<td>5.63</td>
+								<td>8.79</td>
+								<td>1.11</td>
 							</tr>
 							<tr>
 								<td>Design and Tech</td>
+								<td></td>
 								<td>984060</td>
 								<td>General</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>1.89</td>
-								<td>9.81</td>
+								<td>0.57</td>
+								<td>6.21</td>
 							</tr>
 							<tr>
 								<td>Teacher's forTmrw1</td>
+								<td></td>
 								<td>906200</td>
 								<td>General</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>4.24</td>
-								<td>6.08</td>
+								<td>5.74</td>
+								<td>9.76</td>
 							</tr>
 							<tr>
 								<td>Yoga</td>
-								<td>751050</td>
+								<td></td>
+								<td>751054</td>
 								<td>Health/PE</td>
-								<td>Elective</td>
+								<td>Core</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>4.42</td>
-								<td>6.17</td>
+								<td>4.03</td>
+								<td>3.79</td>
 							</tr>
 							<tr>
 								<td>HEALTH AND PE 9</td>
+								<td></td>
 								<td>730000</td>
 								<td>Health/PE</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>1.07</td>
-								<td>3.90</td>
+								<td>5.70</td>
+								<td>6.73</td>
 							</tr>
 							<tr>
 								<td>HEALTH AND PE 10</td>
+								<td></td>
 								<td>740500</td>
 								<td>Health/PE</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>8.90</td>
-								<td>4.54</td>
+								<td>0.97</td>
+								<td>1.21</td>
+							</tr>
+							<tr>
+								<td>Yoga</td>
+								<td></td>
+								<td>751053</td>
+								<td>Health/PE</td>
+								<td>Elective</td>
+								<td>Full Year</td>
+								<td>+0.0</td>
+								<td>7.35</td>
+								<td>2.88</td>
 							</tr>
 							<tr>
 								<td>Sports Medicine</td>
+								<td></td>
 								<td>763032</td>
 								<td>Health/PE</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.0</td>
-								<td>5.54</td>
-								<td>5.23</td>
+								<td>5.47</td>
+								<td>4.83</td>
+							</tr>
+							<tr>
+								<td>Yoga</td>
+								<td></td>
+								<td>751050</td>
+								<td>Health/PE</td>
+								<td>Elective</td>
+								<td>Full Year</td>
+								<td>+0.0</td>
+								<td>9.27</td>
+								<td>9.90</td>
 							</tr>
 							<tr>
 								<td>TJ Math 4</td>
+								<td></td>
 								<td>316154</td>
 								<td>Mathematics</td>
 								<td>Core</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>3.78</td>
-								<td>3.75</td>
+								<td>6.13</td>
+								<td>8.23</td>
 							</tr>
 							<tr>
 								<td>AP CALCULUS AB</td>
+								<td></td>
 								<td>317004</td>
 								<td>Mathematics</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>6.87</td>
-								<td>7.90</td>
+								<td>1.88</td>
+								<td>6.23</td>
 							</tr>
 							<tr>
 								<td>TJ Research Stat 1</td>
+								<td>RS1</td>
 								<td>3190T1</td>
 								<td>Mathematics</td>
 								<td>Core</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>9.93</td>
-								<td>5.57</td>
+								<td>8.55</td>
+								<td>4.43</td>
 							</tr>
 							<tr>
 								<td>AP CALCULUS BC</td>
+								<td></td>
 								<td>317704</td>
 								<td>Mathematics</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>1.34</td>
-								<td>9.33</td>
+								<td>3.17</td>
+								<td>4.34</td>
 							</tr>
 							<tr>
 								<td>TJ Math 1</td>
+								<td></td>
 								<td>314351</td>
 								<td>Mathematics</td>
 								<td>Core</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>4.04</td>
-								<td>4.34</td>
+								<td>9.11</td>
+								<td>8.01</td>
 							</tr>
 							<tr>
 								<td>TJ Math 2</td>
+								<td></td>
 								<td>314352</td>
 								<td>Mathematics</td>
 								<td>Core</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>8.32</td>
-								<td>4.46</td>
+								<td>5.19</td>
+								<td>0.14</td>
 							</tr>
 							<tr>
 								<td>TJ Math 3</td>
+								<td></td>
 								<td>313753</td>
 								<td>Mathematics</td>
 								<td>Core</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>4.20</td>
-								<td>8.44</td>
+								<td>4.12</td>
+								<td>2.52</td>
 							</tr>
 							<tr>
 								<td>DIFFERENTIAL EQUATIONS</td>
+								<td>diffeq</td>
 								<td>317861</td>
 								<td>Mathematics</td>
 								<td>Core</td>
 								<td>Semester</td>
 								<td>+1.0</td>
-								<td>1.57</td>
-								<td>6.24</td>
+								<td>7.47</td>
+								<td>9.71</td>
 							</tr>
 							<tr>
 								<td>AP COMP SCI A+</td>
+								<td>AP CS</td>
 								<td>318561</td>
 								<td>Mathematics</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>5.03</td>
-								<td>3.06</td>
+								<td>6.87</td>
+								<td>6.31</td>
 							</tr>
 							<tr>
 								<td>TJ Math 5</td>
+								<td></td>
 								<td>316055</td>
 								<td>Mathematics</td>
 								<td>Core</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>8.67</td>
-								<td>5.80</td>
+								<td>2.67</td>
+								<td>3.88</td>
 							</tr>
 							<tr>
 								<td>TJ Math 6</td>
+								<td></td>
 								<td>316056</td>
 								<td>Mathematics</td>
 								<td>Core</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>8.21</td>
-								<td>3.96</td>
+								<td>8.01</td>
+								<td>6.59</td>
 							</tr>
 							<tr>
 								<td>Matrix Algebra</td>
+								<td>Linear Alegbra</td>
 								<td>319800</td>
 								<td>Mathematics</td>
 								<td>Core</td>
 								<td>Semester</td>
 								<td>+1.0</td>
-								<td>5.71</td>
-								<td>0.78</td>
+								<td>6.87</td>
+								<td>7.09</td>
 							</tr>
 							<tr>
 								<td>MULTIVAR CALCULUS</td>
+								<td></td>
 								<td>317860</td>
 								<td>Mathematics</td>
 								<td>Core</td>
 								<td>Semester</td>
 								<td>+1.0</td>
-								<td>2.46</td>
-								<td>3.25</td>
+								<td>9.99</td>
+								<td>4.57</td>
 							</tr>
 							<tr>
 								<td>FOUND COMP SCI</td>
+								<td>Foundations CS</td>
 								<td>3184T1</td>
 								<td>Mathematics</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>5.16</td>
-								<td>5.75</td>
+								<td>9.08</td>
+								<td>0.70</td>
 							</tr>
 							<tr>
 								<td>ACCEL FOUND COMP SCI</td>
+								<td>Accelerated foundations CS</td>
 								<td>3184T2</td>
 								<td>Mathematics</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>8.12</td>
-								<td>6.87</td>
+								<td>3.46</td>
+								<td>0.31</td>
 							</tr>
 							<tr>
 								<td>MACHINE LEARNING 1</td>
+								<td>ML1</td>
 								<td>3199T6</td>
 								<td>Mathematics</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+1.0</td>
-								<td>5.53</td>
-								<td>8.04</td>
+								<td>2.41</td>
+								<td>6.49</td>
 							</tr>
 							<tr>
 								<td>MACHINE LEARNING 2</td>
+								<td>ML2</td>
 								<td>3199T7</td>
 								<td>Mathematics</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+1.0</td>
-								<td>9.02</td>
-								<td>5.47</td>
+								<td>5.98</td>
+								<td>9.46</td>
 							</tr>
 							<tr>
 								<td>RESEARCH STATISTICS 3</td>
+								<td>RS3</td>
 								<td>3190T3</td>
 								<td>Mathematics</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+1.0</td>
-								<td>5.69</td>
-								<td>1.71</td>
+								<td>7.03</td>
+								<td>6.06</td>
 							</tr>
 							<tr>
 								<td>Math Techniques</td>
+								<td>AMT</td>
 								<td>319862</td>
 								<td>Mathematics</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+1.0</td>
-								<td>4.52</td>
-								<td>7.88</td>
+								<td>4.80</td>
+								<td>0.42</td>
 							</tr>
 							<tr>
 								<td>Computer Vision 2</td>
+								<td>CV2</td>
 								<td>319917</td>
 								<td>Mathematics</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+1.0</td>
-								<td>2.91</td>
-								<td>1.08</td>
+								<td>5.94</td>
+								<td>6.50</td>
 							</tr>
 							<tr>
 								<td>TJ Research Stat 2</td>
+								<td>RS2</td>
 								<td>3190T2</td>
 								<td>Mathematics</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+1.0</td>
-								<td>5.25</td>
-								<td>9.64</td>
+								<td>3.21</td>
+								<td>5.09</td>
 							</tr>
 							<tr>
 								<td>TJ Math 2.5</td>
+								<td></td>
 								<td>0110T1</td>
 								<td>Mathematics</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>1.49</td>
-								<td>8.28</td>
+								<td>7.99</td>
+								<td>3.02</td>
 							</tr>
 							<tr>
 								<td>Complex Analysis</td>
+								<td></td>
 								<td>317862</td>
 								<td>Mathematics</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+1.0</td>
-								<td>2.47</td>
-								<td>7.32</td>
+								<td>9.60</td>
+								<td>1.88</td>
 							</tr>
 							<tr>
 								<td>Computer Vision</td>
+								<td>CV</td>
 								<td>319916</td>
 								<td>Mathematics</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+1.0</td>
-								<td>2.59</td>
-								<td>0.50</td>
+								<td>1.89</td>
+								<td>7.78</td>
 							</tr>
 							<tr>
 								<td>ART INTELL 1</td>
+								<td>AI1</td>
 								<td>319966</td>
 								<td>Mathematics</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+1.0</td>
-								<td>8.78</td>
-								<td>9.95</td>
+								<td>7.31</td>
+								<td>7.59</td>
 							</tr>
 							<tr>
 								<td>ART INTELL 2</td>
+								<td>AI2</td>
 								<td>319967</td>
 								<td>Mathematics</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+1.0</td>
-								<td>3.39</td>
-								<td>9.96</td>
+								<td>2.44</td>
+								<td>6.31</td>
 							</tr>
 							<tr>
 								<td>Comp Systems Res</td>
+								<td>syslab</td>
 								<td>3199T3</td>
 								<td>Mathematics</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>0.21</td>
-								<td>6.08</td>
+								<td>4.72</td>
+								<td>5.53</td>
 							</tr>
 							<tr>
 								<td>Probability Theory</td>
+								<td></td>
 								<td>3199TA</td>
 								<td>Mathematics</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+1.0</td>
-								<td>9.32</td>
-								<td>3.83</td>
+								<td>6.81</td>
+								<td>2.66</td>
 							</tr>
 							<tr>
 								<td>Concrete Math</td>
+								<td></td>
 								<td>3199TB</td>
 								<td>Mathematics</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+1.0</td>
-								<td>7.72</td>
-								<td>7.41</td>
+								<td>0.69</td>
+								<td>6.18</td>
 							</tr>
 							<tr>
 								<td>Web App Develop</td>
+								<td></td>
 								<td>3199J1</td>
 								<td>Mathematics</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+1.0</td>
-								<td>5.17</td>
-								<td>6.69</td>
+								<td>1.02</td>
+								<td>2.55</td>
 							</tr>
 							<tr>
 								<td>Mobile App Develop</td>
+								<td></td>
 								<td>3199J2</td>
 								<td>Mathematics</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+1.0</td>
-								<td>2.19</td>
-								<td>6.63</td>
+								<td>4.23</td>
+								<td>4.63</td>
 							</tr>
 							<tr>
 								<td>Mobile/Web App Res</td>
+								<td>mobile web</td>
 								<td>3199R1</td>
 								<td>Mathematics</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>4.45</td>
-								<td>1.93</td>
+								<td>4.65</td>
+								<td>6.17</td>
 							</tr>
 							<tr>
 								<td>AP BIOLOGY</td>
+								<td></td>
 								<td>437004</td>
 								<td>Science</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>8.68</td>
-								<td>5.71</td>
+								<td>5.37</td>
+								<td>9.37</td>
 							</tr>
 							<tr>
 								<td>Biology 1</td>
+								<td></td>
 								<td>4310T1</td>
 								<td>Science</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>7.87</td>
-								<td>5.90</td>
+								<td>1.62</td>
+								<td>9.46</td>
 							</tr>
 							<tr>
 								<td>AP CHEMISTRY</td>
+								<td></td>
 								<td>447004</td>
 								<td>Science</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>6.06</td>
-								<td>7.90</td>
+								<td>0.62</td>
+								<td>0.43</td>
 							</tr>
 							<tr>
 								<td>Chemistry 1</td>
+								<td></td>
 								<td>4410T1</td>
 								<td>Science</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>3.97</td>
-								<td>8.28</td>
+								<td>1.90</td>
+								<td>9.13</td>
 							</tr>
 							<tr>
 								<td>AP PHYSICS C-MEM</td>
+								<td></td>
 								<td>457004</td>
 								<td>Science</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>0.19</td>
-								<td>6.24</td>
+								<td>0.46</td>
+								<td>3.71</td>
 							</tr>
 							<tr>
 								<td>Geosystems</td>
+								<td></td>
 								<td>4220T1</td>
 								<td>Science</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>9.72</td>
-								<td>8.31</td>
+								<td>3.41</td>
+								<td>5.12</td>
 							</tr>
 							<tr>
 								<td>Physics 1</td>
+								<td></td>
 								<td>4510T1</td>
 								<td>Science</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>2.04</td>
-								<td>6.43</td>
+								<td>3.78</td>
+								<td>7.34</td>
 							</tr>
 							<tr>
 								<td>MICROBIAL GENOMICS</td>
+								<td></td>
 								<td>4621T1</td>
 								<td>Science</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>1.66</td>
-								<td>0.48</td>
+								<td>7.36</td>
+								<td>8.21</td>
 							</tr>
 							<tr>
 								<td>Astronomy Ment</td>
+								<td></td>
 								<td>4260T3</td>
 								<td>Science</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>0.44</td>
-								<td>0.51</td>
+								<td>3.99</td>
+								<td>9.30</td>
 							</tr>
 							<tr>
 								<td>Geosystems Ment</td>
+								<td></td>
 								<td>4220T3</td>
 								<td>Science</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>4.83</td>
-								<td>5.04</td>
+								<td>4.01</td>
+								<td>6.62</td>
 							</tr>
 							<tr>
 								<td>Adv Marine Biology</td>
+								<td></td>
 								<td>4320T1</td>
 								<td>Science</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>6.22</td>
-								<td>3.90</td>
+								<td>0.11</td>
+								<td>6.99</td>
 							</tr>
 							<tr>
 								<td>Biotech Research</td>
+								<td></td>
 								<td>4320T3</td>
 								<td>Science</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>5.02</td>
-								<td>5.80</td>
+								<td>9.99</td>
+								<td>2.19</td>
 							</tr>
 							<tr>
 								<td>NEUROSCIENCE RES</td>
+								<td></td>
 								<td>4320T5</td>
 								<td>Science</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>0.59</td>
-								<td>5.13</td>
+								<td>1.31</td>
+								<td>0.11</td>
 							</tr>
 							<tr>
 								<td>DNA Science 1</td>
+								<td></td>
 								<td>4320T6</td>
 								<td>Science</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>2.22</td>
-								<td>2.01</td>
+								<td>4.81</td>
+								<td>7.59</td>
 							</tr>
 							<tr>
 								<td>DNA Science 2</td>
+								<td></td>
 								<td>4320T7</td>
 								<td>Science</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>0.78</td>
-								<td>0.64</td>
+								<td>3.98</td>
+								<td>4.43</td>
 							</tr>
 							<tr>
 								<td>Neurobiology</td>
+								<td></td>
 								<td>4320T8</td>
 								<td>Science</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+1.0</td>
-								<td>1.12</td>
-								<td>0.80</td>
+								<td>7.40</td>
+								<td>2.24</td>
 							</tr>
 							<tr>
 								<td>CHEM ANALYSIS RES</td>
+								<td></td>
 								<td>4420T2</td>
 								<td>Science</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>7.45</td>
-								<td>1.03</td>
+								<td>1.24</td>
+								<td>9.93</td>
 							</tr>
 							<tr>
 								<td>Intro Org Chem 1</td>
+								<td></td>
 								<td>4420T4</td>
 								<td>Science</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+1.0</td>
-								<td>6.08</td>
-								<td>8.52</td>
+								<td>1.30</td>
+								<td>0.84</td>
 							</tr>
 							<tr>
 								<td>Astronomy Res</td>
+								<td></td>
 								<td>4260T2</td>
 								<td>Science</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>8.90</td>
-								<td>5.91</td>
+								<td>6.23</td>
+								<td>7.56</td>
 							</tr>
 							<tr>
 								<td>Adv Astr Solar Sys</td>
+								<td></td>
 								<td>4260T4</td>
 								<td>Science</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>5.46</td>
-								<td>6.29</td>
+								<td>5.92</td>
+								<td>5.50</td>
 							</tr>
 							<tr>
 								<td>Adv Astr Universe</td>
+								<td></td>
 								<td>4260T5</td>
 								<td>Science</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>9.98</td>
-								<td>1.68</td>
+								<td>8.13</td>
+								<td>2.58</td>
 							</tr>
 							<tr>
 								<td>Computational Phys</td>
+								<td></td>
 								<td>4520T1</td>
 								<td>Science</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>2.28</td>
-								<td>2.82</td>
+								<td>3.71</td>
+								<td>1.42</td>
 							</tr>
 							<tr>
 								<td>Optics Research</td>
+								<td></td>
 								<td>4520T4</td>
 								<td>Science</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>3.07</td>
-								<td>2.11</td>
+								<td>2.24</td>
+								<td>5.98</td>
 							</tr>
 							<tr>
 								<td>Optical Systems</td>
+								<td></td>
 								<td>4520T8</td>
 								<td>Science</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>7.02</td>
-								<td>1.39</td>
+								<td>6.01</td>
+								<td>3.24</td>
 							</tr>
 							<tr>
 								<td>Electrodynamics</td>
+								<td>Quantum Mechanics</td>
 								<td>4520T9</td>
 								<td>Science</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>6.79</td>
-								<td>7.25</td>
+								<td>7.07</td>
+								<td>4.65</td>
 							</tr>
 							<tr>
 								<td>OCEANOGRAPHY RES</td>
+								<td></td>
 								<td>4610T1</td>
 								<td>Science</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>9.00</td>
-								<td>2.53</td>
+								<td>2.71</td>
+								<td>6.36</td>
 							</tr>
 							<tr>
 								<td>Bionanotechnology</td>
+								<td></td>
 								<td>4610T6</td>
 								<td>Science</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>0.83</td>
-								<td>5.42</td>
+								<td>7.23</td>
+								<td>6.20</td>
 							</tr>
 							<tr>
 								<td>World Hist/Geog 1</td>
+								<td></td>
 								<td>2219T2</td>
 								<td>Social Studies</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>7.64</td>
-								<td>1.13</td>
+								<td>9.59</td>
+								<td>3.47</td>
 							</tr>
 							<tr>
 								<td>AP US GOVw/AP ENG LANG</td>
+								<td></td>
 								<td>244561</td>
 								<td>Social Studies</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>0.85</td>
-								<td>3.20</td>
+								<td>5.24</td>
+								<td>4.65</td>
 							</tr>
 							<tr>
 								<td>World Hist/Geog 2</td>
+								<td>world history geography</td>
 								<td>2221T1</td>
 								<td>Social Studies</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>3.47</td>
-								<td>4.42</td>
+								<td>7.97</td>
+								<td>5.22</td>
 							</tr>
 							<tr>
 								<td>US VA History</td>
+								<td>USVA</td>
 								<td>2360T1</td>
 								<td>Social Studies</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>2.17</td>
-								<td>9.49</td>
+								<td>5.02</td>
+								<td>7.37</td>
 							</tr>
 							<tr>
 								<td>AP US HISTORY</td>
+								<td>APUSH</td>
 								<td>231905</td>
 								<td>Social Studies</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>1.20</td>
-								<td>7.67</td>
+								<td>0.47</td>
+								<td>5.21</td>
 							</tr>
 							<tr>
 								<td>AP US GOVERNMENT</td>
+								<td></td>
 								<td>244504</td>
 								<td>Social Studies</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>0.89</td>
-								<td>8.67</td>
+								<td>1.60</td>
+								<td>4.77</td>
 							</tr>
 							<tr>
 								<td>AP US GOV w/AP ENG LIT</td>
+								<td></td>
 								<td>244506</td>
 								<td>Social Studies</td>
 								<td>Core</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>0.35</td>
-								<td>4.46</td>
+								<td>6.08</td>
+								<td>0.74</td>
 							</tr>
 							<tr>
 								<td>AFRICAN AMERICAN HISTORY</td>
+								<td></td>
 								<td>237100</td>
 								<td>Social Studies</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>7.88</td>
-								<td>6.47</td>
+								<td>7.53</td>
+								<td>6.88</td>
 							</tr>
 							<tr>
 								<td>Ethical Leadership</td>
+								<td></td>
 								<td>2998T2</td>
 								<td>Social Studies</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>5.74</td>
-								<td>8.86</td>
+								<td>7.58</td>
+								<td>7.49</td>
 							</tr>
 							<tr>
 								<td>Ancient &amp; Clas Civ</td>
+								<td></td>
 								<td>2219T1</td>
 								<td>Social Studies</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>2.19</td>
-								<td>5.22</td>
+								<td>3.13</td>
+								<td>2.03</td>
 							</tr>
 							<tr>
 								<td>20th Cen Wrld Hist</td>
+								<td>20th century</td>
 								<td>2340T1</td>
 								<td>Social Studies</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>6.33</td>
-								<td>3.67</td>
+								<td>3.19</td>
+								<td>7.19</td>
 							</tr>
 							<tr>
 								<td>AP MACRO/MICRO ECON</td>
+								<td>AP Econ Macro micro</td>
 								<td>280404</td>
 								<td>Social Studies</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>5.20</td>
-								<td>9.46</td>
+								<td>0.54</td>
+								<td>6.48</td>
 							</tr>
 							<tr>
 								<td>AP PSYCHOLOGY</td>
+								<td></td>
 								<td>290204</td>
 								<td>Social Studies</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>1.75</td>
-								<td>2.64</td>
+								<td>2.93</td>
+								<td>5.05</td>
 							</tr>
 							<tr>
 								<td>Psych: Brain&amp; Beh</td>
+								<td></td>
 								<td>2900T1</td>
 								<td>Social Studies</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>9.75</td>
-								<td>1.24</td>
+								<td>9.81</td>
+								<td>9.37</td>
 							</tr>
 							<tr>
 								<td>AP EUROPEAN HISTORY</td>
+								<td></td>
 								<td>239904</td>
 								<td>Social Studies</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>3.84</td>
-								<td>2.34</td>
+								<td>2.15</td>
+								<td>1.53</td>
 							</tr>
 							<tr>
 								<td>Inquiry into Ideas</td>
+								<td></td>
 								<td>2950T1</td>
 								<td>Social Studies</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>1.93</td>
-								<td>5.44</td>
+								<td>1.21</td>
+								<td>4.64</td>
 							</tr>
 							<tr>
 								<td>Religious Studies</td>
+								<td></td>
 								<td>2950T2</td>
 								<td>Social Studies</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>3.37</td>
-								<td>7.83</td>
+								<td>2.96</td>
+								<td>3.81</td>
 							</tr>
 							<tr>
 								<td>Anthro Studies</td>
+								<td></td>
 								<td>2374T1</td>
 								<td>Social Studies</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>7.40</td>
-								<td>4.98</td>
+								<td>9.24</td>
+								<td>8.60</td>
 							</tr>
 							<tr>
 								<td>History of Science</td>
+								<td></td>
 								<td>2996T1</td>
 								<td>Social Studies</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>0.33</td>
-								<td>6.47</td>
+								<td>5.62</td>
+								<td>1.87</td>
 							</tr>
 							<tr>
 								<td>Am/Wrld Since 1989</td>
+								<td></td>
 								<td>2996T2</td>
 								<td>Social Studies</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>6.55</td>
-								<td>8.13</td>
+								<td>8.90</td>
+								<td>0.04</td>
 							</tr>
 							<tr>
 								<td>Law and Society</td>
+								<td></td>
 								<td>2420T1</td>
 								<td>Social Studies</td>
 								<td>Elective</td>
 								<td>Semester</td>
 								<td>+0.5</td>
-								<td>9.92</td>
-								<td>1.91</td>
+								<td>1.69</td>
+								<td>0.67</td>
 							</tr>
 							<tr>
 								<td>Chinese 1</td>
+								<td></td>
 								<td>581000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>6.41</td>
-								<td>3.05</td>
+								<td>9.99</td>
+								<td>7.70</td>
 							</tr>
 							<tr>
 								<td>Chinese 2</td>
+								<td></td>
 								<td>582000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>3.64</td>
-								<td>2.74</td>
+								<td>9.20</td>
+								<td>3.41</td>
 							</tr>
 							<tr>
 								<td>Chinese 3</td>
+								<td></td>
 								<td>583000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>0.72</td>
-								<td>4.47</td>
+								<td>2.20</td>
+								<td>7.54</td>
 							</tr>
 							<tr>
 								<td>Chinese 4</td>
+								<td></td>
 								<td>584000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>9.55</td>
-								<td>1.41</td>
+								<td>5.75</td>
+								<td>1.03</td>
 							</tr>
 							<tr>
 								<td>Chinese 5</td>
-								<td>5850T2</td>
+								<td></td>
+								<td>585000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
-								<td>Semester</td>
+								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>6.60</td>
-								<td>7.11</td>
+								<td>2.84</td>
+								<td>1.60</td>
 							</tr>
 							<tr>
 								<td>AP CHINESE LANGUAGE</td>
+								<td></td>
 								<td>584004</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>5.66</td>
-								<td>9.78</td>
+								<td>8.84</td>
+								<td>3.44</td>
 							</tr>
 							<tr>
 								<td>French 1</td>
+								<td></td>
 								<td>511000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>7.32</td>
-								<td>6.85</td>
+								<td>3.10</td>
+								<td>7.25</td>
+							</tr>
+							<tr>
+								<td>Chinese 5</td>
+								<td></td>
+								<td>5850T1</td>
+								<td>World Languages</td>
+								<td>Elective</td>
+								<td>Semester</td>
+								<td>+0.5</td>
+								<td>9.97</td>
+								<td>7.38</td>
 							</tr>
 							<tr>
 								<td>French 2</td>
+								<td></td>
 								<td>512000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>0.10</td>
-								<td>7.69</td>
+								<td>8.08</td>
+								<td>5.02</td>
+							</tr>
+							<tr>
+								<td>Chinese 5</td>
+								<td></td>
+								<td>5850T2</td>
+								<td>World Languages</td>
+								<td>Elective</td>
+								<td>Semester</td>
+								<td>+0.5</td>
+								<td>9.87</td>
+								<td>1.24</td>
 							</tr>
 							<tr>
 								<td>French 3</td>
+								<td></td>
 								<td>513000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>7.72</td>
-								<td>4.25</td>
+								<td>4.64</td>
+								<td>4.27</td>
 							</tr>
 							<tr>
 								<td>French 4</td>
+								<td></td>
 								<td>514000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>4.32</td>
-								<td>3.68</td>
+								<td>3.81</td>
+								<td>3.90</td>
 							</tr>
 							<tr>
 								<td>French 5</td>
-								<td>5150T2</td>
+								<td></td>
+								<td>515000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
-								<td>Semester</td>
+								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>7.47</td>
-								<td>6.22</td>
+								<td>3.70</td>
+								<td>8.77</td>
 							</tr>
 							<tr>
 								<td>AP FRENCH LANGUAGE</td>
+								<td></td>
 								<td>517004</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>5.72</td>
-								<td>9.73</td>
+								<td>4.54</td>
+								<td>4.53</td>
 							</tr>
 							<tr>
 								<td>German 1</td>
+								<td></td>
 								<td>521000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>4.98</td>
-								<td>8.16</td>
+								<td>9.59</td>
+								<td>5.08</td>
 							</tr>
 							<tr>
 								<td>German 2</td>
+								<td></td>
 								<td>522000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>0.38</td>
-								<td>0.73</td>
+								<td>5.05</td>
+								<td>2.81</td>
 							</tr>
 							<tr>
 								<td>German 3</td>
+								<td></td>
 								<td>523000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>7.43</td>
-								<td>1.28</td>
+								<td>4.85</td>
+								<td>8.03</td>
 							</tr>
 							<tr>
 								<td>German 4</td>
+								<td></td>
 								<td>524000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>9.60</td>
-								<td>6.16</td>
+								<td>7.61</td>
+								<td>8.61</td>
 							</tr>
 							<tr>
 								<td>German 5</td>
-								<td>5250T2</td>
+								<td></td>
+								<td>525000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
-								<td>Semester</td>
+								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>7.28</td>
-								<td>2.82</td>
+								<td>9.20</td>
+								<td>7.96</td>
 							</tr>
 							<tr>
 								<td>AP GERMAN LANGUAGE</td>
+								<td></td>
 								<td>527004</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>4.80</td>
-								<td>6.70</td>
+								<td>3.54</td>
+								<td>0.99</td>
+							</tr>
+							<tr>
+								<td>French 5</td>
+								<td></td>
+								<td>5150T1</td>
+								<td>World Languages</td>
+								<td>Elective</td>
+								<td>Semester</td>
+								<td>+0.5</td>
+								<td>4.53</td>
+								<td>5.70</td>
+							</tr>
+							<tr>
+								<td>French 5</td>
+								<td></td>
+								<td>5150T2</td>
+								<td>World Languages</td>
+								<td>Elective</td>
+								<td>Semester</td>
+								<td>+0.5</td>
+								<td>8.51</td>
+								<td>9.87</td>
+							</tr>
+							<tr>
+								<td>German 5</td>
+								<td></td>
+								<td>5250T1</td>
+								<td>World Languages</td>
+								<td>Elective</td>
+								<td>Semester</td>
+								<td>+0.5</td>
+								<td>4.67</td>
+								<td>1.59</td>
+							</tr>
+							<tr>
+								<td>German 5</td>
+								<td></td>
+								<td>5250T2</td>
+								<td>World Languages</td>
+								<td>Elective</td>
+								<td>Semester</td>
+								<td>+0.5</td>
+								<td>5.27</td>
+								<td>1.74</td>
 							</tr>
 							<tr>
 								<td>AP JAPANESE LANGUAGE</td>
+								<td></td>
 								<td>597004</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>1.01</td>
-								<td>9.40</td>
+								<td>3.99</td>
+								<td>4.37</td>
 							</tr>
 							<tr>
 								<td>Japanese 5</td>
-								<td>595000</td>
+								<td></td>
+								<td>5950T1</td>
 								<td>World Languages</td>
 								<td>Elective</td>
-								<td>Full Year</td>
+								<td>Semester</td>
 								<td>+0.5</td>
-								<td>0.15</td>
-								<td>8.17</td>
+								<td>5.30</td>
+								<td>9.99</td>
+							</tr>
+							<tr>
+								<td>Japanese 5</td>
+								<td></td>
+								<td>5950T2</td>
+								<td>World Languages</td>
+								<td>Elective</td>
+								<td>Semester</td>
+								<td>+0.5</td>
+								<td>7.38</td>
+								<td>5.34</td>
 							</tr>
 							<tr>
 								<td>AP LATIN</td>
+								<td></td>
 								<td>537004</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>8.76</td>
-								<td>1.41</td>
+								<td>8.53</td>
+								<td>6.39</td>
 							</tr>
 							<tr>
 								<td>AP SPANISH LANGUAGE</td>
+								<td></td>
 								<td>557004</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>6.52</td>
-								<td>2.23</td>
+								<td>8.47</td>
+								<td>8.88</td>
 							</tr>
 							<tr>
 								<td>Latin 5</td>
-								<td>535000</td>
+								<td></td>
+								<td>5350T1</td>
 								<td>World Languages</td>
 								<td>Elective</td>
-								<td>Full Year</td>
+								<td>Semester</td>
 								<td>+0.5</td>
-								<td>5.39</td>
-								<td>0.41</td>
+								<td>7.56</td>
+								<td>8.89</td>
+							</tr>
+							<tr>
+								<td>Latin 5</td>
+								<td></td>
+								<td>5350T2</td>
+								<td>World Languages</td>
+								<td>Elective</td>
+								<td>Semester</td>
+								<td>+0.5</td>
+								<td>4.82</td>
+								<td>0.53</td>
 							</tr>
 							<tr>
 								<td>Japanese 1</td>
+								<td></td>
 								<td>591000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>2.22</td>
-								<td>0.17</td>
+								<td>4.85</td>
+								<td>4.84</td>
 							</tr>
 							<tr>
 								<td>Japanese 2</td>
+								<td></td>
 								<td>592000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>1.61</td>
-								<td>7.75</td>
+								<td>2.92</td>
+								<td>6.76</td>
 							</tr>
 							<tr>
 								<td>Japanese 3</td>
+								<td></td>
 								<td>593000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>7.52</td>
-								<td>8.27</td>
+								<td>2.01</td>
+								<td>7.02</td>
 							</tr>
 							<tr>
 								<td>Japanese 4</td>
+								<td></td>
 								<td>594000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>0.73</td>
-								<td>3.54</td>
+								<td>3.15</td>
+								<td>8.31</td>
 							</tr>
 							<tr>
-								<td>Russian 5</td>
-								<td>545000</td>
+								<td>Japanese 5</td>
+								<td></td>
+								<td>595000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>3.28</td>
+								<td>3.87</td>
+								<td>5.45</td>
+							</tr>
+							<tr>
+								<td>Russian 5</td>
+								<td></td>
+								<td>5450T1</td>
+								<td>World Languages</td>
+								<td>Elective</td>
+								<td>Semester</td>
+								<td>+0.5</td>
 								<td>8.85</td>
+								<td>9.83</td>
+							</tr>
+							<tr>
+								<td>Russian 5</td>
+								<td></td>
+								<td>5450T2</td>
+								<td>World Languages</td>
+								<td>Elective</td>
+								<td>Semester</td>
+								<td>+0.5</td>
+								<td>4.25</td>
+								<td>8.99</td>
 							</tr>
 							<tr>
 								<td>Latin 1</td>
+								<td></td>
 								<td>531000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>9.40</td>
-								<td>7.73</td>
+								<td>8.06</td>
+								<td>1.82</td>
 							</tr>
 							<tr>
 								<td>Latin 2</td>
+								<td></td>
 								<td>532000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>0.90</td>
-								<td>3.96</td>
+								<td>5.35</td>
+								<td>7.64</td>
 							</tr>
 							<tr>
 								<td>Latin 3</td>
+								<td></td>
 								<td>533000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>3.84</td>
-								<td>0.79</td>
+								<td>6.81</td>
+								<td>6.94</td>
 							</tr>
 							<tr>
 								<td>Latin 4</td>
+								<td></td>
 								<td>534000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>3.18</td>
-								<td>3.40</td>
+								<td>7.34</td>
+								<td>7.17</td>
 							</tr>
 							<tr>
-								<td>Spanish 5</td>
-								<td>555000</td>
+								<td>Latin 5</td>
+								<td></td>
+								<td>535000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>0.87</td>
-								<td>3.92</td>
+								<td>4.91</td>
+								<td>8.03</td>
+							</tr>
+							<tr>
+								<td>Spanish 5</td>
+								<td></td>
+								<td>5550T1</td>
+								<td>World Languages</td>
+								<td>Elective</td>
+								<td>Semester</td>
+								<td>+0.5</td>
+								<td>7.37</td>
+								<td>2.64</td>
+							</tr>
+							<tr>
+								<td>Spanish 5</td>
+								<td></td>
+								<td>5550T2</td>
+								<td>World Languages</td>
+								<td>Elective</td>
+								<td>Semester</td>
+								<td>+0.5</td>
+								<td>3.94</td>
+								<td>5.65</td>
 							</tr>
 							<tr>
 								<td>Russian 1</td>
+								<td></td>
 								<td>541000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>9.72</td>
-								<td>9.61</td>
+								<td>7.84</td>
+								<td>8.55</td>
 							</tr>
 							<tr>
 								<td>Russian 2</td>
+								<td></td>
 								<td>542000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>1.13</td>
-								<td>8.64</td>
+								<td>3.40</td>
+								<td>3.48</td>
 							</tr>
 							<tr>
 								<td>Russian 3</td>
+								<td></td>
 								<td>543000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>9.32</td>
-								<td>4.26</td>
+								<td>4.57</td>
+								<td>9.96</td>
 							</tr>
 							<tr>
 								<td>Russian 4</td>
+								<td></td>
 								<td>544000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>7.87</td>
-								<td>4.66</td>
+								<td>5.85</td>
+								<td>5.38</td>
+							</tr>
+							<tr>
+								<td>Russian 5</td>
+								<td></td>
+								<td>545000</td>
+								<td>World Languages</td>
+								<td>Elective</td>
+								<td>Full Year</td>
+								<td>+0.5</td>
+								<td>4.57</td>
+								<td>0.69</td>
 							</tr>
 							<tr>
 								<td>AP RUSSIAN LANGUAGE</td>
+								<td></td>
 								<td>546004</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>4.47</td>
-								<td>2.28</td>
+								<td>7.24</td>
+								<td>3.37</td>
 							</tr>
 							<tr>
 								<td>Spanish 1</td>
+								<td></td>
 								<td>551000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>9.56</td>
-								<td>6.02</td>
+								<td>9.06</td>
+								<td>4.99</td>
 							</tr>
 							<tr>
 								<td>Spanish 2</td>
+								<td></td>
 								<td>552000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>7.56</td>
-								<td>8.08</td>
+								<td>8.39</td>
+								<td>3.77</td>
 							</tr>
 							<tr>
 								<td>Spanish 3</td>
+								<td></td>
 								<td>553000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.0</td>
-								<td>2.36</td>
-								<td>5.28</td>
+								<td>1.34</td>
+								<td>7.30</td>
 							</tr>
 							<tr>
 								<td>Spanish 4</td>
+								<td></td>
 								<td>554000</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+0.5</td>
-								<td>4.56</td>
-								<td>0.23</td>
+								<td>6.16</td>
+								<td>9.49</td>
+							</tr>
+							<tr>
+								<td>Spanish 5</td>
+								<td></td>
+								<td>555000</td>
+								<td>World Languages</td>
+								<td>Elective</td>
+								<td>Full Year</td>
+								<td>+0.5</td>
+								<td>9.29</td>
+								<td>4.48</td>
 							</tr>
 							<tr>
 								<td>AP SPANISH LITERATURE</td>
+								<td></td>
 								<td>558004</td>
 								<td>World Languages</td>
 								<td>Elective</td>
 								<td>Full Year</td>
 								<td>+1.0</td>
-								<td>2.53</td>
-								<td>3.46</td>
+								<td>1.96</td>
+								<td>3.83</td>
 							</tr>
 						</tbody>
 					</table>
@@ -2041,14 +2437,48 @@
 				'columnDefs': [ 
 	                { 
 	                    'searchable'    : false, 
-	                    'targets'       : [2,3,4,5,6,7] 
+	                    'targets'       : [3,4,5,6,7,8] 
 	                },
+	                {
+	                	'targets'		: [1],
+	                	'visible'		: false
+	                }
 	            ],
 				"iDisplayLength": 50, 
 				"language": {                
             		"infoFiltered": ""
         		},
 			} );
+
+			function uncheckCategory() {
+				document.getElementById("Technology and Engineering").checked = false
+				document.getElementById("English").checked = false
+				document.getElementById("Fine Arts: Music").checked = false
+				document.getElementById("Fine Arts: Theatre Arts").checked = false
+				document.getElementById("Fine Arts: Visual Arts").checked = false
+				document.getElementById("General").checked = false
+				document.getElementById("Health/PE").checked = false
+				document.getElementById("Mathematics").checked = false
+				document.getElementById("Science").checked = false
+				document.getElementById("Social Studies").checked = false
+				document.getElementById("World Languages").checked = false
+				changeCategory("Mathematics")
+			}
+
+			function checkCategory() {
+				document.getElementById("Technology and Engineering").checked = true
+				document.getElementById("English").checked = true
+				document.getElementById("Fine Arts: Music").checked = true
+				document.getElementById("Fine Arts: Theatre Arts").checked = true
+				document.getElementById("Fine Arts: Visual Arts").checked = true
+				document.getElementById("General").checked = true
+				document.getElementById("Health/PE").checked = true
+				document.getElementById("Mathematics").checked = true
+				document.getElementById("Science").checked = true
+				document.getElementById("Social Studies").checked = true
+				document.getElementById("World Languages").checked = true
+				changeCategory("Mathematics")
+			}
 
 			function changeCategory(categoryName) {
 				$.fn.dataTable.ext.search.push(

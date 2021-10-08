@@ -77,24 +77,25 @@ for i in range(len(class_id_list)):
 			curr_ind = 0
 			curr_typ = 0
 
-	class_dict[classes[curr_cat][curr_typ][curr_ind]] = [class_id_list[i], num_to_category[curr_cat], "Core" if curr_typ == 0 else "Elective", class_credit_len[i], class_credit_weight[i]]
+	class_dict[class_id_list[i]] = [classes[curr_cat][curr_typ][curr_ind], num_to_category[curr_cat], "Core" if curr_typ == 0 else "Elective", class_credit_len[i], class_credit_weight[i]]
 
-	for i in range(NUM_OF_STATS):
+	for j in range(NUM_OF_STATS):
 		s = str(round(random.random() * 10, 2))
 		while len(s) < 4:
 			s += "0"
-		class_dict[classes[curr_cat][curr_typ][curr_ind]].append(s)
+		class_dict[class_id_list[i]].append(s)
 
 	curr_ind += 1
 print(class_dict)
 
 file = open("tableout.txt", "w")
 
-for class_name in class_dict:
+for class_id in class_dict:
 	file.write("<tr>\n")
-	file.write("\t<td>" + class_name + "</td>\n")
-	for i in range(len(class_dict[class_name])):
-		file.write("\t<td>" + str(class_dict[class_name][i]) + "</td>\n")
+	file.write("\t<td>" + str(class_dict[class_id][0]) + "</td>\n")
+	file.write("\t<td>" + class_id + "</td>\n")
+	for i in range(1, len(class_dict[class_id])):
+		file.write("\t<td>" + str(class_dict[class_id][i]) + "</td>\n")
 	file.write("</tr>\n")
 
 
