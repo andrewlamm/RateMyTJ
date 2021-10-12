@@ -2483,7 +2483,7 @@
 			function changeCategory(categoryName) {
 				$.fn.dataTable.ext.search.push(
     				function( settings, searchData, index, rowData, counter ) {
-    					return document.getElementById(rowData[2]).checked ? true : false
+    					return document.getElementById(rowData[3]).checked ? true : false
     				}
     			);
 				table.draw()
@@ -2495,7 +2495,7 @@
     					var core_selected = document.getElementById('core').checked ? true : false
     					var elective_selected = document.getElementById('elective').checked ? true : false
 
-    					if (rowData[3] === "Core") {
+    					if (rowData[4] === "Core") {
     						if (core_selected) {
     							return true
     						}
@@ -2503,7 +2503,7 @@
     							return false
     						}
     					}
-    					if (rowData[3] === "Elective") {
+    					if (rowData[4] === "Elective") {
     						if (elective_selected) {
     							return true
     						}
@@ -2522,7 +2522,7 @@
     					var fullyear_selected = document.getElementById('fullyear').checked ? true : false
     					var semester_selected = document.getElementById('semester').checked ? true : false
 
-    					if (rowData[4] === "Full Year") {
+    					if (rowData[5] === "Full Year") {
     						if (fullyear_selected) {
     							return true
     						}
@@ -2530,7 +2530,7 @@
     							return false
     						}
     					}
-    					if (rowData[4] === "Semester") {
+    					if (rowData[5] === "Semester") {
     						if (semester_selected) {
     							return true
     						}
@@ -2550,7 +2550,7 @@
     					var honors_selected = document.getElementById('honors').checked ? true : false
     					var ap_selected = document.getElementById('ap').checked ? true : false
 
-    					if (rowData[5] === "+0.0") {
+    					if (rowData[6] === "+0.0") {
     						if (regular_selected) {
     							return true
     						}
@@ -2558,7 +2558,7 @@
     							return false
     						}
     					}
-    					if (rowData[5] === "+0.5") {
+    					if (rowData[6] === "+0.5") {
     						if (honors_selected) {
     							return true
     						}
@@ -2566,7 +2566,7 @@
     							return false
     						}
     					}
-    					if (rowData[5] === "+1.0") {
+    					if (rowData[6] === "+1.0") {
     						if (ap_selected) {
     							return true
     						}
@@ -2584,7 +2584,7 @@
     				function( settings, searchData, index, rowData, counter ) {
     					var min = parseFloat(document.getElementById('minclassscore').value)
     					var max = parseFloat(document.getElementById('maxclassscore').value)
-    					var score = parseFloat(rowData[6])
+    					var score = parseFloat(rowData[7])
 
     					// console.log(min)
     					// console.log(max)
@@ -2604,7 +2604,7 @@
     				function( settings, searchData, index, rowData, counter ) {
     					var min = parseFloat(document.getElementById('minhrsweek').value)
     					var max = parseFloat(document.getElementById('maxhrsweek').value)
-    					var hrs = parseFloat(rowData[7])
+    					var hrs = parseFloat(rowData[8])
 
     					// console.log(min)
     					// console.log(max)
