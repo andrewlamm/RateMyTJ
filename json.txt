@@ -7,8 +7,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "5.36",
-			"workload": "0.10"
+			"classScore": "1.19",
+			"workload": "4.82"
 		},
 		{
 			"className": "Audio Electronics",
@@ -17,8 +17,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "6.17",
-			"workload": "1.74"
+			"classScore": "8.26",
+			"workload": "2.29"
 		},
 		{
 			"className": "ADV MICROPROC SYS",
@@ -27,8 +27,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "7.30",
-			"workload": "7.29"
+			"classScore": "2.87",
+			"workload": "3.63"
 		},
 		{
 			"className": "MICRO ELECT RES",
@@ -37,8 +37,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "3.47",
-			"workload": "2.15"
+			"classScore": "3.18",
+			"workload": "8.59"
 		},
 		{
 			"className": "ACC ANALOG ELECT",
@@ -47,8 +47,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "6.37",
-			"workload": "2.42"
+			"classScore": "4.05",
+			"workload": "4.72"
 		},
 		{
 			"className": "ACC DIGITAL ELECT",
@@ -57,8 +57,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "2.36",
-			"workload": "5.10"
+			"classScore": "1.87",
+			"workload": "2.20"
 		},
 		{
 			"className": "Aut/Rob-Micro Sys",
@@ -67,8 +67,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "6.53",
-			"workload": "3.63"
+			"classScore": "3.39",
+			"workload": "3.27"
 		},
 		{
 			"className": "Aut/Rob-Systems",
@@ -77,8 +77,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "1.96",
-			"workload": "2.98"
+			"classScore": "4.27",
+			"workload": "1.02"
 		},
 		{
 			"className": "AUTO ROBOTICS RES",
@@ -87,8 +87,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "3.92",
-			"workload": "9.84"
+			"classScore": "8.59",
+			"workload": "8.35"
 		},
 		{
 			"className": "Prototype Dev 1",
@@ -97,8 +97,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "7.53",
-			"workload": "5.82"
+			"classScore": "1.05",
+			"workload": "7.56"
 		},
 		{
 			"className": "ENERGY SYSTEMS RES",
@@ -107,8 +107,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "6.39",
-			"workload": "7.20"
+			"classScore": "4.46",
+			"workload": "1.24"
 		},
 		{
 			"className": "Spec Comp Asst Des",
@@ -117,8 +117,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "3.52",
-			"workload": "3.93"
+			"classScore": "8.23",
+			"workload": "9.15"
 		},
 		{
 			"className": "ENG DESIGN RES",
@@ -127,8 +127,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "5.93",
-			"workload": "7.74"
+			"classScore": "5.30",
+			"workload": "5.44"
 		},
 		{
 			"className": "Prototype Dev 2",
@@ -137,8 +137,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "8.77",
-			"workload": "1.60"
+			"classScore": "9.17",
+			"workload": "6.01"
 		},
 		{
 			"className": "PROTOTYPE DEV RES",
@@ -147,8 +147,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "0.96",
-			"workload": "1.45"
+			"classScore": "8.84",
+			"workload": "7.61"
 		},
 		{
 			"className": "Energy Systems 2",
@@ -157,8 +157,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "1.24",
-			"workload": "5.33"
+			"classScore": "8.95",
+			"workload": "8.68"
 		},
 		{
 			"className": "Energy Systems 1",
@@ -167,8 +167,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "2.27",
-			"workload": "5.73"
+			"classScore": "1.23",
+			"workload": "8.19"
 		},
 		{
 			"className": "Engineering Des",
@@ -177,8 +177,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "3.14",
-			"workload": "4.90"
+			"classScore": "4.32",
+			"workload": "4.66"
 		},
 		{
 			"className": "ENGLISH 9",
@@ -187,8 +187,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "0.52",
-			"workload": "1.22"
+			"classScore": "2.44",
+			"workload": "2.55"
 		},
 		{
 			"className": "English 10",
@@ -197,8 +197,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "5.03",
-			"workload": "2.79"
+			"classScore": "1.58",
+			"workload": "5.19"
 		},
 		{
 			"className": "AP ENGLISH LANG",
@@ -207,8 +207,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "8.98",
-			"workload": "7.90"
+			"classScore": "9.50",
+			"workload": "7.33"
 		},
 		{
 			"className": "AP ENG LANG W/AP US GOV",
@@ -217,8 +217,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "9.23",
-			"workload": "4.92"
+			"classScore": "5.22",
+			"workload": "1.87"
 		},
 		{
 			"className": "ENGLISH 11 W/AP US HIST",
@@ -227,8 +227,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "1.87",
-			"workload": "0.61"
+			"classScore": "5.50",
+			"workload": "5.42"
 		},
 		{
 			"className": "ENGLISH 11 W/US HIST",
@@ -237,8 +237,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "0.27",
-			"workload": "1.57"
+			"classScore": "1.97",
+			"workload": "0.56"
 		},
 		{
 			"className": "English 12",
@@ -247,8 +247,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "4.05",
-			"workload": "4.78"
+			"classScore": "3.37",
+			"workload": "1.93"
 		},
 		{
 			"className": "AP ENGLISH LIT",
@@ -257,8 +257,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "9.30",
-			"workload": "5.49"
+			"classScore": "2.07",
+			"workload": "2.49"
 		},
 		{
 			"className": "AP ENG LIT W/ AP US GOV",
@@ -267,8 +267,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "3.83",
-			"workload": "9.15"
+			"classScore": "9.67",
+			"workload": "0.51"
 		},
 		{
 			"className": "Journalism 1",
@@ -277,8 +277,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "5.00",
-			"workload": "8.27"
+			"classScore": "3.20",
+			"workload": "1.33"
 		},
 		{
 			"className": "Journalism 2",
@@ -287,8 +287,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "5.39",
-			"workload": "9.07"
+			"classScore": "7.90",
+			"workload": "6.64"
 		},
 		{
 			"className": "Journalism 3",
@@ -297,8 +297,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "6.02",
-			"workload": "0.94"
+			"classScore": "9.55",
+			"workload": "0.06"
 		},
 		{
 			"className": "Journalism 4",
@@ -307,8 +307,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "5.33",
-			"workload": "2.61"
+			"classScore": "3.17",
+			"workload": "9.58"
 		},
 		{
 			"className": "Broadcast Journ 1",
@@ -317,8 +317,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "1.54",
-			"workload": "7.54"
+			"classScore": "9.37",
+			"workload": "3.04"
 		},
 		{
 			"className": "Broadcast Journ 2",
@@ -327,8 +327,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "8.13",
-			"workload": "5.17"
+			"classScore": "1.32",
+			"workload": "8.53"
 		},
 		{
 			"className": "Broadcast Journ 3",
@@ -337,8 +337,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "7.33",
-			"workload": "3.74"
+			"classScore": "6.71",
+			"workload": "0.85"
 		},
 		{
 			"className": "Broadcast Journ 4",
@@ -347,8 +347,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "2.21",
-			"workload": "1.02"
+			"classScore": "4.58",
+			"workload": "9.40"
 		},
 		{
 			"className": "Photo Journalism 1",
@@ -357,8 +357,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "0.76",
-			"workload": "1.95"
+			"classScore": "5.72",
+			"workload": "6.59"
 		},
 		{
 			"className": "Photo Journalism 2",
@@ -367,8 +367,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "7.68",
-			"workload": "3.62"
+			"classScore": "3.15",
+			"workload": "3.39"
 		},
 		{
 			"className": "Photo Journalism 3",
@@ -377,8 +377,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "4.07",
-			"workload": "9.38"
+			"classScore": "5.50",
+			"workload": "8.00"
 		},
 		{
 			"className": "Photo Journalism 4",
@@ -387,8 +387,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "0.44",
-			"workload": "5.19"
+			"classScore": "0.10",
+			"workload": "0.24"
 		},
 		{
 			"className": "Forensics",
@@ -397,8 +397,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "1.03",
-			"workload": "2.33"
+			"classScore": "8.43",
+			"workload": "7.49"
 		},
 		{
 			"className": "Film Study",
@@ -407,8 +407,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.0",
-			"classScore": "1.28",
-			"workload": "9.44"
+			"classScore": "7.50",
+			"workload": "3.78"
 		},
 		{
 			"className": "Band",
@@ -417,8 +417,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "1.33",
-			"workload": "6.98"
+			"classScore": "4.75",
+			"workload": "3.72"
 		},
 		{
 			"className": "Percussion Ensemb",
@@ -427,8 +427,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "8.18",
-			"workload": "2.31"
+			"classScore": "2.83",
+			"workload": "4.40"
 		},
 		{
 			"className": "Jazz Ensemble",
@@ -437,8 +437,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "0.91",
-			"workload": "0.66"
+			"classScore": "6.38",
+			"workload": "3.43"
 		},
 		{
 			"className": "Orchestra",
@@ -447,8 +447,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "8.22",
-			"workload": "4.03"
+			"classScore": "8.16",
+			"workload": "5.73"
 		},
 		{
 			"className": "Mixed Chorus",
@@ -457,8 +457,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "5.54",
-			"workload": "7.95"
+			"classScore": "1.73",
+			"workload": "6.11"
 		},
 		{
 			"className": "AP MUSIC THEORY",
@@ -467,8 +467,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "5.29",
-			"workload": "5.14"
+			"classScore": "8.11",
+			"workload": "8.89"
 		},
 		{
 			"className": "THEATRE ARTS 1 SEM",
@@ -477,8 +477,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.0",
-			"classScore": "4.59",
-			"workload": "3.29"
+			"classScore": "7.33",
+			"workload": "2.84"
 		},
 		{
 			"className": "THEATRE ARTS 2 SEM",
@@ -487,8 +487,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.0",
-			"classScore": "7.52",
-			"workload": "0.96"
+			"classScore": "2.50",
+			"workload": "5.20"
 		},
 		{
 			"className": "THEATRE ARTS 3 SEM",
@@ -497,8 +497,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.0",
-			"classScore": "3.78",
-			"workload": "0.30"
+			"classScore": "3.48",
+			"workload": "8.57"
 		},
 		{
 			"className": "TECH THEATRE 1 SEM",
@@ -507,8 +507,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.0",
-			"classScore": "5.61",
-			"workload": "9.16"
+			"classScore": "3.20",
+			"workload": "4.66"
 		},
 		{
 			"className": "THEATRE ARTS 4 SEM",
@@ -517,8 +517,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.0",
-			"classScore": "5.59",
-			"workload": "1.83"
+			"classScore": "0.18",
+			"workload": "4.99"
 		},
 		{
 			"className": "Art for Engineers",
@@ -527,8 +527,8 @@
 			"Type": "Core",
 			"Length": "Semester",
 			"Weight": "+0.0",
-			"classScore": "3.47",
-			"workload": "5.48"
+			"classScore": "2.16",
+			"workload": "2.44"
 		},
 		{
 			"className": "Stud Art &amp; Des 1",
@@ -537,8 +537,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.0",
-			"classScore": "3.84",
-			"workload": "4.19"
+			"classScore": "8.94",
+			"workload": "1.23"
 		},
 		{
 			"className": "Stud Art &amp; Des 2",
@@ -547,8 +547,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.0",
-			"classScore": "7.39",
-			"workload": "5.22"
+			"classScore": "5.41",
+			"workload": "3.78"
 		},
 		{
 			"className": "Computer Graph 1",
@@ -557,8 +557,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.0",
-			"classScore": "8.36",
-			"workload": "8.09"
+			"classScore": "4.11",
+			"workload": "3.08"
 		},
 		{
 			"className": "Computer Graph 2",
@@ -567,8 +567,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.0",
-			"classScore": "9.05",
-			"workload": "7.40"
+			"classScore": "2.13",
+			"workload": "0.47"
 		},
 		{
 			"className": "Photography 1",
@@ -577,8 +577,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.0",
-			"classScore": "4.23",
-			"workload": "0.35"
+			"classScore": "8.77",
+			"workload": "3.47"
 		},
 		{
 			"className": "Photography 2",
@@ -587,8 +587,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.0",
-			"classScore": "6.89",
-			"workload": "0.86"
+			"classScore": "4.72",
+			"workload": "8.21"
 		},
 		{
 			"className": "AP ART: STUDIO ART 2-D",
@@ -597,8 +597,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "5.62",
-			"workload": "8.97"
+			"classScore": "2.62",
+			"workload": "4.12"
 		},
 		{
 			"className": "AP ART: DRAWING PORTFOLIO",
@@ -607,8 +607,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "6.60",
-			"workload": "3.79"
+			"classScore": "4.10",
+			"workload": "6.04"
 		},
 		{
 			"className": "AP ART: ART HISTORY",
@@ -617,8 +617,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "6.26",
-			"workload": "1.98"
+			"classScore": "9.75",
+			"workload": "3.06"
 		},
 		{
 			"className": "Stud Art &amp; Des 1",
@@ -627,8 +627,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "1.87",
-			"workload": "6.69"
+			"classScore": "6.81",
+			"workload": "6.78"
 		},
 		{
 			"className": "Stud Art &amp; Des 2",
@@ -637,8 +637,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "6.21",
-			"workload": "4.95"
+			"classScore": "6.30",
+			"workload": "0.60"
 		},
 		{
 			"className": "Stud Art &amp; Des 3",
@@ -647,8 +647,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "7.10",
-			"workload": "2.11"
+			"classScore": "6.89",
+			"workload": "5.54"
 		},
 		{
 			"className": "STUDIO ART &amp; DESIGN 4",
@@ -657,8 +657,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "8.86",
-			"workload": "4.54"
+			"classScore": "6.50",
+			"workload": "9.37"
 		},
 		{
 			"className": "SELF EPF ONLINE",
@@ -667,8 +667,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "7.77",
-			"workload": "9.82"
+			"classScore": "2.69",
+			"workload": "3.39"
 		},
 		{
 			"className": "ECON PERS FINANCE",
@@ -677,8 +677,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "3.22",
-			"workload": "2.72"
+			"classScore": "9.30",
+			"workload": "4.48"
 		},
 		{
 			"className": "ECON PERS FINANCE HN",
@@ -687,8 +687,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "2.58",
-			"workload": "5.37"
+			"classScore": "7.19",
+			"workload": "5.78"
 		},
 		{
 			"className": "Design and Tech",
@@ -697,8 +697,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "4.85",
-			"workload": "3.52"
+			"classScore": "5.00",
+			"workload": "5.93"
 		},
 		{
 			"className": "Teacher's forTmrw1",
@@ -707,8 +707,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "6.08",
-			"workload": "6.70"
+			"classScore": "2.66",
+			"workload": "3.65"
 		},
 		{
 			"className": "Yoga",
@@ -717,8 +717,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "1.00",
-			"workload": "5.03"
+			"classScore": "2.30",
+			"workload": "3.64"
 		},
 		{
 			"className": "HEALTH AND PE 9",
@@ -727,8 +727,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "5.36",
-			"workload": "2.15"
+			"classScore": "3.15",
+			"workload": "9.52"
 		},
 		{
 			"className": "HEALTH AND PE 10",
@@ -737,8 +737,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "2.32",
-			"workload": "7.60"
+			"classScore": "9.43",
+			"workload": "2.50"
 		},
 		{
 			"className": "Yoga",
@@ -747,8 +747,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "4.49",
-			"workload": "1.79"
+			"classScore": "1.95",
+			"workload": "2.33"
 		},
 		{
 			"className": "Sports Medicine",
@@ -757,8 +757,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.0",
-			"classScore": "2.09",
-			"workload": "0.72"
+			"classScore": "7.46",
+			"workload": "8.91"
 		},
 		{
 			"className": "Yoga",
@@ -767,8 +767,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "3.37",
-			"workload": "2.35"
+			"classScore": "6.71",
+			"workload": "6.09"
 		},
 		{
 			"className": "TJ Math 4",
@@ -777,8 +777,8 @@
 			"Type": "Core",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "8.33",
-			"workload": "1.65"
+			"classScore": "8.65",
+			"workload": "6.01"
 		},
 		{
 			"className": "AP CALCULUS AB",
@@ -787,8 +787,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "7.60",
-			"workload": "4.60"
+			"classScore": "5.01",
+			"workload": "8.43"
 		},
 		{
 			"className": "TJ Research Stat 1",
@@ -797,8 +797,8 @@
 			"Type": "Core",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "3.66",
-			"workload": "9.13"
+			"classScore": "4.08",
+			"workload": "4.22"
 		},
 		{
 			"className": "AP CALCULUS BC",
@@ -807,8 +807,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "3.20",
-			"workload": "1.47"
+			"classScore": "6.18",
+			"workload": "7.90"
 		},
 		{
 			"className": "TJ Math 1",
@@ -817,8 +817,8 @@
 			"Type": "Core",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "8.67",
-			"workload": "2.64"
+			"classScore": "2.29",
+			"workload": "2.21"
 		},
 		{
 			"className": "TJ Math 2",
@@ -827,8 +827,8 @@
 			"Type": "Core",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "9.06",
-			"workload": "9.80"
+			"classScore": "7.40",
+			"workload": "1.48"
 		},
 		{
 			"className": "TJ Math 3",
@@ -837,8 +837,8 @@
 			"Type": "Core",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "7.62",
-			"workload": "6.77"
+			"classScore": "3.27",
+			"workload": "9.07"
 		},
 		{
 			"className": "DIFFERENTIAL EQUATIONS",
@@ -847,8 +847,8 @@
 			"Type": "Core",
 			"Length": "Semester",
 			"Weight": "+1.0",
-			"classScore": "9.81",
-			"workload": "8.58"
+			"classScore": "4.75",
+			"workload": "9.07"
 		},
 		{
 			"className": "AP COMP SCI A+",
@@ -857,8 +857,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "8.14",
-			"workload": "5.35"
+			"classScore": "3.65",
+			"workload": "2.49"
 		},
 		{
 			"className": "TJ Math 5",
@@ -867,8 +867,8 @@
 			"Type": "Core",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "3.52",
-			"workload": "6.17"
+			"classScore": "4.15",
+			"workload": "2.37"
 		},
 		{
 			"className": "TJ Math 6",
@@ -877,8 +877,8 @@
 			"Type": "Core",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "0.06",
-			"workload": "3.74"
+			"classScore": "1.07",
+			"workload": "6.37"
 		},
 		{
 			"className": "Matrix Algebra",
@@ -887,8 +887,8 @@
 			"Type": "Core",
 			"Length": "Semester",
 			"Weight": "+1.0",
-			"classScore": "1.18",
-			"workload": "1.56"
+			"classScore": "2.65",
+			"workload": "2.10"
 		},
 		{
 			"className": "MULTIVAR CALCULUS",
@@ -897,8 +897,8 @@
 			"Type": "Core",
 			"Length": "Semester",
 			"Weight": "+1.0",
-			"classScore": "3.55",
-			"workload": "6.69"
+			"classScore": "6.45",
+			"workload": "8.11"
 		},
 		{
 			"className": "FOUND COMP SCI",
@@ -907,8 +907,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "4.25",
-			"workload": "6.55"
+			"classScore": "3.72",
+			"workload": "1.27"
 		},
 		{
 			"className": "ACCEL FOUND COMP SCI",
@@ -917,8 +917,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "0.54",
-			"workload": "5.85"
+			"classScore": "3.94",
+			"workload": "4.87"
 		},
 		{
 			"className": "MACHINE LEARNING 1",
@@ -927,8 +927,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+1.0",
-			"classScore": "9.60",
-			"workload": "7.66"
+			"classScore": "2.13",
+			"workload": "7.55"
 		},
 		{
 			"className": "MACHINE LEARNING 2",
@@ -937,8 +937,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+1.0",
-			"classScore": "6.97",
-			"workload": "5.43"
+			"classScore": "4.60",
+			"workload": "7.87"
 		},
 		{
 			"className": "RESEARCH STATISTICS 3",
@@ -947,8 +947,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+1.0",
-			"classScore": "3.35",
-			"workload": "3.97"
+			"classScore": "1.29",
+			"workload": "4.74"
 		},
 		{
 			"className": "Math Techniques",
@@ -957,8 +957,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+1.0",
-			"classScore": "7.96",
-			"workload": "0.45"
+			"classScore": "0.65",
+			"workload": "1.12"
 		},
 		{
 			"className": "Computer Vision 2",
@@ -967,8 +967,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+1.0",
-			"classScore": "7.05",
-			"workload": "8.56"
+			"classScore": "7.68",
+			"workload": "8.09"
 		},
 		{
 			"className": "TJ Research Stat 2",
@@ -977,8 +977,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+1.0",
-			"classScore": "2.54",
-			"workload": "3.54"
+			"classScore": "5.70",
+			"workload": "4.15"
 		},
 		{
 			"className": "TJ Math 2.5",
@@ -987,8 +987,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "9.37",
-			"workload": "8.20"
+			"classScore": "4.44",
+			"workload": "9.17"
 		},
 		{
 			"className": "Complex Analysis",
@@ -997,8 +997,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+1.0",
-			"classScore": "6.26",
-			"workload": "5.23"
+			"classScore": "4.45",
+			"workload": "1.62"
 		},
 		{
 			"className": "Computer Vision",
@@ -1007,8 +1007,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+1.0",
-			"classScore": "6.04",
-			"workload": "5.01"
+			"classScore": "8.22",
+			"workload": "8.83"
 		},
 		{
 			"className": "ART INTELL 1",
@@ -1017,8 +1017,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+1.0",
-			"classScore": "6.44",
-			"workload": "1.55"
+			"classScore": "5.76",
+			"workload": "1.90"
 		},
 		{
 			"className": "ART INTELL 2",
@@ -1027,8 +1027,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+1.0",
-			"classScore": "8.61",
-			"workload": "4.81"
+			"classScore": "9.22",
+			"workload": "7.45"
 		},
 		{
 			"className": "Comp Systems Res",
@@ -1037,8 +1037,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "1.42",
-			"workload": "0.64"
+			"classScore": "3.58",
+			"workload": "5.52"
 		},
 		{
 			"className": "Probability Theory",
@@ -1047,8 +1047,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+1.0",
-			"classScore": "0.96",
-			"workload": "0.65"
+			"classScore": "2.48",
+			"workload": "7.47"
 		},
 		{
 			"className": "Concrete Math",
@@ -1057,8 +1057,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+1.0",
-			"classScore": "0.42",
-			"workload": "5.34"
+			"classScore": "5.99",
+			"workload": "8.99"
 		},
 		{
 			"className": "Web App Develop",
@@ -1067,8 +1067,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+1.0",
-			"classScore": "6.04",
-			"workload": "2.23"
+			"classScore": "7.29",
+			"workload": "6.23"
 		},
 		{
 			"className": "Mobile App Develop",
@@ -1077,8 +1077,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+1.0",
-			"classScore": "5.31",
-			"workload": "7.64"
+			"classScore": "1.33",
+			"workload": "2.98"
 		},
 		{
 			"className": "Mobile/Web App Res",
@@ -1087,8 +1087,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "9.11",
-			"workload": "0.85"
+			"classScore": "9.15",
+			"workload": "0.67"
 		},
 		{
 			"className": "AP BIOLOGY",
@@ -1097,8 +1097,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "1.28",
-			"workload": "7.28"
+			"classScore": "4.45",
+			"workload": "6.53"
 		},
 		{
 			"className": "Biology 1",
@@ -1107,8 +1107,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "5.51",
-			"workload": "9.31"
+			"classScore": "5.98",
+			"workload": "5.48"
 		},
 		{
 			"className": "AP CHEMISTRY",
@@ -1117,8 +1117,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "2.43",
-			"workload": "4.06"
+			"classScore": "3.35",
+			"workload": "9.90"
 		},
 		{
 			"className": "Chemistry 1",
@@ -1127,8 +1127,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "4.76",
-			"workload": "2.53"
+			"classScore": "1.52",
+			"workload": "3.06"
 		},
 		{
 			"className": "AP PHYSICS C-MEM",
@@ -1137,8 +1137,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "5.29",
-			"workload": "4.28"
+			"classScore": "2.08",
+			"workload": "2.99"
 		},
 		{
 			"className": "Geosystems",
@@ -1147,8 +1147,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "4.60",
-			"workload": "9.67"
+			"classScore": "5.30",
+			"workload": "2.28"
 		},
 		{
 			"className": "Physics 1",
@@ -1157,8 +1157,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "9.29",
-			"workload": "1.10"
+			"classScore": "8.11",
+			"workload": "6.42"
 		},
 		{
 			"className": "MICROBIAL GENOMICS",
@@ -1167,8 +1167,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "3.53",
-			"workload": "2.54"
+			"classScore": "5.69",
+			"workload": "3.80"
 		},
 		{
 			"className": "Astronomy Ment",
@@ -1177,8 +1177,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "2.09",
-			"workload": "1.58"
+			"classScore": "5.77",
+			"workload": "0.08"
 		},
 		{
 			"className": "Geosystems Ment",
@@ -1187,8 +1187,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "0.53",
-			"workload": "3.18"
+			"classScore": "4.90",
+			"workload": "5.09"
 		},
 		{
 			"className": "Adv Marine Biology",
@@ -1197,8 +1197,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "0.50",
-			"workload": "6.21"
+			"classScore": "7.50",
+			"workload": "4.92"
 		},
 		{
 			"className": "Biotech Research",
@@ -1207,8 +1207,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "7.73",
-			"workload": "7.89"
+			"classScore": "0.07",
+			"workload": "3.65"
 		},
 		{
 			"className": "NEUROSCIENCE RES",
@@ -1217,8 +1217,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "5.15",
-			"workload": "5.56"
+			"classScore": "9.93",
+			"workload": "9.44"
 		},
 		{
 			"className": "DNA Science 1",
@@ -1227,8 +1227,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "9.93",
-			"workload": "6.13"
+			"classScore": "6.41",
+			"workload": "7.16"
 		},
 		{
 			"className": "DNA Science 2",
@@ -1237,8 +1237,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "3.57",
-			"workload": "4.45"
+			"classScore": "8.23",
+			"workload": "6.55"
 		},
 		{
 			"className": "Neurobiology",
@@ -1247,8 +1247,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+1.0",
-			"classScore": "8.55",
-			"workload": "7.99"
+			"classScore": "1.97",
+			"workload": "9.70"
 		},
 		{
 			"className": "CHEM ANALYSIS RES",
@@ -1257,8 +1257,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "3.84",
-			"workload": "5.94"
+			"classScore": "4.99",
+			"workload": "4.61"
 		},
 		{
 			"className": "Intro Org Chem 1",
@@ -1267,8 +1267,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+1.0",
-			"classScore": "6.93",
-			"workload": "4.11"
+			"classScore": "1.63",
+			"workload": "4.07"
 		},
 		{
 			"className": "Astronomy Res",
@@ -1277,8 +1277,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "7.47",
-			"workload": "8.63"
+			"classScore": "6.31",
+			"workload": "3.75"
 		},
 		{
 			"className": "Adv Astr Solar Sys",
@@ -1287,8 +1287,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "9.25",
-			"workload": "5.24"
+			"classScore": "9.44",
+			"workload": "4.56"
 		},
 		{
 			"className": "Adv Astr Universe",
@@ -1297,8 +1297,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "0.65",
-			"workload": "9.71"
+			"classScore": "4.07",
+			"workload": "9.78"
 		},
 		{
 			"className": "Computational Phys",
@@ -1307,8 +1307,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "9.23",
-			"workload": "4.96"
+			"classScore": "5.43",
+			"workload": "9.38"
 		},
 		{
 			"className": "Optics Research",
@@ -1317,8 +1317,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "8.52",
-			"workload": "5.70"
+			"classScore": "4.97",
+			"workload": "9.86"
 		},
 		{
 			"className": "Optical Systems",
@@ -1327,8 +1327,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "0.58",
-			"workload": "1.55"
+			"classScore": "5.63",
+			"workload": "7.68"
 		},
 		{
 			"className": "Electrodynamics",
@@ -1337,8 +1337,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "5.98",
-			"workload": "4.84"
+			"classScore": "3.51",
+			"workload": "3.89"
 		},
 		{
 			"className": "OCEANOGRAPHY RES",
@@ -1347,8 +1347,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "1.34",
-			"workload": "6.70"
+			"classScore": "4.82",
+			"workload": "2.81"
 		},
 		{
 			"className": "Bionanotechnology",
@@ -1357,8 +1357,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "2.00",
-			"workload": "5.60"
+			"classScore": "5.38",
+			"workload": "8.87"
 		},
 		{
 			"className": "World Hist/Geog 1",
@@ -1367,8 +1367,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "8.17",
-			"workload": "2.89"
+			"classScore": "5.26",
+			"workload": "6.18"
 		},
 		{
 			"className": "AP US GOVw/AP ENG LANG",
@@ -1377,8 +1377,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "4.29",
-			"workload": "0.72"
+			"classScore": "9.61",
+			"workload": "2.89"
 		},
 		{
 			"className": "World Hist/Geog 2",
@@ -1387,8 +1387,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "2.73",
-			"workload": "0.35"
+			"classScore": "8.51",
+			"workload": "1.98"
 		},
 		{
 			"className": "US VA History",
@@ -1397,8 +1397,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "5.28",
-			"workload": "8.34"
+			"classScore": "5.94",
+			"workload": "9.84"
 		},
 		{
 			"className": "AP US HISTORY",
@@ -1407,8 +1407,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "3.37",
-			"workload": "1.34"
+			"classScore": "3.87",
+			"workload": "7.27"
 		},
 		{
 			"className": "AP US GOVERNMENT",
@@ -1417,8 +1417,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "3.09",
-			"workload": "6.82"
+			"classScore": "1.03",
+			"workload": "6.98"
 		},
 		{
 			"className": "AP US GOV w/AP ENG LIT",
@@ -1427,8 +1427,8 @@
 			"Type": "Core",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "9.85",
-			"workload": "1.93"
+			"classScore": "0.45",
+			"workload": "3.00"
 		},
 		{
 			"className": "AFRICAN AMERICAN HISTORY",
@@ -1437,8 +1437,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "9.48",
-			"workload": "6.82"
+			"classScore": "0.23",
+			"workload": "7.15"
 		},
 		{
 			"className": "Ethical Leadership",
@@ -1447,8 +1447,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "9.52",
-			"workload": "6.85"
+			"classScore": "2.38",
+			"workload": "1.64"
 		},
 		{
 			"className": "Ancient &amp; Clas Civ",
@@ -1457,8 +1457,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "7.86",
-			"workload": "6.60"
+			"classScore": "3.66",
+			"workload": "6.33"
 		},
 		{
 			"className": "20th Cen Wrld Hist",
@@ -1467,8 +1467,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "8.02",
-			"workload": "5.82"
+			"classScore": "3.74",
+			"workload": "2.84"
 		},
 		{
 			"className": "AP MACRO/MICRO ECON",
@@ -1477,8 +1477,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "1.91",
-			"workload": "1.88"
+			"classScore": "2.76",
+			"workload": "3.13"
 		},
 		{
 			"className": "AP PSYCHOLOGY",
@@ -1487,8 +1487,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "3.63",
-			"workload": "9.39"
+			"classScore": "8.06",
+			"workload": "7.01"
 		},
 		{
 			"className": "Psych: Brain&amp; Beh",
@@ -1497,8 +1497,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "8.14",
-			"workload": "9.15"
+			"classScore": "6.43",
+			"workload": "3.23"
 		},
 		{
 			"className": "AP EUROPEAN HISTORY",
@@ -1507,8 +1507,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "3.00",
-			"workload": "7.69"
+			"classScore": "4.65",
+			"workload": "7.40"
 		},
 		{
 			"className": "Inquiry into Ideas",
@@ -1517,8 +1517,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "1.23",
-			"workload": "1.09"
+			"classScore": "6.52",
+			"workload": "6.70"
 		},
 		{
 			"className": "Religious Studies",
@@ -1527,8 +1527,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "0.79",
-			"workload": "4.75"
+			"classScore": "5.28",
+			"workload": "7.65"
 		},
 		{
 			"className": "Anthro Studies",
@@ -1537,8 +1537,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "3.18",
-			"workload": "1.76"
+			"classScore": "4.99",
+			"workload": "9.40"
 		},
 		{
 			"className": "History of Science",
@@ -1547,8 +1547,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "3.35",
-			"workload": "1.33"
+			"classScore": "3.14",
+			"workload": "5.52"
 		},
 		{
 			"className": "Am/Wrld Since 1989",
@@ -1557,8 +1557,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "0.01",
-			"workload": "1.93"
+			"classScore": "3.26",
+			"workload": "7.22"
 		},
 		{
 			"className": "Law and Society",
@@ -1567,8 +1567,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "8.90",
-			"workload": "5.24"
+			"classScore": "7.14",
+			"workload": "3.18"
 		},
 		{
 			"className": "Chinese 1",
@@ -1577,8 +1577,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "7.79",
-			"workload": "2.93"
+			"classScore": "6.36",
+			"workload": "9.64"
 		},
 		{
 			"className": "Chinese 2",
@@ -1587,8 +1587,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "2.29",
-			"workload": "8.31"
+			"classScore": "6.68",
+			"workload": "2.44"
 		},
 		{
 			"className": "Chinese 3",
@@ -1597,8 +1597,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "2.53",
-			"workload": "4.07"
+			"classScore": "4.43",
+			"workload": "3.15"
 		},
 		{
 			"className": "Chinese 4",
@@ -1607,8 +1607,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "7.82",
-			"workload": "6.97"
+			"classScore": "4.28",
+			"workload": "9.48"
 		},
 		{
 			"className": "Chinese 5",
@@ -1617,8 +1617,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "3.78",
-			"workload": "7.53"
+			"classScore": "6.94",
+			"workload": "1.70"
 		},
 		{
 			"className": "AP CHINESE LANGUAGE",
@@ -1627,8 +1627,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "3.76",
-			"workload": "1.24"
+			"classScore": "4.68",
+			"workload": "9.09"
 		},
 		{
 			"className": "French 1",
@@ -1637,8 +1637,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "8.90",
-			"workload": "2.95"
+			"classScore": "9.98",
+			"workload": "2.13"
 		},
 		{
 			"className": "Chinese 5",
@@ -1647,8 +1647,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "2.58",
-			"workload": "1.78"
+			"classScore": "8.86",
+			"workload": "2.45"
 		},
 		{
 			"className": "French 2",
@@ -1657,8 +1657,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "5.35",
-			"workload": "1.11"
+			"classScore": "6.49",
+			"workload": "0.20"
 		},
 		{
 			"className": "Chinese 5",
@@ -1667,8 +1667,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "4.04",
-			"workload": "1.11"
+			"classScore": "3.34",
+			"workload": "5.53"
 		},
 		{
 			"className": "French 3",
@@ -1677,8 +1677,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "3.82",
-			"workload": "0.65"
+			"classScore": "1.96",
+			"workload": "4.52"
 		},
 		{
 			"className": "French 4",
@@ -1687,8 +1687,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "5.40",
-			"workload": "2.77"
+			"classScore": "2.74",
+			"workload": "7.23"
 		},
 		{
 			"className": "French 5",
@@ -1697,8 +1697,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "5.07",
-			"workload": "3.33"
+			"classScore": "1.69",
+			"workload": "0.28"
 		},
 		{
 			"className": "AP FRENCH LANGUAGE",
@@ -1707,8 +1707,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "2.91",
-			"workload": "2.58"
+			"classScore": "3.61",
+			"workload": "3.37"
 		},
 		{
 			"className": "German 1",
@@ -1717,8 +1717,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "3.47",
-			"workload": "7.42"
+			"classScore": "7.33",
+			"workload": "1.94"
 		},
 		{
 			"className": "German 2",
@@ -1727,8 +1727,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "9.08",
-			"workload": "3.69"
+			"classScore": "7.34",
+			"workload": "0.43"
 		},
 		{
 			"className": "German 3",
@@ -1737,8 +1737,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "1.14",
-			"workload": "7.25"
+			"classScore": "9.52",
+			"workload": "2.14"
 		},
 		{
 			"className": "German 4",
@@ -1747,8 +1747,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "0.20",
-			"workload": "1.62"
+			"classScore": "9.45",
+			"workload": "9.92"
 		},
 		{
 			"className": "German 5",
@@ -1757,8 +1757,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "0.95",
-			"workload": "3.01"
+			"classScore": "8.49",
+			"workload": "3.43"
 		},
 		{
 			"className": "AP GERMAN LANGUAGE",
@@ -1767,8 +1767,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "4.71",
-			"workload": "9.68"
+			"classScore": "5.13",
+			"workload": "5.30"
 		},
 		{
 			"className": "French 5",
@@ -1777,8 +1777,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "8.66",
-			"workload": "1.39"
+			"classScore": "6.05",
+			"workload": "1.38"
 		},
 		{
 			"className": "French 5",
@@ -1787,8 +1787,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "0.60",
-			"workload": "7.56"
+			"classScore": "6.07",
+			"workload": "8.50"
 		},
 		{
 			"className": "German 5",
@@ -1797,8 +1797,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "3.74",
-			"workload": "9.65"
+			"classScore": "4.20",
+			"workload": "3.70"
 		},
 		{
 			"className": "German 5",
@@ -1807,8 +1807,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "9.88",
-			"workload": "5.30"
+			"classScore": "3.92",
+			"workload": "4.37"
 		},
 		{
 			"className": "AP JAPANESE LANGUAGE",
@@ -1817,8 +1817,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "1.60",
-			"workload": "4.80"
+			"classScore": "9.37",
+			"workload": "0.95"
 		},
 		{
 			"className": "Japanese 5",
@@ -1827,8 +1827,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "0.76",
-			"workload": "6.64"
+			"classScore": "5.74",
+			"workload": "7.20"
 		},
 		{
 			"className": "Japanese 5",
@@ -1837,8 +1837,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "8.17",
-			"workload": "3.86"
+			"classScore": "5.69",
+			"workload": "9.54"
 		},
 		{
 			"className": "AP LATIN",
@@ -1847,8 +1847,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "9.12",
-			"workload": "1.76"
+			"classScore": "2.29",
+			"workload": "7.06"
 		},
 		{
 			"className": "AP SPANISH LANGUAGE",
@@ -1857,8 +1857,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "4.24",
-			"workload": "0.01"
+			"classScore": "3.23",
+			"workload": "8.53"
 		},
 		{
 			"className": "Latin 5",
@@ -1867,8 +1867,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "6.03",
-			"workload": "0.91"
+			"classScore": "2.91",
+			"workload": "2.72"
 		},
 		{
 			"className": "Latin 5",
@@ -1877,8 +1877,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "9.28",
-			"workload": "5.06"
+			"classScore": "0.23",
+			"workload": "1.73"
 		},
 		{
 			"className": "Japanese 1",
@@ -1887,8 +1887,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "7.40",
-			"workload": "0.85"
+			"classScore": "6.79",
+			"workload": "1.69"
 		},
 		{
 			"className": "Japanese 2",
@@ -1897,8 +1897,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "6.12",
-			"workload": "8.61"
+			"classScore": "5.62",
+			"workload": "7.04"
 		},
 		{
 			"className": "Japanese 3",
@@ -1907,8 +1907,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "3.64",
-			"workload": "8.61"
+			"classScore": "6.75",
+			"workload": "7.33"
 		},
 		{
 			"className": "Japanese 4",
@@ -1917,8 +1917,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "8.77",
-			"workload": "5.81"
+			"classScore": "6.68",
+			"workload": "4.14"
 		},
 		{
 			"className": "Japanese 5",
@@ -1927,8 +1927,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "3.71",
-			"workload": "6.87"
+			"classScore": "7.80",
+			"workload": "6.92"
 		},
 		{
 			"className": "Russian 5",
@@ -1937,8 +1937,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "9.90",
-			"workload": "1.44"
+			"classScore": "7.59",
+			"workload": "2.22"
 		},
 		{
 			"className": "Russian 5",
@@ -1947,8 +1947,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "5.81",
-			"workload": "7.41"
+			"classScore": "0.81",
+			"workload": "5.73"
 		},
 		{
 			"className": "Latin 1",
@@ -1957,8 +1957,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "4.08",
-			"workload": "2.27"
+			"classScore": "4.40",
+			"workload": "9.79"
 		},
 		{
 			"className": "Latin 2",
@@ -1967,8 +1967,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "8.64",
-			"workload": "2.84"
+			"classScore": "2.08",
+			"workload": "5.98"
 		},
 		{
 			"className": "Latin 3",
@@ -1977,8 +1977,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "3.62",
-			"workload": "5.53"
+			"classScore": "7.05",
+			"workload": "1.90"
 		},
 		{
 			"className": "Latin 4",
@@ -1987,8 +1987,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "2.46",
-			"workload": "8.92"
+			"classScore": "6.88",
+			"workload": "8.11"
 		},
 		{
 			"className": "Latin 5",
@@ -1997,8 +1997,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "4.07",
-			"workload": "4.32"
+			"classScore": "2.52",
+			"workload": "9.49"
 		},
 		{
 			"className": "Spanish 5",
@@ -2007,8 +2007,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "6.39",
-			"workload": "2.57"
+			"classScore": "9.28",
+			"workload": "9.61"
 		},
 		{
 			"className": "Spanish 5",
@@ -2017,8 +2017,8 @@
 			"Type": "Elective",
 			"Length": "Semester",
 			"Weight": "+0.5",
-			"classScore": "0.56",
-			"workload": "5.49"
+			"classScore": "4.40",
+			"workload": "0.20"
 		},
 		{
 			"className": "Russian 1",
@@ -2027,8 +2027,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "5.24",
-			"workload": "0.83"
+			"classScore": "2.68",
+			"workload": "7.65"
 		},
 		{
 			"className": "Russian 2",
@@ -2037,8 +2037,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "0.38",
-			"workload": "8.44"
+			"classScore": "3.56",
+			"workload": "2.58"
 		},
 		{
 			"className": "Russian 3",
@@ -2047,8 +2047,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "8.00",
-			"workload": "0.42"
+			"classScore": "0.45",
+			"workload": "7.66"
 		},
 		{
 			"className": "Russian 4",
@@ -2057,8 +2057,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "4.08",
-			"workload": "5.72"
+			"classScore": "0.81",
+			"workload": "8.33"
 		},
 		{
 			"className": "Russian 5",
@@ -2067,8 +2067,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "3.63",
-			"workload": "6.52"
+			"classScore": "8.96",
+			"workload": "0.68"
 		},
 		{
 			"className": "AP RUSSIAN LANGUAGE",
@@ -2077,8 +2077,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "3.53",
-			"workload": "7.56"
+			"classScore": "3.19",
+			"workload": "2.12"
 		},
 		{
 			"className": "Spanish 1",
@@ -2087,8 +2087,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "7.33",
-			"workload": "8.05"
+			"classScore": "2.54",
+			"workload": "1.97"
 		},
 		{
 			"className": "Spanish 2",
@@ -2097,8 +2097,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "4.38",
-			"workload": "1.35"
+			"classScore": "2.02",
+			"workload": "7.14"
 		},
 		{
 			"className": "Spanish 3",
@@ -2107,8 +2107,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.0",
-			"classScore": "0.29",
-			"workload": "5.90"
+			"classScore": "7.73",
+			"workload": "2.81"
 		},
 		{
 			"className": "Spanish 4",
@@ -2117,8 +2117,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "0.54",
-			"workload": "5.42"
+			"classScore": "2.19",
+			"workload": "0.32"
 		},
 		{
 			"className": "Spanish 5",
@@ -2127,8 +2127,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+0.5",
-			"classScore": "8.41",
-			"workload": "1.01"
+			"classScore": "4.12",
+			"workload": "2.46"
 		},
 		{
 			"className": "AP SPANISH LITERATURE",
@@ -2137,8 +2137,8 @@
 			"Type": "Elective",
 			"Length": "Full Year",
 			"Weight": "+1.0",
-			"classScore": "7.34",
-			"workload": "4.51"
+			"classScore": "8.40",
+			"workload": "6.08"
 		},
 	],
 }
