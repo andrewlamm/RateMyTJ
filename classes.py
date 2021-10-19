@@ -131,27 +131,27 @@ class_dict["280404"][1] = "AP Econ Macro micro"
 # 		file.write("\t<td>" + str(class_dict[class_id][i]) + "</td>\n")
 # 	file.write("</tr>\n")
 
-file = open("json.txt", "w")
+# file = open("json.txt", "w")
 
-file.write("{\n")
-file.write('\t"classes": [\n')
-for class_id in class_dict:
-	file.write('\t\t{\n')
-	file.write('\t\t\t"className": "' + class_dict[class_id][0] + '",\n')
-	file.write('\t\t\t"alternate": "' + class_dict[class_id][1] + '",\n')
-	file.write('\t\t\t"ID": "' + class_id + '",\n')
-	file.write('\t\t\t"category": "' + class_dict[class_id][2] + '",\n')
-	file.write('\t\t\t"type": "' + class_dict[class_id][3] + '",\n')
-	file.write('\t\t\t"length": "' + class_dict[class_id][4] + '",\n')
-	file.write('\t\t\t"weight": "' + class_dict[class_id][5] + '",\n')
-	for i in range(len(STATS)):
-		if i == len(STATS)-1:
-			file.write('\t\t\t"' + STATS[i] + '": "' + class_dict[class_id][6+i] + '"\n')
-		else:
-			file.write('\t\t\t"' + STATS[i] + '": "' + class_dict[class_id][6+i] + '",\n')
-	file.write('\t\t},\n')
-file.write('\t],\n')
-file.write("}\n")
+# file.write("{\n")
+# file.write('\t"classes": [\n')
+# for class_id in class_dict:
+# 	file.write('\t\t{\n')
+# 	file.write('\t\t\t"className": "' + class_dict[class_id][0] + '",\n')
+# 	file.write('\t\t\t"alternate": "' + class_dict[class_id][1] + '",\n')
+# 	file.write('\t\t\t"ID": "' + class_id + '",\n')
+# 	file.write('\t\t\t"category": "' + class_dict[class_id][2] + '",\n')
+# 	file.write('\t\t\t"type": "' + class_dict[class_id][3] + '",\n')
+# 	file.write('\t\t\t"length": "' + class_dict[class_id][4] + '",\n')
+# 	file.write('\t\t\t"weight": "' + class_dict[class_id][5] + '",\n')
+# 	for i in range(len(STATS)):
+# 		if i == len(STATS)-1:
+# 			file.write('\t\t\t"' + STATS[i] + '": "' + class_dict[class_id][6+i] + '"\n')
+# 		else:
+# 			file.write('\t\t\t"' + STATS[i] + '": "' + class_dict[class_id][6+i] + '",\n')
+# 	file.write('\t\t},\n')
+# file.write('\t],\n')
+# file.write("}\n")
 
 file = open("json_no_newline.txt", "w")
 
