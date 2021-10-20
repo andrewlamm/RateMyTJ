@@ -17,7 +17,7 @@
 			<div style="width: 200px">
 				<div>
 					<b>Category:</b><br>
-					<span style="font-size: 8pt;"><a href="#" onclick="uncheckCategory()">Uncheck all</a> | <a href="#" onclick="checkCategory()">Check all</a></span><br>
+					<span style="font-size: 8pt;"><a href="#" onclick="uncheckCategory()" style="color: blue">Uncheck all</a> | <a href="#" onclick="checkCategory()" style="color: blue">Check all</a></span><br>
 					<input type="checkbox" value="Technology and Engineering" checked id="Technology and Engineering" onclick="changeCategory(this.id)"><label for="Technology and Engineering">Technology and Engineering</label><br>
 					<input type="checkbox" value="English" checked id="English" onclick="changeCategory(this.id)"><label for="English">English</label><br>
 					<input type="checkbox" value="Fine Arts: Music" checked id="Fine Arts: Music" onclick="changeCategory(this.id)"><label for="Fine Arts: Music">Fine Arts: Music</label><br>
@@ -32,19 +32,19 @@
 				</div>
 				<div style="padding-top: 10px">
 					<b>Type:</b><br>
-					<input type="checkbox" name="Core" checked onclick="changeType()" id="core"><label for="Core">Core</label><br>
-					<input type="checkbox" name="Elective" checked onclick="changeType()" id="elective"><label for="Elective">Elective</label><br>
+					<input type="checkbox" name="Core" checked onclick="changeType()" id="Core"><label for="Core">Core</label><br>
+					<input type="checkbox" name="Elective" checked onclick="changeType()" id="Elective"><label for="Elective">Elective</label><br>
 				</div>
 				<div style="padding-top: 10px">
 					<b>Length:</b><br>
-					<input type="checkbox" name="FullYear" checked onclick="changeLength()" id="fullyear"><label for="Core">Full Year</label><br>
-					<input type="checkbox" name="Semester" checked onclick="changeLength()" id="semester"><label for="Elective">Semester</label><br>
+					<input type="checkbox" name="FullYear" checked onclick="changeLength()" id="Full Year"><label for="Full Year">Full Year</label><br>
+					<input type="checkbox" name="Semester" checked onclick="changeLength()" id="Semester"><label for="Semester">Semester</label><br>
 				</div>
 				<div style="padding-top: 10px">
 					<b>Weight:</b><br>
-					<input type="checkbox" name="Regular" checked onclick="changeWeight()" id="regular"><label for="Core">Regular (+0.0)</label><br>
-					<input type="checkbox" name="Honors" checked onclick="changeWeight()" id="honors"><label for="Elective">Honors (+0.5)</label><br>
-					<input type="checkbox" name="AP" checked onclick="changeWeight()" id="ap"><label for="Elective">AP/Post-AP (+1.0)</label><br>
+					<input type="checkbox" name="Regular" checked onclick="changeWeight()" id="+0.0"><label for="+0.0">Regular (+0.0)</label><br>
+					<input type="checkbox" name="Honors" checked onclick="changeWeight()" id="+0.5"><label for="+0.5">Honors (+0.5)</label><br>
+					<input type="checkbox" name="AP" checked onclick="changeWeight()" id="+1.0"><label for="+1.0">AP/Post-AP (+1.0)</label><br>
 				</div>
 				<div style="padding-top: 10px">
 					<b>Class Score:</b><br>
@@ -76,7 +76,7 @@
 						<tbody>
 							{{#each classes}}
 							<tr>
-								<td>{{this.className}}</td>
+								<td><a href={{this.ID}} style="color: black; text-decoration: none">{{this.className}}</a></td>
 								<td>{{this.alternate}}</td>
 								<td>{{this.ID}}</td>
 								<td>{{this.category}}</td>
@@ -152,25 +152,7 @@
 			function changeType() {
 				$.fn.dataTable.ext.search.push(
     				function( settings, searchData, index, rowData, counter ) {
-    					var core_selected = document.getElementById('core').checked ? true : false
-    					var elective_selected = document.getElementById('elective').checked ? true : false
-
-    					if (rowData[4] === "Core") {
-    						if (core_selected) {
-    							return true
-    						}
-    						else {
-    							return false
-    						}
-    					}
-    					if (rowData[4] === "Elective") {
-    						if (elective_selected) {
-    							return true
-    						}
-    						else {
-    							return false
-    						}
-    					}
+						return document.getElementById(rowData[4]).checked ? true : false
     				}
     			);
 				table.draw()
@@ -179,25 +161,7 @@
 			function changeLength() {
 				$.fn.dataTable.ext.search.push(
     				function( settings, searchData, index, rowData, counter ) {
-    					var fullyear_selected = document.getElementById('fullyear').checked ? true : false
-    					var semester_selected = document.getElementById('semester').checked ? true : false
-
-    					if (rowData[5] === "Full Year") {
-    						if (fullyear_selected) {
-    							return true
-    						}
-    						else {
-    							return false
-    						}
-    					}
-    					if (rowData[5] === "Semester") {
-    						if (semester_selected) {
-    							return true
-    						}
-    						else {
-    							return false
-    						}
-    					}
+    					return document.getElementById(rowData[5]).checked ? true : false
     				}
     			);
 				table.draw()
@@ -206,34 +170,7 @@
 			function changeWeight() {
 				$.fn.dataTable.ext.search.push(
     				function( settings, searchData, index, rowData, counter ) {
-    					var regular_selected = document.getElementById('regular').checked ? true : false
-    					var honors_selected = document.getElementById('honors').checked ? true : false
-    					var ap_selected = document.getElementById('ap').checked ? true : false
-
-    					if (rowData[6] === "+0.0") {
-    						if (regular_selected) {
-    							return true
-    						}
-    						else {
-    							return false
-    						}
-    					}
-    					if (rowData[6] === "+0.5") {
-    						if (honors_selected) {
-    							return true
-    						}
-    						else {
-    							return false
-    						}
-    					}
-    					if (rowData[6] === "+1.0") {
-    						if (ap_selected) {
-    							return true
-    						}
-    						else {
-    							return false
-    						}
-    					}
+    					return document.getElementById(rowData[6]).checked ? true : false
     				}
     			);
 				table.draw()
@@ -245,10 +182,6 @@
     					var min = parseFloat(document.getElementById('minclassscore').value)
     					var max = parseFloat(document.getElementById('maxclassscore').value)
     					var score = parseFloat(rowData[7])
-
-    					// console.log(min)
-    					// console.log(max)
-    					// console.log(score)
 
     					if ((isNaN(min) && isNaN(max)) || (isNaN(min) && score <= max) || (min <= score && isNaN(max)) || (min <= score && score <= max)) {
 				            return true;
@@ -265,10 +198,6 @@
     					var min = parseFloat(document.getElementById('minhrsweek').value)
     					var max = parseFloat(document.getElementById('maxhrsweek').value)
     					var hrs = parseFloat(rowData[8])
-
-    					// console.log(min)
-    					// console.log(max)
-    					// console.log(hrs)
 
     					if ((isNaN(min) && isNaN(max)) || (isNaN(min) && hrs <= max) || (min <= hrs && isNaN(max)) || (min <= hrs && hrs <= max)) {
 				            return true;

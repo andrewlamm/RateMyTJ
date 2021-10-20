@@ -60,8 +60,8 @@ THEATRE ARTS 4 SEM
 
 Art for Engineers
 
-Stud Art &amp; Des 1
-Stud Art &amp; Des 2
+Stud Art & Des 1
+Stud Art & Des 2
 Computer Graph 1
 Computer Graph 2
 Photography 1
@@ -69,10 +69,10 @@ Photography 2
 AP ART: STUDIO ART 2-D
 AP ART: DRAWING PORTFOLIO
 AP ART: ART HISTORY
-Stud Art &amp; Des 1
-Stud Art &amp; Des 2
-Stud Art &amp; Des 3
-STUDIO ART &amp; DESIGN 4
+Stud Art & Des 1
+Stud Art & Des 2
+Stud Art & Des 3
+STUDIO ART & DESIGN 4
 
 SELF EPF ONLINE
 ECON PERS FINANCE
@@ -162,11 +162,11 @@ AP US GOV w/AP ENG LIT
 
 AFRICAN AMERICAN HISTORY
 Ethical Leadership
-Ancient &amp; Clas Civ
+Ancient & Clas Civ
 20th Cen Wrld Hist
 AP MACRO/MICRO ECON
 AP PSYCHOLOGY
-Psych: Brain&amp; Beh
+Psych: Brain& Beh
 AP EUROPEAN HISTORY
 Inquiry into Ideas
 Religious Studies

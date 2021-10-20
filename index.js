@@ -1,5 +1,6 @@
 const express = require('express')
 var hbs = require('hbs')
+var mysql = require('mysql');
 const fs = require('fs')
 const {spawn} = require('child_process')
 const app = express()
@@ -18,6 +19,10 @@ app.get('/', (req, res) => {
 
     res.render('index', json)
   });
+})
+
+app.get('/:classID', function (req, res) {
+  res.send(req.params)
 })
 
 app.listen(port, () => {
