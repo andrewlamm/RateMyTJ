@@ -1,24 +1,25 @@
 const express = require('express')
 var hbs = require('hbs')
 var mysql = require('mysql');
-const fs = require('fs')
-const {spawn} = require('child_process')
 const app = express()
 const port = 3000
 
 app.set('view engine', 'hbs')
 
 app.get('/', (req, res) => {
-  const python = spawn('python', ['classes.py'])
+  var pool = mysql.createPool({
+    user: 'root',
+    password: 'asdf',
+    host: '127.0.0.1',
+    port: '3306',
+    database: 'RateMyTJ'
+  })
 
-  var stream = fs.createReadStream('json_no_newline.txt');
-  stream.setEncoding('utf8');
-
-  stream.on('data', function(chunk){
-    var json = JSON.parse(chunk)
-
+  pool.query("SELECT * FROM classes;", function(error, results) {
+    var s = '{"classes":' + JSON.stringify(results) + '}'
+    var json = JSON.parse(s)
     res.render('index', json)
-  });
+  })
 })
 
 app.get('/:classID', function (req, res) {
