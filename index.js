@@ -23,7 +23,20 @@ app.get('/', (req, res) => {
 })
 
 app.get('/:classID', function (req, res) {
-  res.send(req.params)
+  var pool = mysql.createPool({
+    user: 'root',
+    password: 'asdf',
+    host: '127.0.0.1',
+    port: '3306',
+    database: 'RateMyTJ'
+  })
+
+  console.log('SELECT * FROM classes WHERE id="' + req.params.classID + '";')
+
+  pool.query('SELECT * FROM classes WHERE id="' + req.params.classID + '";', function(error, results) {
+    if (error) res.send(error);
+    res.send(results)
+  })
 })
 
 app.listen(port, () => {

@@ -17,44 +17,44 @@
 			<div style="width: 200px">
 				<div>
 					<b>Category:</b><br>
-					<span style="font-size: 8pt;"><a href="#" onclick="uncheckCategory()" style="color: blue">Uncheck all</a> | <a href="#" onclick="checkCategory()" style="color: blue">Check all</a></span><br>
-					<input type="checkbox" value="Technology and Engineering" checked id="Technology and Engineering" onclick="changeCategory(this.id)"><label for="Technology and Engineering">Technology and Engineering</label><br>
-					<input type="checkbox" value="English" checked id="English" onclick="changeCategory(this.id)"><label for="English">English</label><br>
-					<input type="checkbox" value="Fine Arts: Music" checked id="Fine Arts: Music" onclick="changeCategory(this.id)"><label for="Fine Arts: Music">Fine Arts: Music</label><br>
-					<input type="checkbox" value="Fine Arts: Theatre Arts" checked id="Fine Arts: Theatre Arts" onclick="changeCategory(this.id)"><label for="Fine Arts: Theatre Arts">Fine Arts: Theatre Arts</label><br>
-					<input type="checkbox" value="Fine Arts: Visual Arts" checked id="Fine Arts: Visual Arts" onclick="changeCategory(this.id)"><label for="Fine Arts: Visual Arts">Fine Arts: Visual Arts</label><br>
-					<input type="checkbox" value="General" checked id="General" onclick="changeCategory(this.id)"><label for="General">General</label><br>
-					<input type="checkbox" value="Health/PE" checked id="Health/PE" onclick="changeCategory(this.id)"><label for="Health/PE">Health/PE</label><br>
-					<input type="checkbox" value="Mathematics" checked id="Mathematics" onclick="changeCategory(this.id)"><label for="Mathematics">Mathematics</label><br>
-					<input type="checkbox" value="Science" checked id="Science" onclick="changeCategory(this.id)"><label for="Science">Science</label><br>
-					<input type="checkbox" value="Social Studies" checked id="Social Studies" onclick="changeCategory(this.id)"><label for="Social Studies">Social Studies</label><br>
-					<input type="checkbox" value="World Languages" checked id="World Languages" onclick="changeCategory(this.id)"><label for="World Languages">World Languages</label><br>
+					<span style="font-size: 8pt;"><a href="#" onclick="switchCategory(false)" style="color: blue">Uncheck all</a> | <a href="#" onclick="switchCategory(true)" style="color: blue">Check all</a></span><br>
+					<input type="checkbox" value="Technology and Engineering" checked id="Technology and Engineering" onclick="filterChange(3)"><label for="Technology and Engineering">Technology and Engineering</label><br>
+					<input type="checkbox" value="English" checked id="English" onclick="filterChange(3)"><label for="English">English</label><br>
+					<input type="checkbox" value="Fine Arts: Music" checked id="Fine Arts: Music" onclick="filterChange(3)"><label for="Fine Arts: Music">Fine Arts: Music</label><br>
+					<input type="checkbox" value="Fine Arts: Theatre Arts" checked id="Fine Arts: Theatre Arts" onclick="filterChange(3)"><label for="Fine Arts: Theatre Arts">Fine Arts: Theatre Arts</label><br>
+					<input type="checkbox" value="Fine Arts: Visual Arts" checked id="Fine Arts: Visual Arts" onclick="filterChange(3)"><label for="Fine Arts: Visual Arts">Fine Arts: Visual Arts</label><br>
+					<input type="checkbox" value="General" checked id="General" onclick="filterChange(3)"><label for="General">General</label><br>
+					<input type="checkbox" value="Health/PE" checked id="Health/PE" onclick="filterChange(3)"><label for="Health/PE">Health/PE</label><br>
+					<input type="checkbox" value="Mathematics" checked id="Mathematics" onclick="filterChange(3)"><label for="Mathematics">Mathematics</label><br>
+					<input type="checkbox" value="Science" checked id="Science" onclick="filterChange(3)"><label for="Science">Science</label><br>
+					<input type="checkbox" value="Social Studies" checked id="Social Studies" onclick="filterChange(3)"><label for="Social Studies">Social Studies</label><br>
+					<input type="checkbox" value="World Languages" checked id="World Languages" onclick="filterChange(3)"><label for="World Languages">World Languages</label><br>
 				</div>
 				<div style="padding-top: 10px">
 					<b>Type:</b><br>
-					<input type="checkbox" name="Core" checked onclick="changeType()" id="Core"><label for="Core">Core</label><br>
-					<input type="checkbox" name="Elective" checked onclick="changeType()" id="Elective"><label for="Elective">Elective</label><br>
+					<input type="checkbox" name="Core" checked onclick="filterChange(4)" id="Core"><label for="Core">Core</label><br>
+					<input type="checkbox" name="Elective" checked onclick="filterChange(4)" id="Elective"><label for="Elective">Elective</label><br>
 				</div>
 				<div style="padding-top: 10px">
 					<b>Length:</b><br>
-					<input type="checkbox" name="FullYear" checked onclick="changeLength()" id="Full Year"><label for="Full Year">Full Year</label><br>
-					<input type="checkbox" name="Semester" checked onclick="changeLength()" id="Semester"><label for="Semester">Semester</label><br>
+					<input type="checkbox" name="FullYear" checked onclick="filterChange(5)" id="Full Year"><label for="Full Year">Full Year</label><br>
+					<input type="checkbox" name="Semester" checked onclick="filterChange(5)" id="Semester"><label for="Semester">Semester</label><br>
 				</div>
 				<div style="padding-top: 10px">
 					<b>Weight:</b><br>
-					<input type="checkbox" name="Regular" checked onclick="changeWeight()" id="+0.0"><label for="+0.0">Regular (+0.0)</label><br>
-					<input type="checkbox" name="Honors" checked onclick="changeWeight()" id="+0.5"><label for="+0.5">Honors (+0.5)</label><br>
-					<input type="checkbox" name="AP" checked onclick="changeWeight()" id="+1.0"><label for="+1.0">AP/Post-AP (+1.0)</label><br>
+					<input type="checkbox" name="Regular" checked onclick="filterChange(6)" id="+0.0"><label for="+0.0">Regular (+0.0)</label><br>
+					<input type="checkbox" name="Honors" checked onclick="filterChange(6)" id="+0.5"><label for="+0.5">Honors (+0.5)</label><br>
+					<input type="checkbox" name="AP" checked onclick="filterChange(6)" id="+1.0"><label for="+1.0">AP/Post-AP (+1.0)</label><br>
 				</div>
 				<div style="padding-top: 10px">
 					<b>Class Score:</b><br>
-					<b>Min:</b><br><input type="number" name="MinClassScore" checked id="minclassscore" onkeyup="filterClassScore()" onmouseup="filterClassScore()" min="0" max="10"><br>
-					<b>Max:</b><br><input type="number" name="MaxClassScore" checked id="maxclassscore" onkeyup="filterClassScore()" onmouseup="filterClassScore()" min="0" max="10"><br>
+					<b>Min:</b><br><input type="number" name="MinClassScore" checked id="minclassscore" onkeyup="filterNumber(this.id, 7)" min="0" max="10"><br>
+					<b>Max:</b><br><input type="number" name="MaxClassScore" checked id="maxclassscore" onkeyup="filterNumber(this.id, 7)" min="0" max="10"><br>
 				</div>
 				<div style="padding-top: 10px">
 					<b>Hours/Week:</b><br>
-					<b>Min:</b><br><input type="number" name="MinHrsWeek" checked id="minhrsweek" onkeyup="filterHrsWeek()" onmouseup="filterHrsWeek()" min="0" max="10"><br>
-					<b>Max:</b><br><input type="number" name="MaxHrsWeek" checked id="maxhrsweek" onkeyup="filterHrsWeek()" onmouseup="filterHrsWeek()" min="0" max="10"><br>
+					<b>Min:</b><br><input type="number" name="MinHrsWeek" checked id="minhrsweek" onkeyup="filterNumber(this.id, 8)" min="0" max="10"><br>
+					<b>Max:</b><br><input type="number" name="MaxHrsWeek" checked id="maxhrsweek" onkeyup="filterNumber(this.id, 8)" min="0" max="10"><br>
 				</div>
 			</div>
 			<div>
@@ -95,116 +95,58 @@
 		<script type="text/javascript">
 			var table = $('#classes_table').DataTable( {
 				'columnDefs': [
-	                {
-	                    'searchable'    : false,
-	                    'targets'       : [3,4,5,6,7,8]
-	                },
-	                {
-	                	'targets'		: [1],
-	                	'visible'		: false
-	                }
-	            ],
+					{
+						'searchable'    : false,
+						'targets'       : [3,4,5,6,7,8]
+					},
+					{
+						'targets'		: [1],
+						'visible'		: false
+					}
+				],
 				"iDisplayLength": 50,
 				"language": {
-            		"infoFiltered": ""
-        		},
+					"infoFiltered": ""
+				},
 			} );
 
-			function uncheckCategory() {
-				document.getElementById("Technology and Engineering").checked = false
-				document.getElementById("English").checked = false
-				document.getElementById("Fine Arts: Music").checked = false
-				document.getElementById("Fine Arts: Theatre Arts").checked = false
-				document.getElementById("Fine Arts: Visual Arts").checked = false
-				document.getElementById("General").checked = false
-				document.getElementById("Health/PE").checked = false
-				document.getElementById("Mathematics").checked = false
-				document.getElementById("Science").checked = false
-				document.getElementById("Social Studies").checked = false
-				document.getElementById("World Languages").checked = false
-				changeCategory("Mathematics")
+			function switchCategory(state) {
+				document.getElementById("Technology and Engineering").checked = state
+				document.getElementById("English").checked = state
+				document.getElementById("Fine Arts: Music").checked = state
+				document.getElementById("Fine Arts: Theatre Arts").checked = state
+				document.getElementById("Fine Arts: Visual Arts").checked = state
+				document.getElementById("General").checked = state
+				document.getElementById("Health/PE").checked = state
+				document.getElementById("Mathematics").checked = state
+				document.getElementById("Science").checked = state
+				document.getElementById("Social Studies").checked = state
+				document.getElementById("World Languages").checked = state
+				filterChange(3)
 			}
 
-			function checkCategory() {
-				document.getElementById("Technology and Engineering").checked = true
-				document.getElementById("English").checked = true
-				document.getElementById("Fine Arts: Music").checked = true
-				document.getElementById("Fine Arts: Theatre Arts").checked = true
-				document.getElementById("Fine Arts: Visual Arts").checked = true
-				document.getElementById("General").checked = true
-				document.getElementById("Health/PE").checked = true
-				document.getElementById("Mathematics").checked = true
-				document.getElementById("Science").checked = true
-				document.getElementById("Social Studies").checked = true
-				document.getElementById("World Languages").checked = true
-				changeCategory("Mathematics")
-			}
-
-			function changeCategory(categoryName) {
+			function filterChange(row_index) {
 				$.fn.dataTable.ext.search.push(
-    				function( settings, searchData, index, rowData, counter ) {
-    					return document.getElementById(rowData[3]).checked ? true : false
-    				}
-    			);
+					function( settings, searchData, index, rowData, counter ) {
+						return document.getElementById(rowData[row_index]).checked ? true : false
+					}
+				);
 				table.draw()
 			}
 
-			function changeType() {
+			function filterNumber(element_id, row_index) {
 				$.fn.dataTable.ext.search.push(
-    				function( settings, searchData, index, rowData, counter ) {
-						return document.getElementById(rowData[4]).checked ? true : false
-    				}
-    			);
-				table.draw()
-			}
+					function( settings, searchData, index, rowData, counter ) {
+						var min = parseFloat(document.getElementById('min' + element_id.substring(3)).value)
+						var max = parseFloat(document.getElementById('max' + element_id.substring(3)).value)
+						var score = parseFloat(rowData[row_index])
 
-			function changeLength() {
-				$.fn.dataTable.ext.search.push(
-    				function( settings, searchData, index, rowData, counter ) {
-    					return document.getElementById(rowData[5]).checked ? true : false
-    				}
-    			);
-				table.draw()
-			}
-
-			function changeWeight() {
-				$.fn.dataTable.ext.search.push(
-    				function( settings, searchData, index, rowData, counter ) {
-    					return document.getElementById(rowData[6]).checked ? true : false
-    				}
-    			);
-				table.draw()
-			}
-
-			function filterClassScore() {
-				$.fn.dataTable.ext.search.push(
-    				function( settings, searchData, index, rowData, counter ) {
-    					var min = parseFloat(document.getElementById('minclassscore').value)
-    					var max = parseFloat(document.getElementById('maxclassscore').value)
-    					var score = parseFloat(rowData[7])
-
-    					if ((isNaN(min) && isNaN(max)) || (isNaN(min) && score <= max) || (min <= score && isNaN(max)) || (min <= score && score <= max)) {
-				            return true;
-				        }
-				        return false;
-    				}
-    			);
-				table.draw()
-			}
-
-			function filterHrsWeek() {
-				$.fn.dataTable.ext.search.push(
-    				function( settings, searchData, index, rowData, counter ) {
-    					var min = parseFloat(document.getElementById('minhrsweek').value)
-    					var max = parseFloat(document.getElementById('maxhrsweek').value)
-    					var hrs = parseFloat(rowData[8])
-
-    					if ((isNaN(min) && isNaN(max)) || (isNaN(min) && hrs <= max) || (min <= hrs && isNaN(max)) || (min <= hrs && hrs <= max)) {
-				            return true;
-				        }
-				        return false;
-    				}
-    			);
+						if ((isNaN(min) && isNaN(max)) || (isNaN(min) && score <= max) || (min <= score && isNaN(max)) || (min <= score && score <= max)) {
+							return true;
+						}
+						return false;
+					}
+				);
 				table.draw()
 			}
 		</script>

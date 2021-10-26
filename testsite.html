@@ -17,44 +17,44 @@
 			<div style="width: 200px">
 				<div>
 					<b>Category:</b><br>
-					<span style="font-size: 8pt;"><a href="#" onclick="uncheckCategory()" style="color: blue">Uncheck all</a> | <a href="#" onclick="checkCategory()" style="color: blue">Check all</a></span><br>
-					<input type="checkbox" value="Technology and Engineering" checked id="Technology and Engineering" onclick="changeCategory(this.id)"><label for="Technology and Engineering">Technology and Engineering</label><br>
-					<input type="checkbox" value="English" checked id="English" onclick="changeCategory(this.id)"><label for="English">English</label><br>
-					<input type="checkbox" value="Fine Arts: Music" checked id="Fine Arts: Music" onclick="changeCategory(this.id)"><label for="Fine Arts: Music">Fine Arts: Music</label><br>
-					<input type="checkbox" value="Fine Arts: Theatre Arts" checked id="Fine Arts: Theatre Arts" onclick="changeCategory(this.id)"><label for="Fine Arts: Theatre Arts">Fine Arts: Theatre Arts</label><br>
-					<input type="checkbox" value="Fine Arts: Visual Arts" checked id="Fine Arts: Visual Arts" onclick="changeCategory(this.id)"><label for="Fine Arts: Visual Arts">Fine Arts: Visual Arts</label><br>
-					<input type="checkbox" value="General" checked id="General" onclick="changeCategory(this.id)"><label for="General">General</label><br>
-					<input type="checkbox" value="Health/PE" checked id="Health/PE" onclick="changeCategory(this.id)"><label for="Health/PE">Health/PE</label><br>
-					<input type="checkbox" value="Mathematics" checked id="Mathematics" onclick="changeCategory(this.id)"><label for="Mathematics">Mathematics</label><br>
-					<input type="checkbox" value="Science" checked id="Science" onclick="changeCategory(this.id)"><label for="Science">Science</label><br>
-					<input type="checkbox" value="Social Studies" checked id="Social Studies" onclick="changeCategory(this.id)"><label for="Social Studies">Social Studies</label><br>
-					<input type="checkbox" value="World Languages" checked id="World Languages" onclick="changeCategory(this.id)"><label for="World Languages">World Languages</label><br>
+					<span style="font-size: 8pt;"><a href="#" onclick="switchCategory(false)" style="color: blue">Uncheck all</a> | <a href="#" onclick="switchCategory(true)" style="color: blue">Check all</a></span><br>
+					<input type="checkbox" value="Technology and Engineering" checked id="Technology and Engineering" onclick="filterChange(3)"><label for="Technology and Engineering">Technology and Engineering</label><br>
+					<input type="checkbox" value="English" checked id="English" onclick="filterChange(3)"><label for="English">English</label><br>
+					<input type="checkbox" value="Fine Arts: Music" checked id="Fine Arts: Music" onclick="filterChange(3)"><label for="Fine Arts: Music">Fine Arts: Music</label><br>
+					<input type="checkbox" value="Fine Arts: Theatre Arts" checked id="Fine Arts: Theatre Arts" onclick="filterChange(3)"><label for="Fine Arts: Theatre Arts">Fine Arts: Theatre Arts</label><br>
+					<input type="checkbox" value="Fine Arts: Visual Arts" checked id="Fine Arts: Visual Arts" onclick="filterChange(3)"><label for="Fine Arts: Visual Arts">Fine Arts: Visual Arts</label><br>
+					<input type="checkbox" value="General" checked id="General" onclick="filterChange(3)"><label for="General">General</label><br>
+					<input type="checkbox" value="Health/PE" checked id="Health/PE" onclick="filterChange(3)"><label for="Health/PE">Health/PE</label><br>
+					<input type="checkbox" value="Mathematics" checked id="Mathematics" onclick="filterChange(3)"><label for="Mathematics">Mathematics</label><br>
+					<input type="checkbox" value="Science" checked id="Science" onclick="filterChange(3)"><label for="Science">Science</label><br>
+					<input type="checkbox" value="Social Studies" checked id="Social Studies" onclick="filterChange(3)"><label for="Social Studies">Social Studies</label><br>
+					<input type="checkbox" value="World Languages" checked id="World Languages" onclick="filterChange(3)"><label for="World Languages">World Languages</label><br>
 				</div>
 				<div style="padding-top: 10px">
 					<b>Type:</b><br>
-					<input type="checkbox" name="Core" checked onclick="changeType()" id="Core"><label for="Core">Core</label><br>
-					<input type="checkbox" name="Elective" checked onclick="changeType()" id="Elective"><label for="Elective">Elective</label><br>
+					<input type="checkbox" name="Core" checked onclick="filterChange(4)" id="Core"><label for="Core">Core</label><br>
+					<input type="checkbox" name="Elective" checked onclick="filterChange(4)" id="Elective"><label for="Elective">Elective</label><br>
 				</div>
 				<div style="padding-top: 10px">
 					<b>Length:</b><br>
-					<input type="checkbox" name="FullYear" checked onclick="changeLength()" id="Full Year"><label for="Full Year">Full Year</label><br>
-					<input type="checkbox" name="Semester" checked onclick="changeLength()" id="Semester"><label for="Semester">Semester</label><br>
+					<input type="checkbox" name="FullYear" checked onclick="filterChange(5)" id="Full Year"><label for="Full Year">Full Year</label><br>
+					<input type="checkbox" name="Semester" checked onclick="filterChange(5)" id="Semester"><label for="Semester">Semester</label><br>
 				</div>
 				<div style="padding-top: 10px">
 					<b>Weight:</b><br>
-					<input type="checkbox" name="Regular" checked onclick="changeWeight()" id="+0.0"><label for="+0.0">Regular (+0.0)</label><br>
-					<input type="checkbox" name="Honors" checked onclick="changeWeight()" id="+0.5"><label for="+0.5">Honors (+0.5)</label><br>
-					<input type="checkbox" name="AP" checked onclick="changeWeight()" id="+1.0"><label for="+1.0">AP/Post-AP (+1.0)</label><br>
+					<input type="checkbox" name="Regular" checked onclick="filterChange(6)" id="+0.0"><label for="+0.0">Regular (+0.0)</label><br>
+					<input type="checkbox" name="Honors" checked onclick="filterChange(6)" id="+0.5"><label for="+0.5">Honors (+0.5)</label><br>
+					<input type="checkbox" name="AP" checked onclick="filterChange(6)" id="+1.0"><label for="+1.0">AP/Post-AP (+1.0)</label><br>
 				</div>
 				<div style="padding-top: 10px">
 					<b>Class Score:</b><br>
-					<b>Min:</b><br><input type="number" name="MinClassScore" checked id="minclassscore" onkeyup="filterClassScore()" min="0" max="10"><br>
-					<b>Max:</b><br><input type="number" name="MaxClassScore" checked id="maxclassscore" onkeyup="filterClassScore()" min="0" max="10"><br>
+					<b>Min:</b><br><input type="number" name="MinClassScore" checked id="minclassscore" onkeyup="filterNumber(this.id, 7)" min="0" max="10"><br>
+					<b>Max:</b><br><input type="number" name="MaxClassScore" checked id="maxclassscore" onkeyup="filterNumber(this.id, 7)" min="0" max="10"><br>
 				</div>
 				<div style="padding-top: 10px">
 					<b>Hours/Week:</b><br>
-					<b>Min:</b><br><input type="number" name="MinHrsWeek" checked id="minhrsweek" onkeyup="filterHrsWeek()" min="0" max="10"><br>
-					<b>Max:</b><br><input type="number" name="MaxHrsWeek" checked id="maxhrsweek" onkeyup="filterHrsWeek()" min="0" max="10"><br>
+					<b>Min:</b><br><input type="number" name="MinHrsWeek" checked id="minhrsweek" onkeyup="filterNumber(this.id, 8)" min="0" max="10"><br>
+					<b>Max:</b><br><input type="number" name="MaxHrsWeek" checked id="maxhrsweek" onkeyup="filterNumber(this.id, 8)" min="0" max="10"><br>
 				</div>
 			</div>
 			<div>
@@ -73,325 +73,6 @@
 								<th>Hours/Week</th>
 							</tr>
 						</thead>
-							<tr>
-								<td>ENG DESIGN RES</td>
-								<td>Engineering Design Research</td>
-								<td>9828T3</td>
-								<td>Technology and Engineering</td>
-								<td>Elective</td>
-								<td>Full Year</td>
-								<td>+0.5</td>
-								<td>3.46</td>
-								<td>6.90</td>
-							</tr>
-							<tr>
-								<td>Broadcast Journ 1</td>
-								<td>Broadcast Journalism 1</td>
-								<td>122000</td>
-								<td>English</td>
-								<td>Elective</td>
-								<td>Full Year</td>
-								<td>+0.0</td>
-								<td>0.75</td>
-								<td>4.48</td>
-							</tr>
-							<tr>
-								<td>Broadcast Journ 2</td>
-								<td>Broadcast Journalism 2</td>
-								<td>122012</td>
-								<td>English</td>
-								<td>Elective</td>
-								<td>Full Year</td>
-								<td>+0.0</td>
-								<td>6.44</td>
-								<td>0.73</td>
-							</tr>
-							<tr>
-								<td>Broadcast Journ 3</td>
-								<td>Broadcast Journalism 3</td>
-								<td>122013</td>
-								<td>English</td>
-								<td>Elective</td>
-								<td>Full Year</td>
-								<td>+0.0</td>
-								<td>3.95</td>
-								<td>4.80</td>
-							</tr>
-							<tr>
-								<td>Broadcast Journ 4</td>
-								<td>Broadcast Journalism 4</td>
-								<td>122014</td>
-								<td>English</td>
-								<td>Elective</td>
-								<td>Full Year</td>
-								<td>+0.0</td>
-								<td>8.62</td>
-								<td>5.32</td>
-							</tr>
-							<tr>
-								<td>ECON PERS FINANCE</td>
-								<td>epf</td>
-								<td>612000</td>
-								<td>General</td>
-								<td>Core</td>
-								<td>Full Year</td>
-								<td>+0.0</td>
-								<td>4.58</td>
-								<td>8.44</td>
-							</tr>
-							<tr>
-								<td>ECON PERS FINANCE HN</td>
-								<td>epf</td>
-								<td>612036</td>
-								<td>General</td>
-								<td>Core</td>
-								<td>Full Year</td>
-								<td>+0.5</td>
-								<td>8.79</td>
-								<td>1.11</td>
-							</tr>
-							<tr>
-								<td>TJ Research Stat 1</td>
-								<td>RS1</td>
-								<td>3190T1</td>
-								<td>Mathematics</td>
-								<td>Core</td>
-								<td>Semester</td>
-								<td>+0.5</td>
-								<td>8.55</td>
-								<td>4.43</td>
-							</tr>
-							<tr>
-								<td>DIFFERENTIAL EQUATIONS</td>
-								<td>diffeq</td>
-								<td>317861</td>
-								<td>Mathematics</td>
-								<td>Core</td>
-								<td>Semester</td>
-								<td>+1.0</td>
-								<td>7.47</td>
-								<td>9.71</td>
-							</tr>
-							<tr>
-								<td>AP COMP SCI A+</td>
-								<td>AP CS</td>
-								<td>318561</td>
-								<td>Mathematics</td>
-								<td>Core</td>
-								<td>Full Year</td>
-								<td>+1.0</td>
-								<td>6.87</td>
-								<td>6.31</td>
-							</tr>
-							<tr>
-								<td>Matrix Algebra</td>
-								<td>Linear Alegbra</td>
-								<td>319800</td>
-								<td>Mathematics</td>
-								<td>Core</td>
-								<td>Semester</td>
-								<td>+1.0</td>
-								<td>6.87</td>
-								<td>7.09</td>
-							</tr>
-							<tr>
-								<td>FOUND COMP SCI</td>
-								<td>Foundations CS</td>
-								<td>3184T1</td>
-								<td>Mathematics</td>
-								<td>Core</td>
-								<td>Full Year</td>
-								<td>+0.5</td>
-								<td>9.08</td>
-								<td>0.70</td>
-							</tr>
-							<tr>
-								<td>ACCEL FOUND COMP SCI</td>
-								<td>Accelerated foundations CS</td>
-								<td>3184T2</td>
-								<td>Mathematics</td>
-								<td>Core</td>
-								<td>Full Year</td>
-								<td>+0.5</td>
-								<td>3.46</td>
-								<td>0.31</td>
-							</tr>
-							<tr>
-								<td>MACHINE LEARNING 1</td>
-								<td>ML1</td>
-								<td>3199T6</td>
-								<td>Mathematics</td>
-								<td>Elective</td>
-								<td>Semester</td>
-								<td>+1.0</td>
-								<td>2.41</td>
-								<td>6.49</td>
-							</tr>
-							<tr>
-								<td>MACHINE LEARNING 2</td>
-								<td>ML2</td>
-								<td>3199T7</td>
-								<td>Mathematics</td>
-								<td>Elective</td>
-								<td>Semester</td>
-								<td>+1.0</td>
-								<td>5.98</td>
-								<td>9.46</td>
-							</tr>
-							<tr>
-								<td>RESEARCH STATISTICS 3</td>
-								<td>RS3</td>
-								<td>3190T3</td>
-								<td>Mathematics</td>
-								<td>Elective</td>
-								<td>Semester</td>
-								<td>+1.0</td>
-								<td>7.03</td>
-								<td>6.06</td>
-							</tr>
-							<tr>
-								<td>Math Techniques</td>
-								<td>AMT</td>
-								<td>319862</td>
-								<td>Mathematics</td>
-								<td>Elective</td>
-								<td>Semester</td>
-								<td>+1.0</td>
-								<td>4.80</td>
-								<td>0.42</td>
-							</tr>
-							<tr>
-								<td>Computer Vision 2</td>
-								<td>CV2</td>
-								<td>319917</td>
-								<td>Mathematics</td>
-								<td>Elective</td>
-								<td>Semester</td>
-								<td>+1.0</td>
-								<td>5.94</td>
-								<td>6.50</td>
-							</tr>
-							<tr>
-								<td>TJ Research Stat 2</td>
-								<td>RS2</td>
-								<td>3190T2</td>
-								<td>Mathematics</td>
-								<td>Elective</td>
-								<td>Semester</td>
-								<td>+1.0</td>
-								<td>3.21</td>
-								<td>5.09</td>
-							</tr>
-							<tr>
-								<td>Computer Vision</td>
-								<td>CV</td>
-								<td>319916</td>
-								<td>Mathematics</td>
-								<td>Elective</td>
-								<td>Semester</td>
-								<td>+1.0</td>
-								<td>1.89</td>
-								<td>7.78</td>
-							</tr>
-							<tr>
-								<td>ART INTELL 1</td>
-								<td>AI1</td>
-								<td>319966</td>
-								<td>Mathematics</td>
-								<td>Elective</td>
-								<td>Semester</td>
-								<td>+1.0</td>
-								<td>7.31</td>
-								<td>7.59</td>
-							</tr>
-							<tr>
-								<td>ART INTELL 2</td>
-								<td>AI2</td>
-								<td>319967</td>
-								<td>Mathematics</td>
-								<td>Elective</td>
-								<td>Semester</td>
-								<td>+1.0</td>
-								<td>2.44</td>
-								<td>6.31</td>
-							</tr>
-							<tr>
-								<td>Comp Systems Res</td>
-								<td>syslab</td>
-								<td>3199T3</td>
-								<td>Mathematics</td>
-								<td>Elective</td>
-								<td>Full Year</td>
-								<td>+0.5</td>
-								<td>4.72</td>
-								<td>5.53</td>
-							</tr>
-							<tr>
-								<td>Mobile/Web App Res</td>
-								<td>mobile web</td>
-								<td>3199R1</td>
-								<td>Mathematics</td>
-								<td>Elective</td>
-								<td>Full Year</td>
-								<td>+0.5</td>
-								<td>4.65</td>
-								<td>6.17</td>
-							</tr>
-							<tr>
-								<td>Electrodynamics</td>
-								<td>Quantum Mechanics</td>
-								<td>4520T9</td>
-								<td>Science</td>
-								<td>Elective</td>
-								<td>Full Year</td>
-								<td>+1.0</td>
-								<td>7.07</td>
-								<td>4.65</td>
-							</tr>
-							<tr>
-								<td>World Hist/Geog 2</td>
-								<td>world history geography</td>
-								<td>2221T1</td>
-								<td>Social Studies</td>
-								<td>Core</td>
-								<td>Full Year</td>
-								<td>+0.5</td>
-								<td>7.97</td>
-								<td>5.22</td>
-							</tr>
-							<tr>
-								<td>US VA History</td>
-								<td>USVA</td>
-								<td>2360T1</td>
-								<td>Social Studies</td>
-								<td>Core</td>
-								<td>Full Year</td>
-								<td>+0.5</td>
-								<td>5.02</td>
-								<td>7.37</td>
-							</tr>
-							<tr>
-								<td>AP US HISTORY</td>
-								<td>APUSH</td>
-								<td>231905</td>
-								<td>Social Studies</td>
-								<td>Core</td>
-								<td>Full Year</td>
-								<td>+1.0</td>
-								<td>0.47</td>
-								<td>5.21</td>
-							</tr>
-							<tr>
-								<td>20th Cen Wrld Hist</td>
-								<td>20th century</td>
-								<td>2340T1</td>
-								<td>Social Studies</td>
-								<td>Elective</td>
-								<td>Semester</td>
-								<td>+0.5</td>
-								<td>3.19</td>
-								<td>7.19</td>
-							</tr>
 							<tr>
 								<td>AP MACRO/MICRO ECON</td>
 								<td>AP Econ Macro micro</td>
@@ -426,96 +107,38 @@
 				},
 			} );
 
-			function uncheckCategory() {
-				document.getElementById("Technology and Engineering").checked = false
-				document.getElementById("English").checked = false
-				document.getElementById("Fine Arts: Music").checked = false
-				document.getElementById("Fine Arts: Theatre Arts").checked = false
-				document.getElementById("Fine Arts: Visual Arts").checked = false
-				document.getElementById("General").checked = false
-				document.getElementById("Health/PE").checked = false
-				document.getElementById("Mathematics").checked = false
-				document.getElementById("Science").checked = false
-				document.getElementById("Social Studies").checked = false
-				document.getElementById("World Languages").checked = false
-				changeCategory("Mathematics")
+			function switchCategory(state) {
+				document.getElementById("Technology and Engineering").checked = state
+				document.getElementById("English").checked = state
+				document.getElementById("Fine Arts: Music").checked = state
+				document.getElementById("Fine Arts: Theatre Arts").checked = state
+				document.getElementById("Fine Arts: Visual Arts").checked = state
+				document.getElementById("General").checked = state
+				document.getElementById("Health/PE").checked = state
+				document.getElementById("Mathematics").checked = state
+				document.getElementById("Science").checked = state
+				document.getElementById("Social Studies").checked = state
+				document.getElementById("World Languages").checked = state
+				filterChange(3)
 			}
 
-			function checkCategory() {
-				document.getElementById("Technology and Engineering").checked = true
-				document.getElementById("English").checked = true
-				document.getElementById("Fine Arts: Music").checked = true
-				document.getElementById("Fine Arts: Theatre Arts").checked = true
-				document.getElementById("Fine Arts: Visual Arts").checked = true
-				document.getElementById("General").checked = true
-				document.getElementById("Health/PE").checked = true
-				document.getElementById("Mathematics").checked = true
-				document.getElementById("Science").checked = true
-				document.getElementById("Social Studies").checked = true
-				document.getElementById("World Languages").checked = true
-				changeCategory("Mathematics")
-			}
-
-			function changeCategory(categoryName) {
+			function filterChange(row_index) {
 				$.fn.dataTable.ext.search.push(
 					function( settings, searchData, index, rowData, counter ) {
-						return document.getElementById(rowData[3]).checked ? true : false
+						return document.getElementById(rowData[row_index]).checked ? true : false
 					}
 				);
 				table.draw()
 			}
 
-			function changeType() {
+			function filterNumber(element_id, row_index) {
 				$.fn.dataTable.ext.search.push(
 					function( settings, searchData, index, rowData, counter ) {
-						return document.getElementById(rowData[4]).checked ? true : false
-					}
-				);
-				table.draw()
-			}
-
-			function changeLength() {
-				$.fn.dataTable.ext.search.push(
-					function( settings, searchData, index, rowData, counter ) {
-						return document.getElementById(rowData[5]).checked ? true : false
-					}
-				);
-				table.draw()
-			}
-
-			function changeWeight() {
-				$.fn.dataTable.ext.search.push(
-					function( settings, searchData, index, rowData, counter ) {
-						return document.getElementById(rowData[6]).checked ? true : false
-					}
-				);
-				table.draw()
-			}
-
-			function filterClassScore() {
-				$.fn.dataTable.ext.search.push(
-					function( settings, searchData, index, rowData, counter ) {
-						var min = parseFloat(document.getElementById('minclassscore').value)
-						var max = parseFloat(document.getElementById('maxclassscore').value)
-						var score = parseFloat(rowData[7])
+						var min = parseFloat(document.getElementById('min' + element_id.substring(3)).value)
+						var max = parseFloat(document.getElementById('max' + element_id.substring(3)).value)
+						var score = parseFloat(rowData[row_index])
 
 						if ((isNaN(min) && isNaN(max)) || (isNaN(min) && score <= max) || (min <= score && isNaN(max)) || (min <= score && score <= max)) {
-							return true;
-						}
-						return false;
-					}
-				);
-				table.draw()
-			}
-
-			function filterHrsWeek() {
-				$.fn.dataTable.ext.search.push(
-					function( settings, searchData, index, rowData, counter ) {
-						var min = parseFloat(document.getElementById('minhrsweek').value)
-						var max = parseFloat(document.getElementById('maxhrsweek').value)
-						var hrs = parseFloat(rowData[8])
-
-						if ((isNaN(min) && isNaN(max)) || (isNaN(min) && hrs <= max) || (min <= hrs && isNaN(max)) || (min <= hrs && hrs <= max)) {
 							return true;
 						}
 						return false;
