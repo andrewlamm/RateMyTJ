@@ -10,14 +10,20 @@
 			html {
 				font-family: "Georgia";
 			}
+			a:hover {
+				cursor: pointer;
+			}
 		</style>
 	</head>
-	<body>
-		<div style="display: flex; flex-direction: row">
+	<body style="padding:0; margin:0">
+		<div style="width:100%;padding-bottom:10px">
+			{{> header}}
+		</div>
+		<div style="display: flex; flex-direction: row; padding:8px;">
 			<div style="width: 200px">
 				<div>
 					<b>Category:</b><br>
-					<span style="font-size: 8pt;"><a href="#" onclick="switchCategory(false)" style="color: blue">Uncheck all</a> | <a href="#" onclick="switchCategory(true)" style="color: blue">Check all</a></span><br>
+					<span style="font-size: 8pt;"><a onclick="switchCategory(false)" style="color: blue; text-decoration: underline;">Uncheck all</a> | <a onclick="switchCategory(true)" style="color: blue; text-decoration: underline;">Check all</a></span><br>
 					<input type="checkbox" value="Technology and Engineering" checked id="Technology and Engineering" onclick="filterChange(3)"><label for="Technology and Engineering">Technology and Engineering</label><br>
 					<input type="checkbox" value="English" checked id="English" onclick="filterChange(3)"><label for="English">English</label><br>
 					<input type="checkbox" value="Fine Arts: Music" checked id="Fine Arts: Music" onclick="filterChange(3)"><label for="Fine Arts: Music">Fine Arts: Music</label><br>
@@ -83,15 +89,18 @@
 								<td>{{this.type}}</td>
 								<td>{{this.length}}</td>
 								<td>{{this.weight}}</td>
-								<td>{{this.class_score}}</td>
-								<td>{{this.workload}}</td>
+								<td>{{fix_number this.class_score}}</td>
+								<td>{{fix_number this.workload}}</td>
 							</tr>
 							{{/each}}
 						</tbody>
 					</table>
 				</div>
 			</div>
-		<div>
+		</div>
+		<div style="width:100%;">
+			{{> footer}}
+		</div>
 		<script type="text/javascript">
 			var table = $('#classes_table').DataTable( {
 				'columnDefs': [

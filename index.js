@@ -6,6 +6,12 @@ const port = 3000
 
 app.set('view engine', 'hbs')
 
+hbs.registerPartials(__dirname + '/views/partials')
+
+hbs.registerHelper('fix_number', function(num) {
+  return num.toFixed(2);
+});
+
 app.get('/', (req, res) => {
   var pool = mysql.createPool({
     user: 'root',
@@ -38,9 +44,7 @@ app.get('/class/:classID', function (req, res) {
       res.render('error')
     }
     else {
-      var s = JSON.stringify(results)
-      var json = JSON.parse(s.substring(1, s.length-1))
-      res.render('classes', json)
+      res.render('classes', results[0])
     }
   })
 })
