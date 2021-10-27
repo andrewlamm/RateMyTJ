@@ -1,0 +1,14 @@
+html {
+    font-family: "Book Antiqua";
+}
+body {
+    padding: 0;
+    margin: 0;
+}
+a {
+    color: blue;
+    text-decoration: none;
+}
+a:hover {
+    cursor: pointer;
+}

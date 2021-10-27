@@ -5,11 +5,21 @@ const app = express()
 const port = 3000
 
 app.set('view engine', 'hbs')
+app.use(express.static(__dirname + '/views'));
 
 hbs.registerPartials(__dirname + '/views/partials')
 
 hbs.registerHelper('fix_number', function(num) {
   return num.toFixed(2);
+});
+
+hbs.registerHelper('checkEmpty', function(s, options) {
+  if (s === "") {
+    return;
+  }
+  else {
+    return options.fn(this)
+  }
 });
 
 app.get('/', (req, res) => {
@@ -36,16 +46,22 @@ app.get('/class/:classID', function (req, res) {
     database: 'RateMyTJ'
   })
 
-  console.log('SELECT * FROM classes WHERE id="' + req.params.classID + '";')
+  // console.log('SELECT * FROM classes WHERE id="' + req.params.classID + '";')
 
   pool.query('SELECT * FROM classes WHERE id="' + req.params.classID + '";', function(error, results) {
     if (error) res.render('error');
-    if (results.length != 1) {
+    try {
+      if (results.length != 1) {
+        res.render('error')
+      }
+      else {
+        res.render('classes', results[0])
+      }
+    } catch (error) {
+      console.log(error)
       res.render('error')
     }
-    else {
-      res.render('classes', results[0])
-    }
+
   })
 })
 

@@ -6,20 +6,28 @@
 		<title>{{name}}</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+		<link rel="stylesheet" href="/styles.css">
 		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
-		<style type="text/css">
-			html {
-				font-family: "Georgia";
-			}
-		</style>
 	</head>
-	<body style="padding:0; margin:0">
+	<body>
 		<div style="width:100%;padding-bottom:10px">
 			{{> header}}
 		</div>
         <div class="text-center">
-			<div class="text-5xl font-bold">
+			<div class="text-5xl font-bold pb-1">
 				{{name}}
+			</div>
+			{{#checkEmpty alt}}
+			<div class="text-3xl font-medium pb-1">
+				AKA: {{alt}}
+			</div>
+			{{/checkEmpty}}
+			<div class="width-full flex flex-row items-center justify-center">
+				<div class="px-2"><b>ID: </b>{{id}}</div>
+				<div class="px-2"><b>Category: </b>{{category}}</div>
+				<div class="px-2"><b>Type: </b>{{type}}</div>
+				<div class="px-2"><b>Length: </b>{{length}}</div>
+				<div class="px-2"><b>Weighted: </b>{{weight}}</div>
 			</div>
         </div>
 		<div style="width:100%;">
