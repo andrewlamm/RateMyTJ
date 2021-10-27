@@ -16,13 +16,12 @@ app.get('/', (req, res) => {
   })
 
   pool.query("SELECT * FROM classes;", function(error, results) {
-    var s = '{"classes":' + JSON.stringify(results) + '}'
-    var json = JSON.parse(s)
+    var json = JSON.parse('{"classes":' + JSON.stringify(results) + '}')
     res.render('index', json)
   })
 })
 
-app.get('/:classID', function (req, res) {
+app.get('/class/:classID', function (req, res) {
   var pool = mysql.createPool({
     user: 'root',
     password: 'asdf',
@@ -34,8 +33,15 @@ app.get('/:classID', function (req, res) {
   console.log('SELECT * FROM classes WHERE id="' + req.params.classID + '";')
 
   pool.query('SELECT * FROM classes WHERE id="' + req.params.classID + '";', function(error, results) {
-    if (error) res.send(error);
-    res.send(results)
+    if (error) res.render('error');
+    if (results.length != 1) {
+      res.render('error')
+    }
+    else {
+      var s = JSON.stringify(results)
+      var json = JSON.parse(s.substring(1, s.length-1))
+      res.render('classes', json)
+    }
   })
 })
 
