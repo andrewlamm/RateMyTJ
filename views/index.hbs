@@ -55,8 +55,8 @@
 				</div>
 				<div style="padding-top: 10px">
 					<b>Hours/Week:</b><br>
-					<b>Min:</b><br><input type="number" name="MinHrsWeek" checked id="minhrsweek" onkeyup="filterNumber(this.id, 8)" onclick="filterNumber(this.id, 7)" min="0" max="10"><br>
-					<b>Max:</b><br><input type="number" name="MaxHrsWeek" checked id="maxhrsweek" onkeyup="filterNumber(this.id, 8)" onclick="filterNumber(this.id, 7)" min="0" max="10"><br>
+					<b>Min:</b><br><input type="number" name="MinHrsWeek" checked id="minhrsweek" onkeyup="filterNumber(this.id, 8)" onclick="filterNumber(this.id, 8)" min="0" max="10"><br>
+					<b>Max:</b><br><input type="number" name="MaxHrsWeek" checked id="maxhrsweek" onkeyup="filterNumber(this.id, 8)" onclick="filterNumber(this.id, 8)" min="0" max="10"><br>
 				</div>
 			</div>
 			<div>
@@ -66,13 +66,13 @@
 							<tr>
 								<th>Class Name</th>
 								<th>Alternate</th>
-								<th>ID</th>
-								<th>Category</th>
-								<th>Type</th>
-								<th>Length</th>
-								<th>Weight</th>
-								<th>Class Score</th>
-								<th>Hours/Week</th>
+								<th style="text-align: center;">ID</th>
+								<th style="text-align: center;">Category</th>
+								<th style="text-align: center;">Type</th>
+								<th style="text-align: center;">Length</th>
+								<th style="text-align: center;">Weight</th>
+								<th title="Overall rating of the class, scale of 0-10">Class Score</th>
+								<th title="Average amount of time spent on HW in this class per week">Hours/Week</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -80,11 +80,11 @@
 							<tr>
 								<td><a href="/class/{{this.id}}" style="color: black; text-decoration: none">{{this.name}}</a></td>
 								<td>{{this.alt}}</td>
-								<td>{{this.id}}</td>
-								<td>{{this.category}}</td>
-								<td>{{this.type}}</td>
-								<td>{{this.length}}</td>
-								<td>{{this.weight}}</td>
+								<td style="text-align: center;">{{this.id}}</td>
+								<td style="text-align: center;">{{this.category}}</td>
+								<td style="text-align: center;">{{this.type}}</td>
+								<td style="text-align: center;">{{this.length}}</td>
+								<td style="text-align: center;">{{this.weight}}</td>
 								<td>{{fix_number this.class_score}}</td>
 								<td>{{fix_number this.workload}}</td>
 							</tr>
@@ -107,7 +107,10 @@
 					{
 						'targets'		: [1],
 						'visible'		: false
-					}
+					},
+					{ "width": '200px', "targets": 0 },
+					{ "width": '100px', "targets": 3 },
+					{ "width": '50px', "targets": [2,4,5,6,7,8] },
 				],
 				"iDisplayLength": 50,
 				"language": {
