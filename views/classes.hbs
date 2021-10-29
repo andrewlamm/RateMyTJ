@@ -14,7 +14,7 @@
 			{{> header}}
 		</div>
         <div class="text-center">
-			<div class="text-5xl font-bold pb-1">
+			<div class="text-6xl font-bold pb-1">
 				{{name}}
 			</div>
 			{{#checkEmpty alt}}
@@ -28,6 +28,18 @@
 				<div class="px-2"><b>Type: </b>{{type}}</div>
 				<div class="px-2"><b>Length: </b>{{length}}</div>
 				<div class="px-2"><b>Weighted: </b>{{weight}}</div>
+			</div>
+			<div class="flex flex-row">
+				<div class="w-1/4 px-5">
+					<div class="width-full text-center font-semibold text-3xl">
+						Description
+					</div>
+					{{description}}
+				</div>
+				<div class="w-3/4 px-5 flex flex-row">
+					{{> score_card score_name="Class Score" score=class_score rank=class_score_rank num_classes=num_classes score_text="/10"}}
+					{{> score_card score_name="Workload" score=workload rank=workload_rank num_classes=num_classes score_text="hrs/week"}}
+				</div>
 			</div>
         </div>
 		<div style="width:100%;">

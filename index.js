@@ -22,6 +22,21 @@ hbs.registerHelper('checkEmpty', function(s, options) {
   }
 });
 
+hbs.registerHelper('turn_to_ordinal', function(num) {
+  var ones = num % 10
+  var tens = num % 100
+  if (ones == 1 && tens != 11) {
+    return num + "st";
+  }
+  if (ones == 2 && tens != 12) {
+      return num + "nd";
+  }
+  if (ones == 3 && tens != 13) {
+      return num + "rd";
+  }
+  return num + "th";
+})
+
 app.get('/', (req, res) => {
   var pool = mysql.createPool({
     user: 'root',
@@ -55,7 +70,19 @@ app.get('/class/:classID', function (req, res) {
         res.render('error')
       }
       else {
-        res.render('classes', results[0])
+        pool.query('SELECT name, RANK() OVER (ORDER BY class_score desc) ranking FROM classes WHERE class_score >= ' + results[0].class_score + ' ORDER BY ranking', function(e,r) {
+          // console.log(r.length)
+          results[0]['class_score_rank'] = r.length
+          pool.query('SELECT name, RANK() OVER (ORDER BY workload) ranking FROM classes WHERE workload <= ' + results[0].workload + ' ORDER BY ranking', function(e,r) {
+            // console.log(r.length) add helper maybe?
+            results[0]['workload_rank'] = r.length
+            pool.query('SELECT * FROM classes', function(e,r) {
+              results[0]['num_classes'] = r.length
+              console.log(results[0])
+              res.render('classes', results[0])
+            })
+          })
+        })
       }
     } catch (error) {
       console.log(error)
