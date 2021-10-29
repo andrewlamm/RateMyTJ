@@ -1,6 +1,13 @@
+import mysql.connector
+from mysql.connector import errorcode
 import random
-import sys
-import json
+
+try:
+	cnx = mysql.connector.connect(user='root', password="asdf", host="127.0.0.1", database='RateMyTJ')
+except err:
+	print(err)
+
+cursor = cnx.cursor()
 
 STATS = ["classScore", "workload"]
 
@@ -87,7 +94,7 @@ for i in range(len(class_id_list)):
 		class_dict[class_id_list[i]].append(s)
 
 	curr_ind += 1
-print(class_dict)
+# print(class_dict)
 
 # add alternate names
 class_dict["9828T3"][1] = "Engineering Design Research"
@@ -121,6 +128,19 @@ class_dict["231905"][1] = "APUSH"
 class_dict["2340T1"][1] = "20th century"
 class_dict["280404"][1] = "AP Econ Macro micro"
 
+for class_id in class_dict:
+	add_line = ('INSERT INTO classes(name, alt, id, category, type, length, weight, class_score, workload) VALUE ("%s","%s","%s","%s","%s","%s","%s",%s,%s);' % (class_dict[class_id][0], class_dict[class_id][1], class_id, class_dict[class_id][2], class_dict[class_id][3], class_dict[class_id][4], class_dict[class_id][5], class_dict[class_id][6], class_dict[class_id][7]))
+	print(add_line)
+	cursor.execute(add_line)
+
+# INSERT INTO classes(name, alt, id, category, type, weight, class_score, workload) VALUE ("Mobile/Web App Res", "", "3199R1", "Mathematics", "Elective", "Full Year", "+0.5", 9.8, 2.3)
+
+cnx.commit()
+
+cursor.close()
+cnx.close()
+
+### PRINT TO FILE
 # file = open("tableout.txt", "w")
 
 # for class_id in class_dict:
@@ -153,35 +173,34 @@ class_dict["280404"][1] = "AP Econ Macro micro"
 # file.write('\t],\n')
 # file.write("}\n")
 
-file = open("json_no_newline.txt", "w")
+# file = open("json_no_newline.txt", "w")
 
-s = ""
+# s = ""
 
-s += ("{")
-s += ('"classes": [')
-for class_id in class_dict:
-	s += ('{')
-	s += ('"className": "' + class_dict[class_id][0] + '",')
-	s += ('"alternate": "' + class_dict[class_id][1] + '",')
-	s += ('"ID": "' + class_id + '",')
-	s += ('"category": "' + class_dict[class_id][2] + '",')
-	s += ('"type": "' + class_dict[class_id][3] + '",')
-	s += ('"length": "' + class_dict[class_id][4] + '",')
-	s += ('"weight": "' + class_dict[class_id][5] + '",')
-	for i in range(len(STATS)):
-		if i == len(STATS)-1:
-			s += ('"' + STATS[i] + '": "' + class_dict[class_id][6+i] + '"')
-		else:
-			s += ('"' + STATS[i] + '": "' + class_dict[class_id][6+i] + '",')
-	s += ('},')
-s += ('],')
-s += ("}")
+# s += ("{")
+# s += ('"classes": [')
+# for class_id in class_dict:
+# 	s += ('{')
+# 	s += ('"className": "' + class_dict[class_id][0] + '",')
+# 	s += ('"alternate": "' + class_dict[class_id][1] + '",')
+# 	s += ('"ID": "' + class_id + '",')
+# 	s += ('"category": "' + class_dict[class_id][2] + '",')
+# 	s += ('"type": "' + class_dict[class_id][3] + '",')
+# 	s += ('"length": "' + class_dict[class_id][4] + '",')
+# 	s += ('"weight": "' + class_dict[class_id][5] + '",')
+# 	for i in range(len(STATS)):
+# 		if i == len(STATS)-1:
+# 			s += ('"' + STATS[i] + '": "' + class_dict[class_id][6+i] + '"')
+# 		else:
+# 			s += ('"' + STATS[i] + '": "' + class_dict[class_id][6+i] + '",')
+# 	s += ('},')
+# s += ('],')
+# s += ("}")
 
-s = s[:-4] + s[-3:]
-s = s[:-2] + s[-1:]
+# s = s[:-4] + s[-3:]
+# s = s[:-2] + s[-1:]
 
-file.write(s)
-
+# file.write(s)
 
 # <tr>
 # 	<td>TJ Math 1</td>
