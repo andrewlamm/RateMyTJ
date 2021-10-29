@@ -37,32 +37,15 @@ hbs.registerHelper('turn_to_ordinal', function(num) {
   return num + "th";
 })
 
-app.get('/', (req, res) => {
-  var pool = mysql.createPool({
-    user: 'root',
-    password: 'asdf',
-    host: '127.0.0.1',
-    port: '3306',
-    database: 'RateMyTJ'
-  })
-
-  pool.query("SELECT * FROM classes;", function(error, results) {
-    var json = JSON.parse('{"classes":' + JSON.stringify(results) + '}')
-    res.render('index', json)
-  })
+var pool = mysql.createPool({
+  user: 'root',
+  password: 'asdf',
+  host: '127.0.0.1',
+  port: '3306',
+  database: 'RateMyTJ'
 })
 
-app.get('/class/:classID', function (req, res) {
-  var pool = mysql.createPool({
-    user: 'root',
-    password: 'asdf',
-    host: '127.0.0.1',
-    port: '3306',
-    database: 'RateMyTJ'
-  })
-
-  // console.log('SELECT * FROM classes WHERE id="' + req.params.classID + '";')
-
+function get_class_info(req, res, next) {
   pool.query('SELECT * FROM classes WHERE id="' + req.params.classID + '";', function(error, results) {
     if (error) res.render('error');
     try {
@@ -70,26 +53,48 @@ app.get('/class/:classID', function (req, res) {
         res.render('error')
       }
       else {
-        pool.query('SELECT name, RANK() OVER (ORDER BY class_score desc) ranking FROM classes WHERE class_score >= ' + results[0].class_score + ' ORDER BY ranking', function(e,r) {
-          // console.log(r.length)
-          results[0]['class_score_rank'] = r.length
-          pool.query('SELECT name, RANK() OVER (ORDER BY workload) ranking FROM classes WHERE workload <= ' + results[0].workload + ' ORDER BY ranking', function(e,r) {
-            // console.log(r.length) add helper maybe?
-            results[0]['workload_rank'] = r.length
-            pool.query('SELECT * FROM classes', function(e,r) {
-              results[0]['num_classes'] = r.length
-              console.log(results[0])
-              res.render('classes', results[0])
-            })
-          })
-        })
+        res.locals.results = results[0]
+        next()
       }
     } catch (error) {
       console.log(error)
       res.render('error')
     }
-
   })
+}
+
+function get_score_rank(req, res, next) {
+  pool.query('SELECT name, RANK() OVER (ORDER BY class_score desc) ranking FROM classes WHERE class_score >= ' + res.locals.results.class_score + ' ORDER BY ranking', function(e,r) {
+    res.locals.results.class_score_rank = r.length
+    next()
+  })
+}
+
+function get_workload_rank(req, res, next) {
+  pool.query('SELECT name, RANK() OVER (ORDER BY workload) ranking FROM classes WHERE workload <= ' + res.locals.results.workload + ' ORDER BY ranking', function(e,r) {
+    res.locals.results.workload_rank = r.length
+    next()
+  })
+}
+
+function get_total_classes(req, res, next) {
+  pool.query('SELECT * FROM classes', function(e,r) {
+    res.locals.results.num_classes = r.length
+    next()
+  })
+}
+
+app.get('/', (req, res) => {
+  pool.query("SELECT * FROM classes;", function(error, results) {
+    var json = JSON.parse('{"classes":' + JSON.stringify(results) + '}')
+    res.render('index', json)
+  })
+})
+
+app.get('/class/:classID', [get_class_info, get_score_rank, get_workload_rank, get_total_classes], function (req, res) {
+  // console.log('SELECT * FROM classes WHERE id="' + req.params.classID + '";')
+  // console.log(res.locals.results)
+  res.render('classes', res.locals.results)
 })
 
 app.listen(port, () => {

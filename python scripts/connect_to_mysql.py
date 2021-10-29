@@ -4,7 +4,7 @@ import random
 
 try:
 	cnx = mysql.connector.connect(user='root', password="asdf", host="127.0.0.1", database='RateMyTJ')
-except err:
+except Exception as err:
 	print(err)
 
 cursor = cnx.cursor()
