@@ -2,22 +2,27 @@
     <div class="w-full font-semibold text-3xl">
         {{score_name}}
     </div>
-    <div class="w-full flex flex-row">
-        <div class="w-1/2 px-1 flex flex-row justify-center">
-            <div class="font-extrabold text-center" style="font-size: 2.75rem; line-height: 1;">
-                {{score}}
+    <div class="w-full flex flex-col">
+        <div class="w-full flex flex-row">
+            <div class="w-1/2 px-1 flex flex-row justify-center">
+                <div class="font-extrabold text-center" style="font-size: 2.75rem; line-height: 1;">
+                    {{fix_number score}}
+                </div>
+                <div class="font-medium text-sm flex flex-col justify-end text-center pl-1">
+                    {{score_text}}
+                </div>
             </div>
-            <div class="font-medium text-sm flex flex-col justify-end text-center pl-1">
-                {{score_text}}
+            <div class="w-1/2 px-1 flex flex-row justify-center">
+                <div class="font-extrabold text-center" style="font-size: 2.75rem; line-height: 1;">
+                    {{turn_to_ordinal rank}}
+                </div>
+                <div class="font-medium text-sm flex flex-col justify-end text-center pl-1">
+                    /{{num_classes}}
+                </div>
             </div>
         </div>
-        <div class="w-1/2 px-1 flex flex-row justify-center">
-            <div class="font-extrabold text-center" style="font-size: 2.75rem; line-height: 1;">
-                {{turn_to_ordinal rank}}
-            </div>
-            <div class="font-medium text-sm flex flex-col justify-end text-center pl-1">
-                /{{num_classes}}
-            </div>
+        <div class="w-full font-medium text-xl">
+            {{turn_to_ordinal rank_category}} out of {{num_category}} classes in {{category}}
         </div>
     </div>
 </div>

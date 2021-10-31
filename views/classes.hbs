@@ -3,7 +3,7 @@
 	<head>
         <link href="https://unpkg.com/tailwindcss@2.0.2/dist/tailwind.min.css" rel="stylesheet">
 		<meta charset="utf-8">
-		<title>{{name}}</title>
+		<title>{{class_info.name}}</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
 		<link rel="stylesheet" href="/styles.css">
@@ -13,33 +13,186 @@
 		{{> header}}
         <div class="text-center">
 			<div class="text-6xl font-bold pb-1">
-				{{name}}
+				{{class_info.name}}
 			</div>
-			{{#checkEmpty alt}}
+			{{#checkEmpty class_info.alt}}
 			<div class="text-3xl font-medium pb-1">
-				AKA: {{alt}}
+				AKA: {{class_info.alt}}
 			</div>
 			{{/checkEmpty}}
 			<div class="width-full flex flex-row items-center justify-center">
-				<div class="px-2"><b>ID: </b>{{id}}</div>
-				<div class="px-2"><b>Category: </b>{{category}}</div>
-				<div class="px-2"><b>Type: </b>{{type}}</div>
-				<div class="px-2"><b>Length: </b>{{length}}</div>
-				<div class="px-2"><b>Weighted: </b>{{weight}}</div>
+				<div class="px-2"><b>ID: </b>{{class_info.id}}</div>
+				<div class="px-2"><b>Category: </b>{{class_info.category}}</div>
+				<div class="px-2"><b>Type: </b>{{class_info.type}}</div>
+				<div class="px-2"><b>Length: </b>{{class_info.length}}</div>
+				<div class="px-2"><b>Weighted: </b>{{class_info.weight}}</div>
 			</div>
-			<div class="flex flex-row">
-				<div class="w-1/4 px-5">
-					<div class="width-full text-center font-semibold text-3xl">
-						Description
+			<div class="flex flex-col">
+				<div class="w-full flex flex-row">
+					<div class="w-1/4 px-5">
+						<div class="width-full text-center font-semibold text-3xl">
+							Description
+						</div>
+						{{class_info.description}}
 					</div>
-					{{description}}
+					<div class="w-3/4 px-5 flex flex-col">
+						<div class="flex flex-row pb-2">
+							{{> score_card score_name="Class Score" score=class_info.class_score rank=class_info.class_score_rank num_classes=class_info.num_classes score_text="/10" rank_category=class_info.class_score_category_rank num_category=class_info.num_category category=class_info.category}}
+							{{> score_card score_name="Workload" score=class_info.workload rank=class_info.workload_rank num_classes=class_info.num_classes score_text="hrs/week" rank_category=class_info.workload_category_rank num_category=class_info.num_category category=class_info.category}}
+						</div>
+					</div>
 				</div>
-				<div class="w-3/4 px-5 flex flex-row">
-					{{> score_card score_name="Class Score" score=class_score rank=class_score_rank num_classes=num_classes score_text="/10"}}
-					{{> score_card score_name="Workload" score=workload rank=workload_rank num_classes=num_classes score_text="hrs/week"}}
+				<div class="flex flex-col">
+					<div class="flex flex-col">
+						<div class="w-full text-center font-bold text-3xl">
+							Historical Data
+						</div>
+						<div class="w-full flex flex-row">
+							<div class="w-1/2 px-2 flex flex-col">
+								<div class="w-full text-center font-semibold text-2xl">
+									Median
+								</div>
+								<div>
+									<table id="median_term_table" class="display">
+										<thead>
+											<tr class="text-center">
+												<th>Term</th>
+												<th>Number of Students</th>
+												<th>Class Score</th>
+												<th>Workload</th>
+											</tr>
+										</thead>
+										<tbody>
+											{{#each term_stats}}
+											<tr>
+												<td>{{this.term}}</td>
+												<td>{{this.total}}</td>
+												<td>{{fix_number this.med_score}}</td>
+												<td>{{fix_number this.med_workload}}</td>
+											</tr>
+											{{/each}}
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="w-1/2 px-2 flex flex-col">
+								<div class="w-full text-center font-semibold text-2xl">
+									Average
+								</div>
+								<div>
+									<table id="average_term_table" class="display">
+										<thead>
+											<tr class="text-center">
+												<th>Term</th>
+												<th>Number of Students</th>
+												<th>Class Score</th>
+												<th>Workload</th>
+											</tr>
+										</thead>
+										<tbody>
+											{{#each term_stats}}
+											<tr>
+												<td>{{this.term}}</td>
+												<td>{{this.total}}</td>
+												<td>{{fix_number this.avg_score}}</td>
+												<td>{{fix_number this.avg_workload}}</td>
+											</tr>
+											{{/each}}
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="flex flex-col">
+						<div class="w-full text-center font-bold text-3xl">
+							Teachers
+						</div>
+						<div class="w-full grid grid-cols-2 place-items-center items-center justify-center">
+							{{#each teacher}}
+							<div class="w-full px-2 flex flex-col">
+								<div class="w-full text-center font-semibold text-2xl">
+									{{this.name}}
+								</div>
+								<div>
+									<table id="teacher_{{this.name}}_table" class="display">
+										<thead>
+											<tr class="text-center">
+												<th>Term</th>
+												<th>Number of Students</th>
+												<th>Class Score</th>
+												<th>Workload</th>
+											</tr>
+										</thead>
+										<tbody>
+											{{#each this.terms}}
+											<tr>
+												<td>{{this.term}}</td>
+												<td>{{this.total}}</td>
+												<td>{{fix_number this.class_score}}</td>
+												<td>{{fix_number this.workload}}</td>
+											</tr>
+											{{/each}}
+										</tbody>
+									</table>
+								</div>
+							</div>
+							{{/each}}
+						</div>
+					</div>
 				</div>
 			</div>
         </div>
 		{{> footer}}
+		<script type="text/javascript">
+			var avg_table = $('#average_term_table').DataTable( {
+				'columnDefs': [
+					{
+						'searchable'    : false,
+						'targets'       : [1, 2, 3]
+					},
+					{ "width": '200px', "targets": 0 },
+					{ "width": '100px', "targets": 1 },
+				],
+				"iDisplayLength": 10,
+				"language": {
+					"infoFiltered": ""
+				},
+				"order": [[ 0, "desc" ]]
+			} );
+			var median_table = $('#median_term_table').DataTable( {
+				'columnDefs': [
+					{
+						'searchable'    : false,
+						'targets'       : [1, 2, 3]
+					},
+					{ "width": '200px', "targets": 0 },
+					{ "width": '100px', "targets": 1 },
+				],
+				"iDisplayLength": 10,
+				"language": {
+					"infoFiltered": ""
+				},
+				"order": [[ 0, "desc" ]]
+			} );
+			{{#each teacher}}
+			var {{this.name}} = $('#teacher_{{this.name}}_table').DataTable( {
+					'columnDefs': [
+						{
+							'searchable'    : false,
+							'targets'       : [1, 2, 3]
+						},
+						{ "width": '200px', "targets": 0 },
+						{ "width": '100px', "targets": 1 },
+					],
+					"iDisplayLength": 10,
+					"language": {
+						"infoFiltered": ""
+					},
+					"order": [[ 0, "desc" ]]
+				} );
+			{{/each}}
+
+		</script>
     </body>
 </html>
