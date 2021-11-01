@@ -11,7 +11,7 @@
 	<body>
 		{{> header}}
 		<div style="display: flex; flex-direction: row; padding:8px;">
-			<div style="width: 200px">
+			<div style="width: 250px">
 				<div style="width: 100%; font-weight:600; text-align:center; font-size:1.5rem">
 					Filters
 				</div>
@@ -48,13 +48,33 @@
 				</div>
 				<div style="padding-top: 10px">
 					<b>Class Score:</b><br>
-					<b>Min:</b><br><input type="number" name="MinClassScore" checked id="minclassscore" onkeyup="filterNumber(this.id, 7)" onclick="filterNumber(this.id, 7)" min="0" max="10"><br>
-					<b>Max:</b><br><input type="number" name="MaxClassScore" checked id="maxclassscore" onkeyup="filterNumber(this.id, 7)" onclick="filterNumber(this.id, 7)" min="0" max="10"><br>
+					<b>Min:</b><br><input type="number" name="MinClassScore" checked id="minclassscore" onkeyup="filterNumber(this.id, 8)" onclick="filterNumber(this.id, 8)" min="0" max="10"><br>
+					<b>Max:</b><br><input type="number" name="MaxClassScore" checked id="maxclassscore" onkeyup="filterNumber(this.id, 8)" onclick="filterNumber(this.id, 8)" min="0" max="10"><br>
 				</div>
 				<div style="padding-top: 10px">
 					<b>Hours/Week:</b><br>
-					<b>Min:</b><br><input type="number" name="MinHrsWeek" checked id="minhrsweek" onkeyup="filterNumber(this.id, 8)" onclick="filterNumber(this.id, 8)" min="0" max="10"><br>
-					<b>Max:</b><br><input type="number" name="MaxHrsWeek" checked id="maxhrsweek" onkeyup="filterNumber(this.id, 8)" onclick="filterNumber(this.id, 8)" min="0" max="10"><br>
+					<b>Min:</b><br><input type="number" name="MinHrsWeek" checked id="minhrsweek" onkeyup="filterNumber(this.id, 9)" onclick="filterNumber(this.id, 9)" min="0" max="10"><br>
+					<b>Max:</b><br><input type="number" name="MaxHrsWeek" checked id="maxhrsweek" onkeyup="filterNumber(this.id, 9)" onclick="filterNumber(this.id, 9)" min="0" max="10"><br>
+				</div>
+				<div style="padding-top: 10px">
+					<b>Difficulty:</b><br>
+					<b>Min:</b><br><input type="number" name="MinDifficulty" checked id="mindifficulty" onkeyup="filterNumber(this.id, 10)" onclick="filterNumber(this.id, 10)" min="0" max="10"><br>
+					<b>Max:</b><br><input type="number" name="MaxDifficulty" checked id="maxdifficulty" onkeyup="filterNumber(this.id, 10)" onclick="filterNumber(this.id, 10)" min="0" max="10"><br>
+				</div>
+				<div style="padding-top: 10px">
+					<b>Enjoyment:</b><br>
+					<b>Min:</b><br><input type="number" name="MinEnjoyment" checked id="minenjoyment" onkeyup="filterNumber(this.id, 11)" onclick="filterNumber(this.id, 11)" min="0" max="10"><br>
+					<b>Max:</b><br><input type="number" name="MaxEnjoyment" checked id="maxenjoyment" onkeyup="filterNumber(this.id, 11)" onclick="filterNumber(this.id, 11)" min="0" max="10"><br>
+				</div>
+				<div style="padding-top: 10px">
+					<b>Teacher Score:</b><br>
+					<b>Min:</b><br><input type="number" name="MinTeacherScore" checked id="minteacherscore" onkeyup="filterNumber(this.id, 12)" onclick="filterNumber(this.id, 12)" min="0" max="10"><br>
+					<b>Max:</b><br><input type="number" name="MaxTeacherScore" checked id="maxteacherscore" onkeyup="filterNumber(this.id, 12)" onclick="filterNumber(this.id, 12)" min="0" max="10"><br>
+				</div>
+				<div style="padding-top: 10px">
+					<b>Average Grade:</b><br>
+					<b>Min:</b><br><input type="number" name="MinGrade" checked id="mingrade" onkeyup="filterNumber(this.id, 13)" onclick="filterNumber(this.id, 13)" min="0" max="100"><br>
+					<b>Max:</b><br><input type="number" name="MaxGrade" checked id="maxgrade" onkeyup="filterNumber(this.id, 13)" onclick="filterNumber(this.id, 13)" min="0" max="100"><br>
 				</div>
 			</div>
 			<div>
@@ -69,8 +89,13 @@
 								<th style="text-align: center;">Type</th>
 								<th style="text-align: center;">Length</th>
 								<th style="text-align: center;">Weight</th>
-								<th title="Overall rating of the class, scale of 0-10">Class Score</th>
-								<th title="Average amount of time spent on HW in this class per week">Hours/Week</th>
+								<th title="Number of students that have inputted data for the last term">#</th>
+								<th title="Overall rating of the class, scale of 0(Awful)-10(Best)">SCO</th>
+								<th title="Average amount of time spent on HW in this class per week">WRK</th>
+								<th title="Overall difficulty of the class, scale of 0(Easy)-10(Hard)">DIFF</th>
+								<th title="Overall enjoyment of the class, scale of 0(No enjoyment)-10(Very enjoyable)">ENJ</th>
+								<th title="Overall rating of the teacher, scale of 0(Awful)-10(Best)">TCH</th>
+								<th title="Average grade of the students (Number of responses)">GRD</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -83,8 +108,13 @@
 								<td style="text-align: center;">{{this.type}}</td>
 								<td style="text-align: center;">{{this.length}}</td>
 								<td style="text-align: center;">{{this.weight}}</td>
-								<td>{{fix_number this.class_score}}</td>
-								<td>{{fix_number this.workload}}</td>
+								<td style="text-align: center;">{{this.total}}</td>
+								<td style="text-align: center;">{{fix_number this.class_score}}</td>
+								<td style="text-align: center;">{{fix_number this.workload}}</td>
+								<td style="text-align: center;">{{fix_number this.difficulty}}</td>
+								<td style="text-align: center;">{{fix_number this.enjoyment}}</td>
+								<td style="text-align: center;">{{fix_number this.teacher_score}}</td>
+								<td style="text-align: center;">{{fix_number this.grade}} ({{this.grade_inputs}})</td>
 							</tr>
 							{{/each}}
 						</tbody>
@@ -98,7 +128,7 @@
 				'columnDefs': [
 					{
 						'searchable'    : false,
-						'targets'       : [3,4,5,6,7,8]
+						'targets'       : [2,3,4,5,6,7,8,9,10,11,12]
 					},
 					{
 						'targets'		: [1],
@@ -106,7 +136,6 @@
 					},
 					{ "width": '200px', "targets": 0 },
 					{ "width": '100px', "targets": 3 },
-					{ "width": '50px', "targets": [2,4,5,6,7,8] },
 				],
 				"iDisplayLength": 50,
 				"language": {

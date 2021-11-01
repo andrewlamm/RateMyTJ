@@ -13,13 +13,8 @@
 		{{> header}}
         <div class="text-center">
 			<div class="text-6xl font-bold pb-1">
-				{{class_info.name}}
+				{{class_info.name}} {{#checkEmpty class_info.alt}} ({{class_info.alt}}) {{/checkEmpty}}
 			</div>
-			{{#checkEmpty class_info.alt}}
-			<div class="text-3xl font-medium pb-1">
-				AKA: {{class_info.alt}}
-			</div>
-			{{/checkEmpty}}
 			<div class="width-full flex flex-row items-center justify-center">
 				<div class="px-2"><b>ID: </b>{{class_info.id}}</div>
 				<div class="px-2"><b>Category: </b>{{class_info.category}}</div>
@@ -29,16 +24,24 @@
 			</div>
 			<div class="flex flex-col">
 				<div class="w-full flex flex-row">
-					<div class="w-1/4 px-5">
+					<div class="w-1/3 px-5">
 						<div class="width-full text-center font-semibold text-3xl">
 							Description
 						</div>
 						{{class_info.description}}
 					</div>
-					<div class="w-3/4 px-5 flex flex-col">
-						<div class="flex flex-row pb-2">
+					<div class="w-2/3 px-5 flex flex-col">
+						<div class="w-full px-1 flex flex-row pb-2">
 							{{> score_card score_name="Class Score" score=class_info.class_score rank=class_info.class_score_rank num_classes=class_info.num_classes score_text="/10" rank_category=class_info.class_score_category_rank num_category=class_info.num_category category=class_info.category}}
 							{{> score_card score_name="Workload" score=class_info.workload rank=class_info.workload_rank num_classes=class_info.num_classes score_text="hrs/week" rank_category=class_info.workload_category_rank num_category=class_info.num_category category=class_info.category}}
+						</div>
+						<div class="w-full px-1 flex flex-row py-2">
+							{{> score_card score_name="Difficulty" score=class_info.difficulty rank=class_info.difficulty_rank num_classes=class_info.num_classes score_text="/10" rank_category=class_info.difficulty_category_rank num_category=class_info.num_category category=class_info.category}}
+							{{> score_card score_name="Enjoyment" score=class_info.enjoyment rank=class_info.enjoyment_rank num_classes=class_info.num_classes score_text="/10" rank_category=class_info.enjoyment_category_rank num_category=class_info.num_category category=class_info.category}}
+						</div>
+						<div class="w-full px-1 flex flex-row pt-2">
+							{{> score_card score_name="Teacher Score" score=class_info.teacher_score rank=class_info.teacher_score_rank num_classes=class_info.num_classes score_text="/10" rank_category=class_info.teacher_score_category_rank num_category=class_info.num_category category=class_info.category}}
+							{{> score_card score_name="Grade" score=class_info.grade rank=class_info.grade_rank num_classes=class_info.num_classes score_text="%" rank_category=class_info.grade_category_rank num_category=class_info.num_category category=class_info.category}}
 						</div>
 					</div>
 				</div>
@@ -57,9 +60,13 @@
 										<thead>
 											<tr class="text-center">
 												<th>Term</th>
-												<th>Number of Students</th>
-												<th>Class Score</th>
-												<th>Workload</th>
+												<th>#</th>
+												<th>SCO</th>
+												<th>WRK</th>
+												<th>DIFF</th>
+												<th>ENJ</th>
+												<th>TCH</th>
+												<th>GRD</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -69,6 +76,10 @@
 												<td>{{this.total}}</td>
 												<td>{{fix_number this.med_score}}</td>
 												<td>{{fix_number this.med_workload}}</td>
+												<td>{{fix_number this.med_difficulty}}</td>
+												<td>{{fix_number this.med_enjoyment}}</td>
+												<td>{{fix_number this.med_teacher_score}}</td>
+												<td>{{fix_number this.med_grade}}</td>
 											</tr>
 											{{/each}}
 										</tbody>
@@ -84,9 +95,13 @@
 										<thead>
 											<tr class="text-center">
 												<th>Term</th>
-												<th>Number of Students</th>
-												<th>Class Score</th>
-												<th>Workload</th>
+												<th>#</th>
+												<th>SCO</th>
+												<th>WRK</th>
+												<th>DIFF</th>
+												<th>ENJ</th>
+												<th>TCH</th>
+												<th>GRD</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -96,6 +111,10 @@
 												<td>{{this.total}}</td>
 												<td>{{fix_number this.avg_score}}</td>
 												<td>{{fix_number this.avg_workload}}</td>
+												<td>{{fix_number this.avg_difficulty}}</td>
+												<td>{{fix_number this.avg_enjoyment}}</td>
+												<td>{{fix_number this.avg_teacher_score}}</td>
+												<td>{{fix_number this.avg_grade}}</td>
 											</tr>
 											{{/each}}
 										</tbody>
@@ -119,9 +138,13 @@
 										<thead>
 											<tr class="text-center">
 												<th>Term</th>
-												<th>Number of Students</th>
-												<th>Class Score</th>
-												<th>Workload</th>
+												<th>#</th>
+												<th>SCO</th>
+												<th>WRK</th>
+												<th>DIFF</th>
+												<th>ENJ</th>
+												<th>TCH</th>
+												<th>GRD</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -131,6 +154,10 @@
 												<td>{{this.total}}</td>
 												<td>{{fix_number this.class_score}}</td>
 												<td>{{fix_number this.workload}}</td>
+												<td>{{fix_number this.difficulty}}</td>
+												<td>{{fix_number this.enjoyment}}</td>
+												<td>{{fix_number this.teacher_score}}</td>
+												<td>{{fix_number this.grade}}</td>
 											</tr>
 											{{/each}}
 										</tbody>

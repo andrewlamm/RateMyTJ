@@ -5,7 +5,7 @@ import random
 
 try:
 	cnx = mysql.connector.connect(user='root', password="asdf", host="127.0.0.1", database='RateMyTJ')
-except err:
+except Exception as err:
 	print(err)
 
 cursor = cnx.cursor()
@@ -27,7 +27,7 @@ result = cursor.fetchall()
 
 TEACHERS = ["Teacher" + chr(ord("A")+i) for i in range(26)]
 TERMS_YR = ["2020-2021", "2019-2020", "2018-2019"]
-TERMS_SEM = ["2020-2021 Fall", "2019-2020 Fall", "2018-2019 Fall", "2020-2021 Spring", "2019-2020 Spring", "2018-2019 Spring"]
+TERMS_SEM = [ "2020-2021 Spring", "2020-2021 Fall", "2019-2020 Spring", "2019-2020 Fall", "2018-2019 Spring", "2018-2019 Fall"]
 
 # cursor.execute('INSERT INTO class_119504(user_id, review_time, term, teacher, class_score, workload, feedback, edited) VALUE (10000,"' + str(datetime.now()) + '", "2020-2021", "TeacherB", 5.43, 1.23, "", 0);')
 
@@ -79,6 +79,8 @@ TERMS_SEM = ["2020-2021 Fall", "2019-2020 Fall", "2018-2019 Fall", "2020-2021 Sp
 # 			cursor.execute('INSERT INTO class_' + class_id + '(user_id, review_time, term, teacher, class_score, workload, feedback, edited) VALUE (%s, "%s", "%s", "%s", %s, %s, "", 0);' % (user, str(datetime.now()), random.choice(TEACHER_TERMS[teacher]), teacher, round(random.uniform(start_val, end_val), 2), round(random.uniform(start_val_b, end_val_b), 2)))
 
 ###UPDATE MAIN classes TABLE
+
+NEW_STATS = ["workload", "difficulty", "enjoyment", "teacher_score", "grade"]
 for item in result:
 	class_id = item[2]
 	print(class_id)
@@ -101,29 +103,42 @@ for item in result:
 	total_len = len(class_result)
 	new_median = 0
 
-	if total_len % 2 == 0:
+	if total_len % 2 != 0:
 		new_median = class_result[total_len // 2][0]
 	else:
 		new_median = (class_result[(total_len // 2)-1][0] + class_result[(total_len // 2)][0]) / 2
 
 	cursor.execute('UPDATE classes SET class_score =' + str(new_median) + ' WHERE id="' + class_id + '";')
 
+	for s in NEW_STATS:
+		if item[5] == "Full Year":
+			cursor.execute("SELECT " + s + ", ROW_NUMBER() OVER(ORDER BY " + s + ") rownum FROM class_" + class_id + ' WHERE TERM="'+ TERMS_YR[0+incr] + '";')
+		else:
+			cursor.execute("SELECT " + s + ", ROW_NUMBER() OVER(ORDER BY " + s + ") rownum FROM class_" + class_id + ' WHERE TERM="'+ TERMS_SEM[0+incr] + '";')
+		class_result = cursor.fetchall()
+
+		total_len = len(class_result)
+		new_median = 0
+
+		if total_len % 2 != 0:
+			new_median = class_result[total_len // 2][0]
+		else:
+			new_median = (class_result[(total_len // 2)-1][0] + class_result[(total_len // 2)][0]) / 2
+
+		cursor.execute('UPDATE classes SET ' + s + ' =' + str(new_median) + ' WHERE id="' + class_id + '";')
+
+	total = 0
 	if item[5] == "Full Year":
-		cursor.execute("SELECT workload, ROW_NUMBER() OVER(ORDER BY workload) rownum FROM class_" + class_id + ' WHERE TERM="'+ TERMS_YR[0+incr] + '";')
+		cursor.execute("SELECT " + s + ", ROW_NUMBER() OVER(ORDER BY " + s + ") rownum FROM class_" + class_id + ' WHERE TERM="'+ TERMS_YR[0+incr] + '";')
 	else:
-		cursor.execute("SELECT workload, ROW_NUMBER() OVER(ORDER BY workload) rownum FROM class_" + class_id + ' WHERE TERM="'+ TERMS_SEM[0+incr] + '";')
-	class_result = cursor.fetchall()
+		cursor.execute("SELECT " + s + ", ROW_NUMBER() OVER(ORDER BY " + s + ") rownum FROM class_" + class_id + ' WHERE TERM="'+ TERMS_SEM[0+incr] + '";')
+	grade_result = cursor.fetchall()
 
-	total_len = len(class_result)
-	new_median = 0
-
-	if total_len % 2 == 0:
-		new_median = class_result[total_len // 2][0]
-	else:
-		new_median = (class_result[(total_len // 2)-1][0] + class_result[(total_len // 2)][0]) / 2
-
-
-	cursor.execute('UPDATE classes SET workload =' + str(new_median) + ' WHERE id="' + class_id + '";')
+	for i in grade_result:
+		if i[0] is not None:
+			total += 1
+	cursor.execute('UPDATE classes SET grade_inputs=' + str(total) + ' WHERE id="' + class_id + '";')
+	cursor.execute('UPDATE classes SET total=' + str(len(grade_result)) + ' WHERE id="' + class_id + '";')
 
 cnx.commit()
 
