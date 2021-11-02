@@ -119,6 +119,18 @@ function avg_terms(req, res, next) {
   })
 }
 
+function grade_num(req, res, next) {
+  pool.query('SELECT term, COUNT(*) AS total FROM class_' + res.locals.results.id + ' GROUP BY term;', function(e,r) {
+    var total = 0
+    for (var i = 0; i < r.length; i++) {
+      res.locals.term_stats[res.locals.term_to_index[r[i].term]].grade_total = r[i].total
+      total += r[i].total
+    }
+    res.locals.term_stats[res.locals.term_stats.length-1].grade_total = total
+    next()
+  })
+}
+
 function median_score(req, res, next) {
   pool.query('SELECT term, class_score, ROW_NUMBER() OVER(PARTITION BY term ORDER BY class_score DESC) AS row_num FROM class_' + res.locals.results.id + ';', function(e,r) {
     // console.log(res.locals.term_to_index)
@@ -354,14 +366,14 @@ function overall_teacher_workload(req, res, next) {
 
 //////// DIFFICULTY CODE STARTS HERE
 function get_difficulty_rank(req, res, next) {
-  pool.query('SELECT name, RANK() OVER (ORDER BY difficulty DESC) ranking FROM classes WHERE difficulty >= ' + res.locals.results.difficulty + ' ORDER BY ranking', function(e,r) {
+  pool.query('SELECT name, RANK() OVER (ORDER BY difficulty) ranking FROM classes WHERE difficulty <= ' + res.locals.results.difficulty + ' ORDER BY ranking', function(e,r) {
     res.locals.results.difficulty_rank = r[r.length-1].ranking
     next()
   })
 }
 
 function difficulty_category(req, res, next) {
-  pool.query('SELECT name, RANK() OVER (ORDER BY difficulty DESC) ranking FROM classes WHERE difficulty >= ' + res.locals.results.difficulty + ' AND category="' + res.locals.results.category + '" ORDER BY ranking', function(e,r) {
+  pool.query('SELECT name, RANK() OVER (ORDER BY difficulty) ranking FROM classes WHERE difficulty <= ' + res.locals.results.difficulty + ' AND category="' + res.locals.results.category + '" ORDER BY ranking', function(e,r) {
     res.locals.results.difficulty_category_rank = r[r.length-1].ranking
     next()
   })
@@ -822,13 +834,35 @@ function median_overall_grade(req, res, next) {
   })
 }
 
-var base_middleware = [get_class_info, get_total_classes, num_category, avg_terms, avg_overall]
+function teacher_grade_num(req, res, next) {
+  pool.query('SELECT teacher, term, COUNT(*) AS total FROM class_' + res.locals.results.id + ' WHERE grade >= 0 GROUP BY term, teacher;', function(e ,r) {
+    if (r.length > 0) {
+      for (var i = 0; i < r.length; i++) {
+        res.locals.teachers[res.locals.teacher_to_index[r[i].teacher]].terms[res.locals.term_teacher_to_index[r[i].teacher][r[i].term]].grade_total = r[i].total
+      }
+    }
+    next()
+  })
+}
+
+function teacher_grade_num_overall(req, res, next) {
+  pool.query('SELECT teacher, term, COUNT(*) AS total FROM class_' + res.locals.results.id + ' WHERE grade >= 0 GROUP BY teacher;', function(e ,r) {
+    if (r.length > 0) {
+      for (var i = 0; i < r.length; i++) {
+        res.locals.teachers[res.locals.teacher_to_index[r[i].teacher]].terms[res.locals.teachers[res.locals.teacher_to_index[r[i].teacher]].terms.length-1].grade_total = r[i].total
+      }
+    }
+    next()
+  })
+}
+
+var base_middleware = [get_class_info, get_total_classes, num_category, avg_terms, avg_overall, grade_num]
 var score_middleware = [get_score_rank, score_category, median_score, teacher_class_score, overall_teacher_score, median_overall_score]
 var workload_middleware = [get_workload_rank, workload_category, median_workload, teacher_workload, overall_teacher_workload, median_overall_workload]
 var difficulty_middleware = [get_difficulty_rank, difficulty_category, median_difficulty, teacher_difficulty, overall_teacher_difficulty, median_overall_difficulty]
 var enjoyment_middleware = [get_enjoyment_rank, enjoyment_category, median_enjoyment, teacher_enjoyment, overall_teacher_enjoyment, median_overall_enjoyment]
 var teacher_score_middleware = [get_teacher_score_rank, teacher_score_category, median_teacher_score, teacher_teacher_score, overall_teacher_teacher_score, median_overall_teacher_score]
-var grade_middleware = [get_grade_rank, grade_category, median_grade, teacher_grade, overall_teacher_grade, median_overall_grade]
+var grade_middleware = [get_grade_rank, grade_category, median_grade, teacher_grade, overall_teacher_grade, median_overall_grade, teacher_grade_num, teacher_grade_num_overall]
 
 app.get('/', (req, res) => {
   pool.query("SELECT * FROM classes;", function(error, results) {

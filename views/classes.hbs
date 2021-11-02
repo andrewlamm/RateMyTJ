@@ -79,7 +79,7 @@
 												<td>{{fix_number this.med_difficulty}}</td>
 												<td>{{fix_number this.med_enjoyment}}</td>
 												<td>{{fix_number this.med_teacher_score}}</td>
-												<td>{{fix_number this.med_grade}}</td>
+												<td>{{fix_number this.med_grade}} ({{this.grade_total}})</td>
 											</tr>
 											{{/each}}
 										</tbody>
@@ -114,7 +114,7 @@
 												<td>{{fix_number this.avg_difficulty}}</td>
 												<td>{{fix_number this.avg_enjoyment}}</td>
 												<td>{{fix_number this.avg_teacher_score}}</td>
-												<td>{{fix_number this.avg_grade}}</td>
+												<td>{{fix_number this.avg_grade}} ({{this.grade_total}})</td>
 											</tr>
 											{{/each}}
 										</tbody>
@@ -157,7 +157,7 @@
 												<td>{{fix_number this.difficulty}}</td>
 												<td>{{fix_number this.enjoyment}}</td>
 												<td>{{fix_number this.teacher_score}}</td>
-												<td>{{fix_number this.grade}}</td>
+												<td>{{fix_number this.grade}} ({{this.grade_total}})</td>
 											</tr>
 											{{/each}}
 										</tbody>
@@ -178,8 +178,6 @@
 						'searchable'    : false,
 						'targets'       : [1, 2, 3]
 					},
-					{ "width": '200px', "targets": 0 },
-					{ "width": '100px', "targets": 1 },
 				],
 				"iDisplayLength": 10,
 				"language": {
@@ -193,8 +191,6 @@
 						'searchable'    : false,
 						'targets'       : [1, 2, 3]
 					},
-					{ "width": '200px', "targets": 0 },
-					{ "width": '100px', "targets": 1 },
 				],
 				"iDisplayLength": 10,
 				"language": {
@@ -209,8 +205,6 @@
 							'searchable'    : false,
 							'targets'       : [1, 2, 3]
 						},
-						{ "width": '200px', "targets": 0 },
-						{ "width": '100px', "targets": 1 },
 					],
 					"iDisplayLength": 10,
 					"language": {
