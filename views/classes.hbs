@@ -13,7 +13,7 @@
 		{{> header}}
         <div class="text-center">
 			<div class="text-6xl font-bold pb-1">
-				{{class_info.name}} {{#checkEmpty class_info.alt}} ({{class_info.alt}}) {{/checkEmpty}}
+				{{class_info.name}} {{#check_empty class_info.alt}} ({{class_info.alt}}) {{/check_empty}}
 			</div>
 			<div class="width-full flex flex-row items-center justify-center">
 				<div class="px-2"><b>ID: </b>{{class_info.id}}</div>
@@ -46,7 +46,7 @@
 					</div>
 				</div>
 				<div class="flex flex-col">
-					<div class="flex flex-col">
+					<div class="flex flex-col pb-2">
 						<div class="w-full text-center font-bold text-3xl">
 							Historical Data
 						</div>
@@ -123,7 +123,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="flex flex-col">
+					<div class="flex flex-col pb-2">
 						<div class="w-full text-center font-bold text-3xl">
 							Teachers
 						</div>
@@ -167,6 +167,40 @@
 							{{/each}}
 						</div>
 					</div>
+					<div class="w-full flex flex-col">
+						<div class="w-full text-center font-bold text-3xl">
+							Reviews
+						</div>
+						{{#empty_feedback feedback}}
+						<div class="text-center text-xl font-bold">
+							There are no reviews for this class.
+						</div>
+						{{/empty_feedback}}
+						<div class="w-full grid grid-cols-2 place-items-center items-center justify-center">
+							{{#each feedback}}
+							<div class="w-full px-4 flex flex-col text-left">
+								<div class="font-bold text-xl">
+									User{{random_number}}
+								</div>
+								<div class="text-base">
+									Posted on {{format_date review_time}} {{#if edited}}(edited){{/if}}
+								</div>
+								<div class="text-base">
+									<span><b>Score: </b>{{class_score}}/10</span> | <span><b>Workload: </b>{{workload}} hrs/wk</span> | <span><b>Difficulty: </b>{{difficulty}}/10</span> | <span><b>Enjoyment: </b>{{enjoyment}}/10</span> | <span><b>Teacher Score: </b>{{teacher_score}}/10</span>
+								</div>
+								{{#if show_teacher}}
+								<div class="text-base">
+									<b>Teacher: </b>{{teacher}}
+								</div>
+								{{/if}}
+								<hr>
+								<div>
+									{{feedback}}
+								</div>
+							</div>
+							{{/each}}
+						</div>
+					</div>
 				</div>
 			</div>
         </div>
@@ -178,6 +212,7 @@
 						'searchable'    : false,
 						'targets'       : [1, 2, 3]
 					},
+					{ "width": '150px', "targets": 0 },
 				],
 				"iDisplayLength": 10,
 				"language": {
@@ -191,6 +226,7 @@
 						'searchable'    : false,
 						'targets'       : [1, 2, 3]
 					},
+					{ "width": '150px', "targets": 0 },
 				],
 				"iDisplayLength": 10,
 				"language": {
@@ -205,6 +241,7 @@
 							'searchable'    : false,
 							'targets'       : [1, 2, 3]
 						},
+						{ "width": '150px', "targets": 0 },
 					],
 					"iDisplayLength": 10,
 					"language": {

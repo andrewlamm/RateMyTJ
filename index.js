@@ -15,7 +15,16 @@ hbs.registerHelper('fix_number', function(num) {
   return num.toFixed(2);
 });
 
-hbs.registerHelper('checkEmpty', function(s, options) {
+hbs.registerHelper('random_number', function(num) {
+  return Math.floor(Math.random() * 10000)
+});
+
+hbs.registerHelper('format_date', function(d) {
+  var s = d.toString()
+  return s.substring(s.search(" ")+1, s.search("GMT")-1)
+});
+
+hbs.registerHelper('check_empty', function(s, options) {
   if (s === "") {
     return;
   }
@@ -23,6 +32,12 @@ hbs.registerHelper('checkEmpty', function(s, options) {
     return options.fn(this)
   }
 });
+
+hbs.registerHelper('empty_feedback', function(feedback, options) {
+  if (feedback.length == 0) {
+    return options.fn(this)
+  }
+})
 
 hbs.registerHelper('turn_to_ordinal', function(num) {
   var ones = num % 10
@@ -127,6 +142,13 @@ function grade_num(req, res, next) {
       total += r[i].total
     }
     res.locals.term_stats[res.locals.term_stats.length-1].grade_total = total
+    next()
+  })
+}
+
+function get_feedback(req, res, next) {
+  pool.query('SELECT * FROM class_' + res.locals.results.id + ' WHERE NOT (feedback="");', function(e,r) {
+    res.locals.feedback = r
     next()
   })
 }
@@ -846,7 +868,7 @@ function teacher_grade_num(req, res, next) {
 }
 
 function teacher_grade_num_overall(req, res, next) {
-  pool.query('SELECT teacher, term, COUNT(*) AS total FROM class_' + res.locals.results.id + ' WHERE grade >= 0 GROUP BY teacher;', function(e ,r) {
+  pool.query('SELECT teacher, COUNT(*) AS total FROM class_' + res.locals.results.id + ' WHERE grade >= 0 GROUP BY teacher;', function(e ,r) {
     if (r.length > 0) {
       for (var i = 0; i < r.length; i++) {
         res.locals.teachers[res.locals.teacher_to_index[r[i].teacher]].terms[res.locals.teachers[res.locals.teacher_to_index[r[i].teacher]].terms.length-1].grade_total = r[i].total
@@ -856,7 +878,7 @@ function teacher_grade_num_overall(req, res, next) {
   })
 }
 
-var base_middleware = [get_class_info, get_total_classes, num_category, avg_terms, avg_overall, grade_num]
+var base_middleware = [get_class_info, get_total_classes, num_category, avg_terms, avg_overall, grade_num, get_feedback]
 var score_middleware = [get_score_rank, score_category, median_score, teacher_class_score, overall_teacher_score, median_overall_score]
 var workload_middleware = [get_workload_rank, workload_category, median_workload, teacher_workload, overall_teacher_workload, median_overall_workload]
 var difficulty_middleware = [get_difficulty_rank, difficulty_category, median_difficulty, teacher_difficulty, overall_teacher_difficulty, median_overall_difficulty]
@@ -873,8 +895,9 @@ app.get('/', (req, res) => {
 app.get('/class/:classID', base_middleware.concat(score_middleware).concat(workload_middleware).concat(difficulty_middleware).concat(enjoyment_middleware).concat(teacher_score_middleware).concat(grade_middleware), function (req, res) {
   // console.log(res.locals.results)
   // console.log(res.locals.term_stats)
-  //console.log(res.locals.teachers)
-  res.render('classes', {"class_info": res.locals.results, "term_stats": res.locals.term_stats, "teacher": res.locals.teachers})
+  // console.log(res.locals.teachers)
+  console.log(res.locals.feedback)
+  res.render('classes', {"class_info": res.locals.results, "term_stats": res.locals.term_stats, "teacher": res.locals.teachers, "feedback": res.locals.feedback})
 })
 
 app.listen(port, () => {

@@ -24,27 +24,29 @@ for item in result:
 # 	cursor.execute('ALTER TABLE class_' + class_id + ' ADD enjoyment DOUBLE;')
 # 	cursor.execute('ALTER TABLE class_' + class_id + ' ADD teacher_score DOUBLE;')
 # 	cursor.execute('ALTER TABLE class_' + class_id + ' ADD grade DOUBLE;')
+#	cursor.execute('ALTER TABLE class_' + class_id + ' ADD show_teacher BOOL;')
 
-for class_id in classes:
-	cursor.execute("SELECT * FROM class_" + class_id)
-	result = cursor.fetchall()
+# for class_id in classes:
+# 	cursor.execute("SELECT * FROM class_" + class_id)
+# 	result = cursor.fetchall()
 
-	diff_bound = random.random() * 10
-	diff_bound_b = random.random() * 10
-	enjoy_bound = random.random() * 10
-	enjoy_bound_b = random.random() * 10
-	teacher_bound = random.random() * 10
-	teacher_bound_b = random.random() * 10
-	grade_bound = random.random() * 50 + 50
-	grade_bound_b = random.random() * 50 + 50
+# 	diff_bound = random.random() * 10
+# 	diff_bound_b = random.random() * 10
+# 	enjoy_bound = random.random() * 10
+# 	enjoy_bound_b = random.random() * 10
+# 	teacher_bound = random.random() * 10
+# 	teacher_bound_b = random.random() * 10
+# 	grade_bound = random.random() * 50 + 50
+# 	grade_bound_b = random.random() * 50 + 50
 
-	for item in result:
-		user_id = item[0]
+#	for item in result:
+# 		user_id = item[0]
+# 		cursor.execute('UPDATE class_%s SET show_teacher=1 WHERE user_id=%s' % (class_id, user_id))
 
-		if random.random() < 0.8:
-			cursor.execute('UPDATE class_%s SET difficulty=%s, enjoyment=%s, teacher_score=%s, grade=%s WHERE user_id="%s"' % (class_id, round(random.uniform(diff_bound, diff_bound_b), 2), round(random.uniform(enjoy_bound, enjoy_bound_b), 2), round(random.uniform(teacher_bound, teacher_bound_b), 2), round(random.uniform(grade_bound, grade_bound_b), 2), user_id))
-		else:
-			cursor.execute('UPDATE class_%s SET difficulty=%s, enjoyment=%s, teacher_score=%s, grade=NULL WHERE user_id="%s"' % (class_id, round(random.uniform(diff_bound, diff_bound_b), 2), round(random.uniform(enjoy_bound, enjoy_bound_b), 2), round(random.uniform(teacher_bound, teacher_bound_b), 2), user_id))
+# 		if random.random() < 0.8:
+# 			cursor.execute('UPDATE class_%s SET difficulty=%s, enjoyment=%s, teacher_score=%s, grade=%s WHERE user_id="%s"' % (class_id, round(random.uniform(diff_bound, diff_bound_b), 2), round(random.uniform(enjoy_bound, enjoy_bound_b), 2), round(random.uniform(teacher_bound, teacher_bound_b), 2), round(random.uniform(grade_bound, grade_bound_b), 2), user_id))
+# 		else:
+# 			cursor.execute('UPDATE class_%s SET difficulty=%s, enjoyment=%s, teacher_score=%s, grade=NULL WHERE user_id="%s"' % (class_id, round(random.uniform(diff_bound, diff_bound_b), 2), round(random.uniform(enjoy_bound, enjoy_bound_b), 2), round(random.uniform(teacher_bound, teacher_bound_b), 2), user_id))
 
 				
 
