@@ -46,35 +46,37 @@
 					<input type="checkbox" name="Honors" checked onclick="filterChange(6)" id="+0.5"><label for="+0.5">Honors (+0.5)</label><br>
 					<input type="checkbox" name="AP" checked onclick="filterChange(6)" id="+1.0"><label for="+1.0">AP/Post-AP (+1.0)</label><br>
 				</div>
-				<div style="padding-top: 10px">
-					<b>Class Score:</b><br>
-					<b>Min:</b><br><input type="number" name="MinClassScore" checked id="minclassscore" onkeyup="filterNumber(this.id, 8)" onclick="filterNumber(this.id, 8)" min="0" max="10"><br>
-					<b>Max:</b><br><input type="number" name="MaxClassScore" checked id="maxclassscore" onkeyup="filterNumber(this.id, 8)" onclick="filterNumber(this.id, 8)" min="0" max="10"><br>
-				</div>
-				<div style="padding-top: 10px">
-					<b>Hours/Week:</b><br>
-					<b>Min:</b><br><input type="number" name="MinHrsWeek" checked id="minhrsweek" onkeyup="filterNumber(this.id, 9)" onclick="filterNumber(this.id, 9)" min="0" max="10"><br>
-					<b>Max:</b><br><input type="number" name="MaxHrsWeek" checked id="maxhrsweek" onkeyup="filterNumber(this.id, 9)" onclick="filterNumber(this.id, 9)" min="0" max="10"><br>
-				</div>
-				<div style="padding-top: 10px">
-					<b>Difficulty:</b><br>
-					<b>Min:</b><br><input type="number" name="MinDifficulty" checked id="mindifficulty" onkeyup="filterNumber(this.id, 10)" onclick="filterNumber(this.id, 10)" min="0" max="10"><br>
-					<b>Max:</b><br><input type="number" name="MaxDifficulty" checked id="maxdifficulty" onkeyup="filterNumber(this.id, 10)" onclick="filterNumber(this.id, 10)" min="0" max="10"><br>
-				</div>
-				<div style="padding-top: 10px">
-					<b>Enjoyment:</b><br>
-					<b>Min:</b><br><input type="number" name="MinEnjoyment" checked id="minenjoyment" onkeyup="filterNumber(this.id, 11)" onclick="filterNumber(this.id, 11)" min="0" max="10"><br>
-					<b>Max:</b><br><input type="number" name="MaxEnjoyment" checked id="maxenjoyment" onkeyup="filterNumber(this.id, 11)" onclick="filterNumber(this.id, 11)" min="0" max="10"><br>
-				</div>
-				<div style="padding-top: 10px">
-					<b>Teacher Score:</b><br>
-					<b>Min:</b><br><input type="number" name="MinTeacherScore" checked id="minteacherscore" onkeyup="filterNumber(this.id, 12)" onclick="filterNumber(this.id, 12)" min="0" max="10"><br>
-					<b>Max:</b><br><input type="number" name="MaxTeacherScore" checked id="maxteacherscore" onkeyup="filterNumber(this.id, 12)" onclick="filterNumber(this.id, 12)" min="0" max="10"><br>
-				</div>
-				<div style="padding-top: 10px">
-					<b>Average Grade:</b><br>
-					<b>Min:</b><br><input type="number" name="MinGrade" checked id="mingrade" onkeyup="filterNumber(this.id, 13)" onclick="filterNumber(this.id, 13)" min="0" max="100"><br>
-					<b>Max:</b><br><input type="number" name="MaxGrade" checked id="maxgrade" onkeyup="filterNumber(this.id, 13)" onclick="filterNumber(this.id, 13)" min="0" max="100"><br>
+				<div style="display: grid; grid-template-columns: repeat(2,minmax(0,1fr));">
+					<div style="padding-top: 10px; padding-left:2px;">
+						<b>Class Score:</b><br>
+						<b>Min:</b><br><input type="number" name="MinClassScore" checked id="minclassscore" onkeyup="filterNumber(this.id, 8)" onclick="filterNumber(this.id, 8)" min="0" max="10"><br>
+						<b>Max:</b><br><input type="number" name="MaxClassScore" checked id="maxclassscore" onkeyup="filterNumber(this.id, 8)" onclick="filterNumber(this.id, 8)" min="0" max="10"><br>
+					</div>
+					<div style="padding-top: 10px;">
+						<b>Hours/Week:</b><br>
+						<b>Min:</b><br><input type="number" name="MinHrsWeek" checked id="minhrsweek" onkeyup="filterNumber(this.id, 9)" onclick="filterNumber(this.id, 9)" min="0" max="10"><br>
+						<b>Max:</b><br><input type="number" name="MaxHrsWeek" checked id="maxhrsweek" onkeyup="filterNumber(this.id, 9)" onclick="filterNumber(this.id, 9)" min="0" max="10"><br>
+					</div>
+					<div style="padding-top: 10px; padding-left:2px;">
+						<b>Difficulty:</b><br>
+						<b>Min:</b><br><input type="number" name="MinDifficulty" checked id="mindifficulty" onkeyup="filterNumber(this.id, 10)" onclick="filterNumber(this.id, 10)" min="0" max="10"><br>
+						<b>Max:</b><br><input type="number" name="MaxDifficulty" checked id="maxdifficulty" onkeyup="filterNumber(this.id, 10)" onclick="filterNumber(this.id, 10)" min="0" max="10"><br>
+					</div>
+					<div style="padding-top: 10px;">
+						<b>Enjoyment:</b><br>
+						<b>Min:</b><br><input type="number" name="MinEnjoyment" checked id="minenjoyment" onkeyup="filterNumber(this.id, 11)" onclick="filterNumber(this.id, 11)" min="0" max="10"><br>
+						<b>Max:</b><br><input type="number" name="MaxEnjoyment" checked id="maxenjoyment" onkeyup="filterNumber(this.id, 11)" onclick="filterNumber(this.id, 11)" min="0" max="10"><br>
+					</div>
+					<div style="padding-top: 10px; padding-left:2px;">
+						<b>Teacher Score:</b><br>
+						<b>Min:</b><br><input type="number" name="MinTeacherScore" checked id="minteacherscore" onkeyup="filterNumber(this.id, 12)" onclick="filterNumber(this.id, 12)" min="0" max="10"><br>
+						<b>Max:</b><br><input type="number" name="MaxTeacherScore" checked id="maxteacherscore" onkeyup="filterNumber(this.id, 12)" onclick="filterNumber(this.id, 12)" min="0" max="10"><br>
+					</div>
+					<div style="padding-top: 10px">
+						<b>Average Grade:</b><br>
+						<b>Min:</b><br><input type="number" name="MinGrade" checked id="mingrade" onkeyup="filterNumber(this.id, 13)" onclick="filterNumber(this.id, 13)" min="0" max="100"><br>
+						<b>Max:</b><br><input type="number" name="MaxGrade" checked id="maxgrade" onkeyup="filterNumber(this.id, 13)" onclick="filterNumber(this.id, 13)" min="0" max="100"><br>
+					</div>
 				</div>
 			</div>
 			<div>

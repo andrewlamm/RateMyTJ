@@ -61,7 +61,7 @@ var pool = mysql.createPool({
   port: '3306',
   database: 'RateMyTJ'
 })
-var STATS = ["difficulty", "enjoyment", "teacher_score", "grade"]
+var STATS = [["workload", "", "<="], ["difficulty","","<="], ["enjoyment", "DESC", ">="], ["teacher_score", "DESC", ">="], ["grade", "DESC", ">="]]
 
 function get_class_info(req, res, next) {
   console.log('SELECT * FROM classes WHERE id="' + req.params.classID + '";')
@@ -400,17 +400,14 @@ function median_overall_stat(stat) {
   }
 }
 
-
-
 // function do_stats_functions(req, res, next) {
 //   for (var i = 0; i < STATS.length; i++) {
-//     console.log(i)
-//     get_stat_rank(STATS[i])
-//     stat_category(STATS[i])
-//     median_stat(STATS[i])
-//     teacher_stat(STATS[i])
-//     overall_teacher_stat(STATS[i])
-//     median_overall_stat(STATS[i])
+//     get_stat_rank(STATS[i][0], STATS[i][1], STATS[i][2])
+//     stat_category(STATS[i][0], STATS[i][1], STATS[i][2])
+//     median_stat(STATS[i][0])
+//     teacher_stat(STATS[i][0])
+//     overall_teacher_stat(STATS[i][0])
+//     median_overall_stat(STATS[i][0])
 //   }
 //   next()
 // }
