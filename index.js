@@ -271,22 +271,18 @@ function overall_teacher_score(req, res, next) {
 }
 
 //////// GENERIC CODE STARTS HERE
-function get_stat_rank(stat) {
-  console.log(stat)
+function get_stat_rank(stat, desc, arrow) {
   return function(req, res, next) {
-    console.log("poggers " + stat)
-    pool.query('SELECT name, RANK() OVER (ORDER BY ' + stat + ') ranking FROM classes WHERE ' + stat + ' <= ' + res.locals.results[stat] + ' ORDER BY ranking', function(e,r) {
+    pool.query('SELECT name, RANK() OVER (ORDER BY ' + stat + ' ' + desc + ') ranking FROM classes WHERE ' + stat + ' ' + arrow + ' ' + res.locals.results[stat] + ' ORDER BY ranking', function(e,r) {
       res.locals.results[stat + "_rank"] = r[r.length-1].ranking
       next()
     })
   }
 }
 
-function stat_category(stat) {
-  console.log(stat)
+function stat_category(stat, desc, arrow) {
   return function(req, res, next) {
-    console.log("poggers " + stat)
-    pool.query('SELECT name, RANK() OVER (ORDER BY ' + stat + ') ranking FROM classes WHERE ' + stat + ' <= ' + res.locals.results[stat] + ' AND category="' + res.locals.results.category + '" ORDER BY ranking', function(e,r) {
+    pool.query('SELECT name, RANK() OVER (ORDER BY ' + stat + ' ' + desc + ') ranking FROM classes WHERE ' + stat + ' ' + arrow + ' ' + res.locals.results[stat] + ' AND category="' + res.locals.results.category + '" ORDER BY ranking', function(e,r) {
       res.locals.results[stat + "_category_rank"] = r[r.length-1].ranking
       next()
     })
@@ -294,9 +290,7 @@ function stat_category(stat) {
 }
 
 function median_stat(stat) {
-  console.log(stat)
   return function(req, res, next) {
-    console.log("poggers " + stat)
     pool.query('SELECT term, ' + stat + ', ROW_NUMBER() OVER(PARTITION BY term ORDER BY ' + stat + ') AS row_num FROM class_' + res.locals.results.id + ';', function(e,r) {
       var curr_ind = 0
       while (curr_ind < r.length) {
@@ -318,9 +312,7 @@ function median_stat(stat) {
 }
 
 function teacher_stat(stat) {
-  console.log(stat)
   return function(req, res, next) {
-    console.log("poggers " + stat)
     pool.query('SELECT teacher, term, ' + stat + ', ROW_NUMBER() OVER(PARTITION BY teacher,term ORDER BY ' + stat + ') AS row_term, ROW_NUMBER() OVER(PARTITION BY teacher ORDER BY term) AS row_teacher FROM class_' + res.locals.results.id, function(e, r) {
       if (r.length > 0) {
         var curr_index = 0
@@ -365,9 +357,7 @@ function teacher_stat(stat) {
 }
 
 function overall_teacher_stat(stat) {
-  console.log(stat)
   return function(req, res, next) {
-    console.log("poggers " + stat)
     pool.query('SELECT teacher, term, ' + stat + ', ROW_NUMBER() OVER(PARTITION BY teacher ORDER BY ' + stat + ') AS row_term FROM class_' + res.locals.results.id + ';', function(e, r) {
       if (r.length > 0) {
         var curr_index = 0
@@ -395,9 +385,7 @@ function overall_teacher_stat(stat) {
 }
 
 function median_overall_stat(stat) {
-  console.log(stat)
   return function(req, res, next) {
-    console.log("poggers " + stat)
     pool.query('SELECT term, ' + stat + ', ROW_NUMBER() OVER(ORDER BY ' + stat + ') AS row_num FROM class_' + res.locals.results.id + ';', function(e,r) {
       if (r.length > 0) {
         if (r.length % 2 == 0) {
@@ -414,18 +402,18 @@ function median_overall_stat(stat) {
 
 
 
-function do_stats_functions(req, res, next) {
-  for (var i = 0; i < STATS.length; i++) {
-    console.log(i)
-    get_stat_rank(STATS[i])
-    stat_category(STATS[i])
-    median_stat(STATS[i])
-    teacher_stat(STATS[i])
-    overall_teacher_stat(STATS[i])
-    median_overall_stat(STATS[i])
-  }
-  next()
-}
+// function do_stats_functions(req, res, next) {
+//   for (var i = 0; i < STATS.length; i++) {
+//     console.log(i)
+//     get_stat_rank(STATS[i])
+//     stat_category(STATS[i])
+//     median_stat(STATS[i])
+//     teacher_stat(STATS[i])
+//     overall_teacher_stat(STATS[i])
+//     median_overall_stat(STATS[i])
+//   }
+//   next()
+// }
 
 //////// GENERIC CODE ENDS HERE
 
@@ -453,11 +441,11 @@ function teacher_grade_num_overall(req, res, next) {
 
 var base_middleware = [get_class_info, get_total_classes, num_category, avg_terms, avg_overall, grade_num, get_feedback]
 var score_middleware = [get_score_rank, score_category, median_score, teacher_class_score, overall_teacher_score, median_overall_score]
-var workload_middleware = [get_stat_rank("workload"), stat_category("workload"), median_stat("workload"), teacher_stat("workload"), overall_teacher_stat("workload"), median_overall_stat("workload")]
-var difficulty_middleware = [get_stat_rank("difficulty"), stat_category("difficulty"), median_stat("difficulty"), teacher_stat("difficulty"), overall_teacher_stat("difficulty"), median_overall_stat("difficulty")]
-var enjoyment_middleware = [get_stat_rank("enjoyment"), stat_category("enjoyment"), median_stat("enjoyment"), teacher_stat("enjoyment"), overall_teacher_stat("enjoyment"), median_overall_stat("enjoyment")]
-var teacher_score_middleware = [get_stat_rank("teacher_score"), stat_category("teacher_score"), median_stat("teacher_score"), teacher_stat("teacher_score"), overall_teacher_stat("teacher_score"), median_overall_stat("teacher_score")]
-var grade_middleware = [get_stat_rank("grade"), stat_category("grade"), median_stat("grade"), teacher_stat("grade"), overall_teacher_stat("grade"), median_overall_stat("grade")]
+var workload_middleware = [get_stat_rank("workload", "", "<="), stat_category("workload", "", "<="), median_stat("workload"), teacher_stat("workload"), overall_teacher_stat("workload"), median_overall_stat("workload")]
+var difficulty_middleware = [get_stat_rank("difficulty", "", "<="), stat_category("difficulty", "", "<="), median_stat("difficulty"), teacher_stat("difficulty"), overall_teacher_stat("difficulty"), median_overall_stat("difficulty")]
+var enjoyment_middleware = [get_stat_rank("enjoyment", "DESC", ">="), stat_category("enjoyment", "DESC", ">="), median_stat("enjoyment"), teacher_stat("enjoyment"), overall_teacher_stat("enjoyment"), median_overall_stat("enjoyment")]
+var teacher_score_middleware = [get_stat_rank("teacher_score", "DESC", ">="), stat_category("teacher_score", "DESC", ">="), median_stat("teacher_score"), teacher_stat("teacher_score"), overall_teacher_stat("teacher_score"), median_overall_stat("teacher_score")]
+var grade_middleware = [get_stat_rank("grade", "DESC", ">="), stat_category("grade", "DESC", ">="), median_stat("grade"), teacher_stat("grade"), overall_teacher_stat("grade"), median_overall_stat("grade")]
 var extra_grade_middleware = [teacher_grade_num, teacher_grade_num_overall]
 var stats_middleware = workload_middleware.concat(difficulty_middleware).concat(enjoyment_middleware).concat(teacher_score_middleware).concat(grade_middleware)
 
@@ -469,7 +457,7 @@ app.get('/', (req, res) => {
 
 app.get('/class/:classID', base_middleware.concat(score_middleware).concat(stats_middleware).concat(extra_grade_middleware), function (req, res) {
   // console.log(res.locals.results)
-  console.log(res.locals.term_stats)
+  // console.log(res.locals.term_stats)
   // console.log(res.locals.teachers)
   // console.log(res.locals.feedback)
   // console.log(res.locals["feedback"])
