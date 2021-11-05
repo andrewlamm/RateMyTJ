@@ -1,8 +1,41 @@
 const express = require('express')
+var cookieSession = require('cookie-session')
+const {  AuthorizationCode } = require('simple-oauth2');
+var https = require('https');
 var hbs = require('hbs')
 var mysql = require('mysql');
 const app = express()
 const port = 3000
+
+app.set('trust proxy', 1)
+
+app.use(cookieSession({
+  name: 'pogchamp',
+  keys: ['urmomsdfasdfjdsfkasdf', 'pgpgofjsjfasdfjj']
+}))
+
+var ion_client_id = 'riogMOPcoOXJdwttjW3mfpM7J7EGagXPx7ebyIit'
+var ion_client_secret = '2ImfFfzhxkuOBHEzNJmNh8gLLf5JKTsbrH2WR4uZly05srRwX5poVEgBqJxxOG4Vw1l2EVhPOlxI1xuczuZpVnrH8uMyFeXqiOEvTuLWEDYwuTBX76d7bqgeAQHWfRUg'
+var ion_redirect_uri = 'http://localhost:3000/login_worker'
+
+var client = new AuthorizationCode({
+  client: {
+    id: ion_client_id,
+    secret: ion_client_secret,
+  },
+  auth: {
+    tokenHost: 'https://ion.tjhsst.edu/oauth/',
+    authorizePath: 'https://ion.tjhsst.edu/oauth/authorize',
+    tokenPath: 'https://ion.tjhsst.edu/oauth/token/'
+  }
+})
+
+var authorizationUri = client.authorizeURL({
+  scope: "read",
+  redirect_uri: ion_redirect_uri
+});
+
+console.log(authorizationUri)
 
 app.set('view engine', 'hbs')
 app.use(express.static(__dirname + '/views'));
@@ -49,13 +82,60 @@ hbs.registerHelper('turn_to_ordinal', function(num) {
     return num + "st";
   }
   if (ones == 2 && tens != 12) {
-      return num + "nd";
+    return num + "nd";
   }
   if (ones == 3 && tens != 13) {
-      return num + "rd";
+    return num + "rd";
   }
   return num + "th";
 })
+
+function getProfileData(req,res,next) {
+  if ('authenticated' in req.session) {
+
+    var access_token = req.session.token.access_token;
+    var profile_url = 'https://ion.tjhsst.edu/api/profile?format=json&access_token='+access_token;
+
+    https.get(profile_url, function(response) {
+      var rawData = '';
+      response.on('data', function(chunk) {
+          rawData += chunk;
+      });
+
+      response.on('end', function() {
+        res.locals.profile = JSON.parse(rawData);
+        res.locals.profile.exists = true
+        next();
+      });
+
+    }).on('error', function(err) {
+        next(err)
+    });
+  }
+  else {
+    next()
+  }
+}
+
+async function convertCodeToToken(req, res, next) {
+  var theCode = req.query.code;
+
+  var options = {
+      'code': theCode,
+      'redirect_uri': ion_redirect_uri,
+      'scope': 'read'
+   };
+
+  try {
+      var accessToken = await client.getToken(options);
+      res.locals.token = accessToken.token;
+      next()
+  }
+  catch (error) {
+      console.log('Access Token Error', error.message);
+       res.send(502);
+  }
+}
 
 var pool = mysql.createPool({
   user: 'root',
@@ -439,6 +519,19 @@ function teacher_grade_num_overall(req, res, next) {
   })
 }
 
+app.get('/login_worker', [convertCodeToToken], function(req, res) {
+  req.session.authenticated = true;
+  req.session.token = res.locals.token;
+
+  res.redirect('/');
+})
+
+app.get('/logout', function (req, res) {
+  delete req.session.authenticated;
+
+  res.redirect('/');
+})
+
 var base_middleware = [get_class_info, get_total_classes, num_category, avg_terms, avg_overall, grade_num, get_feedback]
 var score_middleware = [get_score_rank, score_category, median_score, teacher_class_score, overall_teacher_score, median_overall_score]
 var workload_middleware = [get_stat_rank("workload", "", "<="), stat_category("workload", "", "<="), median_stat("workload"), teacher_stat("workload"), overall_teacher_stat("workload"), median_overall_stat("workload")]
@@ -449,19 +542,20 @@ var grade_middleware = [get_stat_rank("grade", "DESC", ">="), stat_category("gra
 var extra_grade_middleware = [teacher_grade_num, teacher_grade_num_overall]
 var stats_middleware = workload_middleware.concat(difficulty_middleware).concat(enjoyment_middleware).concat(teacher_score_middleware).concat(grade_middleware)
 
-app.get('/', (req, res) => {
+app.get('/', [getProfileData], (req, res) => {
   pool.query("SELECT * FROM classes;", function(error, results) {
-    res.render('index', {"classes": results})
+    console.log(res.locals.profile)
+    res.render('index', {"classes": results, "profile": res.locals.profile, "login_link": authorizationUri})
   })
 })
 
-app.get('/class/:classID', base_middleware.concat(score_middleware).concat(stats_middleware).concat(extra_grade_middleware), function (req, res) {
+app.get('/class/:classID', [getProfileData].concat(base_middleware).concat(score_middleware).concat(stats_middleware).concat(extra_grade_middleware), function (req, res) {
   // console.log(res.locals.results)
   // console.log(res.locals.term_stats)
   // console.log(res.locals.teachers)
   // console.log(res.locals.feedback)
   // console.log(res.locals["feedback"])
-  res.render('classes', {"class_info": res.locals.results, "term_stats": res.locals.term_stats, "teacher": res.locals.teachers, "feedback": res.locals.feedback})
+  res.render('classes', {"class_info": res.locals.results, "term_stats": res.locals.term_stats, "teacher": res.locals.teachers, "feedback": res.locals.feedback, "profile": res.locals.profile, "login_link": authorizationUri})
 })
 
 app.listen(port, () => {

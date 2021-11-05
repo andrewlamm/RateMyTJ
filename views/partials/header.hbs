@@ -3,8 +3,12 @@
         <div style="font-size:4.5rem; line-height:1; font-weight:700; color:white">
             <a href="/" style="color:white;">RateMyTJ</a>
         </div>
-        <div style="font-size:1rem; line-height:2rem; text-align:right; font-weight:600; color: lightblue">
-            Sign in
+        <div style="font-size:1rem; line-height:2rem; text-align:right; font-weight:600; color: white">
+            {{#if profile}}
+            Hello, {{profile.display_name}}. <a class="aheader">View Profile</a> | <a href="/logout" class="aheader">Logout</a>
+            {{else}}
+            <a href="{{login_link}}" class="aheader">Sign in</a>
+            {{/if}}
         </div>
     </div>
 </div>
