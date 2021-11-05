@@ -16,7 +16,10 @@ hbs.registerHelper('fix_number', function(num) {
 });
 
 hbs.registerHelper('random_number', function(num) {
-  return Math.floor(Math.random() * 10000)
+  var DIGITS = 6
+  var s = Math.floor(Math.random() * 10 ** DIGITS) + ""
+  while (s.length < DIGITS) s = '0' + s
+  return s
 });
 
 hbs.registerHelper('format_date', function(d) {
@@ -122,7 +125,7 @@ function avg_terms(req, res, next) {
 }
 
 function grade_num(req, res, next) {
-  pool.query('SELECT term, COUNT(*) AS total FROM class_' + res.locals.results.id + ' GROUP BY term;', function(e,r) {
+  pool.query('SELECT term, COUNT(*) AS total FROM class_' + res.locals.results.id + ' WHERE grade >= 0 GROUP BY term;', function(e,r) {
     var total = 0
     for (var i = 0; i < r.length; i++) {
       res.locals.term_stats[res.locals.term_to_index[r[i].term]].grade_total = r[i].total
