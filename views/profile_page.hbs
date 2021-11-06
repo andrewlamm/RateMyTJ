@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <link href="https://unpkg.com/tailwindcss@2.0.2/dist/tailwind.min.css" rel="stylesheet">
+		<meta charset="utf-8">
+		<title>{{class_info.name}}</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+		<link rel="stylesheet" href="/styles.css">
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+	</head>
+	<body>
+		{{> header}}
+        <div class="w-full flex flex-row align-center justify-center">
+            <div class="flex flex-col text-center">
+                <div class="font-bold text-6xl">
+                    {{profile.display_name}}
+                </div>
+                <div class="font-semibold text-2xl">
+                    {{profile.grade.number}}th Grade | {{capitalize profile.grade.name}}
+                </div>
+            </div>
+        </div>
+        {{> footer}}
+    </body>
+</html>

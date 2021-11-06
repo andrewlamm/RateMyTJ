@@ -188,11 +188,9 @@
 								<div class="text-base">
 									<span><b>Score: </b>{{fix_number class_score}}/10</span> | <span><b>Workload: </b>{{fix_number workload}} hrs/wk</span> | <span><b>Difficulty: </b>{{fix_number difficulty}}/10</span> | <span><b>Enjoyment: </b>{{fix_number enjoyment}}/10</span> | <span><b>Teacher Score: </b>{{fix_number teacher_score}}/10</span>
 								</div>
-								{{#if show_teacher}}
 								<div class="text-base">
-									<b>Teacher: </b>{{teacher}}
+									<span><b>Term: </b>{{term}}</span>{{#if show_teacher}} | <span><b>Teacher: </b>{{teacher}}</span>{{/if}}
 								</div>
-								{{/if}}
 								<hr>
 								<div>
 									{{feedback}}

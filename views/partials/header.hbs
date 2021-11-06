@@ -5,7 +5,7 @@
         </div>
         <div style="font-size:1rem; line-height:2rem; text-align:right; font-weight:600; color: white">
             {{#if profile}}
-            Hello, {{profile.display_name}}. <a class="aheader">View Profile</a> | <a href="/logout" class="aheader">Logout</a>
+            Hello, {{profile.display_name}}. <a href="/profile" class="aheader">View Profile</a> | <a href="/logout" class="aheader">Logout</a>
             {{else}}
             <a href="{{login_link}}" class="aheader">Sign in</a>
             {{/if}}

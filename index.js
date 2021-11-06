@@ -35,7 +35,7 @@ var authorizationUri = client.authorizeURL({
   redirect_uri: ion_redirect_uri
 });
 
-console.log(authorizationUri)
+// console.log(authorizationUri)
 
 app.set('view engine', 'hbs')
 app.use(express.static(__dirname + '/views'));
@@ -75,6 +75,10 @@ hbs.registerHelper('empty_feedback', function(feedback, options) {
   }
 })
 
+hbs.registerHelper('capitalize', function(s) {
+  return (s.charAt(0)+"").toUpperCase() + s.substring(1)
+})
+
 hbs.registerHelper('turn_to_ordinal', function(num) {
   var ones = num % 10
   var tens = num % 100
@@ -89,6 +93,15 @@ hbs.registerHelper('turn_to_ordinal', function(num) {
   }
   return num + "th";
 })
+
+function checkAuthentication(req, res, next) {
+  if ('authenticated' in req.session) {
+    next()
+  }
+  else {
+    res.render('no_login', {"login_link": authorizationUri})
+  }
+}
 
 function getProfileData(req,res,next) {
   if ('authenticated' in req.session) {
@@ -544,7 +557,7 @@ var stats_middleware = workload_middleware.concat(difficulty_middleware).concat(
 
 app.get('/', [getProfileData], (req, res) => {
   pool.query("SELECT * FROM classes;", function(error, results) {
-    console.log(res.locals.profile)
+    // console.log(res.locals.profile)
     res.render('index', {"classes": results, "profile": res.locals.profile, "login_link": authorizationUri})
   })
 })
@@ -556,6 +569,10 @@ app.get('/class/:classID', [getProfileData].concat(base_middleware).concat(score
   // console.log(res.locals.feedback)
   // console.log(res.locals["feedback"])
   res.render('classes', {"class_info": res.locals.results, "term_stats": res.locals.term_stats, "teacher": res.locals.teachers, "feedback": res.locals.feedback, "profile": res.locals.profile, "login_link": authorizationUri})
+})
+
+app.get('/profile', [checkAuthentication, getProfileData], (req, res) => {
+  res.render('profile_page', {"profile": res.locals.profile})
 })
 
 app.listen(port, () => {
