@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE>
 <html>
 	<head>
         <link href="https://unpkg.com/tailwindcss@2.0.2/dist/tailwind.min.css" rel="stylesheet">
@@ -28,7 +28,9 @@
 						<div class="width-full text-center font-semibold text-3xl">
 							Description
 						</div>
-						{{class_info.description}}
+						<div class="width-full text-left">
+							{{class_info.description}}
+						</div>
 					</div>
 					<div class="w-2/3 px-5 flex flex-col">
 						<div class="w-full px-1 flex flex-row pb-2">
@@ -171,19 +173,19 @@
 						<div class="w-full text-center font-bold text-3xl">
 							Reviews
 						</div>
-						{{#empty_feedback feedback}}
+						{{#empty_key feedback}}
 						<div class="text-center text-xl font-bold">
 							There are no reviews for this class.
 						</div>
-						{{/empty_feedback}}
-						<div class="w-full grid grid-cols-2 place-items-center items-center justify-center">
+						{{/empty_key}}
+						<div class="w-full flex flex-col place-items-center items-center justify-center">
 							{{#each feedback}}
 							<div class="w-full px-4 flex flex-col text-left">
 								<div class="font-bold text-xl">
 									User{{random_number}}
 								</div>
 								<div class="text-base">
-									Posted on {{format_date review_time}} {{#if edited}}(edited){{/if}}
+									Posted on {{format_date review_time}} {{#if edited}}(edited on {{format_date edit_time}}){{/if}}
 								</div>
 								<div class="text-base">
 									<span><b>Score: </b>{{fix_number class_score}}/10</span> | <span><b>Workload: </b>{{fix_number workload}} hrs/wk</span> | <span><b>Difficulty: </b>{{fix_number difficulty}}/10</span> | <span><b>Enjoyment: </b>{{fix_number enjoyment}}/10</span> | <span><b>Teacher Score: </b>{{fix_number teacher_score}}/10</span>

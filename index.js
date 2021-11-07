@@ -4,6 +4,7 @@ const {  AuthorizationCode } = require('simple-oauth2');
 var https = require('https');
 var hbs = require('hbs')
 var mysql = require('mysql');
+const { RSA_NO_PADDING } = require('constants');
 const app = express()
 const port = 3000
 
@@ -13,6 +14,8 @@ app.use(cookieSession({
   name: 'pogchamp',
   keys: ['urmomsdfasdfjdsfkasdf', 'pgpgofjsjfasdfjj']
 }))
+
+var TERMS = ["2018-2019 Summer", "2018-2019 Fall", "2018-2019 Spring", "2019-2020 Summer", "2019-2020 Fall", "2019-2020 Spring", "2020-2021 Summer", "2020-2021 Fall", "2020-2021 Spring"]
 
 var ion_client_id = 'riogMOPcoOXJdwttjW3mfpM7J7EGagXPx7ebyIit'
 var ion_client_secret = '2ImfFfzhxkuOBHEzNJmNh8gLLf5JKTsbrH2WR4uZly05srRwX5poVEgBqJxxOG4Vw1l2EVhPOlxI1xuczuZpVnrH8uMyFeXqiOEvTuLWEDYwuTBX76d7bqgeAQHWfRUg'
@@ -48,6 +51,13 @@ hbs.registerHelper('fix_number', function(num) {
   return num.toFixed(2);
 });
 
+hbs.registerHelper('fix_number_profile', function(num) {
+  if (num === undefined) return "";
+  if (num == null) return "";
+  if ((num+"").substring((num+"").indexOf(".")+1)) return num;
+  return num.toFixed(2);
+});
+
 hbs.registerHelper('random_number', function(num) {
   var DIGITS = 6
   var s = Math.floor(Math.random() * 10 ** DIGITS) + ""
@@ -69,14 +79,19 @@ hbs.registerHelper('check_empty', function(s, options) {
   }
 });
 
-hbs.registerHelper('empty_feedback', function(feedback, options) {
-  if (feedback.length == 0) {
+hbs.registerHelper('empty_key', function(k, options) {
+  if (k === undefined) return options.fn(this)
+  if (k.length == 0) {
     return options.fn(this)
   }
 })
 
 hbs.registerHelper('capitalize', function(s) {
   return (s.charAt(0)+"").toUpperCase() + s.substring(1)
+})
+
+hbs.registerHelper('display_bool', function(b) {
+  return b ? "yes" : "no"
 })
 
 hbs.registerHelper('turn_to_ordinal', function(num) {
@@ -532,6 +547,26 @@ function teacher_grade_num_overall(req, res, next) {
   })
 }
 
+function get_user_feedback(req, res, next) {
+  pool.query('SELECT userfeedback.*, classes.name FROM userfeedback INNER JOIN classes ON userfeedback.class_id = classes.id WHERE user_id=' + res.locals.profile.id + ';', function(e,r) {
+    res.locals.review_term = {}
+    for (var i = 0; i < r.length; i++) {
+      if (!(r[i].term in res.locals.review_term)) {
+        res.locals.review_term[r[i].term] = {"term": r[i].term, "reviews": []}
+      }
+      res.locals.review_term[r[i].term].reviews.push(r[i])
+    }
+    next()
+  })
+}
+
+function get_classes(req, res, next) {
+  pool.query('SELECT name, id FROM classes;', function(e, r) {
+    res.locals.classes = r
+    next()
+  })
+}
+
 app.get('/login_worker', [convertCodeToToken], function(req, res) {
   req.session.authenticated = true;
   req.session.token = res.locals.token;
@@ -571,8 +606,10 @@ app.get('/class/:classID', [getProfileData].concat(base_middleware).concat(score
   res.render('classes', {"class_info": res.locals.results, "term_stats": res.locals.term_stats, "teacher": res.locals.teachers, "feedback": res.locals.feedback, "profile": res.locals.profile, "login_link": authorizationUri})
 })
 
-app.get('/profile', [checkAuthentication, getProfileData], (req, res) => {
-  res.render('profile_page', {"profile": res.locals.profile})
+app.get('/profile', [checkAuthentication, getProfileData, get_user_feedback, get_classes], (req, res) => {
+  // console.log(res.locals.review_term)
+  console.log(res.locals.classes)
+  res.render('profile_page', {"profile": res.locals.profile, "reviews": res.locals.review_term, "classes": res.locals.classes, "terms": TERMS})
 })
 
 app.listen(port, () => {

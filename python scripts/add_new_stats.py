@@ -15,7 +15,7 @@ classes = set()
 
 for item in result:
 	classes.add(item[2])
-
+	cursor.execute('ALTER TABLE class_' + item[2] + ' ADD edit_time DATETIME')
 ### ADD COLUMNS TO TABLES
 # for item in result:
 # 	class_id = item[2]

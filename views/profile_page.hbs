@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE>
 <html>
 	<head>
         <link href="https://unpkg.com/tailwindcss@2.0.2/dist/tailwind.min.css" rel="stylesheet">
 		<meta charset="utf-8">
-		<title>{{class_info.name}}</title>
+		<title>User Profile</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
 		<link rel="stylesheet" href="/styles.css">
@@ -11,8 +11,8 @@
 	</head>
 	<body>
 		{{> header}}
-        <div class="w-full flex flex-row align-center justify-center">
-            <div class="flex flex-col text-center">
+        <div class="w-full flex flex-col align-center justify-center">
+            <div class="px-3 w-full flex flex-col text-center">
                 <div class="font-bold text-6xl">
                     {{profile.display_name}}
                 </div>
@@ -20,7 +20,153 @@
                     {{profile.grade.number}}th Grade | {{capitalize profile.grade.name}}
                 </div>
             </div>
+            <div class="w-full flex flex-col px-3">
+                <div class="text-center font-bold text-3xl">
+                    Reviews
+                </div>
+                <div class="text-right font-semibold text-green-700 text-sm" id="add_class">
+                    <span onclick="toggle_add_class()">Add a Class</span>
+                </div>
+                <div class="text-right font-semibold text-red-700 text-sm hidden" id="cancel_add">
+                    <span onclick="toggle_cancel_add()">Cancel</span>
+                </div>
+                <div class="hidden" id="add_class_table">
+                    <table class="w-full">
+                        <thead>
+                            <tr>
+                                <th class="font-bold">Class Name</th>
+                                <th class="font-bold">Class ID</th>
+                                <th class="font-bold">Term</th>
+                                <th class="font-bold">Teacher</th>
+                                <th class="font-bold">Class Score</th>
+                                <th class="font-bold">Workload</th>
+                                <th class="font-bold">Difficulty</th>
+                                <th class="font-bold">Enjoyment</th>
+                                <th class="font-bold">Teacher Score (Show?)</th>
+                                <th class="font-bold">Grade</th>
+                                <th class="font-bold">Feedback</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th class="text-left w-1/6" class="px-1">
+                                    <input list="class_names" class="pl-1 w-full border border-black" id="names_input">
+                                    <datalist id="class_names">
+                                        {{#each classes}}
+                                            <option value="{{this.name}}">
+                                        {{/each}}
+                                    </datalist>
+                                </th>
+                                <th class="px-1">
+                                    <input list="class_id" class="pl-1 w-full border border-black" size="8" id="id_input">
+                                    <datalist id="class_id">
+                                        {{#each classes}}
+                                            <option value="{{this.id}}">
+                                        {{/each}}
+                                    </datalist>
+                                </th>
+                                <th class="px-1">
+                                    <input list="terms" class="pl-1 w-full border border-black" size="18" id="term_input">
+                                    <datalist id="terms">
+                                        {{#each terms}}
+                                            <option value="{{this}}">
+                                        {{/each}}
+                                    </datalist>
+                                </th>
+                                <th class="px-1">
+                                    <input class="pl-1 w-full border border-black" size="10" id="teacher_input">
+                                </th>
+                                <th class="px-1">
+                                    <input type="number" class="pl-1 w-full border border-black" min="0" max="10" id="class_score_input">
+                                </th>
+                                <th class="px-1">
+                                    <input type="number" class="pl-1 w-full border border-black" min="0" max="10" id="workload_input">
+                                </th>
+                                <th class="px-1">
+                                    <input type="number" class="pl-1 w-full border border-black" min="0" max="10" id="difficulty_input">
+                                </th>
+                                <th class="px-1">
+                                    <input type="number" class="pl-1 w-full border border-black" min="0" max="10" id="enjoyment_input">
+                                </th>
+                                <th>
+                                    <div class="flex flex-row items-center justify-cent class="px-1"er">
+                                        <span class="w-5/6"><input type="number" class="pl-1 w-full border border-black" min="0" max="10" id="teacher_score_input"></span>&nbsp;<span class="w-1/6"><input type="checkbox" id="show_teacher_input"></span>
+                                    </div>
+                                </th>
+                                <th class="px-1">
+                                    <input class="pl-1 w-full border border-black" id="grade_score_input">
+                                </th class="px-1">
+                                <th class="pl-1 w-1/4" class="px-1">
+                                    <textarea class="pl-1 w-full border border-black" id="feedback_input"></textarea>
+                                </th>
+                                <th class="font-semibold text-green-700">Submit</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                {{#empty_key reviews}}
+                <div class="text-center font-semibold">
+                    You have inputted no reviews yet.
+                </div>
+                {{/empty_key}}
+                <div class="flex flex-col">
+                    {{#each reviews}}
+                    <div class="font-bold text-3xl">{{@key}}</div>
+                    <div>
+                        <table class="w-full">
+                            <thead>
+                                <tr>
+                                    <th class="font-bold">Class Name</th>
+                                    <th class="font-bold">Class ID</th>
+                                    <th class="font-bold">Review Time</th>
+                                    <th class="font-bold">Teacher</th>
+                                    <th class="font-bold">Class Score</th>
+                                    <th class="font-bold">Workload</th>
+                                    <th class="font-bold">Difficulty</th>
+                                    <th class="font-bold">Enjoyment</th>
+                                    <th class="font-bold">Teacher Score (Show?)</th>
+                                    <th class="font-bold">Grade</th>
+                                    <th class="font-bold">Feedback</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each this.reviews}}
+                                <tr>
+                                    <th class="text-left w-1/6">{{this.name}}</th>
+                                    <th>{{this.class_id}}</th>
+                                    <th>{{format_date this.review_time}}</th>
+                                    <th>{{this.teacher}}</th>
+                                    <th>{{fix_number_profile this.class_score}}/10</th>
+                                    <th>{{fix_number_profile this.workload}} hrs/wk</th>
+                                    <th>{{fix_number_profile this.difficulty}}/10</th>
+                                    <th>{{fix_number_profile this.enjoyment}}/10</th>
+                                    <th>{{fix_number_profile this.teacher_score}}/10&nbsp;({{display_bool this.show_teacher}})</th>
+                                    <th>{{this.grade}}</th>
+                                    <th class="w-1/4">{{this.feedback}}</th>
+                                    <th>Edit</th>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
         </div>
         {{> footer}}
     </body>
+    <script>
+        function toggle_add_class() {
+            document.getElementById("add_class").classList.add('hidden');
+            document.getElementById("cancel_add").classList.remove('hidden');
+            document.getElementById("add_class_table").classList.remove('hidden');
+        }
+        function toggle_cancel_add() {
+            document.getElementById("add_class").classList.remove('hidden');
+            document.getElementById("cancel_add").classList.add('hidden');
+            document.getElementById("add_class_table").classList.add('hidden');
+        }
+    </script>
 </html>
