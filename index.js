@@ -94,6 +94,13 @@ hbs.registerHelper('display_bool', function(b) {
   return b ? "yes" : "no"
 })
 
+hbs.registerHelper('format_term', function(term) {
+  if (term.indexOf(' ') == -1) {
+    return "Full Year"
+  }
+  return term.substring(term.indexOf(' ')+1)
+})
+
 hbs.registerHelper('turn_to_ordinal', function(num) {
   var ones = num % 10
   var tens = num % 100
@@ -548,6 +555,7 @@ function teacher_grade_num_overall(req, res, next) {
 }
 
 function get_user_feedback(req, res, next) {
+  // console.log('SELECT userfeedback.*, classes.name FROM userfeedback INNER JOIN classes ON userfeedback.class_id = classes.id WHERE user_id=' + res.locals.profile.id + ';')
   pool.query('SELECT userfeedback.*, classes.name FROM userfeedback INNER JOIN classes ON userfeedback.class_id = classes.id WHERE user_id=' + res.locals.profile.id + ';', function(e,r) {
     res.locals.review_term = {}
     for (var i = 0; i < r.length; i++) {
@@ -608,8 +616,26 @@ app.get('/class/:classID', [getProfileData].concat(base_middleware).concat(score
 
 app.get('/profile', [checkAuthentication, getProfileData, get_user_feedback, get_classes], (req, res) => {
   // console.log(res.locals.review_term)
-  console.log(res.locals.classes)
+  // console.log(res.locals.classes)
   res.render('profile_page', {"profile": res.locals.profile, "reviews": res.locals.review_term, "classes": res.locals.classes, "terms": TERMS})
+})
+
+app.get('/submit_feedback', [checkAuthentication], (req, res) => {
+  var class_name = req.params.class_name
+  var class_id = req.params.class_id
+  var review_time = new Date()
+  var term = req.params.term
+  var teacher = req.params.teacher
+  var class_score = req.params.class_score
+  var workload = req.params.workload
+  var difficulty = req.params.difficulty
+  var enjoyment = req.params.enjoyment
+  var teacher_score = req.params.teacher_score
+  var show_teacher = req.params.show_teacher
+  var grade = req.params.grade
+  var feedback = req.params.feedback
+
+  res.redirect('/profile')
 })
 
 app.listen(port, () => {

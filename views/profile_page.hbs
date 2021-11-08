@@ -25,33 +25,33 @@
                     Reviews
                 </div>
                 <div class="text-right font-semibold text-green-700 text-sm" id="add_class">
-                    <span onclick="toggle_add_class()">Add a Class</span>
+                    <a onclick="toggle_add_class()" class="text-green-700">Add a Class</a>
                 </div>
                 <div class="text-right font-semibold text-red-700 text-sm hidden" id="cancel_add">
-                    <span onclick="toggle_cancel_add()">Cancel</span>
+                    <a onclick="toggle_cancel_add()" class="text-red-700">Cancel</a>
                 </div>
                 <div class="hidden" id="add_class_table">
                     <table class="w-full">
                         <thead>
                             <tr>
-                                <th class="font-bold">Class Name</th>
-                                <th class="font-bold">Class ID</th>
-                                <th class="font-bold">Term</th>
-                                <th class="font-bold">Teacher</th>
-                                <th class="font-bold">Class Score</th>
-                                <th class="font-bold">Workload</th>
-                                <th class="font-bold">Difficulty</th>
-                                <th class="font-bold">Enjoyment</th>
-                                <th class="font-bold">Teacher Score (Show?)</th>
-                                <th class="font-bold">Grade</th>
-                                <th class="font-bold">Feedback</th>
+                                <th class="font-bold">Class Name&nbsp;<span class="text-red-500" title="Required">*</span></th>
+                                <th class="font-bold">Class ID&nbsp;<span class="text-red-500" title="Required">*</span></th>
+                                <th class="font-bold">Term&nbsp;<span class="text-red-500" title="Required">*</span></th>
+                                <th class="font-bold">Teacher&nbsp;<span class="text-red-500" title="Required">*</span></th>
+                                <th class="font-bold" title="Overall rating of the class, scale of 0(Awful)-10(Best)">SCO&nbsp;<span class="text-red-500" title="Required">*</span></th>
+								<th class="font-bold" title="Average amount of time spent on HW in this class per week">WRK&nbsp;<span class="text-red-500" title="Required">*</span></th>
+								<th class="font-bold" title="Overall difficulty of the class, scale of 0(Easy)-10(Hard)">DIFF&nbsp;<span class="text-red-500" title="Required">*</span></th>
+								<th class="font-bold" title="Overall enjoyment of the class, scale of 0(No enjoyment)-10(Very enjoyable)">ENJ&nbsp;<span class="text-red-500" title="Required">*</span></th>
+								<th class="font-bold" title="Overall rating of the teacher, scale of 0(Awful)-10(Best) — Display on feedback?">TCH (Show?)&nbsp;<span class="text-red-500" title="Required">*</span></th>
+								<th class="font-bold" title="Grade in the class. You may input a valid letter grade or a number">GRD</th>
+                                <th class="font-bold" title="Written feedback about the class (max 2500 characters)">Feedback</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <th class="text-left w-1/6" class="px-1">
-                                    <input list="class_names" class="pl-1 w-full border border-black" id="names_input">
+                                    <input type="search" list="class_names" class="pl-1 w-full border border-black" id="names_input" onfocusout="change_id()" autocomplete="off">
                                     <datalist id="class_names">
                                         {{#each classes}}
                                             <option value="{{this.name}}">
@@ -59,7 +59,7 @@
                                     </datalist>
                                 </th>
                                 <th class="px-1">
-                                    <input list="class_id" class="pl-1 w-full border border-black" size="8" id="id_input">
+                                    <input type="search" list="class_id" class="pl-1 w-full border border-black" size="8" id="id_input" onfocusout="change_class()" autocomplete="off">
                                     <datalist id="class_id">
                                         {{#each classes}}
                                             <option value="{{this.id}}">
@@ -67,7 +67,7 @@
                                     </datalist>
                                 </th>
                                 <th class="px-1">
-                                    <input list="terms" class="pl-1 w-full border border-black" size="18" id="term_input">
+                                    <input type="search" list="terms" class="pl-1 w-full border border-black" size="18" id="term_input" autocomplete="off">
                                     <datalist id="terms">
                                         {{#each terms}}
                                             <option value="{{this}}">
@@ -90,20 +90,26 @@
                                     <input type="number" class="pl-1 w-full border border-black" min="0" max="10" id="enjoyment_input">
                                 </th>
                                 <th>
-                                    <div class="flex flex-row items-center justify-cent class="px-1"er">
-                                        <span class="w-5/6"><input type="number" class="pl-1 w-full border border-black" min="0" max="10" id="teacher_score_input"></span>&nbsp;<span class="w-1/6"><input type="checkbox" id="show_teacher_input"></span>
+                                    <div class="flex flex-row items-center justify-center">
+                                        <span class="w-5/6"><input type="number" class="pl-1 w-full border border-black" min="0" max="10" id="teacher_score_input"></span>&nbsp;
+                                        <span class="w-1/6"><input type="checkbox" id="show_teacher_input" checked></span>
                                     </div>
                                 </th>
                                 <th class="px-1">
-                                    <input class="pl-1 w-full border border-black" id="grade_score_input">
-                                </th class="px-1">
+                                    <input class="pl-1 w-full border border-black" size="4" id="grade_score_input">
+                                </th>
                                 <th class="pl-1 w-1/4" class="px-1">
                                     <textarea class="pl-1 w-full border border-black" id="feedback_input"></textarea>
                                 </th>
-                                <th class="font-semibold text-green-700">Submit</th>
+                                <th class="font-semibold text-green-700">
+                                    <a onclick="submit_feedback()" class="text-green-700">Submit</a>
+                                </th>
                             </tr>
                         </tbody>
                     </table>
+                    <div class="text-center hidden text-red-700" id="error_msg">
+                        ERROR!
+                    </div>
                 </div>
                 {{#empty_key reviews}}
                 <div class="text-center font-semibold">
@@ -120,14 +126,15 @@
                                     <th class="font-bold">Class Name</th>
                                     <th class="font-bold">Class ID</th>
                                     <th class="font-bold">Review Time</th>
+                                    <th class="font-bold">Term</th>
                                     <th class="font-bold">Teacher</th>
-                                    <th class="font-bold">Class Score</th>
-                                    <th class="font-bold">Workload</th>
-                                    <th class="font-bold">Difficulty</th>
-                                    <th class="font-bold">Enjoyment</th>
-                                    <th class="font-bold">Teacher Score (Show?)</th>
-                                    <th class="font-bold">Grade</th>
-                                    <th class="font-bold">Feedback</th>
+                                    <th class="font-bold" title="Overall rating of the class, scale of 0(Awful)-10(Best)">SCO</th>
+                                    <th class="font-bold" title="Average amount of time spent on HW in this class per week">WRK</th>
+                                    <th class="font-bold" title="Overall difficulty of the class, scale of 0(Easy)-10(Hard)">DIFF</th>
+                                    <th class="font-bold" title="Overall enjoyment of the class, scale of 0(No enjoyment)-10(Very enjoyable)">ENJ</th>
+                                    <th class="font-bold" title="Overall rating of the teacher, scale of 0(Awful)-10(Best) — Display on feedback?">TCH (Show?)</th>
+                                    <th class="font-bold" title="Grade in the class. You may input a valid letter grade or a number">GRD</th>
+                                    <th class="font-bold" title="Written feedback about the class (max 2500 characters)">Feedback</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -137,6 +144,7 @@
                                     <th class="text-left w-1/6">{{this.name}}</th>
                                     <th>{{this.class_id}}</th>
                                     <th>{{format_date this.review_time}}</th>
+                                    <th>{{format_term this.term}}</th>
                                     <th>{{this.teacher}}</th>
                                     <th>{{fix_number_profile this.class_score}}/10</th>
                                     <th>{{fix_number_profile this.workload}} hrs/wk</th>
@@ -158,15 +166,142 @@
         {{> footer}}
     </body>
     <script>
+        var id_to_name = {}
+        var name_to_id = {}
+        {{#each classes}}
+            id_to_name["{{this.id}}"] = "{{this.name}}"
+            name_to_id["{{this.name}}"] = "{{this.id}}"
+        {{/each}}
+
+        var TERMS = new Set()
+        {{#each terms}}
+            TERMS.add("{{this}}")
+        {{/each}}
+
         function toggle_add_class() {
             document.getElementById("add_class").classList.add('hidden');
             document.getElementById("cancel_add").classList.remove('hidden');
             document.getElementById("add_class_table").classList.remove('hidden');
+            document.getElementById("error_msg").classList.add('hidden')
         }
         function toggle_cancel_add() {
             document.getElementById("add_class").classList.remove('hidden');
             document.getElementById("cancel_add").classList.add('hidden');
             document.getElementById("add_class_table").classList.add('hidden');
+            document.getElementById("names_input").value = ""
+            document.getElementById("id_input").value = ""
+            document.getElementById("term_input").value = ""
+            document.getElementById("teacher_input").value = ""
+            document.getElementById("class_score_input").value = ""
+            document.getElementById("workload_input").value = ""
+            document.getElementById("difficulty_input").value = ""
+            document.getElementById("enjoyment_input").value = ""
+            document.getElementById("teacher_score_input").value = ""
+            document.getElementById("show_teacher_input").checked = true
+            document.getElementById("grade_score_input").value = ""
+            document.getElementById("feedback_input").value = ""
+            document.getElementById("error_msg").classList.add('hidden')
+        }
+        function change_id() {
+            var name = document.getElementById("names_input").value
+            if (name in name_to_id) {
+                document.getElementById("id_input").value = name_to_id[name]
+            }
+            else {
+                document.getElementById("id_input").value = ""
+            }
+        }
+        function change_class() {
+            var id = document.getElementById("id_input").value
+            if (id in id_to_name) {
+                document.getElementById("names_input").value = id_to_name[id]
+            }
+            else {
+                document.getElementById("names_input").value = ""
+            }
+        }
+        function submit_feedback() {
+            document.getElementById("error_msg").classList.add('hidden')
+
+            var input_names =["Class Name", "ID", "Term", "Teacher", "Class Score", "Workload", "Difficulty", "Enjoyment", "Teacher Score", "Grade Score", "Feedback"]
+            var inputs = []
+            inputs.push(document.getElementById("names_input").value)
+            inputs.push(document.getElementById("id_input").value)
+            inputs.push(document.getElementById("term_input").value)
+            inputs.push(document.getElementById("teacher_input").value)
+            inputs.push(document.getElementById("class_score_input").value)
+            inputs.push(document.getElementById("workload_input").value)
+            inputs.push(document.getElementById("difficulty_input").value)
+            inputs.push(document.getElementById("enjoyment_input").value)
+            inputs.push(document.getElementById("teacher_score_input").value)
+            inputs.push(document.getElementById("grade_score_input").value)
+            inputs.push(document.getElementById("feedback_input").value)
+
+            for (var i = 0; i < inputs.length-2; i++) {
+                if (inputs[i] == "") {
+                    document.getElementById("error_msg").innerHTML = "Error! " + input_names[i] + " field is required."
+                    document.getElementById("error_msg").classList.remove('hidden')
+                    return
+                }
+            }
+
+            if (!(inputs[0]) in name_to_id) {
+                document.getElementById("error_msg").innerHTML = "Error! Class name not found."
+                document.getElementById("error_msg").classList.remove('hidden')
+                return
+            }
+            if (!(inputs[1]) in id_to_name) {
+                document.getElementById("error_msg").innerHTML = "Error! Class ID not found."
+                document.getElementById("error_msg").classList.remove('hidden')
+                return
+            }
+
+            if (name_to_id[inputs[0]] != inputs[1] || id_to_name[inputs[1]] != inputs[0]) {
+                document.getElementById("error_msg").innerHTML = "Error! Class Name and ID do not match."
+                document.getElementById("error_msg").classList.remove('hidden')
+                return
+            }
+
+            if (!(TERMS.has(inputs[2]))) {
+                document.getElementById("error_msg").innerHTML = "Error! Not a valid term."
+                document.getElementById("error_msg").classList.remove('hidden')
+                return
+            }
+
+            for (var i = 4; i < 9; i++) {
+                if (parseFloat(inputs[i]) > 10 || parseFloat(inputs[i]) < 0) {
+                    document.getElementById("error_msg").innerHTML = "Error! " + input_names[i] + " input is outside the valid range (0-10)."
+                    document.getElementById("error_msg").classList.remove('hidden')
+                    return
+                }
+            }
+
+            if (!(inputs[9] == "")) {
+                var grades = new Set(["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "F"])
+
+                if (isNaN(inputs[9])) {
+                    if (!(grades.has(inputs[9].toUpperCase()))) {
+                        document.getElementById("error_msg").innerHTML = "Error! Invalid grade input."
+                        document.getElementById("error_msg").classList.remove('hidden')
+                        return
+                    }
+                }
+                else {
+                    if (parseFloat(inputs[9]) < 0 || parseFloat(inputs[9]) > 100) {
+                        document.getElementById("error_msg").innerHTML = "Error! Grade input is outside the valid range."
+                        document.getElementById("error_msg").classList.remove('hidden')
+                        return
+                    }
+                }
+            }
+
+            if (inputs[10].length > 2500) {
+                document.getElementById("error_msg").innerHTML = "Error! Feedback is too long (max 2500 characters)!"
+                document.getElementById("error_msg").classList.remove('hidden')
+                return
+            }
+
+
         }
     </script>
 </html>
