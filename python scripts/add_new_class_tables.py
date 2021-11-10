@@ -119,9 +119,9 @@ for item in result:
 
 	for s in NEW_STATS:
 		if item[5] == "Full Year":
-			cursor.execute("SELECT " + s + ", ROW_NUMBER() OVER(ORDER BY " + s + ") rownum FROM class_" + class_id + ';')
+			cursor.execute("SELECT " + s + ", ROW_NUMBER() OVER(ORDER BY " + s + ") rownum FROM class_" + class_id + ' WHERE ' + s + ' IS NOT NULL;')
 		else:
-			cursor.execute("SELECT " + s + ", ROW_NUMBER() OVER(ORDER BY " + s + ") rownum FROM class_" + class_id + ';')
+			cursor.execute("SELECT " + s + ", ROW_NUMBER() OVER(ORDER BY " + s + ") rownum FROM class_" + class_id + ' WHERE ' + s + ' IS NOT NULL;')
 		class_result = cursor.fetchall()
 
 		total_len = len(class_result)
