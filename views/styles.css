@@ -19,3 +19,6 @@ a:hover {
 th {
     font-weight: normal;
 }
+.hover_pointer:hover {
+    cursor: pointer;
+}
