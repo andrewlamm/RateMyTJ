@@ -79,21 +79,21 @@
                                         <input name="teacher" class="pl-1 w-full border border-black" size="10" id="teacher_input" autocomplete="off" required>
                                     </th>
                                     <th class="px-1">
-                                        <input name="class_score" type="number" class="pl-1 w-full border border-black" min="0" max="10" id="class_score_input" autocomplete="off" required>
+                                        <input name="class_score" type="number" style="width: 50px;" step="any" class="pl-1 w-full border border-black" min="0" max="10" id="class_score_input" autocomplete="off" required>
                                     </th>
                                     <th class="px-1">
-                                        <input name="workload" type="number" class="pl-1 w-full border border-black" min="0" max="99" id="workload_input" autocomplete="off" required>
+                                        <input name="workload" type="number" style="width: 50px;" step="any" class="pl-1 w-full border border-black" min="0" id="workload_input" autocomplete="off" required>
                                     </th>
                                     <th class="px-1">
-                                        <input name="difficulty" type="number" class="pl-1 w-full border border-black" min="0" max="10" id="difficulty_input" autocomplete="off" required>
+                                        <input name="difficulty" type="number" style="width: 50px;" step="any" class="pl-1 w-full border border-black" min="0" max="10" id="difficulty_input" autocomplete="off" required>
                                     </th>
                                     <th class="px-1">
-                                        <input name="enjoyment" type="number" class="pl-1 w-full border border-black" min="0" max="10" id="enjoyment_input" autocomplete="off" required>
+                                        <input name="enjoyment" type="number" style="width: 50px;" step="any" class="pl-1 w-full border border-black" min="0" max="10" id="enjoyment_input" autocomplete="off" required>
                                     </th>
                                     <th>
                                         <div class="flex flex-row items-center justify-center">
-                                            <span class="w-5/6"><input name="teacher_score" type="number" class="pl-1 w-full border border-black" min="0" max="10" id="teacher_score_input" autocomplete="off" required></span>&nbsp;
-                                            <span class="w-1/6"><input name="show_teacher" type="checkbox" id="show_teacher_input" checked></span>
+                                            <input name="teacher_score" type="number" style="width: 50px;" step="any" class="pl-1 w-full border border-black" min="0" max="10" id="teacher_score_input" autocomplete="off" required>&nbsp;
+                                            <input name="show_teacher" type="checkbox" id="show_teacher_input" checked>
                                         </div>
                                     </th>
                                     <th class="px-1">
@@ -103,7 +103,7 @@
                                         <textarea name="feedback" class="pl-1 w-full border border-black" id="feedback_input"></textarea>
                                     </th>
                                     <th class="font-semibold text-green-700">
-                                        <input type="submit" value="Submit" class="bg-white hover_pointer">
+                                        <input type="submit" value="Submit" class="bg-white hover_pointer font-semibold">
                                     </th>
                                 </form>
                             </tr>
@@ -119,11 +119,14 @@
                 </div>
                 {{/no_reviews}}
                 <div class="flex flex-col">
-                    {{#each reviews}}
-                    <div class="font-bold text-3xl">{{this.term}}</div>
-                    <div>
-                        <table class="w-full">
-                            <thead>
+                    <table class="w-full">
+                        <tbody>
+                            {{#each reviews}}
+                            <tr>
+                                <th colspan="13" class="font-bold text-3xl text-left">
+                                    {{this.term}}
+                                </th>
+                            </tr>
                                 <tr>
                                     <th class="font-bold">Class Name</th>
                                     <th class="font-bold">Class ID</th>
@@ -139,13 +142,11 @@
                                     <th class="font-bold" title="Written feedback about the class (max 2500 characters)">Feedback</th>
                                     <th></th>
                                 </tr>
-                            </thead>
-                            <tbody>
                                 {{#each this.reviews}}
                                 <tr id={{class_id}}_const>
                                     <th class="text-left w-1/6">{{this.name}}</th>
                                     <th>{{this.class_id}}</th>
-                                    <th>{{format_date this.review_time}} {{#if this.edit_time}}<span class="text-red-700 font-semibold" title="Edited on {{format_date this.edit_time}}">*</span>{{/if}}</th>
+                                    <th>{{format_date this.review_time}} {{#if this.edit_time}}<span class="font-semibold" title="Edited on {{format_date this.edit_time}}">*</span>{{/if}}</th>
                                     <th>{{format_term this.term}}</th>
                                     <th>{{this.teacher}}</th>
                                     <th>{{fix_number_profile this.class_score}}/10</th>
@@ -159,21 +160,21 @@
                                 </tr>
                                 <form onsubmit="return edit_feedback(this.id)" action="edit_feedback" id={{class_id}}_form>
                                     <tr class="hidden" id={{class_id}}_inputs>
-                                        <th class="text-left w-1/6">{{this.name}}</th>
-                                        <th><input name="class_id" class="pl-1 w-full border border-black hidden" value={{this.class_id}}>{{this.class_id}}</th>
-                                        <th>{{format_date this.review_time}} {{#if this.edit_time}}<span class="text-red-700 font-semibold" title="Edited on {{format_date this.edit_time}}">*</span>{{/if}}</th>
+                                        <th class="text-left w-1/6"><input name="class_name" class="pl-1 w-full border border-black hidden" value="{{this.name}}" id="{{this.class_id}}_names_input">{{this.name}}</th>
+                                        <th><input name="class_id" class="pl-1 w-full border border-black hidden" value={{this.class_id}} id="{{this.class_id}}_id_input">{{this.class_id}}</th>
+                                        <th>{{format_date this.review_time}} {{#if this.edit_time}}<span class="font-semibold" title="Edited on {{format_date this.edit_time}}">*</span>{{/if}}</th>
                                         <th>
                                             <input type="search" list="terms" name="term" class="pl-1 w-full border border-black" size="18" id="{{class_id}}_term_input" autocomplete="off" required value="{{this.term}}" data-original="{{this.term}}">
                                         </th>
                                         <th><input name="teacher" class="pl-1 w-full border border-black" size="10" id="{{class_id}}_teacher_input" autocomplete="off" required value={{this.teacher}} data-original="{{this.teacher}}"></th>
-                                        <th><input name="class_score" type="number" class="pl-1 w-full border border-black" min="0" max="10" id="{{class_id}}_class_score_input" autocomplete="off" required value={{fix_number_profile this.class_score}} data-original={{fix_number_profile this.class_score}}></th>
-                                        <th><input name="workload" type="number" class="pl-1 w-full border border-black" min="0" max="99" id="{{class_id}}_workload_input" autocomplete="off" required value={{fix_number_profile this.workload}} data-original={{fix_number_profile this.workload}}></th>
-                                        <th><input name="difficulty" type="number" class="pl-1 w-full border border-black" min="0" max="10" id="{{class_id}}_difficulty_input" autocomplete="off" required value={{fix_number_profile this.difficulty}} data-original={{fix_number_profile this.difficulty}}></th>
-                                        <th><input name="enjoyment" type="number" class="pl-1 w-full border border-black" min="0" max="10" id="{{class_id}}_enjoyment_input" autocomplete="off" required value={{fix_number_profile this.enjoyment}} data-original={{fix_number_profile this.enjoyment}}></th>
+                                        <th><input name="class_score" type="number" style="width: 50px;" step="any" class="pl-1 border border-black" min="0" max="10" id="{{class_id}}_class_score_input" autocomplete="off" required value={{fix_number_profile this.class_score}} data-original={{fix_number_profile this.class_score}}></th>
+                                        <th><input name="workload" type="number" style="width: 50px;" step="any" class="pl-1 border border-black" min="0" id="{{class_id}}_workload_input" autocomplete="off" required value={{fix_number_profile this.workload}} data-original={{fix_number_profile this.workload}}></th>
+                                        <th><input name="difficulty" type="number" style="width: 50px;" step="any" class="pl-1 border border-black" min="0" max="10" id="{{class_id}}_difficulty_input" autocomplete="off" required value={{fix_number_profile this.difficulty}} data-original={{fix_number_profile this.difficulty}}></th>
+                                        <th><input name="enjoyment" type="number" style="width: 50px;" step="any" class="pl-1 border border-black" min="0" max="10" id="{{class_id}}_enjoyment_input" autocomplete="off" required value={{fix_number_profile this.enjoyment}} data-original={{fix_number_profile this.enjoyment}}></th>
                                         <th>
                                             <div class="flex flex-row items-center justify-center">
-                                                <span class="w-5/6"><input name="teacher_score" type="number" class="pl-1 w-full border border-black" min="0" max="10" id="{{class_id}}_teacher_score_input" autocomplete="off" required value={{fix_number_profile this.teacher_score}} data-original={{fix_number_profile this.teacher_score}}></span>&nbsp;
-                                                <span class="w-1/6"><input name="show_teacher" type="checkbox" id="{{class_id}}_show_teacher_input" data-original={{this.show_teacher}} {{#if this.show_teacher}}checked{{/if}}></span>
+                                                <input name="teacher_score" type="number" style="width: 50px;" step="any" class="pl-1 border border-black" min="0" max="10" id="{{class_id}}_teacher_score_input" autocomplete="off" required value={{fix_number_profile this.teacher_score}} data-original={{fix_number_profile this.teacher_score}}>&nbsp;
+                                                <input name="show_teacher" type="checkbox" id="{{class_id}}_show_teacher_input" data-original={{this.show_teacher}} {{#if this.show_teacher}}checked{{/if}}>
                                             </div>
                                         </th>
                                         <th><input name="grade" class="pl-1 w-full border border-black" size="4" id="{{class_id}}_grade_score_input" autocomplete="off" value={{this.grade_input}} data-original={{this.grade_input}}></th>
@@ -192,15 +193,14 @@
                                     </tr>
                                 </form>
                                 <tr class="text-center font-semibold text-red-700 hidden" id={{class_id}}_error_msg>
-                                    <th colspan="13">
+                                    <th colspan="13" id={{class_id}}_error_msg_row>
                                         Error!
                                     </th>
                                 </tr>
                                 {{/each}}
-                            </tbody>
-                        </table>
-                    </div>
-                    {{/each}}
+                            {{/each}}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -479,6 +479,103 @@
             if(document.getElementById(class_id + "_delete_input").value == 1) {
                 return true
             }
+
+            document.getElementById(class_id + "_error_msg").classList.add('hidden')
+
+            var input_names =["Class Name", "ID", "Term", "Teacher", "Class Score", "Workload", "Difficulty", "Enjoyment", "Teacher Score", "Grade Score", "Feedback"]
+            var inputs = []
+            inputs.push(document.getElementById(class_id + "_names_input").value)
+            inputs.push(document.getElementById(class_id + "_id_input").value)
+            inputs.push(document.getElementById(class_id + "_term_input").value)
+            inputs.push(document.getElementById(class_id + "_teacher_input").value)
+            inputs.push(document.getElementById(class_id + "_class_score_input").value)
+            inputs.push(document.getElementById(class_id + "_workload_input").value)
+            inputs.push(document.getElementById(class_id + "_difficulty_input").value)
+            inputs.push(document.getElementById(class_id + "_enjoyment_input").value)
+            inputs.push(document.getElementById(class_id + "_teacher_score_input").value)
+            inputs.push(document.getElementById(class_id + "_grade_score_input").value)
+            inputs.push(document.getElementById(class_id + "_feedback_input").value)
+
+            for (var i = 0; i < inputs.length-2; i++) {
+                if (inputs[i] == "") {
+                    document.getElementById(class_id + "_error_msg_row").innerHTML = "Error! " + input_names[i] + " field is required."
+                    document.getElementById(class_id + "_error_msg").classList.remove('hidden')
+                    return false
+                }
+            }
+
+            if (!(TERMS.has(inputs[2]))) {
+                document.getElementById(class_id + "_error_msg_row").innerHTML = "Error! Not a valid term."
+                document.getElementById(class_id + "_error_msg").classList.remove('hidden')
+                return false
+            }
+
+            for (var i = 4; i < 9; i++) {
+                if (i == 5) {
+                    if (parseFloat(inputs[i]) < 0) {
+                        document.getElementById(class_id + "_error_msg_row").innerHTML = "Error! " + input_names[i] + " input is outside the valid range (0-99)."
+                        document.getElementById(class_id + "_error_msg").classList.remove('hidden')
+                        return false
+                    }
+                }
+                else {
+                    if (parseFloat(inputs[i]) > 10 || parseFloat(inputs[i]) < 0) {
+                        document.getElementById(class_id + "_error_msg_row").innerHTML = "Error! " + input_names[i] + " input is outside the valid range (0-10)."
+                        document.getElementById(class_id + "_error_msg").classList.remove('hidden')
+                        return false
+                    }
+                }
+
+            }
+
+            if (!(inputs[9] == "")) {
+                var grades = new Set(["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "F"])
+
+                if (isNaN(inputs[9])) {
+                    if (!(grades.has(inputs[9].toUpperCase()))) {
+                        document.getElementById(class_id + "_error_msg_row").innerHTML = "Error! Invalid grade input."
+                        document.getElementById(class_id + "_error_msg").classList.remove('hidden')
+                        return false
+                    }
+                }
+                else {
+                    if (parseFloat(inputs[9]) < 0 || parseFloat(inputs[9]) > 100) {
+                        document.getElementById(class_id + "_error_msg_row").innerHTML = "Error! Grade input is outside the valid range."
+                        document.getElementById(class_id + "_error_msg").classList.remove('hidden')
+                        return false
+                    }
+                }
+            }
+
+            if (inputs[10].length > 2500) {
+                document.getElementById(class_id + "_error_msg_row").innerHTML = "Error! Feedback is too long (max 2500 characters)!"
+                document.getElementById(class_id + "_error_msg").classList.remove('hidden')
+                return false
+            }
+
+            if (name_to_length[inputs[0]] == "Full Year") {
+                if (inputs[2].indexOf('-') == -1) {
+                    document.getElementById(class_id + "_error_msg_row").innerHTML = "Error! Term and class name mismatch."
+                    document.getElementById(class_id + "_error_msg").classList.remove('hidden')
+                    return false
+                }
+            }
+            if (!(name_to_length[inputs[0]] == "Full Year")) {
+                if (!(inputs[2].indexOf('-') == -1)) {
+                    document.getElementById(class_id + "_error_msg_row").innerHTML = "Error! Term and class name mismatch."
+                    document.getElementById(class_id + "_error_msg").classList.remove('hidden')
+                    return false
+                }
+            }
+
+            if (!(inputs[2].indexOf('Summer') == -1)) {
+                if (!(inputs[0] == "Foundations of Computer Science" || inputs[0] == "Ancient & Classical Civilizations" || inputs[0] == "Chemistry 1" || inputs[0] == "TJ Math 5" || inputs[0] == "TJ Research Stat 1")) {
+                    document.getElementById(class_id + "_error_msg_row").innerHTML = "Error! This class is not offered in the summer."
+                    document.getElementById(class_id + "_error_msg").classList.remove('hidden')
+                    return false
+                }
+            }
+
             return true
         }
     </script>
