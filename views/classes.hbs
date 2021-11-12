@@ -22,6 +22,7 @@
 				<div class="px-2"><b>Length: </b>{{class_info.length}}</div>
 				<div class="px-2"><b>Weighted: </b>{{class_info.weight}}</div>
 			</div>
+
 			<div class="flex flex-col">
 				<div class="w-full flex flex-row">
 					<div class="w-1/3 px-5">
@@ -33,6 +34,14 @@
 						</div>
 					</div>
 					<div class="w-2/3 px-5 flex flex-col">
+						{{#check_zero class_info.total}}
+							<div class="flex flex-col w-full">
+								<div class="width-full text-center font-bold text-3xl">
+									There are currently no reviews for this class.
+								</div>
+							</div>
+						{{/check_zero}}
+						{{#check_nonzero class_info.total}}
 						<div class="w-full px-1 flex flex-row pb-2">
 							{{> score_card score_name="Class Score" score=class_info.class_score rank=class_info.class_score_rank num_classes=class_info.num_classes score_text="/10" rank_category=class_info.class_score_category_rank num_category=class_info.num_category category=class_info.category}}
 							{{> score_card score_name="Workload" score=class_info.workload rank=class_info.workload_rank num_classes=class_info.num_classes score_text="hrs/week" rank_category=class_info.workload_category_rank num_category=class_info.num_category category=class_info.category}}
@@ -43,10 +52,14 @@
 						</div>
 						<div class="w-full px-1 flex flex-row pt-2">
 							{{> score_card score_name="Teacher Score" score=class_info.teacher_score rank=class_info.teacher_score_rank num_classes=class_info.num_classes score_text="/10" rank_category=class_info.teacher_score_category_rank num_category=class_info.num_category category=class_info.category}}
-							{{> score_card score_name="Grade" score=class_info.grade rank=class_info.grade_rank num_classes=class_info.num_classes score_text="%" rank_category=class_info.grade_category_rank num_category=class_info.num_category category=class_info.category}}
+							{{#if class_info.grade_rank_null}}{{> empty_score_card score_name="Grade"}}
+							{{else}}{{> score_card score_name="Grade" score=class_info.grade rank=class_info.grade_rank num_classes=class_info.num_classes score_text="%" rank_category=class_info.grade_category_rank num_category=class_info.num_category category=class_info.category}}
+							{{/if}}
 						</div>
+						{{/check_nonzero}}
 					</div>
 				</div>
+				{{#check_nonzero class_info.total}}
 				<div class="flex flex-col">
 					<div class="flex flex-col pb-2">
 						<div class="w-full text-center font-bold text-3xl">
@@ -83,7 +96,7 @@
 												<td>{{fix_number this.med_difficulty}}</td>
 												<td>{{fix_number this.med_enjoyment}}</td>
 												<td>{{fix_number this.med_teacher_score}}</td>
-												<td>{{fix_number this.med_grade}} ({{this.grade_total}})</td>
+												<td>{{#if this.med_grade}} {{fix_number this.med_grade}} ({{this.grade_total}}) {{else}} {{/if}}</td>
 											</tr>
 											{{/each}}
 										</tbody>
@@ -120,7 +133,7 @@
 												<td>{{fix_number this.avg_difficulty}}</td>
 												<td>{{fix_number this.avg_enjoyment}}</td>
 												<td>{{fix_number this.avg_teacher_score}}</td>
-												<td>{{fix_number this.avg_grade}} ({{this.grade_total}})</td>
+												<td>{{#if this.avg_grade}} {{fix_number this.avg_grade}} ({{this.grade_total}}) {{else}} {{/if}}</td>
 											</tr>
 											{{/each}}
 										</tbody>
@@ -165,7 +178,7 @@
 												<td>{{fix_number this.difficulty}}</td>
 												<td>{{fix_number this.enjoyment}}</td>
 												<td>{{fix_number this.teacher_score}}</td>
-												<td>{{fix_number this.grade}} ({{this.grade_total}})</td>
+												<td>{{#if this.grade}} {{fix_number this.grade}} ({{this.grade_total}}) {{else}} {{/if}}</td>
 											</tr>
 											{{/each}}
 										</tbody>
@@ -208,6 +221,7 @@
 						</div>
 					</div>
 				</div>
+				{{/check_nonzero}}
 			</div>
         </div>
 		{{> footer}}

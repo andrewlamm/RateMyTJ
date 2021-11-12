@@ -111,12 +111,12 @@
 								<td style="text-align: center;">{{this.length}}</td>
 								<td style="text-align: center;">{{this.weight}}</td>
 								<td style="text-align: center;">{{this.total}}</td>
-								<td style="text-align: center;">{{fix_number this.class_score}}</td>
-								<td style="text-align: center;">{{fix_number this.workload}}</td>
-								<td style="text-align: center;">{{fix_number this.difficulty}}</td>
-								<td style="text-align: center;">{{fix_number this.enjoyment}}</td>
-								<td style="text-align: center;">{{fix_number this.teacher_score}}</td>
-								<td style="text-align: center;">{{fix_number this.grade}} ({{this.grade_inputs}})</td>
+								<td style="text-align: center;">{{#if this.class_score}} {{fix_number this.class_score}} {{else}} {{/if}}</td>
+								<td style="text-align: center;">{{#if this.workload}} {{fix_number this.workload}} {{else}} {{/if}}</td>
+								<td style="text-align: center;">{{#if this.difficulty}} {{fix_number this.difficulty}} {{else}} {{/if}}</td>
+								<td style="text-align: center;">{{#if this.enjoyment}} {{fix_number this.enjoyment}} {{else}} {{/if}}</td>
+								<td style="text-align: center;">{{#if this.teacher_score}} {{fix_number this.teacher_score}} {{else}} {{/if}}</td>
+								<td style="text-align: center;">{{#if this.grade}}{{fix_number this.grade}} ({{this.grade_inputs}}) {{else}} {{/if}}</td>
 							</tr>
 							{{/each}}
 						</tbody>

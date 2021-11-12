@@ -79,6 +79,18 @@ hbs.registerHelper('check_empty', function(s, options) {
   }
 });
 
+hbs.registerHelper('check_zero', function(n, options) {
+  if (n == 0) {
+    return options.fn(this)
+  }
+});
+
+hbs.registerHelper('check_nonzero', function(n, options) {
+  if (n != 0) {
+    return options.fn(this)
+  }
+});
+
 hbs.registerHelper('empty_key', function(k, options) {
   if (k === undefined) return options.fn(this)
   if (k.length == 0) {
@@ -145,6 +157,9 @@ function getProfileData(req,res,next) {
     var access_token = req.session.token.access_token;
     var profile_url = 'https://ion.tjhsst.edu/api/profile?format=json&access_token='+access_token;
 
+    // console.log(access_token)
+    // console.log(profile_url)
+
     https.get(profile_url, function(response) {
       var rawData = '';
       response.on('data', function(chunk) {
@@ -153,6 +168,10 @@ function getProfileData(req,res,next) {
 
       response.on('end', function() {
         res.locals.profile = JSON.parse(rawData);
+        if (res.locals.profile.detail == "Authentication credentials were not provided.") {
+          res.redirect('/logout')
+        }
+
         res.locals.profile.exists = true
         next();
       });
@@ -215,20 +234,26 @@ function get_class_info(req, res, next) {
 }
 
 function get_score_rank(req, res, next) {
-  pool.query('SELECT name, RANK() OVER (ORDER BY class_score desc) ranking FROM classes WHERE class_score >= ' + res.locals.results.class_score + ' ORDER BY ranking', function(e,r) {
-    res.locals.results.class_score_rank = r[r.length-1].ranking
-    next()
-  })
+  if (res.locals.results.total == 0) {
+    res.render('classes', {"class_info": res.locals.results, "login_link": authorizationUri})
+  }
+  else {
+    pool.query('SELECT name, RANK() OVER (ORDER BY class_score desc) ranking FROM classes WHERE class_score >= ' + res.locals.results.class_score + ' ORDER BY ranking', function(e,r) {
+      res.locals.results.class_score_rank = r[r.length-1].ranking
+      next()
+    })
+  }
 }
 
 function get_total_classes(req, res, next) {
-  pool.query('SELECT * FROM classes', function(e,r) {
+  pool.query('SELECT * FROM classes WHERE total > 0', function(e,r) {
     res.locals.results.num_classes = r.length
     next()
   })
 }
 
 function score_category(req, res, next) {
+  // console.log(res.locals.results.class_score)
   pool.query('SELECT name, RANK() OVER (ORDER BY class_score desc) ranking FROM classes WHERE class_score >= ' + res.locals.results.class_score + ' AND category="' + res.locals.results.category + '" ORDER BY ranking', function(e,r) {
     res.locals.results.class_score_category_rank = r[r.length-1].ranking
     next()
@@ -236,7 +261,7 @@ function score_category(req, res, next) {
 }
 
 function num_category(req, res, next) {
-  pool.query('SELECT * FROM classes WHERE category="' + res.locals.results.category + '";', function(e,r) {
+  pool.query('SELECT * FROM classes WHERE category="' + res.locals.results.category + '" AND total > 0;', function(e,r) {
     res.locals.results.num_category = r.length
     next()
   })
@@ -407,8 +432,14 @@ function overall_teacher_score(req, res, next) {
 function get_stat_rank(stat, desc, arrow) {
   return function(req, res, next) {
     pool.query('SELECT name, RANK() OVER (ORDER BY ' + stat + ' ' + desc + ') ranking FROM classes WHERE ' + stat + ' ' + arrow + ' ' + res.locals.results[stat] + ' ORDER BY ranking', function(e,r) {
-      res.locals.results[stat + "_rank"] = r[r.length-1].ranking
-      next()
+      if (r.length == 0) {
+        res.locals.results[stat + "_rank_null"] = true
+        next()
+      }
+      else {
+        res.locals.results[stat + "_rank"] = r[r.length-1].ranking
+        next()
+      }
     })
   }
 }
@@ -416,8 +447,14 @@ function get_stat_rank(stat, desc, arrow) {
 function stat_category(stat, desc, arrow) {
   return function(req, res, next) {
     pool.query('SELECT name, RANK() OVER (ORDER BY ' + stat + ' ' + desc + ') ranking FROM classes WHERE ' + stat + ' ' + arrow + ' ' + res.locals.results[stat] + ' AND category="' + res.locals.results.category + '" ORDER BY ranking', function(e,r) {
-      res.locals.results[stat + "_category_rank"] = r[r.length-1].ranking
-      next()
+      if (r.length == 0) {
+        res.locals.results[stat + "_rank_null"] = true
+        next()
+      }
+      else {
+        res.locals.results[stat + "_category_rank"] = r[r.length-1].ranking
+        next()
+      }
     })
   }
 }
@@ -631,50 +668,57 @@ function submit_class_feedback(req, res, next) {
   if (grade.length > 5) {
     grade = grade.substring(0, 5)
   }
-  if (isNaN(grade)) {
-    grade = grade.toUpperCase()
-    switch (grade) {
-      case "A":
-        grade_input = 95
-        break
-      case "A-":
-        grade_input = 91
-        break
-      case "B+":
-        grade_input = 88
-        break
-      case "B":
-        grade_input = 85
-        break
-      case "B-":
-        grade_input = 81
-        break
-      case "C+":
-        grade_input = 78
-        break
-      case "C":
-        grade_input = 75
-        break
-      case "C-":
-        grade_input = 71
-        break
-      case "D+":
-        grade_input = 68
-        break
-      case "D":
-        grade_input = 65
-        break
-      case "F":
-        grade_input = 60
-        break
-    }
+
+  if (grade == "") {
+    grade_input = "NULL"
+    grade = "NULL"
   }
   else {
-    grade_input = parseFloat(grade)
+    if (isNaN(grade)) {
+      grade = grade.toUpperCase()
+      switch (grade) {
+        case "A":
+          grade_input = 95
+          break
+        case "A-":
+          grade_input = 91
+          break
+        case "B+":
+          grade_input = 88
+          break
+        case "B":
+          grade_input = 85
+          break
+        case "B-":
+          grade_input = 81
+          break
+        case "C+":
+          grade_input = 78
+          break
+        case "C":
+          grade_input = 75
+          break
+        case "C-":
+          grade_input = 71
+          break
+        case "D+":
+          grade_input = 68
+          break
+        case "D":
+          grade_input = 65
+          break
+        case "F":
+          grade_input = 60
+          break
+      }
+    }
+    else {
+      grade_input = parseFloat(grade)
+    }
   }
 
   var term_order = 0
-  console.log(term.indexOf(' '))
+  // console.log(term.indexOf(' '))
   if (term.indexOf(' ') == -1) {
     for (var i = 0; i < TERMS_YR.length; i++) {
       if (TERMS_YR[i] == term) {
@@ -692,14 +736,28 @@ function submit_class_feedback(req, res, next) {
     }
   }
 
-  console.log('INSERT INTO class_' + class_id + ' VALUES (' + res.locals.profile.id + ', NOW(), "' + term + '", "' + teacher + '", ' + class_score  + ', ' + workload + ', "' + feedback + '", 0, ' + difficulty + ', ' + enjoyment + ', ' + teacher_score + ', ' + grade_input + ', ' + show_teacher + ', NULL, ' + term_order + ');')
-  console.log('INSERT INTO userfeedback VALUES (' + res.locals.profile.id + ', "' + res.locals.profile.ion_username + '", "' + class_id + '", NOW(), "' + term + '", "' + teacher + '", ' + class_score + ', ' + workload + ', "' + feedback + '", ' + difficulty + ', ' + enjoyment + ', ' + teacher_score + ', ' + grade_input + ', ' + show_teacher + ', "' + grade + '", NULL);')
-  pool.query('INSERT INTO class_' + class_id + ' VALUES (' + res.locals.profile.id + ', NOW(), "' + term + '", "' + teacher + '", ' + class_score  + ', ' + workload + ', "' + feedback + '", 0, ' + difficulty + ', ' + enjoyment + ', ' + teacher_score + ', ' + grade_input + ', ' + show_teacher + ', NULL, ' + term_order + ');', function(e, r) {
-    pool.query('INSERT INTO userfeedback VALUES (' + res.locals.profile.id + ', "' + res.locals.profile.ion_username + '", "' + class_id + '", NOW(), "' + term + '", "' + teacher + '", ' + class_score + ', ' + workload + ', "' + feedback + '", ' + difficulty + ', ' + enjoyment + ', ' + teacher_score + ', ' + grade_input + ', ' + show_teacher + ', "' + grade + '", NULL);', function(e, r) {
-      res.locals.class_median = {}
-      next()
+  if (grade == "NULL") {
+    // console.log('INSERT INTO class_' + class_id + ' VALUES (' + res.locals.profile.id + ', NOW(), "' + term + '", "' + teacher + '", ' + class_score  + ', ' + workload + ', "' + feedback + '", 0, ' + difficulty + ', ' + enjoyment + ', ' + teacher_score + ', NULL, ' + show_teacher + ', NULL, ' + term_order + ');')
+    // console.log('INSERT INTO userfeedback VALUES (' + res.locals.profile.id + ', "' + res.locals.profile.ion_username + '", "' + class_id + '", NOW(), "' + term + '", "' + teacher + '", ' + class_score + ', ' + workload + ', "' + feedback + '", ' + difficulty + ', ' + enjoyment + ', ' + teacher_score + ', NULL, ' + show_teacher + ', NULL, NULL);')
+    pool.query('INSERT INTO class_' + class_id + ' VALUES (' + res.locals.profile.id + ', NOW(), "' + term + '", "' + teacher + '", ' + class_score  + ', ' + workload + ', "' + feedback + '", 0, ' + difficulty + ', ' + enjoyment + ', ' + teacher_score + ', NULL, ' + show_teacher + ', NULL, ' + term_order + ');', function(e, r) {
+      console.log(e, r)
+      pool.query('INSERT INTO userfeedback VALUES (' + res.locals.profile.id + ', "' + res.locals.profile.ion_username + '", "' + class_id + '", NOW(), "' + term + '", "' + teacher + '", ' + class_score + ', ' + workload + ', "' + feedback + '", ' + difficulty + ', ' + enjoyment + ', ' + teacher_score + ', NULL, ' + show_teacher + ', NULL, NULL);', function(e, r) {
+        console.log(e, r)
+        res.locals.class_median = {}
+        next()
+      })
     })
-  })
+  }
+  else {
+    // console.log('INSERT INTO class_' + class_id + ' VALUES (' + res.locals.profile.id + ', NOW(), "' + term + '", "' + teacher + '", ' + class_score  + ', ' + workload + ', "' + feedback + '", 0, ' + difficulty + ', ' + enjoyment + ', ' + teacher_score + ', ' + grade_input + ', ' + show_teacher + ', NULL, ' + term_order + ');')
+    // console.log('INSERT INTO userfeedback VALUES (' + res.locals.profile.id + ', "' + res.locals.profile.ion_username + '", "' + class_id + '", NOW(), "' + term + '", "' + teacher + '", ' + class_score + ', ' + workload + ', "' + feedback + '", ' + difficulty + ', ' + enjoyment + ', ' + teacher_score + ', ' + grade_input + ', ' + show_teacher + ', "' + grade + '", NULL);')
+    pool.query('INSERT INTO class_' + class_id + ' VALUES (' + res.locals.profile.id + ', NOW(), "' + term + '", "' + teacher + '", ' + class_score  + ', ' + workload + ', "' + feedback + '", 0, ' + difficulty + ', ' + enjoyment + ', ' + teacher_score + ', ' + grade_input + ', ' + show_teacher + ', NULL, ' + term_order + ');', function(e, r) {
+      pool.query('INSERT INTO userfeedback VALUES (' + res.locals.profile.id + ', "' + res.locals.profile.ion_username + '", "' + class_id + '", NOW(), "' + term + '", "' + teacher + '", ' + class_score + ', ' + workload + ', "' + feedback + '", ' + difficulty + ', ' + enjoyment + ', ' + teacher_score + ', ' + grade_input + ', ' + show_teacher + ', "' + grade + '", NULL);', function(e, r) {
+        res.locals.class_median = {}
+        next()
+      })
+    })
+  }
 }
 
 function edit_class_feedback(req, res, next) {
@@ -802,11 +860,16 @@ function edit_class_feedback(req, res, next) {
 function update_tables(stat) {
   return function(req, res, next) {
     pool.query('SELECT ' + stat + ', ROW_NUMBER() OVER(ORDER BY ' + stat + ') AS row_num FROM class_' + req.query.class_id + ';', function(e, r) {
-      if (r.length % 2 == 0) {
-        res.locals.class_median[stat] = (r[Math.floor(r.length/2)][stat] + r[Math.floor(r.length/2)-1][stat]) / 2
+      if (r.length == 0) {
+        res.locals.class_median[stat] = 'NULL'
       }
       else {
-        res.locals.class_median[stat] = r[Math.floor(r.length / 2)][stat]
+        if (r.length % 2 == 0) {
+          res.locals.class_median[stat] = (r[Math.floor(r.length/2)][stat] + r[Math.floor(r.length/2)-1][stat]) / 2
+        }
+        else {
+          res.locals.class_median[stat] = r[Math.floor(r.length / 2)][stat]
+        }
       }
 
       pool.query('UPDATE classes SET ' + stat + '=' + res.locals.class_median[stat] + ' WHERE id="' + req.query.class_id + '";', function(e, r) {
@@ -818,14 +881,38 @@ function update_tables(stat) {
 
 function update_tables_grade(req, res, next) {
   pool.query('SELECT grade, ROW_NUMBER() OVER(ORDER BY grade) AS row_num FROM class_' + req.query.class_id + ' WHERE grade IS NOT NULL;', function(e, r) {
-    if (r.length % 2 == 0) {
-      res.locals.class_median.grade = (r[Math.floor(r.length/2)].grade + r[Math.floor(r.length/2)-1].grade) / 2
+    if (r.length == 0) {
+      res.locals.class_median.grade = 'NULL'
     }
     else {
-      res.locals.class_median.grade = r[Math.floor(r.length / 2)].grade
+      if (r.length % 2 == 0) {
+        res.locals.class_median.grade = (r[Math.floor(r.length/2)].grade + r[Math.floor(r.length/2)-1].grade) / 2
+      }
+      else {
+        res.locals.class_median.grade = r[Math.floor(r.length / 2)].grade
+      }
     }
 
     pool.query('UPDATE classes SET grade=' + res.locals.class_median.grade + ' WHERE id="' + req.query.class_id + '";', function(e, r) {
+      // console.log(e)
+      next()
+    })
+  })
+}
+
+function update_tables_total(req, res, next) {
+  pool.query('SELECT COUNT(*) AS total FROM class_' + req.query.class_id + ';', function(e, r) {
+    // console.log(r[0].total)
+    pool.query('UPDATE classes SET total=' + r[0].total + ' WHERE id="' + req.query.class_id + '";', function (e, r) {
+      next()
+    })
+  })
+}
+
+function update_tables_grade_total(req, res, next) {
+  pool.query('SELECT COUNT(*) AS total FROM class_' + req.query.class_id + ' WHERE grade >= 0;', function(e, r) {
+    // console.log(r[0].total)
+    pool.query('UPDATE classes SET grade_inputs=' + r[0].total + ' WHERE id="' + req.query.class_id + '";', function (e, r) {
       next()
     })
   })
@@ -882,11 +969,11 @@ app.get('/profile', [checkAuthentication, getProfileData, get_user_feedback, get
   res.render('profile_page', {"profile": res.locals.profile, "reviews": reviews, "classes": res.locals.classes, "terms": TERMS, "terms_edit": ["Fall", "Spring", "Summer", "Year Round"]})
 })
 
-app.get('/submit_feedback', [checkAuthentication, getProfileData, submit_class_feedback, update_tables("class_score"), update_tables("workload"), update_tables("difficulty"), update_tables("enjoyment"), update_tables("teacher_score"), update_tables_grade], (req, res) => {
+app.get('/submit_feedback', [checkAuthentication, getProfileData, submit_class_feedback, update_tables("class_score"), update_tables("workload"), update_tables("difficulty"), update_tables("enjoyment"), update_tables("teacher_score"), update_tables_grade, update_tables_total, update_tables_grade_total], (req, res) => {
   res.redirect('/profile')
 })
 
-app.get('/edit_feedback', [checkAuthentication, getProfileData, edit_class_feedback, update_tables("class_score"), update_tables("workload"), update_tables("difficulty"), update_tables("enjoyment"), update_tables("teacher_score"), update_tables_grade], (req, res) => {
+app.get('/edit_feedback', [checkAuthentication, getProfileData, edit_class_feedback, update_tables("class_score"), update_tables("workload"), update_tables("difficulty"), update_tables("enjoyment"), update_tables("teacher_score"), update_tables_grade, update_tables_total, update_tables_grade_total], (req, res) => {
   res.redirect('/profile')
 })
 
