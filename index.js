@@ -15,7 +15,7 @@ app.use(cookieSession({
   keys: ['urmomsdfasdfjdsfkasdf', 'pgpgofjsjfasdfjj']
 }))
 
-var TERMS = ["Spring 21", "Fall 20", "Summer 20", "Spring 20", "Fall 19", "Summer 19", "Spring 19", "Fall 18", "Summer 18", "2020-21", "2019-20", "2018-19"]
+var TERMS = ["Spring 22", "Fall 21", "Summer 21", "Spring 21", "Fall 20", "Summer 20", "Spring 20", "Fall 19", "Summer 19", "Spring 19", "Fall 18", "Summer 18", "2021-22", "2020-21", "2019-20", "2018-19"]
 
 var ion_client_id = 'riogMOPcoOXJdwttjW3mfpM7J7EGagXPx7ebyIit'
 var ion_client_secret = '2ImfFfzhxkuOBHEzNJmNh8gLLf5JKTsbrH2WR4uZly05srRwX5poVEgBqJxxOG4Vw1l2EVhPOlxI1xuczuZpVnrH8uMyFeXqiOEvTuLWEDYwuTBX76d7bqgeAQHWfRUg'
@@ -55,6 +55,7 @@ hbs.registerHelper('fix_number_profile', function(num) {
   if (num === undefined) return "";
   if (num == null) return "";
   if ((num+"").substring((num+"").indexOf(".")+1).length < 2) return num;
+  if ((num) == 10) return num;
   return num.toFixed(2);
 });
 
@@ -595,6 +596,11 @@ function median_overall_stat(stat) {
 
 function teacher_grade_num(req, res, next) {
   pool.query('SELECT teacher, term, COUNT(*) AS total FROM class_' + res.locals.results.id + ' WHERE grade >= 0 GROUP BY term, teacher;', function(e ,r) {
+    for (var i = 0; i < res.locals.teachers.length; i++) {
+      for (var j = 0; j < res.locals.teachers[i].terms.length; j++) {
+        res.locals.teachers[i].terms[j].grade_total = 0
+      }
+    }
     if (r.length > 0) {
       for (var i = 0; i < r.length; i++) {
         res.locals.teachers[res.locals.teacher_to_index[r[i].teacher]].terms[res.locals.term_teacher_to_index[r[i].teacher][r[i].term]].grade_total = r[i].total
@@ -647,8 +653,8 @@ function get_classes(req, res, next) {
   })
 }
 
-var TERMS_YR = ["Summer 18", "2018-19", "Summer 19", "2019-20", "Summer 20", "2020-21"]
-var TERMS_SEM = ["Summer 18", "Fall 18", "Spring 19", "Summer 19", "Fall 19", "Spring 20", "Summer 20", "Fall 20", "Spring 21"]
+var TERMS_YR = ["Summer 18", "2018-19", "Summer 19", "2019-20", "Summer 20", "2020-21", "Summer 21", "2021-22"]
+var TERMS_SEM = ["Summer 18", "Fall 18", "Spring 19", "Summer 19", "Fall 19", "Spring 20", "Summer 20", "Fall 20", "Spring 21", "Summer 21", "Fall 21", "Spring 22"]
 
 function submit_class_feedback(req, res, next) {
   var class_name = req.query.class_name
@@ -777,50 +783,59 @@ function edit_class_feedback(req, res, next) {
   var delete_feedback = req.query.delete_feedback
   var original_term = req.query.original_term
 
+  console.log("pog" + feedback + "xd")
+
   var grade_input = 0
   if (grade.length > 5) {
     grade = grade.substring(0, 5)
   }
-  if (isNaN(grade)) {
-    grade = grade.toUpperCase()
-    switch (grade) {
-      case "A":
-        grade_input = 95
-        break
-      case "A-":
-        grade_input = 91
-        break
-      case "B+":
-        grade_input = 88
-        break
-      case "B":
-        grade_input = 85
-        break
-      case "B-":
-        grade_input = 81
-        break
-      case "C+":
-        grade_input = 78
-        break
-      case "C":
-        grade_input = 75
-        break
-      case "C-":
-        grade_input = 71
-        break
-      case "D+":
-        grade_input = 68
-        break
-      case "D":
-        grade_input = 65
-        break
-      case "F":
-        grade_input = 60
-        break
-    }
+
+  if (grade == "") {
+    grade_input = "NULL"
+    grade = "NULL"
   }
   else {
-    grade_input = parseFloat(grade)
+    if (isNaN(grade)) {
+      grade = grade.toUpperCase()
+      switch (grade) {
+        case "A":
+          grade_input = 95
+          break
+        case "A-":
+          grade_input = 91
+          break
+        case "B+":
+          grade_input = 88
+          break
+        case "B":
+          grade_input = 85
+          break
+        case "B-":
+          grade_input = 81
+          break
+        case "C+":
+          grade_input = 78
+          break
+        case "C":
+          grade_input = 75
+          break
+        case "C-":
+          grade_input = 71
+          break
+        case "D+":
+          grade_input = 68
+          break
+        case "D":
+          grade_input = 65
+          break
+        case "F":
+          grade_input = 60
+          break
+      }
+    }
+    else {
+      grade_input = parseFloat(grade)
+    }
   }
 
   var term_order = 0
@@ -849,11 +864,22 @@ function edit_class_feedback(req, res, next) {
     })
   }
   else {
-    pool.query('UPDATE userfeedback SET term="' + term + '", teacher="' + teacher + '", class_score=' + class_score + ', workload=' + workload + ', difficulty=' + difficulty + ', enjoyment=' + enjoyment + ', teacher_score=' + teacher_score + ', show_teacher=' + show_teacher + ', grade=' + grade_input + ', grade_input="' + grade + '", feedback="' + feedback + '", edit_time=NOW() WHERE class_id="' + class_id + '" AND user_id=' + res.locals.profile.id + ';', function(e, r) {
-      pool.query('UPDATE class_' + class_id + ' SET term="' + term + '", teacher="' + teacher + '", class_score=' + class_score + ', workload=' + workload + ', difficulty=' + difficulty + ', enjoyment=' + enjoyment + ', teacher_score=' + teacher_score + ', show_teacher=' + show_teacher + ', grade=' + grade_input + ', term_order="' + term_order + '", feedback="' + feedback + '", edit_time=NOW(), edited=1 WHERE user_id=' + res.locals.profile.id + ';', function(e, r) {
-        next()
+    if (grade == "NULL") {
+      pool.query('UPDATE userfeedback SET term="' + term + '", teacher="' + teacher + '", class_score=' + class_score + ', workload=' + workload + ', difficulty=' + difficulty + ', enjoyment=' + enjoyment + ', teacher_score=' + teacher_score + ', show_teacher=' + show_teacher + ', grade=NULL, grade_input=NULL, feedback="' + feedback + '", edit_time=NOW() WHERE class_id="' + class_id + '" AND user_id=' + res.locals.profile.id + ';', function(e, r) {
+        pool.query('UPDATE class_' + class_id + ' SET term="' + term + '", teacher="' + teacher + '", class_score=' + class_score + ', workload=' + workload + ', difficulty=' + difficulty + ', enjoyment=' + enjoyment + ', teacher_score=' + teacher_score + ', show_teacher=' + show_teacher + ', grade=NULL, term_order="' + term_order + '", feedback="' + feedback + '", edit_time=NOW(), edited=1 WHERE user_id=' + res.locals.profile.id + ';', function(e, r) {
+          // console.log(e)
+          next()
+        })
       })
-    })
+    }
+    else {
+      pool.query('UPDATE userfeedback SET term="' + term + '", teacher="' + teacher + '", class_score=' + class_score + ', workload=' + workload + ', difficulty=' + difficulty + ', enjoyment=' + enjoyment + ', teacher_score=' + teacher_score + ', show_teacher=' + show_teacher + ', grade=' + grade_input + ', grade_input="' + grade + '", feedback="' + feedback + '", edit_time=NOW() WHERE class_id="' + class_id + '" AND user_id=' + res.locals.profile.id + ';', function(e, r) {
+        pool.query('UPDATE class_' + class_id + ' SET term="' + term + '", teacher="' + teacher + '", class_score=' + class_score + ', workload=' + workload + ', difficulty=' + difficulty + ', enjoyment=' + enjoyment + ', teacher_score=' + teacher_score + ', show_teacher=' + show_teacher + ', grade=' + grade_input + ', term_order="' + term_order + '", feedback="' + feedback + '", edit_time=NOW(), edited=1 WHERE user_id=' + res.locals.profile.id + ';', function(e, r) {
+          // console.log(e)
+          next()
+        })
+      })
+    }
   }
 }
 

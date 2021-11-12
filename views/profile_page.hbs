@@ -17,7 +17,7 @@
                     {{profile.display_name}}
                 </div>
                 <div class="font-semibold text-2xl">
-                    {{profile.grade.number}}th Grade | {{capitalize profile.grade.name}}
+                    {{profile.grade.number}}th Grade | {{profile.ion_username}}
                 </div>
             </div>
             <div class="w-full flex flex-col px-3">
@@ -177,7 +177,7 @@
                                                 <input name="show_teacher" type="checkbox" id="{{class_id}}_show_teacher_input" data-original={{this.show_teacher}} {{#if this.show_teacher}}checked{{/if}}>
                                             </div>
                                         </th>
-                                        <th><input name="grade" class="pl-1 w-full border border-black" size="4" id="{{class_id}}_grade_score_input" autocomplete="off" value={{this.grade_input}} data-original={{this.grade_input}}></th>
+                                        <th><input name="grade" class="pl-1 w-full border border-black" size="4" id="{{class_id}}_grade_score_input" autocomplete="off" value="{{this.grade_input}}" data-original="{{this.grade_input}}"></th>
                                         <th class="w-1/4"><textarea name="feedback" class="pl-1 w-full border border-black" id="{{class_id}}_feedback_input" data-original="{{this.feedback}}">{{this.feedback}}</textarea></th>
                                         <th>
                                             <input type="submit" value="Submit" class="bg-white hover_pointer font-semibold text-green-700" id={{class_id}}_submit><br>
@@ -448,7 +448,7 @@
                 return false
             }
 
-            if (name_to_length[inputs[0]] == "Full Year") {
+            if (name_to_length[inputs[0]] == "Full Year" && !(inputs[0] == "Foundations of Computer Science" || inputs[0] == "Ancient & Classical Civilizations" || inputs[0] == "Chemistry 1")) {
                 if (!(inputs[2].indexOf(' ') == -1)) {
                     document.getElementById("error_msg").innerHTML = "Error! Term and class name mismatch."
                     document.getElementById("error_msg").classList.remove('hidden')
