@@ -52,8 +52,8 @@
 						</div>
 						<div class="w-full px-1 flex flex-row pt-2">
 							{{> score_card score_name="Teacher Score" score=class_info.teacher_score rank=class_info.teacher_score_rank num_classes=class_info.num_classes score_text="/10" rank_category=class_info.teacher_score_category_rank num_category=class_info.num_category category=class_info.category}}
-							{{#if class_info.grade_rank_null}}{{> empty_score_card score_name="Grade"}}
-							{{else}}{{> score_card score_name="Grade" score=class_info.grade rank=class_info.grade_rank num_classes=class_info.num_classes score_text="%" rank_category=class_info.grade_category_rank num_category=class_info.num_category category=class_info.category}}
+							{{#if class_info.grade_inputs}}{{> score_card score_name="Grade" score=class_info.grade rank=class_info.grade_rank num_classes=class_info.num_grade score_text="%" rank_category=class_info.grade_category_rank num_category=class_info.num_category category=class_info.category}}
+							{{else}}{{> empty_score_card score_name="Grade"}}
 							{{/if}}
 						</div>
 						{{/check_nonzero}}
@@ -96,7 +96,7 @@
 												<td>{{fix_number this.med_difficulty}}</td>
 												<td>{{fix_number this.med_enjoyment}}</td>
 												<td>{{fix_number this.med_teacher_score}}</td>
-												<td>{{#if this.med_grade}} {{fix_number this.med_grade}} ({{this.grade_total}}) {{else}} {{/if}}</td>
+												<td>{{#if this.grade_total}} {{fix_number this.med_grade}} ({{this.grade_total}}) {{else}} {{/if}}</td>
 											</tr>
 											{{/each}}
 										</tbody>
@@ -133,7 +133,7 @@
 												<td>{{fix_number this.avg_difficulty}}</td>
 												<td>{{fix_number this.avg_enjoyment}}</td>
 												<td>{{fix_number this.avg_teacher_score}}</td>
-												<td>{{#if this.avg_grade}} {{fix_number this.avg_grade}} ({{this.grade_total}}) {{else}} {{/if}}</td>
+												<td>{{#if this.grade_total}} {{fix_number this.avg_grade}} ({{this.grade_total}}) {{else}} {{/if}}</td>
 											</tr>
 											{{/each}}
 										</tbody>
@@ -153,7 +153,7 @@
 									{{this.name}}
 								</div>
 								<div>
-									<table id="teacher_{{this.name}}_table" class="display">
+									<table id="teacher_{{remove_spaces this.name}}_table" class="display">
 										<thead>
 											<tr class="text-center">
 												<th>Term</th>
@@ -178,7 +178,7 @@
 												<td>{{fix_number this.difficulty}}</td>
 												<td>{{fix_number this.enjoyment}}</td>
 												<td>{{fix_number this.teacher_score}}</td>
-												<td>{{#if this.grade}} {{fix_number this.grade}} ({{this.grade_total}}) {{else}} {{/if}}</td>
+												<td>{{#if this.grade_total}} {{fix_number this.grade}} ({{this.grade_total}}) {{else}} {{/if}}</td>
 											</tr>
 											{{/each}}
 										</tbody>
@@ -263,7 +263,7 @@
 				"order": [[ 1, "DESC" ]]
 			} );
 			{{#each teacher}}
-			var {{this.name}} = $('#teacher_{{this.name}}_table').DataTable( {
+			var {{remove_spaces this.name}} = $('#teacher_{{remove_spaces this.name}}_table').DataTable( {
 					'columnDefs': [
 						{
 							'searchable'    : false,

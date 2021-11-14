@@ -8,17 +8,26 @@ const { RSA_NO_PADDING } = require('constants');
 const app = express()
 const port = 3000
 
+var filter = require('leo-profanity')
+
+var bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
 app.set('trust proxy', 1)
+
+require('dotenv').config()
 
 app.use(cookieSession({
   name: 'pogchamp',
-  keys: ['urmomsdfasdfjdsfkasdf', 'pgpgofjsjfasdfjj']
+  keys: [process.env.COOKIE_KEY_1, process.env.COOKIE_KEY_2]
 }))
 
 var TERMS = ["Spring 22", "Fall 21", "Summer 21", "Spring 21", "Fall 20", "Summer 20", "Spring 20", "Fall 19", "Summer 19", "Spring 19", "Fall 18", "Summer 18", "2021-22", "2020-21", "2019-20", "2018-19"]
 
 var ion_client_id = 'riogMOPcoOXJdwttjW3mfpM7J7EGagXPx7ebyIit'
-var ion_client_secret = '2ImfFfzhxkuOBHEzNJmNh8gLLf5JKTsbrH2WR4uZly05srRwX5poVEgBqJxxOG4Vw1l2EVhPOlxI1xuczuZpVnrH8uMyFeXqiOEvTuLWEDYwuTBX76d7bqgeAQHWfRUg'
+var ion_client_secret = process.env.ION_CLIENT_SECRET
 var ion_redirect_uri = 'http://localhost:3000/login_worker'
 
 var client = new AuthorizationCode({
@@ -108,6 +117,10 @@ hbs.registerHelper('no_reviews', function(k, options) {
 
 hbs.registerHelper('capitalize', function(s) {
   return (s.charAt(0)+"").toUpperCase() + s.substring(1)
+})
+
+hbs.registerHelper('remove_spaces', function(s) {
+  return s.replace(/ /g, "_")
 })
 
 hbs.registerHelper('display_bool', function(b) {
@@ -207,11 +220,11 @@ async function convertCodeToToken(req, res, next) {
 }
 
 var pool = mysql.createPool({
-  user: 'root',
-  password: 'asdf',
-  host: '127.0.0.1',
-  port: '3306',
-  database: 'RateMyTJ'
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  database: process.env.DB_DATABASE
 })
 var STATS = [["workload", "", "<="], ["difficulty","","<="], ["enjoyment", "DESC", ">="], ["teacher_score", "DESC", ">="], ["grade", "DESC", ">="]]
 
@@ -239,7 +252,7 @@ function get_score_rank(req, res, next) {
     res.render('classes', {"class_info": res.locals.results, "login_link": authorizationUri})
   }
   else {
-    pool.query('SELECT name, RANK() OVER (ORDER BY class_score desc) ranking FROM classes WHERE class_score >= ' + res.locals.results.class_score + ' ORDER BY ranking', function(e,r) {
+    pool.query('SELECT name, RANK() OVER (ORDER BY class_score desc) ranking, total FROM classes WHERE class_score >= ' + res.locals.results.class_score + ' AND total > 0 ORDER BY ranking', function(e,r) {
       res.locals.results.class_score_rank = r[r.length-1].ranking
       next()
     })
@@ -255,7 +268,7 @@ function get_total_classes(req, res, next) {
 
 function score_category(req, res, next) {
   // console.log(res.locals.results.class_score)
-  pool.query('SELECT name, RANK() OVER (ORDER BY class_score desc) ranking FROM classes WHERE class_score >= ' + res.locals.results.class_score + ' AND category="' + res.locals.results.category + '" ORDER BY ranking', function(e,r) {
+  pool.query('SELECT name, RANK() OVER (ORDER BY class_score desc) ranking, total FROM classes WHERE class_score >= ' + res.locals.results.class_score + ' AND total > 0 AND category="' + res.locals.results.category + '" ORDER BY ranking', function(e,r) {
     res.locals.results.class_score_category_rank = r[r.length-1].ranking
     next()
   })
@@ -275,6 +288,13 @@ function avg_terms(req, res, next) {
       res.locals.term_to_index[r[i].term] = i
     }
     res.locals.term_stats = r
+    next()
+  })
+}
+
+function total_grade(req, res, next) {
+  pool.query('SELECT * FROM classes WHERE grade > 0;', function(e,r) {
+    res.locals.results.num_grade = r.length
     next()
   })
 }
@@ -432,7 +452,7 @@ function overall_teacher_score(req, res, next) {
 //////// GENERIC CODE STARTS HERE
 function get_stat_rank(stat, desc, arrow) {
   return function(req, res, next) {
-    pool.query('SELECT name, RANK() OVER (ORDER BY ' + stat + ' ' + desc + ') ranking FROM classes WHERE ' + stat + ' ' + arrow + ' ' + res.locals.results[stat] + ' ORDER BY ranking', function(e,r) {
+    pool.query('SELECT name, RANK() OVER (ORDER BY ' + stat + ' ' + desc + ') ranking, total FROM classes WHERE ' + stat + ' ' + arrow + ' ' + res.locals.results[stat] + ' AND total > 0 ORDER BY ranking', function(e,r) {
       if (r.length == 0) {
         res.locals.results[stat + "_rank_null"] = true
         next()
@@ -447,7 +467,7 @@ function get_stat_rank(stat, desc, arrow) {
 
 function stat_category(stat, desc, arrow) {
   return function(req, res, next) {
-    pool.query('SELECT name, RANK() OVER (ORDER BY ' + stat + ' ' + desc + ') ranking FROM classes WHERE ' + stat + ' ' + arrow + ' ' + res.locals.results[stat] + ' AND category="' + res.locals.results.category + '" ORDER BY ranking', function(e,r) {
+    pool.query('SELECT name, RANK() OVER (ORDER BY ' + stat + ' ' + desc + ') ranking, total FROM classes WHERE ' + stat + ' ' + arrow + ' ' + res.locals.results[stat] + ' AND category="' + res.locals.results.category + '" AND total > 0 ORDER BY ranking', function(e,r) {
       if (r.length == 0) {
         res.locals.results[stat + "_rank_null"] = true
         next()
@@ -657,18 +677,22 @@ var TERMS_YR = ["Summer 18", "2018-19", "Summer 19", "2019-20", "Summer 20", "20
 var TERMS_SEM = ["Summer 18", "Fall 18", "Spring 19", "Summer 19", "Fall 19", "Spring 20", "Summer 20", "Fall 20", "Spring 21", "Summer 21", "Fall 21", "Spring 22"]
 
 function submit_class_feedback(req, res, next) {
-  var class_name = req.query.class_name
-  var class_id = req.query.class_id
-  var term = req.query.term
-  var teacher = req.query.teacher
-  var class_score = parseFloat(req.query.class_score)
-  var workload = parseFloat(req.query.workload)
-  var difficulty = parseFloat(req.query.difficulty)
-  var enjoyment = parseFloat(req.query.enjoyment)
-  var teacher_score = parseFloat(req.query.teacher_score)
-  var show_teacher = req.query.show_teacher == "on" ? true : false
-  var grade = req.query.grade
-  var feedback = req.query.feedback
+  var class_name = req.body.class_name
+  var class_id = req.body.class_id
+  var term = req.body.term
+  var teacher = req.body.teacher
+  var class_score = parseFloat(req.body.class_score)
+  var workload = parseFloat(req.body.workload)
+  var difficulty = parseFloat(req.body.difficulty)
+  var enjoyment = parseFloat(req.body.enjoyment)
+  var teacher_score = parseFloat(req.body.teacher_score)
+  var show_teacher = req.body.show_teacher == "on" ? true : false
+  var grade = req.body.grade
+  var feedback = req.body.feedback
+
+  feedback = feedback.trim()
+  if (!(feedback == ""))
+    feedback = filter.clean(feedback)
 
   var grade_input = 0
   if (grade.length > 5) {
@@ -768,22 +792,25 @@ function submit_class_feedback(req, res, next) {
 
 function edit_class_feedback(req, res, next) {
   res.locals.class_median = {}
-  var class_name = req.query.class_name
-  var class_id = req.query.class_id
-  var term = req.query.term
-  var teacher = req.query.teacher
-  var class_score = parseFloat(req.query.class_score)
-  var workload = parseFloat(req.query.workload)
-  var difficulty = parseFloat(req.query.difficulty)
-  var enjoyment = parseFloat(req.query.enjoyment)
-  var teacher_score = parseFloat(req.query.teacher_score)
-  var show_teacher = req.query.show_teacher == "on" ? true : false
-  var grade = req.query.grade
-  var feedback = req.query.feedback
-  var delete_feedback = req.query.delete_feedback
-  var original_term = req.query.original_term
+  var class_name = req.body.class_name
+  var class_id = req.body.class_id
+  var term = req.body.term
+  var teacher = req.body.teacher
+  var class_score = parseFloat(req.body.class_score)
+  var workload = parseFloat(req.body.workload)
+  var difficulty = parseFloat(req.body.difficulty)
+  var enjoyment = parseFloat(req.body.enjoyment)
+  var teacher_score = parseFloat(req.body.teacher_score)
+  var show_teacher = req.body.show_teacher == "on" ? true : false
+  var grade = req.body.grade
+  var feedback = req.body.feedback
+  var delete_feedback = req.body.delete_feedback
+  var original_term = req.body.original_term
 
-  console.log("pog" + feedback + "xd")
+  feedback = feedback.trim()
+  console.log(feedback)
+  if (!(feedback == ""))
+    feedback = filter.clean(feedback)
 
   var grade_input = 0
   if (grade.length > 5) {
@@ -885,7 +912,7 @@ function edit_class_feedback(req, res, next) {
 
 function update_tables(stat) {
   return function(req, res, next) {
-    pool.query('SELECT ' + stat + ', ROW_NUMBER() OVER(ORDER BY ' + stat + ') AS row_num FROM class_' + req.query.class_id + ';', function(e, r) {
+    pool.query('SELECT ' + stat + ', ROW_NUMBER() OVER(ORDER BY ' + stat + ') AS row_num FROM class_' + req.body.class_id + ';', function(e, r) {
       if (r.length == 0) {
         res.locals.class_median[stat] = 'NULL'
       }
@@ -898,7 +925,7 @@ function update_tables(stat) {
         }
       }
 
-      pool.query('UPDATE classes SET ' + stat + '=' + res.locals.class_median[stat] + ' WHERE id="' + req.query.class_id + '";', function(e, r) {
+      pool.query('UPDATE classes SET ' + stat + '=' + res.locals.class_median[stat] + ' WHERE id="' + req.body.class_id + '";', function(e, r) {
         next()
       })
     })
@@ -906,7 +933,7 @@ function update_tables(stat) {
 }
 
 function update_tables_grade(req, res, next) {
-  pool.query('SELECT grade, ROW_NUMBER() OVER(ORDER BY grade) AS row_num FROM class_' + req.query.class_id + ' WHERE grade IS NOT NULL;', function(e, r) {
+  pool.query('SELECT grade, ROW_NUMBER() OVER(ORDER BY grade) AS row_num FROM class_' + req.body.class_id + ' WHERE grade IS NOT NULL;', function(e, r) {
     if (r.length == 0) {
       res.locals.class_median.grade = 'NULL'
     }
@@ -919,7 +946,7 @@ function update_tables_grade(req, res, next) {
       }
     }
 
-    pool.query('UPDATE classes SET grade=' + res.locals.class_median.grade + ' WHERE id="' + req.query.class_id + '";', function(e, r) {
+    pool.query('UPDATE classes SET grade=' + res.locals.class_median.grade + ' WHERE id="' + req.body.class_id + '";', function(e, r) {
       // console.log(e)
       next()
     })
@@ -927,18 +954,18 @@ function update_tables_grade(req, res, next) {
 }
 
 function update_tables_total(req, res, next) {
-  pool.query('SELECT COUNT(*) AS total FROM class_' + req.query.class_id + ';', function(e, r) {
+  pool.query('SELECT COUNT(*) AS total FROM class_' + req.body.class_id + ';', function(e, r) {
     // console.log(r[0].total)
-    pool.query('UPDATE classes SET total=' + r[0].total + ' WHERE id="' + req.query.class_id + '";', function (e, r) {
+    pool.query('UPDATE classes SET total=' + r[0].total + ' WHERE id="' + req.body.class_id + '";', function (e, r) {
       next()
     })
   })
 }
 
 function update_tables_grade_total(req, res, next) {
-  pool.query('SELECT COUNT(*) AS total FROM class_' + req.query.class_id + ' WHERE grade >= 0;', function(e, r) {
+  pool.query('SELECT COUNT(*) AS total FROM class_' + req.body.class_id + ' WHERE grade >= 0;', function(e, r) {
     // console.log(r[0].total)
-    pool.query('UPDATE classes SET grade_inputs=' + r[0].total + ' WHERE id="' + req.query.class_id + '";', function (e, r) {
+    pool.query('UPDATE classes SET grade_inputs=' + r[0].total + ' WHERE id="' + req.body.class_id + '";', function (e, r) {
       next()
     })
   })
@@ -957,7 +984,7 @@ app.get('/logout', function (req, res) {
   res.redirect('/');
 })
 
-var base_middleware = [get_class_info, get_total_classes, num_category, avg_terms, avg_overall, grade_num, get_feedback]
+var base_middleware = [get_class_info, get_total_classes, num_category, total_grade, avg_terms, avg_overall, grade_num, get_feedback]
 var score_middleware = [get_score_rank, score_category, median_score, teacher_class_score, overall_teacher_score, median_overall_score]
 var workload_middleware = [get_stat_rank("workload", "", "<="), stat_category("workload", "", "<="), median_stat("workload"), teacher_stat("workload"), overall_teacher_stat("workload"), median_overall_stat("workload")]
 var difficulty_middleware = [get_stat_rank("difficulty", "", "<="), stat_category("difficulty", "", "<="), median_stat("difficulty"), teacher_stat("difficulty"), overall_teacher_stat("difficulty"), median_overall_stat("difficulty")]
@@ -966,6 +993,8 @@ var teacher_score_middleware = [get_stat_rank("teacher_score", "DESC", ">="), st
 var grade_middleware = [get_stat_rank("grade", "DESC", ">="), stat_category("grade", "DESC", ">="), median_stat("grade"), teacher_stat("grade"), overall_teacher_stat("grade"), median_overall_stat("grade")]
 var extra_grade_middleware = [teacher_grade_num, teacher_grade_num_overall]
 var stats_middleware = workload_middleware.concat(difficulty_middleware).concat(enjoyment_middleware).concat(teacher_score_middleware)
+
+// document.getElementById('ice-cream-choice').setAttribute('list', "ice-cream-flavors")
 
 app.get('/', [getProfileData], (req, res) => {
   pool.query("SELECT * FROM classes;", function(error, results) {
@@ -995,11 +1024,11 @@ app.get('/profile', [checkAuthentication, getProfileData, get_user_feedback, get
   res.render('profile_page', {"profile": res.locals.profile, "reviews": reviews, "classes": res.locals.classes, "terms": TERMS, "terms_edit": ["Fall", "Spring", "Summer", "Year Round"]})
 })
 
-app.get('/submit_feedback', [checkAuthentication, getProfileData, submit_class_feedback, update_tables("class_score"), update_tables("workload"), update_tables("difficulty"), update_tables("enjoyment"), update_tables("teacher_score"), update_tables_grade, update_tables_total, update_tables_grade_total], (req, res) => {
+app.post('/submit_feedback', [checkAuthentication, getProfileData, submit_class_feedback, update_tables("class_score"), update_tables("workload"), update_tables("difficulty"), update_tables("enjoyment"), update_tables("teacher_score"), update_tables_grade, update_tables_total, update_tables_grade_total], (req, res) => {
   res.redirect('/profile')
 })
 
-app.get('/edit_feedback', [checkAuthentication, getProfileData, edit_class_feedback, update_tables("class_score"), update_tables("workload"), update_tables("difficulty"), update_tables("enjoyment"), update_tables("teacher_score"), update_tables_grade, update_tables_total, update_tables_grade_total], (req, res) => {
+app.post('/edit_feedback', [checkAuthentication, getProfileData, edit_class_feedback, update_tables("class_score"), update_tables("workload"), update_tables("difficulty"), update_tables("enjoyment"), update_tables("teacher_score"), update_tables_grade, update_tables_total, update_tables_grade_total], (req, res) => {
   res.redirect('/profile')
 })
 

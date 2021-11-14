@@ -50,7 +50,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <form onsubmit="return submit_feedback()" action="submit_feedback">
+                                <form onsubmit="return submit_feedback()" action="submit_feedback" method="POST">
                                     <th class="text-left w-1/6" class="px-1">
                                         <input type="search" list="class_names" name="class_name" class="pl-1 w-full border border-black" id="names_input" onfocusout="change_id()" autocomplete="off" required>
                                         <datalist id="class_names">
@@ -158,7 +158,7 @@
                                     <th class="w-1/4">{{this.feedback}}</th>
                                     <th><a class="text-green-700 font-semibold" onclick="display_edit(this.id)" id={{class_id}}_edit>Edit</a></th>
                                 </tr>
-                                <form onsubmit="return edit_feedback(this.id)" action="edit_feedback" id={{class_id}}_form>
+                                <form onsubmit="return edit_feedback(this.id)" action="edit_feedback" method="POST" id={{class_id}}_form>
                                     <tr class="hidden" id={{class_id}}_inputs>
                                         <th class="text-left w-1/6"><input name="class_name" class="pl-1 w-full border border-black hidden" value="{{this.name}}" id="{{this.class_id}}_names_input">{{this.name}}</th>
                                         <th><input name="class_id" class="pl-1 w-full border border-black hidden" value={{this.class_id}} id="{{this.class_id}}_id_input">{{this.class_id}}</th>
