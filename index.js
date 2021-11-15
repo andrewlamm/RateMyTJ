@@ -781,9 +781,9 @@ function submit_class_feedback(req, res, next) {
     // console.log('INSERT INTO class_' + class_id + ' VALUES (' + res.locals.profile.id + ', NOW(), "' + term + '", "' + teacher + '", ' + class_score  + ', ' + workload + ', "' + feedback + '", 0, ' + difficulty + ', ' + enjoyment + ', ' + teacher_score + ', NULL, ' + show_teacher + ', NULL, ' + term_order + ');')
     // console.log('INSERT INTO userfeedback VALUES (' + res.locals.profile.id + ', "' + res.locals.profile.ion_username + '", "' + class_id + '", NOW(), "' + term + '", "' + teacher + '", ' + class_score + ', ' + workload + ', "' + feedback + '", ' + difficulty + ', ' + enjoyment + ', ' + teacher_score + ', NULL, ' + show_teacher + ', NULL, NULL);')
     pool.query('INSERT INTO class_' + class_id + ' VALUES (' + res.locals.profile.id + ', NOW(), "' + term + '", "' + teacher + '", ' + class_score  + ', ' + workload + ', "' + feedback + '", 0, ' + difficulty + ', ' + enjoyment + ', ' + teacher_score + ', NULL, ' + show_teacher + ', NULL, ' + term_order + ');', function(e, r) {
-      console.log(e, r)
+      // console.log(e, r)
       pool.query('INSERT INTO userfeedback VALUES (' + res.locals.profile.id + ', "' + res.locals.profile.ion_username + '", "' + class_id + '", NOW(), "' + term + '", "' + teacher + '", ' + class_score + ', ' + workload + ', "' + feedback + '", ' + difficulty + ', ' + enjoyment + ', ' + teacher_score + ', NULL, ' + show_teacher + ', NULL, NULL);', function(e, r) {
-        console.log(e, r)
+        // console.log(e, r)
         res.locals.class_median = {}
         next()
       })
@@ -1019,9 +1019,13 @@ app.get('/class/:classID', [getProfileData].concat(base_middleware).concat(score
   // console.log(res.locals.results)
   // console.log(res.locals.term_stats)
   // console.log(res.locals.teachers)
-  // console.log(res.locals.feedback)
-  // console.log(res.locals["feedback"])
-  res.render('classes', {"class_info": res.locals.results, "term_stats": res.locals.term_stats, "teacher": res.locals.teachers, "feedback": res.locals.feedback, "profile": res.locals.profile, "login_link": authorizationUri})
+  console.log(res.locals.feedback)
+  var feedback = []
+  for (const [key, value] of Object.entries(res.locals.feedback)) {
+    feedback.push(value)
+  }
+  feedback.sort((a, b) => (a.term < b.term) ? 1 : -1)
+  res.render('classes', {"class_info": res.locals.results, "term_stats": res.locals.term_stats, "teacher": res.locals.teachers, "feedback": feedback, "profile": res.locals.profile, "login_link": authorizationUri})
 })
 
 app.get('/profile', [checkAuthentication, getProfileData, get_user_feedback, get_classes], (req, res) => {

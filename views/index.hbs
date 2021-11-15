@@ -116,7 +116,7 @@
 								<td style="text-align: center;">{{#if this.total}} {{fix_number this.difficulty}} {{else}} {{/if}}</td>
 								<td style="text-align: center;">{{#if this.total}} {{fix_number this.enjoyment}} {{else}} {{/if}}</td>
 								<td style="text-align: center;">{{#if this.total}} {{fix_number this.teacher_score}} {{else}} {{/if}}</td>
-								<td style="text-align: center;" data-order="{{#if this.grade_inputs}}{{this.grade}}{{else}}-1{{/if}}">{{#if this.grade_inputs}}{{fix_number this.grade}} ({{this.grade_inputs}}) {{else}} {{/if}}</td>
+								<td style="text-align: center;" data-order="{{#if this.grade_inputs}}{{this.grade}}{{else}}{{/if}}">{{#if this.grade_inputs}}{{fix_number this.grade}} ({{this.grade_inputs}}) {{else}} {{/if}}</td>
 							</tr>
 							{{/each}}
 						</tbody>
@@ -126,6 +126,27 @@
 		</div>
 		{{> footer}}
 		<script type="text/javascript">
+			var __emptyOnTop = function(a, b, high) {
+				a = parseFloat(a || high);
+				b = parseFloat(b || high);
+				return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+			}
+
+			jQuery.extend( jQuery.fn.dataTableExt.oSort, {
+				"empty-on-top-asc": function (a, b) {
+					return __emptyOnTop(a, b, Number.NEGATIVE_INFINITY) * -1
+				},
+				"empty-on-top-desc": function (a, b) {
+					return __emptyOnTop(a, b, Number.POSITIVE_INFINITY)
+				},
+				"empty-on-top-reverse-asc": function (a, b) {
+					return __emptyOnTop(a, b, Number.POSITIVE_INFINITY)
+				},
+				"empty-on-top-reverse-desc": function (a, b) {
+					return __emptyOnTop(a, b, Number.NEGATIVE_INFINITY) * -1
+				}
+			});
+
 			var table = $('#classes_table').DataTable( {
 				'columnDefs': [
 					{
@@ -135,6 +156,62 @@
 					{
 						'targets'		: [1],
 						'visible'		: false
+					},
+					{
+						targets: [8,11,12,13],
+						type: 'empty-on-top'
+					},
+					{
+						targets: [9,10],
+						type: 'empty-on-top-reverse'
+					},
+					{
+						targets: [0],
+            			orderData: [0, 6]
+					},
+					{
+						targets: [3],
+            			orderData: [3, 0]
+					},
+					{
+						targets: [4],
+            			orderData: [4, 0]
+					},
+					{
+						targets: [5],
+            			orderData: [5, 0]
+					},
+					{
+						targets: [6],
+            			orderData: [6, 0]
+					},
+					{
+						targets: [7],
+            			orderData: [7, 0]
+					},
+					{
+						targets: [8],
+            			orderData: [8, 7, 0]
+					},
+					{
+						targets: [9],
+            			orderData: [9, 7, 0]
+					},
+					{
+						targets: [10],
+            			orderData: [10, 7, 0]
+					},
+					{
+						targets: [11],
+            			orderData: [11, 7, 0]
+					},
+					{
+						targets: [12],
+            			orderData: [12, 7, 0]
+					},
+					{
+						targets: [13],
+            			orderData: [13, 7, 0]
 					},
 					{ "width": '200px', "targets": 0 },
 					{ "width": '100px', "targets": 3 },

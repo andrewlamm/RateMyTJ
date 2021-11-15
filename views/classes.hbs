@@ -75,7 +75,6 @@
 										<thead>
 											<tr class="text-center">
 												<th>Term</th>
-												<th>Order</th>
 												<th title="Number of students that have inputted data for this term">#</th>
 												<th title="Overall rating of the class, scale of 0(Awful)-10(Best)">SCO</th>
 												<th title="Average amount of time spent on HW in this class per week">WRK</th>
@@ -88,8 +87,7 @@
 										<tbody>
 											{{#each term_stats}}
 											<tr>
-												<td>{{this.term}}</td>
-												<td>{{this.term_order}}</td>
+												<td data-order="{{this.term_order}}">{{this.term}}</td>
 												<td>{{this.total}}</td>
 												<td>{{fix_number this.med_score}}</td>
 												<td>{{fix_number this.med_workload}}</td>
@@ -112,7 +110,6 @@
 										<thead>
 											<tr class="text-center">
 												<th>Term</th>
-												<th>Order</th>
 												<th title="Number of students that have inputted data for this term">#</th>
 												<th title="Overall rating of the class, scale of 0(Awful)-10(Best)">SCO</th>
 												<th title="Average amount of time spent on HW in this class per week">WRK</th>
@@ -125,8 +122,7 @@
 										<tbody>
 											{{#each term_stats}}
 											<tr>
-												<td>{{this.term}}</td>
-												<td>{{this.term_order}}</td>
+												<td data-order="{{this.term_order}}">{{this.term}}</td>
 												<td>{{this.total}}</td>
 												<td>{{fix_number this.avg_score}}</td>
 												<td>{{fix_number this.avg_workload}}</td>
@@ -157,7 +153,6 @@
 										<thead>
 											<tr class="text-center">
 												<th>Term</th>
-												<th>Order</th>
 												<th title="Number of students that have inputted data for this term">#</th>
 												<th title="Overall rating of the class, scale of 0(Awful)-10(Best)">SCO</th>
 												<th title="Average amount of time spent on HW in this class per week">WRK</th>
@@ -170,8 +165,7 @@
 										<tbody>
 											{{#each this.terms}}
 											<tr>
-												<td>{{this.term}}</td>
-												<td>{{this.term_order}}</td>
+												<td data-order="{{this.term_order}}">{{this.term}}</td>
 												<td>{{this.total}}</td>
 												<td>{{fix_number this.class_score}}</td>
 												<td>{{fix_number this.workload}}</td>
@@ -226,15 +220,36 @@
         </div>
 		{{> footer}}
 		<script type="text/javascript">
+			var __emptyOnTop = function(a, b, high) {
+				a = parseFloat(a || high);
+				b = parseFloat(b || high);
+				return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+			}
+
+			jQuery.extend( jQuery.fn.dataTableExt.oSort, {
+				"empty-on-top-asc": function (a, b) {
+					return __emptyOnTop(a, b, Number.NEGATIVE_INFINITY) * -1
+				},
+				"empty-on-top-desc": function (a, b) {
+					return __emptyOnTop(a, b, Number.POSITIVE_INFINITY)
+				},
+				"empty-on-top-reverse-asc": function (a, b) {
+					return __emptyOnTop(a, b, Number.POSITIVE_INFINITY)
+				},
+				"empty-on-top-reverse-desc": function (a, b) {
+					return __emptyOnTop(a, b, Number.NEGATIVE_INFINITY) * -1
+				}
+			});
+
 			var avg_table = $('#average_term_table').DataTable( {
 				'columnDefs': [
 					{
 						'searchable'    : false,
-						'targets'       : [1, 2, 3]
+						'targets'       : [1, 2, 3, 4, 5, 6, 7]
 					},
 					{
-						'targets'		: [1],
-						'visible'		: false
+						targets: [7],
+						type: 'empty-on-top'
 					},
 					{ "width": '150px', "targets": 0 },
 				],
@@ -242,17 +257,17 @@
 				"language": {
 					"infoFiltered": ""
 				},
-				"order": [[ 1, "DESC" ]]
+				"order": [[ 0, "ASC" ]]
 			} );
 			var median_table = $('#median_term_table').DataTable( {
 				'columnDefs': [
 					{
 						'searchable'    : false,
-						'targets'       : [1, 2, 3]
+						'targets'       : [1, 2, 3, 4, 5, 6, 7]
 					},
 					{
-						'targets'		: [1],
-						'visible'		: false
+						targets: [7],
+						type: 'empty-on-top'
 					},
 					{ "width": '150px', "targets": 0 },
 				],
@@ -260,26 +275,26 @@
 				"language": {
 					"infoFiltered": ""
 				},
-				"order": [[ 1, "DESC" ]]
+				"order": [[ 0, "ASC" ]]
 			} );
 			{{#each teacher}}
 			var {{remove_spaces this.name}} = $('#teacher_{{remove_spaces this.name}}_table').DataTable( {
 					'columnDefs': [
 						{
 							'searchable'    : false,
-							'targets'       : [1, 2, 3]
-						},
-						{
-							'targets'		: [1],
-							'visible'		: false
+							'targets'       : [1, 2, 3, 4, 5, 6, 7]
 						},
 						{ "width": '150px', "targets": 0 },
+						{
+							targets: [7],
+							type: 'empty-on-top'
+						},
 					],
 					"iDisplayLength": 10,
 					"language": {
 						"infoFiltered": ""
 					},
-					"order": [[ 1, "DESC" ]]
+					"order": [[ 0, "DESC" ]]
 				} );
 			{{/each}}
 
