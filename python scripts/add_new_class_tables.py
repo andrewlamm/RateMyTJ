@@ -19,7 +19,9 @@ result = cursor.fetchall()
 
 ### TRUNCATE TABLES
 for item in result:
-	cursor.execute('TRUNCATE TABLE class_' + item[2])
+	cursor.execute('ALTER TABLE class_' + item[2] + ' DROP PRIMARY KEY;')
+	cursor.execute('ALTER TABLE class_' + item[2] + ' ADD PRIMARY KEY (user_id, term);')
+	# cursor.execute('TRUNCATE TABLE class_' + item[2])
 
 cnx.commit()
 
@@ -74,7 +76,7 @@ for item in result:
 	start_val_f = (random.random() * 30) + 70
 	end_val_f = (random.random() * 30) + 70
 
-	TEACHERS_CLASS = random.sample(TEACHERS, int(random.random()*25)+1)
+	TEACHERS_CLASS = random.sample(TEACHERS, int(random.random()*3)+1)
 	TERMS_CLASS = []
 	if class_length == "Full Year":
 		num_terms = 3

@@ -1,14 +1,24 @@
-<div style="width:100%;padding-bottom:10px">
-    <div style="padding-left:2.5rem; padding-top:1rem; padding-right:1rem; background-color:#202c34;">
-        <div style="font-size:4.5rem; line-height:1; font-weight:700; color:white">
-            <a href="/" style="color:white;">RateMyTJ</a>
-        </div>
-        <div style="font-size:1rem; line-height:2rem; text-align:right; font-weight:600; color: white">
-            {{#if profile}}
-            Hello, {{profile.display_name}}. <a href="/profile" class="aheader">View Profile</a> | <a href="/logout" class="aheader">Logout</a>
-            {{else}}
-            <a href="{{login_link}}" class="aheader">Sign in</a>
-            {{/if}}
+    <div style="width:100%;padding-bottom:10px">
+        <div style="padding-left:2.5rem; padding-top:1rem; padding-right:1rem; background-color:#202c34;">
+            <div style="font-size:4.5rem; line-height:1; font-weight:700; color:white">
+                <a href="/" style="color:white;">RateMyTJ</a>
+            </div>
+            <div style="display:flex;flex-direction: row; width:100%; padding-top: 0rem">
+                {{!-- <div style="font-size:1rem; line-height:2rem; text-align:left; font-weight:600; color: white; width:50%">
+                    <input type="search" list="class_names" name="class_name" style="color:white; padding: 1px 2px; font-family: 'Book Antiqua'; line-height: normal; font-size: medium; border-width: 1px; border-style: solid; border-color: white; background-color:#202c34" size="50" id="names_input" autocomplete="off">
+                    <datalist id="class_names">
+                        {{#each class_list}}
+                        <option data-value={{this.id}} value="{{this.name}} {{#if this.alt}}({{this.alt}}) {{/if}}- {{this.id}}">
+                        {{/each}}
+                    </datalist>
+                </div> --}}
+                <div style="font-size:1rem; line-height:2rem; text-align:right; font-weight:600; color: white; width:100%;">
+                    {{#if profile}}
+                    Hello, {{profile.display_name}}. <a href="/profile" class="aheader">View Profile</a> | <a href="/logout" class="aheader">Logout</a>
+                    {{else}}
+                    <a href="{{login_link}}" class="aheader">Sign in</a>
+                    {{/if}}
+                </div>
+            </div>
         </div>
     </div>
-</div>

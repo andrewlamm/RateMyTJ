@@ -123,6 +123,10 @@ hbs.registerHelper('remove_spaces', function(s) {
   return s.replace(/ /g, "_")
 })
 
+hbs.registerHelper('remove_spaces_dashes', function(s) {
+  return s.replace(/ /g, "-")
+})
+
 hbs.registerHelper('display_bool', function(b) {
   return b ? "yes" : "no"
 })
@@ -641,9 +645,16 @@ function teacher_grade_num_overall(req, res, next) {
   })
 }
 
+function get_class_list(req, res, next) {
+  pool.query('SELECT name, alt, id FROM classes;', function(e, r) {
+    res.locals.class_list = r
+    next()
+  })
+}
+
 function get_user_feedback(req, res, next) {
   // console.log('SELECT userfeedback.*, classes.name FROM userfeedback INNER JOIN classes ON userfeedback.class_id = classes.id WHERE user_id=' + res.locals.profile.id + ';')
-  pool.query('SELECT userfeedback.*, classes.name FROM userfeedback INNER JOIN classes ON userfeedback.class_id = classes.id WHERE user_id=' + res.locals.profile.id + ';', function(e,r) {
+  pool.query('SELECT userfeedback.*, classes.name, classes.id FROM userfeedback INNER JOIN classes ON userfeedback.class_id = classes.id WHERE user_id=' + res.locals.profile.id + ';', function(e,r) {
     res.locals.review_term = {}
     for (var i = 0; i < r.length; i++) {
       var year = r[i].term
@@ -667,7 +678,7 @@ function get_user_feedback(req, res, next) {
 }
 
 function get_classes(req, res, next) {
-  pool.query('SELECT name, id, length FROM classes;', function(e, r) {
+  pool.query('SELECT name, alt, id, length FROM classes;', function(e, r) {
     res.locals.classes = r
     next()
   })
@@ -794,6 +805,7 @@ function edit_class_feedback(req, res, next) {
   res.locals.class_median = {}
   var class_name = req.body.class_name
   var class_id = req.body.class_id
+  var original_term = req.body.original_term
   var term = req.body.term
   var teacher = req.body.teacher
   var class_score = parseFloat(req.body.class_score)
@@ -884,24 +896,24 @@ function edit_class_feedback(req, res, next) {
   }
 
   if (delete_feedback == 1) {
-    pool.query('DELETE FROM userfeedback WHERE class_id="' + class_id + '" AND user_id=' + res.locals.profile.id + ';', function(e, r) {
-      pool.query('DELETE FROM class_' + class_id + ' WHERE user_id=' + res.locals.profile.id + ';', function(e, r) {
+    pool.query('DELETE FROM userfeedback WHERE class_id="' + class_id + '" AND user_id=' + res.locals.profile.id + ' AND term="' + original_term + '";', function(e, r) {
+      pool.query('DELETE FROM class_' + class_id + ' WHERE user_id=' + res.locals.profile.id + ' AND term="' + original_term + '";', function(e, r) {
         next()
       })
     })
   }
   else {
     if (grade == "NULL") {
-      pool.query('UPDATE userfeedback SET term="' + term + '", teacher="' + teacher + '", class_score=' + class_score + ', workload=' + workload + ', difficulty=' + difficulty + ', enjoyment=' + enjoyment + ', teacher_score=' + teacher_score + ', show_teacher=' + show_teacher + ', grade=NULL, grade_input=NULL, feedback="' + feedback + '", edit_time=NOW() WHERE class_id="' + class_id + '" AND user_id=' + res.locals.profile.id + ';', function(e, r) {
-        pool.query('UPDATE class_' + class_id + ' SET term="' + term + '", teacher="' + teacher + '", class_score=' + class_score + ', workload=' + workload + ', difficulty=' + difficulty + ', enjoyment=' + enjoyment + ', teacher_score=' + teacher_score + ', show_teacher=' + show_teacher + ', grade=NULL, term_order="' + term_order + '", feedback="' + feedback + '", edit_time=NOW(), edited=1 WHERE user_id=' + res.locals.profile.id + ';', function(e, r) {
+      pool.query('UPDATE userfeedback SET term="' + term + '", teacher="' + teacher + '", class_score=' + class_score + ', workload=' + workload + ', difficulty=' + difficulty + ', enjoyment=' + enjoyment + ', teacher_score=' + teacher_score + ', show_teacher=' + show_teacher + ', grade=NULL, grade_input=NULL, feedback="' + feedback + '", edit_time=NOW() WHERE class_id="' + class_id + '" AND user_id=' + res.locals.profile.id + ' AND term="' + original_term + '";', function(e, r) {
+        pool.query('UPDATE class_' + class_id + ' SET term="' + term + '", teacher="' + teacher + '", class_score=' + class_score + ', workload=' + workload + ', difficulty=' + difficulty + ', enjoyment=' + enjoyment + ', teacher_score=' + teacher_score + ', show_teacher=' + show_teacher + ', grade=NULL, term_order="' + term_order + '", feedback="' + feedback + '", edit_time=NOW(), edited=1 WHERE user_id=' + res.locals.profile.id + ' AND term="' + original_term + '";', function(e, r) {
           // console.log(e)
           next()
         })
       })
     }
     else {
-      pool.query('UPDATE userfeedback SET term="' + term + '", teacher="' + teacher + '", class_score=' + class_score + ', workload=' + workload + ', difficulty=' + difficulty + ', enjoyment=' + enjoyment + ', teacher_score=' + teacher_score + ', show_teacher=' + show_teacher + ', grade=' + grade_input + ', grade_input="' + grade + '", feedback="' + feedback + '", edit_time=NOW() WHERE class_id="' + class_id + '" AND user_id=' + res.locals.profile.id + ';', function(e, r) {
-        pool.query('UPDATE class_' + class_id + ' SET term="' + term + '", teacher="' + teacher + '", class_score=' + class_score + ', workload=' + workload + ', difficulty=' + difficulty + ', enjoyment=' + enjoyment + ', teacher_score=' + teacher_score + ', show_teacher=' + show_teacher + ', grade=' + grade_input + ', term_order="' + term_order + '", feedback="' + feedback + '", edit_time=NOW(), edited=1 WHERE user_id=' + res.locals.profile.id + ';', function(e, r) {
+      pool.query('UPDATE userfeedback SET term="' + term + '", teacher="' + teacher + '", class_score=' + class_score + ', workload=' + workload + ', difficulty=' + difficulty + ', enjoyment=' + enjoyment + ', teacher_score=' + teacher_score + ', show_teacher=' + show_teacher + ', grade=' + grade_input + ', grade_input="' + grade + '", feedback="' + feedback + '", edit_time=NOW() WHERE class_id="' + class_id + '" AND user_id=' + res.locals.profile.id  + ' AND term="' + original_term + '";', function(e, r) {
+        pool.query('UPDATE class_' + class_id + ' SET term="' + term + '", teacher="' + teacher + '", class_score=' + class_score + ', workload=' + workload + ', difficulty=' + difficulty + ', enjoyment=' + enjoyment + ', teacher_score=' + teacher_score + ', show_teacher=' + show_teacher + ', grade=' + grade_input + ', term_order="' + term_order + '", feedback="' + feedback + '", edit_time=NOW(), edited=1 WHERE user_id=' + res.locals.profile.id + ' AND term="' + original_term + '";', function(e, r) {
           // console.log(e)
           next()
         })
@@ -1021,7 +1033,7 @@ app.get('/profile', [checkAuthentication, getProfileData, get_user_feedback, get
   }
   reviews.sort((a, b) => (a.term < b.term) ? 1 : -1)
   // console.log(reviews)
-  res.render('profile_page', {"profile": res.locals.profile, "reviews": reviews, "classes": res.locals.classes, "terms": TERMS, "terms_edit": ["Fall", "Spring", "Summer", "Year Round"]})
+  res.render('profile_page', {"profile": res.locals.profile, "reviews": reviews, "classes": res.locals.classes, "terms": TERMS})
 })
 
 app.post('/submit_feedback', [checkAuthentication, getProfileData, submit_class_feedback, update_tables("class_score"), update_tables("workload"), update_tables("difficulty"), update_tables("enjoyment"), update_tables("teacher_score"), update_tables_grade, update_tables_total, update_tables_grade_total], (req, res) => {
