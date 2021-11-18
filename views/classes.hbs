@@ -193,7 +193,7 @@
 						{{/empty_key}}
 						<div class="w-full flex flex-col place-items-center items-center justify-center">
 							{{#each feedback}}
-							<div class="w-full px-4 flex flex-col text-left">
+							<div class="w-full px-4 flex flex-col text-left py-2">
 								<div class="font-bold text-xl">
 									User{{random_number}}
 								</div>
@@ -206,6 +206,14 @@
 								<div class="text-base">
 									<span><b>Term: </b>{{term}}</span>{{#if show_teacher}} | <span><b>Teacher: </b>{{teacher}}</span>{{/if}}
 								</div>
+								<div class="text-base">
+									<span id="{{this.review_id}}_like_counter">{{this.likes}}</span> likes | <span id="{{this.review_id}}_dislike_counter">{{this.dislikes}}</span> dislikes | <span id="{{this.review_id}}_funny_counter">{{this.funny}}</span> people found this funny
+								</div>
+								{{#if ../profile}}
+								<div class="text-base pb-1">
+									<input type="submit" value="Like" class="bg-white hover_pointer font-semibold border border-black px-1 {{#if this.user_like}}selected_like{{else}}review_feedback{{/if}}" id="{{this.review_id}}_like" onclick="like_review(this.id)"> <input type="submit" value="Dislike" class="bg-white hover_pointer font-semibold border border-black px-1 {{#if this.user_dislike}}selected_dislike{{else}}review_feedback{{/if}}" id="{{this.review_id}}_dislike" onclick="dislike_review(this.id)"> <input type="submit" value="Funny" class="bg-white hover_pointer font-semibold border border-black px-1 {{#if this.user_funny}}selected_funny{{else}}review_feedback{{/if}}" id="{{this.review_id}}_funny" onclick="funny_review(this.id)">
+								</div>
+								{{/if}}
 								<hr>
 								<div>
 									{{feedback}}
@@ -220,6 +228,73 @@
         </div>
 		{{> footer}}
 		<script type="text/javascript">
+			function like_review(id) {
+				var review_id = id.substring(0, id.indexOf('_'))
+				document.getElementById(review_id + '_like').classList.toggle('selected_like')
+				document.getElementById(review_id + '_like').classList.toggle('review_feedback')
+				document.getElementById(review_id + '_dislike').classList.remove('selected_dislike')
+				document.getElementById(review_id + '_dislike').classList.remove('review_feedback')
+
+				let request = new XMLHttpRequest();
+                request.open('POST', '../review_review');
+				request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+                request.responseType = 'json';
+                request.send('like_dislike=1&funny=0&class_id={{class_info.id}}&review_id=' + review_id);
+
+                request.onload = function() {
+                    const data = request.response;
+                    // console.log(data)
+					document.getElementById(review_id + '_like_counter').innerHTML = data.likes
+					document.getElementById(review_id + '_dislike_counter').innerHTML = data.dislikes
+					document.getElementById(review_id + '_funny_counter').innerHTML = data.funny
+				}
+			}
+
+			function dislike_review(id) {
+				var review_id = id.substring(0, id.indexOf('_'))
+				document.getElementById(review_id + '_dislike').classList.toggle('selected_dislike')
+				document.getElementById(review_id + '_dislike').classList.toggle('review_feedback')
+				document.getElementById(review_id + '_like').classList.remove('selected_like')
+				document.getElementById(review_id + '_like').classList.add('review_feedback')
+
+				let request = new XMLHttpRequest();
+                request.open('POST', '../review_review');
+				request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+                request.responseType = 'json';
+                request.send('like_dislike=-1&funny=0&class_id={{class_info.id}}&review_id=' + review_id);
+
+                request.onload = function() {
+                    const data = request.response;
+                    // console.log(data)
+					document.getElementById(review_id + '_like_counter').innerHTML = data.likes
+					document.getElementById(review_id + '_dislike_counter').innerHTML = data.dislikes
+					document.getElementById(review_id + '_funny_counter').innerHTML = data.funny
+				}
+			}
+
+			function funny_review(id) {
+				var review_id = id.substring(0, id.indexOf('_'))
+				document.getElementById(review_id + '_funny').classList.toggle('selected_funny')
+				document.getElementById(review_id + '_funny').classList.toggle('review_feedback')
+
+				let request = new XMLHttpRequest();
+                request.open('POST', '../review_review');
+				request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+                request.responseType = 'json';
+                request.send('like_dislike=0&funny=1&class_id={{class_info.id}}&review_id=' + review_id);
+
+                request.onload = function() {
+                    const data = request.response;
+                    // console.log(data)
+					document.getElementById(review_id + '_like_counter').innerHTML = data.likes
+					document.getElementById(review_id + '_dislike_counter').innerHTML = data.dislikes
+					document.getElementById(review_id + '_funny_counter').innerHTML = data.funny
+				}
+			}
+
 			var __emptyOnTop = function(a, b, high) {
 				a = parseFloat(a || high);
 				b = parseFloat(b || high);

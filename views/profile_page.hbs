@@ -144,7 +144,7 @@
                                 </tr>
                                 {{#each this.reviews}}
                                 <tr id="{{class_id}}_{{remove_spaces_dashes this.term}}_const">
-                                    <th class="text-left w-1/6">{{this.name}}</th>
+                                    <th class="text-left w-1/6"><a href="/class/{{this.class_id}}" class="text-black">{{this.name}}</a></th>
                                     <th>{{this.class_id}}</th>
                                     <th>{{format_date this.review_time}} {{#if this.edit_time}}<span class="font-semibold" title="Edited on {{format_date this.edit_time}}">*</span>{{/if}}</th>
                                     <th>{{format_term this.term}}</th>
@@ -164,6 +164,7 @@
                                         <th><input name="class_id" class="pl-1 w-full border border-black hidden" value={{this.class_id}} id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_id_input">{{this.class_id}}</th>
                                         <th>{{format_date this.review_time}} {{#if this.edit_time}}<span class="font-semibold" title="Edited on {{format_date this.edit_time}}">*</span>{{/if}}</th>
                                         <th>
+                                            <input name="review_id" class="pl-1 w-full border border-black hidden " size="18" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_review_id" autocomplete="off" required value="{{this.review_id}}" data-original="{{this.review_id}}">
                                             <input name="original_term" class="pl-1 w-full border border-black hidden " size="18" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_original_term" autocomplete="off" required value="{{this.term}}" data-original="{{this.term}}">
                                             <input type="search" list="terms" name="term" class="pl-1 w-full border border-black" size="18" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_term_input" autocomplete="off" required value="{{this.term}}" data-original="{{this.term}}">
                                         </th>

@@ -17,10 +17,12 @@ result = cursor.fetchall()
 # for item in result:
 # 	cursor.execute('DROP TABLE class_' + item[2])
 
-### TRUNCATE TABLES
+### EDIT TABLES
 for item in result:
-	cursor.execute('ALTER TABLE class_' + item[2] + ' DROP PRIMARY KEY;')
-	cursor.execute('ALTER TABLE class_' + item[2] + ' ADD PRIMARY KEY (user_id, term);')
+	cursor.execute('ALTER TABLE class_' + item[2] + ' ADD review_id INT')
+# 	cursor.execute('DELETE FROM class_' + item[2] + ' WHERE user_id < 200;')
+# 	cursor.execute('ALTER TABLE class_' + item[2] + ' DROP PRIMARY KEY;')
+# 	cursor.execute('ALTER TABLE class_' + item[2] + ' ADD PRIMARY KEY (user_id, term);')
 	# cursor.execute('TRUNCATE TABLE class_' + item[2])
 
 cnx.commit()
