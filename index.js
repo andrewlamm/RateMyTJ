@@ -160,6 +160,20 @@ hbs.registerHelper('turn_to_ordinal', function(num) {
   return num + "th";
 })
 
+hbs.registerHelper('plural', function(i) {
+  if (i == 1) {
+    return ""
+  }
+  return "s"
+})
+
+hbs.registerHelper('people_person', function(i) {
+  if (i == 1) {
+    return "person"
+  }
+  return "people"
+})
+
 function checkAuthentication(req, res, next) {
   if ('authenticated' in req.session) {
     next()
@@ -186,6 +200,7 @@ function getProfileData(req,res,next) {
 
       response.on('end', function() {
         res.locals.profile = JSON.parse(rawData);
+        console.log(res.locals.profile)
         if (res.locals.profile.detail == "Authentication credentials were not provided.") {
           res.redirect('/logout')
         }

@@ -207,7 +207,7 @@
 									<span><b>Term: </b>{{term}}</span>{{#if show_teacher}} | <span><b>Teacher: </b>{{teacher}}</span>{{/if}}
 								</div>
 								<div class="text-base">
-									<span id="{{this.review_id}}_like_counter">{{this.likes}}</span> likes | <span id="{{this.review_id}}_dislike_counter">{{this.dislikes}}</span> dislikes | <span id="{{this.review_id}}_funny_counter">{{this.funny}}</span> people found this funny
+									<span id="{{this.review_id}}_like_counter">{{this.likes}} like{{plural this.likes}}</span> | <span id="{{this.review_id}}_dislike_counter">{{this.dislikes}} dislike{{plural this.dislikes}}</span> | <span id="{{this.review_id}}_funny_counter">{{this.funny}} {{people_person this.funny}}</span> found this funny
 								</div>
 								{{#if ../profile}}
 								<div class="text-base pb-1">
@@ -228,12 +228,26 @@
         </div>
 		{{> footer}}
 		<script type="text/javascript">
+			function plural(i) {
+				if (i == 1) {
+					return ""
+				}
+				return "s"
+			}
+
+			function people_person(i) {
+				if (i == 1) {
+					return "person"
+				}
+				return "people"
+			}
+
 			function like_review(id) {
 				var review_id = id.substring(0, id.indexOf('_'))
 				document.getElementById(review_id + '_like').classList.toggle('selected_like')
 				document.getElementById(review_id + '_like').classList.toggle('review_feedback')
 				document.getElementById(review_id + '_dislike').classList.remove('selected_dislike')
-				document.getElementById(review_id + '_dislike').classList.remove('review_feedback')
+				document.getElementById(review_id + '_dislike').classList.add('review_feedback')
 
 				let request = new XMLHttpRequest();
                 request.open('POST', '../review_review');
@@ -245,9 +259,9 @@
                 request.onload = function() {
                     const data = request.response;
                     // console.log(data)
-					document.getElementById(review_id + '_like_counter').innerHTML = data.likes
-					document.getElementById(review_id + '_dislike_counter').innerHTML = data.dislikes
-					document.getElementById(review_id + '_funny_counter').innerHTML = data.funny
+					document.getElementById(review_id + '_like_counter').innerHTML = data.likes + " like" + plural(data.likes)
+					document.getElementById(review_id + '_dislike_counter').innerHTML = data.dislikes + " dislike" + plural(data.likes)
+					document.getElementById(review_id + '_funny_counter').innerHTML = data.funny + " " + people_person(data.funny)
 				}
 			}
 
@@ -268,9 +282,9 @@
                 request.onload = function() {
                     const data = request.response;
                     // console.log(data)
-					document.getElementById(review_id + '_like_counter').innerHTML = data.likes
-					document.getElementById(review_id + '_dislike_counter').innerHTML = data.dislikes
-					document.getElementById(review_id + '_funny_counter').innerHTML = data.funny
+					document.getElementById(review_id + '_like_counter').innerHTML = data.likes + " like" + plural(data.likes)
+					document.getElementById(review_id + '_dislike_counter').innerHTML = data.dislikes + " dislike" + plural(data.likes)
+					document.getElementById(review_id + '_funny_counter').innerHTML = data.funny + " " + people_person(data.funny)
 				}
 			}
 
@@ -289,9 +303,9 @@
                 request.onload = function() {
                     const data = request.response;
                     // console.log(data)
-					document.getElementById(review_id + '_like_counter').innerHTML = data.likes
-					document.getElementById(review_id + '_dislike_counter').innerHTML = data.dislikes
-					document.getElementById(review_id + '_funny_counter').innerHTML = data.funny
+					document.getElementById(review_id + '_like_counter').innerHTML = data.likes + " like" + plural(data.likes)
+					document.getElementById(review_id + '_dislike_counter').innerHTML = data.dislikes + " dislike" + plural(data.likes)
+					document.getElementById(review_id + '_funny_counter').innerHTML = data.funny + " " + people_person(data.funny)
 				}
 			}
 
