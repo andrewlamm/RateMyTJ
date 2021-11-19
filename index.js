@@ -969,13 +969,14 @@ function edit_class_feedback(req, res, next) {
         pool.query('UPDATE class_' + class_id + ' SET term=?, teacher=?, class_score=?, workload=?, difficulty=?, enjoyment=?, teacher_score=?, show_teacher=?, grade=NULL, term_order=?, feedback=?, edit_time=NOW(), edited=1 WHERE user_id=? AND term=?;', [term, teacher, class_score, workload, difficulty, enjoyment, teacher_score, show_teacher, term_order, feedback, res.locals.profile.id, original_term], function(e, r) {
           if (feedback === "") {
             pool.query('DELETE from class_' + class_id + '_feedback WHERE review_id=?;', [review_id], function(e, r) {
-              next()
+              pool.query('UPDATE class_' + class_id + ' SET likes=0, dislikes=0, funny=0 WHERE user_id=? AND term=?;', [res.locals.profile.id, original_term], function (e, r) {
+                next()
+              })
             })
           }
           else {
             next()
           }
-          // console.log(e)
         })
       })
     }
@@ -984,7 +985,9 @@ function edit_class_feedback(req, res, next) {
         pool.query('UPDATE class_' + class_id + ' SET term=?, teacher=?, class_score=?, workload=?, difficulty=?, enjoyment=?, teacher_score=?, show_teacher=?, grade=?, term_order=?, feedback=?, edit_time=NOW(), edited=1 WHERE user_id=? AND term=?', [term, teacher, class_score, workload, difficulty, enjoyment, teacher_score, show_teacher, grade_input, term_order, feedback, res.locals.profile.id, original_term], function(e, r) {
           if (feedback === "") {
             pool.query('DELETE from class_' + class_id + '_feedback WHERE review_id=?;', [review_id], function(e, r) {
-              next()
+              pool.query('UPDATE class_' + class_id + ' SET likes=0, dislikes=0, funny=0 WHERE user_id=? AND term=?;', [res.locals.profile.id, original_term], function (e, r) {
+                next()
+              })
             })
           }
           else {
@@ -1033,7 +1036,6 @@ function update_tables_grade(req, res, next) {
     }
 
     pool.query('UPDATE classes SET grade=' + res.locals.class_median.grade + ' WHERE id="' + req.body.class_id + '";', function(e, r) {
-      // console.log(e)
       next()
     })
   })
@@ -1041,7 +1043,6 @@ function update_tables_grade(req, res, next) {
 
 function update_tables_total(req, res, next) {
   pool.query('SELECT COUNT(*) AS total FROM class_' + req.body.class_id + ';', function(e, r) {
-    // console.log(r[0].total)
     pool.query('UPDATE classes SET total=' + r[0].total + ' WHERE id="' + req.body.class_id + '";', function (e, r) {
       next()
     })
@@ -1050,7 +1051,6 @@ function update_tables_total(req, res, next) {
 
 function update_tables_grade_total(req, res, next) {
   pool.query('SELECT COUNT(*) AS total FROM class_' + req.body.class_id + ' WHERE grade >= 0;', function(e, r) {
-    // console.log(r[0].total)
     pool.query('UPDATE classes SET grade_inputs=' + r[0].total + ' WHERE id="' + req.body.class_id + '";', function (e, r) {
       next()
     })
@@ -1083,18 +1083,14 @@ function add_review_review(req, res, next) {
       if (res.locals.review_exists) {
         if (res.locals.original_funny) {
           pool.query('UPDATE class_' + req.body.class_id + ' SET funny=funny-1 WHERE review_id=' + req.body.review_id + ';', function(e, r) {
-            // console.log(e, r)
             pool.query('UPDATE class_' + req.body.class_id + '_feedback SET funny=false WHERE reviewer_id=' + res.locals.profile.id + ' AND review_id=' + req.body.review_id + ';', function(e, r) {
-              // console.log(e, r)
               next()
             })
           })
         }
         else {
           pool.query('UPDATE class_' + req.body.class_id + ' SET funny=funny+1 WHERE review_id=' + req.body.review_id + ';', function(e, r) {
-            // console.log(e, r)
             pool.query('UPDATE class_' + req.body.class_id + '_feedback SET funny=true WHERE reviewer_id=' + res.locals.profile.id + ' AND review_id=' + req.body.review_id + ';', function(e, r) {
-              // console.log(e, r)
               next()
             })
           })
@@ -1102,9 +1098,7 @@ function add_review_review(req, res, next) {
       }
       else {
         pool.query('UPDATE class_' + req.body.class_id + ' SET funny=funny+1 WHERE review_id=' + req.body.review_id + ';', function(e, r) {
-          // console.log(e, r)
           pool.query('INSERT INTO class_' + req.body.class_id + '_feedback VALUES(' + res.locals.profile.id + ', ' + req.body.review_id + ', 0, true);', function(e, r) {
-            // console.log(e, r)
             next()
           })
         })
@@ -1115,27 +1109,21 @@ function add_review_review(req, res, next) {
         if (parseInt(req.body.like_dislike) == 1) {
           if (res.locals.original_likes == 1) {
             pool.query('UPDATE class_' + req.body.class_id + ' SET likes=likes-1 WHERE review_id=' + req.body.review_id + ';', function(e, r) {
-              // console.log(e, r)
               pool.query('UPDATE class_' + req.body.class_id + '_feedback SET likes=0 WHERE reviewer_id=' + res.locals.profile.id + ' AND review_id=' + req.body.review_id + ';', function(e, r) {
-                // console.log(e, r)
                 next()
               })
             })
           }
           else if (res.locals.original_likes == -1) {
             pool.query('UPDATE class_' + req.body.class_id + ' SET likes=likes+1, dislikes=dislikes-1 WHERE review_id=' + req.body.review_id + ';', function(e, r) {
-              // console.log(e, r)
               pool.query('UPDATE class_' + req.body.class_id + '_feedback SET likes=1 WHERE reviewer_id=' + res.locals.profile.id + ' AND review_id=' + req.body.review_id + ';', function(e, r) {
-                // console.log(e, r)
                 next()
               })
             })
           }
           else {
             pool.query('UPDATE class_' + req.body.class_id + ' SET likes=likes+1 WHERE review_id=' + req.body.review_id + ';', function(e, r) {
-              // console.log(e, r)
               pool.query('UPDATE class_' + req.body.class_id + '_feedback SET likes=1 WHERE reviewer_id=' + res.locals.profile.id + ' AND review_id=' + req.body.review_id + ';', function(e, r) {
-                // console.log(e, r)
                 next()
               })
             })
@@ -1144,27 +1132,21 @@ function add_review_review(req, res, next) {
         else {
           if (res.locals.original_likes == 1) {
             pool.query('UPDATE class_' + req.body.class_id + ' SET likes=likes-1, dislikes=dislikes+1 WHERE review_id=' + req.body.review_id + ';', function(e, r) {
-              // console.log(e, r)
               pool.query('UPDATE class_' + req.body.class_id + '_feedback SET likes=-1 WHERE reviewer_id=' + res.locals.profile.id + ' AND review_id=' + req.body.review_id + ';', function(e, r) {
-                // console.log(e, r)
                 next()
               })
             })
           }
           else if (res.locals.original_likes == -1) {
             pool.query('UPDATE class_' + req.body.class_id + ' SET dislikes=dislikes-1 WHERE review_id=' + req.body.review_id + ';', function(e, r) {
-              // console.log(e, r)
               pool.query('UPDATE class_' + req.body.class_id + '_feedback SET likes=0 WHERE reviewer_id=' + res.locals.profile.id + ' AND review_id=' + req.body.review_id + ';', function(e, r) {
-                // console.log(e, r)
                 next()
               })
             })
           }
           else {
             pool.query('UPDATE class_' + req.body.class_id + ' SET dislikes=dislikes+1 WHERE review_id=' + req.body.review_id + ';', function(e, r) {
-              // console.log(e, r)
               pool.query('UPDATE class_' + req.body.class_id + '_feedback SET likes=-1 WHERE reviewer_id=' + res.locals.profile.id + ' AND review_id=' + req.body.review_id + ';', function(e, r) {
-                // console.log(e, r)
                 next()
               })
             })
@@ -1174,18 +1156,14 @@ function add_review_review(req, res, next) {
       else {
         if (parseInt(req.body.like_dislike) == 1) {
           pool.query('UPDATE class_' + req.body.class_id + ' SET likes=likes+1 WHERE review_id=' + req.body.review_id + ';', function(e, r) {
-            // console.log(e, r)
             pool.query('INSERT INTO class_' + req.body.class_id + '_feedback VALUES(' + res.locals.profile.id + ', ' + req.body.review_id + ', 1, false);', function(e, r) {
-              // console.log(e, r)
               next()
             })
           })
         }
         else {
           pool.query('UPDATE class_' + req.body.class_id + ' SET dislikes=dislikes+1 WHERE review_id=' + req.body.review_id + ';', function(e, r) {
-            // console.log(e, r)
             pool.query('INSERT INTO class_' + req.body.class_id + '_feedback VALUES(' + res.locals.profile.id + ', ' + req.body.review_id + ', -1, false);', function(e, r) {
-              // console.log(e, r)
               next()
             })
           })
@@ -1238,9 +1216,6 @@ app.get('/', [getProfileData], (req, res) => {
 })
 
 app.get('/class/:classID', [getProfileData].concat(base_middleware).concat(score_middleware).concat(stats_middleware).concat(extra_grade_middleware).concat(grade_middleware), function (req, res) {
-  // console.log(res.locals.results)
-  // console.log(res.locals.term_stats)
-  // console.log(res.locals.teachers)
   // console.log(res.locals.feedback)
   var feedback = []
   for (const [key, value] of Object.entries(res.locals.feedback)) {
@@ -1259,7 +1234,6 @@ app.get('/class/:classID', [getProfileData].concat(base_middleware).concat(score
 })
 
 app.get('/profile', [checkAuthentication, getProfileData, get_user_feedback, get_classes], (req, res) => {
-  // console.log(res.locals.review_term)
   // console.log(res.locals.classes)
   var reviews = []
   for (const [key, value] of Object.entries(res.locals.review_term)) {
