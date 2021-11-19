@@ -26,7 +26,7 @@ app.use(cookieSession({
 
 var TERMS = ["Spring 22", "Fall 21", "Summer 21", "Spring 21", "Fall 20", "Summer 20", "Spring 20", "Fall 19", "Summer 19", "Spring 19", "Fall 18", "Summer 18", "2021-22", "2020-21", "2019-20", "2018-19"]
 
-var ion_client_id = 'riogMOPcoOXJdwttjW3mfpM7J7EGagXPx7ebyIit'
+var ion_client_id = 's2qsxwGPmHB8i3ilPYS4RtYkJSGmzRfDtKWKkfjL'
 var ion_client_secret = process.env.ION_CLIENT_SECRET
 var ion_redirect_uri = 'http://localhost:3000/login_worker'
 
@@ -201,7 +201,7 @@ function getProfileData(req,res,next) {
       response.on('end', function() {
         res.locals.profile = JSON.parse(rawData);
         console.log(res.locals.profile)
-        if (res.locals.profile.detail == "Authentication credentials were not provided.") {
+        if (res.locals.profile.id === undefined) {
           res.redirect('/logout')
         }
 
