@@ -10,203 +10,205 @@
 		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
 	</head>
 	<body>
-		{{> header}}
-        <div class="w-full flex flex-col align-center justify-center">
-            <div class="px-3 w-full flex flex-col text-center">
-                <div class="font-bold text-6xl">
-                    {{profile.display_name}}
-                </div>
-                <div class="font-semibold text-2xl">
-                    {{profile.grade.number}}th Grade | {{profile.ion_username}}
-                </div>
-            </div>
-            <div class="w-full flex flex-col px-3">
-                <div class="text-center font-bold text-3xl">
-                    Reviews
-                </div>
-                <div class="text-right font-semibold text-green-700 text-sm" id="add_class">
-                    <a onclick="toggle_add_class()" class="text-green-700">Add a Class</a>
-                </div>
-                <div class="text-right font-semibold text-red-700 text-sm hidden" id="cancel_add">
-                    <a onclick="toggle_cancel_add()" class="text-red-700">Cancel</a>
-                </div>
-                <div class="hidden" id="add_class_table">
-                    <table class="w-full">
-                        <thead>
-                            <tr>
-                                <th class="font-bold">Class Name&nbsp;<span class="text-red-500" title="Required">*</span></th>
-                                <th class="font-bold">Class ID&nbsp;<span class="text-red-500" title="Required">*</span></th>
-                                <th class="font-bold">Term&nbsp;<span class="text-red-500" title="Required">*</span></th>
-                                <th class="font-bold">Teacher&nbsp;<span class="text-red-500" title="Required">*</span></th>
-                                <th class="font-bold" title="Overall rating of the class, scale of 0(Awful)-10(Best)">SCO&nbsp;<span class="text-red-500" title="Required">*</span></th>
-								<th class="font-bold" title="Average amount of time spent on HW in this class per week">WRK&nbsp;<span class="text-red-500" title="Required">*</span></th>
-								<th class="font-bold" title="Overall difficulty of the class, scale of 0(Easy)-10(Hard)">DIFF&nbsp;<span class="text-red-500" title="Required">*</span></th>
-								<th class="font-bold" title="Overall enjoyment of the class, scale of 0(No enjoyment)-10(Very enjoyable)">ENJ&nbsp;<span class="text-red-500" title="Required">*</span></th>
-								<th class="font-bold" title="Overall rating of the teacher, scale of 0(Awful)-10(Best) — Display on feedback?">TCH (Show?)&nbsp;<span class="text-red-500" title="Required">*</span></th>
-								<th class="font-bold" title="Grade in the class. You may input a valid letter grade or a number">GRD</th>
-                                <th class="font-bold" title="Written feedback about the class (max 2500 characters)">Feedback</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <form onsubmit="return submit_feedback()" action="submit_feedback" method="POST">
-                                    <th class="text-left w-1/6" class="px-1">
-                                        <input type="search" list="class_names" name="class_name" class="pl-1 w-full border border-black" id="names_input" onfocusout="change_id()" autocomplete="off" required>
-                                        <datalist id="class_names">
-                                            {{#each classes}}
-                                                <option value="{{this.name}}{{#if this.alt}} ({{this.alt}}){{/if}}">
-                                            {{/each}}
-                                        </datalist>
-                                    </th>
-                                    <th class="px-1">
-                                        <input type="search" list="class_id" name="class_id" class="pl-1 w-full border border-black" size="8" id="id_input" onfocusout="change_class()" autocomplete="off" required>
-                                        <datalist id="class_id">
-                                            {{#each classes}}
-                                                <option value="{{this.id}}">
-                                            {{/each}}
-                                        </datalist>
-                                    </th>
-                                    <th class="px-1">
-                                        <input type="search" list="terms" name="term" class="pl-1 w-full border border-black" size="18" id="term_input" autocomplete="off" required>
-                                        <datalist id="terms">
-                                            {{#each terms}}
-                                                <option value="{{this}}">
-                                            {{/each}}
-                                        </datalist>
-                                    </th>
-                                    <th class="px-1">
-                                        <input name="teacher" class="pl-1 w-full border border-black" size="10" id="teacher_input" autocomplete="off" required>
-                                    </th>
-                                    <th class="px-1">
-                                        <input name="class_score" type="number" style="width: 50px;" step="any" class="pl-1 w-full border border-black" min="0" max="10" id="class_score_input" autocomplete="off" required>
-                                    </th>
-                                    <th class="px-1">
-                                        <input name="workload" type="number" style="width: 50px;" step="any" class="pl-1 w-full border border-black" min="0" id="workload_input" autocomplete="off" required>
-                                    </th>
-                                    <th class="px-1">
-                                        <input name="difficulty" type="number" style="width: 50px;" step="any" class="pl-1 w-full border border-black" min="0" max="10" id="difficulty_input" autocomplete="off" required>
-                                    </th>
-                                    <th class="px-1">
-                                        <input name="enjoyment" type="number" style="width: 50px;" step="any" class="pl-1 w-full border border-black" min="0" max="10" id="enjoyment_input" autocomplete="off" required>
-                                    </th>
-                                    <th>
-                                        <div class="flex flex-row items-center justify-center">
-                                            <input name="teacher_score" type="number" style="width: 50px;" step="any" class="pl-1 w-full border border-black" min="0" max="10" id="teacher_score_input" autocomplete="off" required>&nbsp;
-                                            <input name="show_teacher" type="checkbox" id="show_teacher_input" checked>
-                                        </div>
-                                    </th>
-                                    <th class="px-1">
-                                        <input name="grade" class="pl-1 w-full border border-black" size="4" id="grade_score_input" autocomplete="off">
-                                    </th>
-                                    <th class="pl-1 w-1/4" class="px-1">
-                                        <textarea name="feedback" class="pl-1 w-full border border-black" id="feedback_input"></textarea>
-                                    </th>
-                                    <th class="font-semibold text-green-700">
-                                        <input type="submit" value="Submit" class="bg-white hover_pointer font-semibold">
-                                    </th>
-                                </form>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="text-center hidden text-red-700" id="error_msg">
-                        ERROR!
+        <div class="min-h-full flex flex-col">
+            {{> header}}
+            <div class="w-full flex flex-col align-center justify-center">
+                <div class="px-3 w-full flex flex-col text-center">
+                    <div class="font-bold text-6xl">
+                        {{profile.display_name}}
+                    </div>
+                    <div class="font-semibold text-2xl">
+                        {{profile.grade.number}}th Grade | {{profile.ion_username}}
                     </div>
                 </div>
-                {{#no_reviews reviews}}
-                <div class="text-center font-semibold">
-                    You have inputted no reviews yet.
-                </div>
-                {{/no_reviews}}
-                <div class="flex flex-col">
-                    <table class="w-full">
-                        <tbody>
-                            {{#each reviews}}
-                            <tr>
-                                <th colspan="13" class="font-bold text-3xl text-left">
-                                    {{this.term}}
-                                </th>
-                            </tr>
+                <div class="w-full flex flex-col px-3">
+                    <div class="text-center font-bold text-3xl">
+                        Reviews
+                    </div>
+                    <div class="text-right font-semibold text-green-700 text-sm" id="add_class">
+                        <a onclick="toggle_add_class()" class="text-green-700">Add a Class</a>
+                    </div>
+                    <div class="text-right font-semibold text-red-700 text-sm hidden" id="cancel_add">
+                        <a onclick="toggle_cancel_add()" class="text-red-700">Cancel</a>
+                    </div>
+                    <div class="hidden" id="add_class_table">
+                        <table class="w-full">
+                            <thead>
                                 <tr>
-                                    <th class="font-bold">Class Name</th>
-                                    <th class="font-bold">Class ID</th>
-                                    <th class="font-bold">Review Time</th>
-                                    <th class="font-bold">Term</th>
-                                    <th class="font-bold">Teacher</th>
-                                    <th class="font-bold" title="Overall rating of the class, scale of 0(Awful)-10(Best)">SCO</th>
-                                    <th class="font-bold" title="Average amount of time spent on HW in this class per week">WRK</th>
-                                    <th class="font-bold" title="Overall difficulty of the class, scale of 0(Easy)-10(Hard)">DIFF</th>
-                                    <th class="font-bold" title="Overall enjoyment of the class, scale of 0(No enjoyment)-10(Very enjoyable)">ENJ</th>
-                                    <th class="font-bold" title="Overall rating of the teacher, scale of 0(Awful)-10(Best) — Display on feedback?">TCH (Show?)</th>
+                                    <th class="font-bold">Class Name&nbsp;<span class="text-red-500" title="Required">*</span></th>
+                                    <th class="font-bold">Class ID&nbsp;<span class="text-red-500" title="Required">*</span></th>
+                                    <th class="font-bold">Term&nbsp;<span class="text-red-500" title="Required">*</span></th>
+                                    <th class="font-bold">Teacher&nbsp;<span class="text-red-500" title="Required">*</span></th>
+                                    <th class="font-bold" title="Overall rating of the class, scale of 0(Awful)-10(Best)">SCO&nbsp;<span class="text-red-500" title="Required">*</span></th>
+                                    <th class="font-bold" title="Average amount of time spent on HW in this class per week">WRK&nbsp;<span class="text-red-500" title="Required">*</span></th>
+                                    <th class="font-bold" title="Overall difficulty of the class, scale of 0(Easy)-10(Hard)">DIFF&nbsp;<span class="text-red-500" title="Required">*</span></th>
+                                    <th class="font-bold" title="Overall enjoyment of the class, scale of 0(No enjoyment)-10(Very enjoyable)">ENJ&nbsp;<span class="text-red-500" title="Required">*</span></th>
+                                    <th class="font-bold" title="Overall rating of the teacher, scale of 0(Awful)-10(Best) — Display on feedback?">TCH (Show?)&nbsp;<span class="text-red-500" title="Required">*</span></th>
                                     <th class="font-bold" title="Grade in the class. You may input a valid letter grade or a number">GRD</th>
                                     <th class="font-bold" title="Written feedback about the class (max 2500 characters)">Feedback</th>
                                     <th></th>
                                 </tr>
-                                {{#each this.reviews}}
-                                <tr id="{{class_id}}_{{remove_spaces_dashes this.term}}_const">
-                                    <th class="text-left w-1/6"><a href="/class/{{this.class_id}}" class="text-black">{{this.name}}</a></th>
-                                    <th>{{this.class_id}}</th>
-                                    <th>{{format_date this.review_time}} {{#if this.edit_time}}<span class="font-semibold" title="Edited on {{format_date this.edit_time}}">*</span>{{/if}}</th>
-                                    <th>{{format_term this.term}}</th>
-                                    <th>{{this.teacher}}</th>
-                                    <th>{{fix_number_profile this.class_score}}/10</th>
-                                    <th>{{fix_number_profile this.workload}} hrs/wk</th>
-                                    <th>{{fix_number_profile this.difficulty}}/10</th>
-                                    <th>{{fix_number_profile this.enjoyment}}/10</th>
-                                    <th>{{fix_number_profile this.teacher_score}}/10&nbsp;({{display_bool this.show_teacher}})</th>
-                                    <th>{{this.grade_input}}</th>
-                                    <th class="w-1/4">{{this.feedback}}</th>
-                                    <th><a class="text-green-700 font-semibold" onclick="display_edit(this.id)" id="{{class_id}}_{{remove_spaces_dashes this.term}}_edit">Edit</a></th>
-                                </tr>
-                                <form onsubmit="return edit_feedback(this.id)" action="edit_feedback" method="POST" id="{{class_id}}_{{remove_spaces_dashes this.term}}_form">
-                                    <tr class="hidden" id="{{class_id}}_{{remove_spaces_dashes this.term}}_inputs">
-                                        <th class="text-left w-1/6"><input name="class_name" class="pl-1 w-full border border-black hidden" value="{{this.name}}" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_names_input">{{this.name}}</th>
-                                        <th><input name="class_id" class="pl-1 w-full border border-black hidden" value={{this.class_id}} id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_id_input">{{this.class_id}}</th>
-                                        <th>{{format_date this.review_time}} {{#if this.edit_time}}<span class="font-semibold" title="Edited on {{format_date this.edit_time}}">*</span>{{/if}}</th>
-                                        <th>
-                                            <input name="review_id" class="pl-1 w-full border border-black hidden " size="18" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_review_id" autocomplete="off" required value="{{this.review_id}}" data-original="{{this.review_id}}">
-                                            <input name="original_term" class="pl-1 w-full border border-black hidden " size="18" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_original_term" autocomplete="off" required value="{{this.term}}" data-original="{{this.term}}">
-                                            <input type="search" list="terms" name="term" class="pl-1 w-full border border-black" size="18" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_term_input" autocomplete="off" required value="{{this.term}}" data-original="{{this.term}}">
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <form onsubmit="return submit_feedback()" action="submit_feedback" method="POST">
+                                        <th class="text-left w-1/6" class="px-1">
+                                            <input type="search" list="class_names" name="class_name" class="pl-1 w-full border border-black" id="names_input" onfocusout="change_id()" autocomplete="off" required>
+                                            <datalist id="class_names">
+                                                {{#each classes}}
+                                                    <option value="{{this.name}}{{#if this.alt}} ({{this.alt}}){{/if}}">
+                                                {{/each}}
+                                            </datalist>
                                         </th>
-                                        <th><input name="teacher" class="pl-1 w-full border border-black" size="10" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_teacher_input" autocomplete="off" required value={{this.teacher}} data-original="{{this.teacher}}"></th>
-                                        <th><input name="class_score" type="number" style="width: 50px;" step="any" class="pl-1 border border-black" min="0" max="10" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_class_score_input" autocomplete="off" required value={{fix_number_profile this.class_score}} data-original={{fix_number_profile this.class_score}}></th>
-                                        <th><input name="workload" type="number" style="width: 50px;" step="any" class="pl-1 border border-black" min="0" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_workload_input" autocomplete="off" required value={{fix_number_profile this.workload}} data-original={{fix_number_profile this.workload}}></th>
-                                        <th><input name="difficulty" type="number" style="width: 50px;" step="any" class="pl-1 border border-black" min="0" max="10" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_difficulty_input" autocomplete="off" required value={{fix_number_profile this.difficulty}} data-original={{fix_number_profile this.difficulty}}></th>
-                                        <th><input name="enjoyment" type="number" style="width: 50px;" step="any" class="pl-1 border border-black" min="0" max="10" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_enjoyment_input" autocomplete="off" required value={{fix_number_profile this.enjoyment}} data-original={{fix_number_profile this.enjoyment}}></th>
+                                        <th class="px-1">
+                                            <input type="search" list="class_id" name="class_id" class="pl-1 w-full border border-black" size="8" id="id_input" onfocusout="change_class()" autocomplete="off" required>
+                                            <datalist id="class_id">
+                                                {{#each classes}}
+                                                    <option value="{{this.id}}">
+                                                {{/each}}
+                                            </datalist>
+                                        </th>
+                                        <th class="px-1">
+                                            <input type="search" list="terms" name="term" class="pl-1 w-full border border-black" size="18" id="term_input" autocomplete="off" required>
+                                            <datalist id="terms">
+                                                {{#each terms}}
+                                                    <option value="{{this}}">
+                                                {{/each}}
+                                            </datalist>
+                                        </th>
+                                        <th class="px-1">
+                                            <input name="teacher" class="pl-1 w-full border border-black" size="10" id="teacher_input" autocomplete="off" required>
+                                        </th>
+                                        <th class="px-1">
+                                            <input name="class_score" type="number" style="width: 50px;" step="any" class="pl-1 w-full border border-black" min="0" max="10" id="class_score_input" autocomplete="off" required>
+                                        </th>
+                                        <th class="px-1">
+                                            <input name="workload" type="number" style="width: 50px;" step="any" class="pl-1 w-full border border-black" min="0" id="workload_input" autocomplete="off" required>
+                                        </th>
+                                        <th class="px-1">
+                                            <input name="difficulty" type="number" style="width: 50px;" step="any" class="pl-1 w-full border border-black" min="0" max="10" id="difficulty_input" autocomplete="off" required>
+                                        </th>
+                                        <th class="px-1">
+                                            <input name="enjoyment" type="number" style="width: 50px;" step="any" class="pl-1 w-full border border-black" min="0" max="10" id="enjoyment_input" autocomplete="off" required>
+                                        </th>
                                         <th>
                                             <div class="flex flex-row items-center justify-center">
-                                                <input name="teacher_score" type="number" style="width: 50px;" step="any" class="pl-1 border border-black" min="0" max="10" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_teacher_score_input" autocomplete="off" required value={{fix_number_profile this.teacher_score}} data-original={{fix_number_profile this.teacher_score}}>&nbsp;
-                                                <input name="show_teacher" type="checkbox" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_show_teacher_input" data-original={{this.show_teacher}} {{#if this.show_teacher}}checked{{/if}}>
+                                                <input name="teacher_score" type="number" style="width: 50px;" step="any" class="pl-1 w-full border border-black" min="0" max="10" id="teacher_score_input" autocomplete="off" required>&nbsp;
+                                                <input name="show_teacher" type="checkbox" id="show_teacher_input" checked>
                                             </div>
                                         </th>
-                                        <th><input name="grade" class="pl-1 w-full border border-black" size="4" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_grade_score_input" autocomplete="off" value="{{this.grade_input}}" data-original="{{this.grade_input}}"></th>
-                                        <th class="w-1/4"><textarea name="feedback" class="pl-1 w-full border border-black" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_feedback_input" data-original="{{this.feedback}}">{{this.feedback}}</textarea></th>
-                                        <th>
-                                            <input type="submit" value="Submit" class="bg-white hover_pointer font-semibold text-green-700" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_submit"><br>
-                                            <a class="text-blue-700 font-semibold" onclick="cancel_edit(this.id)" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_cancel">Cancel</a><br>
-                                            <a class="text-red-700 font-semibold" onclick="delete_edit(this.id)" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_delete">Delete</a><br>
+                                        <th class="px-1">
+                                            <input name="grade" class="pl-1 w-full border border-black" size="4" id="grade_score_input" autocomplete="off">
                                         </th>
-                                    </tr>
-                                    <tr class="text-center hidden" id="{{class_id}}_{{remove_spaces_dashes this.term}}_delete_confirm">
-                                        <th colspan="13">
-                                            Are you sure you want to delete this input? <br> <input name="delete_feedback" type="number" class="hidden" value="0" id="{{class_id}}_{{remove_spaces_dashes this.term}}_delete_input">
-                                            <span class="font-semibold text-red-700"><input type="submit" value="Yes" class="bg-white hover_pointer font-semibold text-red-700" onclick="change_delete(this.id)" id="{{class_id}}_{{remove_spaces_dashes this.term}}_confirm_delete"></span> | <span class="font-semibold text-green-700 hover_pointer" onclick="cancel_delete(this.id)" id="{{class_id}}_{{remove_spaces_dashes this.term}}_cancel_delete">No</span>
+                                        <th class="pl-1 w-1/4" class="px-1">
+                                            <textarea name="feedback" class="pl-1 w-full border border-black" id="feedback_input"></textarea>
                                         </th>
-                                    </tr>
-                                </form>
-                                <tr class="text-center font-semibold text-red-700 hidden" id="{{class_id}}_{{remove_spaces_dashes this.term}}_error_msg">
-                                    <th colspan="13" id="{{class_id}}_{{remove_spaces_dashes this.term}}_error_msg_row">
-                                        Error!
+                                        <th class="font-semibold text-green-700">
+                                            <input type="submit" value="Submit" class="bg-white hover_pointer font-semibold">
+                                        </th>
+                                    </form>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center hidden text-red-700" id="error_msg">
+                            ERROR!
+                        </div>
+                    </div>
+                    {{#no_reviews reviews}}
+                    <div class="text-center font-semibold">
+                        You have inputted no reviews yet.
+                    </div>
+                    {{/no_reviews}}
+                    <div class="flex flex-col">
+                        <table class="w-full">
+                            <tbody>
+                                {{#each reviews}}
+                                <tr>
+                                    <th colspan="13" class="font-bold text-3xl text-left">
+                                        {{this.term}}
                                     </th>
                                 </tr>
+                                    <tr>
+                                        <th class="font-bold">Class Name</th>
+                                        <th class="font-bold">Class ID</th>
+                                        <th class="font-bold">Review Time</th>
+                                        <th class="font-bold">Term</th>
+                                        <th class="font-bold">Teacher</th>
+                                        <th class="font-bold" title="Overall rating of the class, scale of 0(Awful)-10(Best)">SCO</th>
+                                        <th class="font-bold" title="Average amount of time spent on HW in this class per week">WRK</th>
+                                        <th class="font-bold" title="Overall difficulty of the class, scale of 0(Easy)-10(Hard)">DIFF</th>
+                                        <th class="font-bold" title="Overall enjoyment of the class, scale of 0(No enjoyment)-10(Very enjoyable)">ENJ</th>
+                                        <th class="font-bold" title="Overall rating of the teacher, scale of 0(Awful)-10(Best) — Display on feedback?">TCH (Show?)</th>
+                                        <th class="font-bold" title="Grade in the class. You may input a valid letter grade or a number">GRD</th>
+                                        <th class="font-bold" title="Written feedback about the class (max 2500 characters)">Feedback</th>
+                                        <th></th>
+                                    </tr>
+                                    {{#each this.reviews}}
+                                    <tr id="{{class_id}}_{{remove_spaces_dashes this.term}}_const">
+                                        <th class="text-left w-1/6"><a href="/class/{{this.class_id}}" class="text-black">{{this.name}}</a></th>
+                                        <th>{{this.class_id}}</th>
+                                        <th>{{format_date this.review_time}} {{#if this.edit_time}}<span class="font-semibold" title="Edited on {{format_date this.edit_time}}">*</span>{{/if}}</th>
+                                        <th>{{format_term this.term}}</th>
+                                        <th>{{this.teacher}}</th>
+                                        <th>{{fix_number_profile this.class_score}}/10</th>
+                                        <th>{{fix_number_profile this.workload}} hrs/wk</th>
+                                        <th>{{fix_number_profile this.difficulty}}/10</th>
+                                        <th>{{fix_number_profile this.enjoyment}}/10</th>
+                                        <th>{{fix_number_profile this.teacher_score}}/10&nbsp;({{display_bool this.show_teacher}})</th>
+                                        <th>{{this.grade_input}}</th>
+                                        <th class="w-1/4">{{this.feedback}}</th>
+                                        <th><a class="text-green-700 font-semibold" onclick="display_edit(this.id)" id="{{class_id}}_{{remove_spaces_dashes this.term}}_edit">Edit</a></th>
+                                    </tr>
+                                    <form onsubmit="return edit_feedback(this.id)" action="edit_feedback" method="POST" id="{{class_id}}_{{remove_spaces_dashes this.term}}_form">
+                                        <tr class="hidden" id="{{class_id}}_{{remove_spaces_dashes this.term}}_inputs">
+                                            <th class="text-left w-1/6"><input name="class_name" class="pl-1 w-full border border-black hidden" value="{{this.name}}" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_names_input">{{this.name}}</th>
+                                            <th><input name="class_id" class="pl-1 w-full border border-black hidden" value={{this.class_id}} id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_id_input">{{this.class_id}}</th>
+                                            <th>{{format_date this.review_time}} {{#if this.edit_time}}<span class="font-semibold" title="Edited on {{format_date this.edit_time}}">*</span>{{/if}}</th>
+                                            <th>
+                                                <input name="review_id" class="pl-1 w-full border border-black hidden " size="18" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_review_id" autocomplete="off" required value="{{this.review_id}}" data-original="{{this.review_id}}">
+                                                <input name="original_term" class="pl-1 w-full border border-black hidden " size="18" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_original_term" autocomplete="off" required value="{{this.term}}" data-original="{{this.term}}">
+                                                <input type="search" list="terms" name="term" class="pl-1 w-full border border-black" size="18" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_term_input" autocomplete="off" required value="{{this.term}}" data-original="{{this.term}}">
+                                            </th>
+                                            <th><input name="teacher" class="pl-1 w-full border border-black" size="10" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_teacher_input" autocomplete="off" required value={{this.teacher}} data-original="{{this.teacher}}"></th>
+                                            <th><input name="class_score" type="number" style="width: 50px;" step="any" class="pl-1 border border-black" min="0" max="10" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_class_score_input" autocomplete="off" required value={{fix_number_profile this.class_score}} data-original={{fix_number_profile this.class_score}}></th>
+                                            <th><input name="workload" type="number" style="width: 50px;" step="any" class="pl-1 border border-black" min="0" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_workload_input" autocomplete="off" required value={{fix_number_profile this.workload}} data-original={{fix_number_profile this.workload}}></th>
+                                            <th><input name="difficulty" type="number" style="width: 50px;" step="any" class="pl-1 border border-black" min="0" max="10" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_difficulty_input" autocomplete="off" required value={{fix_number_profile this.difficulty}} data-original={{fix_number_profile this.difficulty}}></th>
+                                            <th><input name="enjoyment" type="number" style="width: 50px;" step="any" class="pl-1 border border-black" min="0" max="10" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_enjoyment_input" autocomplete="off" required value={{fix_number_profile this.enjoyment}} data-original={{fix_number_profile this.enjoyment}}></th>
+                                            <th>
+                                                <div class="flex flex-row items-center justify-center">
+                                                    <input name="teacher_score" type="number" style="width: 50px;" step="any" class="pl-1 border border-black" min="0" max="10" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_teacher_score_input" autocomplete="off" required value={{fix_number_profile this.teacher_score}} data-original={{fix_number_profile this.teacher_score}}>&nbsp;
+                                                    <input name="show_teacher" type="checkbox" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_show_teacher_input" data-original={{this.show_teacher}} {{#if this.show_teacher}}checked{{/if}}>
+                                                </div>
+                                            </th>
+                                            <th><input name="grade" class="pl-1 w-full border border-black" size="4" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_grade_score_input" autocomplete="off" value="{{this.grade_input}}" data-original="{{this.grade_input}}"></th>
+                                            <th class="w-1/4"><textarea name="feedback" class="pl-1 w-full border border-black" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_feedback_input" data-original="{{this.feedback}}">{{this.feedback}}</textarea></th>
+                                            <th>
+                                                <input type="submit" value="Submit" class="bg-white hover_pointer font-semibold text-green-700" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_submit"><br>
+                                                <a class="text-blue-700 font-semibold" onclick="cancel_edit(this.id)" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_cancel">Cancel</a><br>
+                                                <a class="text-red-700 font-semibold" onclick="delete_edit(this.id)" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_delete">Delete</a><br>
+                                            </th>
+                                        </tr>
+                                        <tr class="text-center hidden" id="{{class_id}}_{{remove_spaces_dashes this.term}}_delete_confirm">
+                                            <th colspan="13">
+                                                Are you sure you want to delete this input? <br> <input name="delete_feedback" type="number" class="hidden" value="0" id="{{class_id}}_{{remove_spaces_dashes this.term}}_delete_input">
+                                                <span class="font-semibold text-red-700"><input type="submit" value="Yes" class="bg-white hover_pointer font-semibold text-red-700" onclick="change_delete(this.id)" id="{{class_id}}_{{remove_spaces_dashes this.term}}_confirm_delete"></span> | <span class="font-semibold text-green-700 hover_pointer" onclick="cancel_delete(this.id)" id="{{class_id}}_{{remove_spaces_dashes this.term}}_cancel_delete">No</span>
+                                            </th>
+                                        </tr>
+                                    </form>
+                                    <tr class="text-center font-semibold text-red-700 hidden" id="{{class_id}}_{{remove_spaces_dashes this.term}}_error_msg">
+                                        <th colspan="13" id="{{class_id}}_{{remove_spaces_dashes this.term}}_error_msg_row">
+                                            Error!
+                                        </th>
+                                    </tr>
+                                    {{/each}}
                                 {{/each}}
-                            {{/each}}
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
+            {{> footer}}
         </div>
-        {{> footer}}
     </body>
     <script>
         var id_to_name = {}

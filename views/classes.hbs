@@ -10,223 +10,225 @@
 		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
 	</head>
 	<body>
-		{{> header}}
-        <div class="text-center">
-			<div class="text-6xl font-bold pb-1">
-				{{class_info.name}} {{#check_empty class_info.alt}} ({{class_info.alt}}) {{/check_empty}}
-			</div>
-			<div class="width-full flex flex-row items-center justify-center">
-				<div class="px-2"><b>ID: </b>{{class_info.id}}</div>
-				<div class="px-2"><b>Category: </b>{{class_info.category}}</div>
-				<div class="px-2"><b>Type: </b>{{class_info.type}}</div>
-				<div class="px-2"><b>Length: </b>{{class_info.length}}</div>
-				<div class="px-2"><b>Weighted: </b>{{class_info.weight}}</div>
-			</div>
+		<div class="min-h-full flex flex-col">
+			{{> header}}
+			<div class="text-center flex-grow">
+				<div class="text-6xl font-bold pb-1">
+					{{class_info.name}} {{#check_empty class_info.alt}} ({{class_info.alt}}) {{/check_empty}}
+				</div>
+				<div class="width-full flex flex-row items-center justify-center">
+					<div class="px-2"><b>ID: </b>{{class_info.id}}</div>
+					<div class="px-2"><b>Category: </b>{{class_info.category}}</div>
+					<div class="px-2"><b>Type: </b>{{class_info.type}}</div>
+					<div class="px-2"><b>Length: </b>{{class_info.length}}</div>
+					<div class="px-2"><b>Weighted: </b>{{class_info.weight}}</div>
+				</div>
 
-			<div class="flex flex-col">
-				<div class="w-full flex flex-row">
-					<div class="w-1/3 px-5">
-						<div class="width-full text-center font-semibold text-3xl">
-							Description
-						</div>
-						<div class="width-full text-left">
-							{{class_info.description}}
-						</div>
-					</div>
-					<div class="w-2/3 px-5 flex flex-col">
-						{{#check_zero class_info.total}}
-							<div class="flex flex-col w-full">
-								<div class="width-full text-center font-bold text-3xl">
-									There are currently no reviews for this class.
-								</div>
-							</div>
-						{{/check_zero}}
-						{{#check_nonzero class_info.total}}
-						<div class="w-full px-1 flex flex-row pb-2">
-							{{> score_card score_name="Class Score" score=class_info.class_score rank=class_info.class_score_rank num_classes=class_info.num_classes score_text="/10" rank_category=class_info.class_score_category_rank num_category=class_info.num_category category=class_info.category}}
-							{{> score_card score_name="Workload" score=class_info.workload rank=class_info.workload_rank num_classes=class_info.num_classes score_text="hrs/week" rank_category=class_info.workload_category_rank num_category=class_info.num_category category=class_info.category}}
-						</div>
-						<div class="w-full px-1 flex flex-row py-2">
-							{{> score_card score_name="Difficulty" score=class_info.difficulty rank=class_info.difficulty_rank num_classes=class_info.num_classes score_text="/10" rank_category=class_info.difficulty_category_rank num_category=class_info.num_category category=class_info.category}}
-							{{> score_card score_name="Enjoyment" score=class_info.enjoyment rank=class_info.enjoyment_rank num_classes=class_info.num_classes score_text="/10" rank_category=class_info.enjoyment_category_rank num_category=class_info.num_category category=class_info.category}}
-						</div>
-						<div class="w-full px-1 flex flex-row pt-2">
-							{{> score_card score_name="Teacher Score" score=class_info.teacher_score rank=class_info.teacher_score_rank num_classes=class_info.num_classes score_text="/10" rank_category=class_info.teacher_score_category_rank num_category=class_info.num_category category=class_info.category}}
-							{{#if class_info.grade_inputs}}{{> score_card score_name="Grade" score=class_info.grade rank=class_info.grade_rank num_classes=class_info.num_grade score_text="%" rank_category=class_info.grade_category_rank num_category=class_info.num_category category=class_info.category}}
-							{{else}}{{> empty_score_card score_name="Grade"}}
-							{{/if}}
-						</div>
-						{{/check_nonzero}}
-					</div>
-				</div>
-				{{#check_nonzero class_info.total}}
 				<div class="flex flex-col">
-					<div class="flex flex-col pb-2">
-						<div class="w-full text-center font-bold text-3xl">
-							Historical Data
-						</div>
-						<div class="w-full flex flex-row">
-							<div class="w-1/2 px-2 flex flex-col">
-								<div class="w-full text-center font-semibold text-2xl">
-									Median
-								</div>
-								<div>
-									<table id="median_term_table" class="display">
-										<thead>
-											<tr class="text-center">
-												<th>Term</th>
-												<th title="Number of students that have inputted data for this term">#</th>
-												<th title="Overall rating of the class, scale of 0(Awful)-10(Best)">SCO</th>
-												<th title="Average amount of time spent on HW in this class per week">WRK</th>
-												<th title="Overall difficulty of the class, scale of 0(Easy)-10(Hard)">DIFF</th>
-												<th title="Overall enjoyment of the class, scale of 0(No enjoyment)-10(Very enjoyable)">ENJ</th>
-												<th title="Overall rating of the teacher, scale of 0(Awful)-10(Best)">TCH</th>
-												<th title="Average grade of the students (Number of responses)">GRD</th>
-											</tr>
-										</thead>
-										<tbody>
-											{{#each term_stats}}
-											<tr>
-												<td data-order="{{this.term_order}}">{{this.term}}</td>
-												<td>{{this.total}}</td>
-												<td>{{fix_number this.med_score}}</td>
-												<td>{{fix_number this.med_workload}}</td>
-												<td>{{fix_number this.med_difficulty}}</td>
-												<td>{{fix_number this.med_enjoyment}}</td>
-												<td>{{fix_number this.med_teacher_score}}</td>
-												<td>{{#if this.grade_total}} {{fix_number this.med_grade}} ({{this.grade_total}}) {{else}} {{/if}}</td>
-											</tr>
-											{{/each}}
-										</tbody>
-									</table>
-								</div>
+					<div class="w-full flex flex-row">
+						<div class="w-1/3 px-5">
+							<div class="width-full text-center font-semibold text-3xl">
+								Description
 							</div>
-							<div class="w-1/2 px-2 flex flex-col">
-								<div class="w-full text-center font-semibold text-2xl">
-									Average
-								</div>
-								<div>
-									<table id="average_term_table" class="display">
-										<thead>
-											<tr class="text-center">
-												<th>Term</th>
-												<th title="Number of students that have inputted data for this term">#</th>
-												<th title="Overall rating of the class, scale of 0(Awful)-10(Best)">SCO</th>
-												<th title="Average amount of time spent on HW in this class per week">WRK</th>
-												<th title="Overall difficulty of the class, scale of 0(Easy)-10(Hard)">DIFF</th>
-												<th title="Overall enjoyment of the class, scale of 0(No enjoyment)-10(Very enjoyable)">ENJ</th>
-												<th title="Overall rating of the teacher, scale of 0(Awful)-10(Best)">TCH</th>
-												<th title="Average grade of the students (Number of responses)">GRD</th>
-											</tr>
-										</thead>
-										<tbody>
-											{{#each term_stats}}
-											<tr>
-												<td data-order="{{this.term_order}}">{{this.term}}</td>
-												<td>{{this.total}}</td>
-												<td>{{fix_number this.avg_score}}</td>
-												<td>{{fix_number this.avg_workload}}</td>
-												<td>{{fix_number this.avg_difficulty}}</td>
-												<td>{{fix_number this.avg_enjoyment}}</td>
-												<td>{{fix_number this.avg_teacher_score}}</td>
-												<td>{{#if this.grade_total}} {{fix_number this.avg_grade}} ({{this.grade_total}}) {{else}} {{/if}}</td>
-											</tr>
-											{{/each}}
-										</tbody>
-									</table>
-								</div>
+							<div class="width-full text-left">
+								{{class_info.description}}
 							</div>
 						</div>
-					</div>
-					<div class="flex flex-col pb-2">
-						<div class="w-full text-center font-bold text-3xl">
-							Teachers
-						</div>
-						<div class="w-full grid grid-cols-2 place-items-center items-center justify-center">
-							{{#each teacher}}
-							<div class="w-full px-2 flex flex-col">
-								<div class="w-full text-center font-semibold text-2xl">
-									{{this.name}}
+						<div class="w-2/3 px-5 flex flex-col">
+							{{#check_zero class_info.total}}
+								<div class="flex flex-col w-full">
+									<div class="width-full text-center font-bold text-3xl">
+										There are currently no reviews for this class.
+									</div>
 								</div>
-								<div>
-									<table id="teacher_{{remove_spaces this.name}}_table" class="display">
-										<thead>
-											<tr class="text-center">
-												<th>Term</th>
-												<th title="Number of students that have inputted data for this term">#</th>
-												<th title="Overall rating of the class, scale of 0(Awful)-10(Best)">SCO</th>
-												<th title="Average amount of time spent on HW in this class per week">WRK</th>
-												<th title="Overall difficulty of the class, scale of 0(Easy)-10(Hard)">DIFF</th>
-												<th title="Overall enjoyment of the class, scale of 0(No enjoyment)-10(Very enjoyable)">ENJ</th>
-												<th title="Overall rating of the teacher, scale of 0(Awful)-10(Best)">TCH</th>
-												<th title="Average grade of the students (Number of responses)">GRD</th>
-											</tr>
-										</thead>
-										<tbody>
-											{{#each this.terms}}
-											<tr>
-												<td data-order="{{this.term_order}}">{{this.term}}</td>
-												<td>{{this.total}}</td>
-												<td>{{fix_number this.class_score}}</td>
-												<td>{{fix_number this.workload}}</td>
-												<td>{{fix_number this.difficulty}}</td>
-												<td>{{fix_number this.enjoyment}}</td>
-												<td>{{fix_number this.teacher_score}}</td>
-												<td>{{#if this.grade_total}} {{fix_number this.grade}} ({{this.grade_total}}) {{else}} {{/if}}</td>
-											</tr>
-											{{/each}}
-										</tbody>
-									</table>
-								</div>
+							{{/check_zero}}
+							{{#check_nonzero class_info.total}}
+							<div class="w-full px-1 flex flex-row pb-2">
+								{{> score_card score_name="Class Score" score=class_info.class_score rank=class_info.class_score_rank num_classes=class_info.num_classes score_text="/10" rank_category=class_info.class_score_category_rank num_category=class_info.num_category category=class_info.category}}
+								{{> score_card score_name="Workload" score=class_info.workload rank=class_info.workload_rank num_classes=class_info.num_classes score_text="hrs/week" rank_category=class_info.workload_category_rank num_category=class_info.num_category category=class_info.category}}
 							</div>
-							{{/each}}
-						</div>
-					</div>
-					<div class="w-full flex flex-col">
-						<div class="w-full text-center font-bold text-3xl">
-							Reviews
-						</div>
-						{{#empty_key feedback}}
-						<div class="text-center text-xl font-bold">
-							There are no reviews for this class.
-						</div>
-						{{/empty_key}}
-						<div class="w-full flex flex-col place-items-center items-center justify-center">
-							{{#each feedback}}
-							<div class="w-full px-4 flex flex-col text-left py-2">
-								<div class="font-bold text-xl">
-									User{{random_number}}
-								</div>
-								<div class="text-base">
-									Posted on {{format_date review_time}} {{#if edited}}(edited on {{format_date edit_time}}){{/if}}
-								</div>
-								<div class="text-base">
-									<span><b>Score: </b>{{fix_number_profile class_score}}/10</span> | <span><b>Workload: </b>{{fix_number_profile workload}} hrs/wk</span> | <span><b>Difficulty: </b>{{fix_number_profile difficulty}}/10</span> | <span><b>Enjoyment: </b>{{fix_number_profile enjoyment}}/10</span> | <span><b>Teacher Score: </b>{{fix_number_profile teacher_score}}/10</span>
-								</div>
-								<div class="text-base">
-									<span><b>Term: </b>{{term}}</span>{{#if show_teacher}} | <span><b>Teacher: </b>{{teacher}}</span>{{/if}}
-								</div>
-								<div class="text-base">
-									<span id="{{this.review_id}}_like_counter">{{this.likes}} like{{plural this.likes}}</span> | <span id="{{this.review_id}}_dislike_counter">{{this.dislikes}} dislike{{plural this.dislikes}}</span> | <span id="{{this.review_id}}_funny_counter">{{this.funny}} {{people_person this.funny}}</span> found this funny
-								</div>
-								{{#if ../profile}}
-								<div class="text-base pb-1">
-									<input type="submit" value="Like" class="bg-white hover_pointer font-semibold border border-black px-1 {{#if this.user_like}}selected_like{{else}}review_feedback{{/if}}" id="{{this.review_id}}_like" onclick="like_review(this.id)"> <input type="submit" value="Dislike" class="bg-white hover_pointer font-semibold border border-black px-1 {{#if this.user_dislike}}selected_dislike{{else}}review_feedback{{/if}}" id="{{this.review_id}}_dislike" onclick="dislike_review(this.id)"> <input type="submit" value="Funny" class="bg-white hover_pointer font-semibold border border-black px-1 {{#if this.user_funny}}selected_funny{{else}}review_feedback{{/if}}" id="{{this.review_id}}_funny" onclick="funny_review(this.id)">
-								</div>
+							<div class="w-full px-1 flex flex-row py-2">
+								{{> score_card score_name="Difficulty" score=class_info.difficulty rank=class_info.difficulty_rank num_classes=class_info.num_classes score_text="/10" rank_category=class_info.difficulty_category_rank num_category=class_info.num_category category=class_info.category}}
+								{{> score_card score_name="Enjoyment" score=class_info.enjoyment rank=class_info.enjoyment_rank num_classes=class_info.num_classes score_text="/10" rank_category=class_info.enjoyment_category_rank num_category=class_info.num_category category=class_info.category}}
+							</div>
+							<div class="w-full px-1 flex flex-row pt-2">
+								{{> score_card score_name="Teacher Score" score=class_info.teacher_score rank=class_info.teacher_score_rank num_classes=class_info.num_classes score_text="/10" rank_category=class_info.teacher_score_category_rank num_category=class_info.num_category category=class_info.category}}
+								{{#if class_info.grade_inputs}}{{> score_card score_name="Grade" score=class_info.grade rank=class_info.grade_rank num_classes=class_info.num_grade score_text="%" rank_category=class_info.grade_category_rank num_category=class_info.num_category category=class_info.category}}
+								{{else}}{{> empty_score_card score_name="Grade"}}
 								{{/if}}
-								<hr>
-								<div>
-									{{feedback}}
-								</div>
 							</div>
-							{{/each}}
+							{{/check_nonzero}}
 						</div>
 					</div>
+					{{#check_nonzero class_info.total}}
+					<div class="flex flex-col">
+						<div class="flex flex-col pb-2">
+							<div class="w-full text-center font-bold text-3xl">
+								Historical Data
+							</div>
+							<div class="w-full flex flex-row">
+								<div class="w-1/2 px-2 flex flex-col">
+									<div class="w-full text-center font-semibold text-2xl">
+										Median
+									</div>
+									<div>
+										<table id="median_term_table" class="display">
+											<thead>
+												<tr class="text-center">
+													<th>Term</th>
+													<th title="Number of students that have inputted data for this term">#</th>
+													<th title="Overall rating of the class, scale of 0(Awful)-10(Best)">SCO</th>
+													<th title="Average amount of time spent on HW in this class per week">WRK</th>
+													<th title="Overall difficulty of the class, scale of 0(Easy)-10(Hard)">DIFF</th>
+													<th title="Overall enjoyment of the class, scale of 0(No enjoyment)-10(Very enjoyable)">ENJ</th>
+													<th title="Overall rating of the teacher, scale of 0(Awful)-10(Best)">TCH</th>
+													<th title="Average grade of the students (Number of responses)">GRD</th>
+												</tr>
+											</thead>
+											<tbody>
+												{{#each term_stats}}
+												<tr>
+													<td data-order="{{this.term_order}}">{{this.term}}</td>
+													<td>{{this.total}}</td>
+													<td>{{fix_number this.med_score}}</td>
+													<td>{{fix_number this.med_workload}}</td>
+													<td>{{fix_number this.med_difficulty}}</td>
+													<td>{{fix_number this.med_enjoyment}}</td>
+													<td>{{fix_number this.med_teacher_score}}</td>
+													<td>{{#if this.grade_total}} {{fix_number this.med_grade}} ({{this.grade_total}}) {{else}} {{/if}}</td>
+												</tr>
+												{{/each}}
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="w-1/2 px-2 flex flex-col">
+									<div class="w-full text-center font-semibold text-2xl">
+										Average
+									</div>
+									<div>
+										<table id="average_term_table" class="display">
+											<thead>
+												<tr class="text-center">
+													<th>Term</th>
+													<th title="Number of students that have inputted data for this term">#</th>
+													<th title="Overall rating of the class, scale of 0(Awful)-10(Best)">SCO</th>
+													<th title="Average amount of time spent on HW in this class per week">WRK</th>
+													<th title="Overall difficulty of the class, scale of 0(Easy)-10(Hard)">DIFF</th>
+													<th title="Overall enjoyment of the class, scale of 0(No enjoyment)-10(Very enjoyable)">ENJ</th>
+													<th title="Overall rating of the teacher, scale of 0(Awful)-10(Best)">TCH</th>
+													<th title="Average grade of the students (Number of responses)">GRD</th>
+												</tr>
+											</thead>
+											<tbody>
+												{{#each term_stats}}
+												<tr>
+													<td data-order="{{this.term_order}}">{{this.term}}</td>
+													<td>{{this.total}}</td>
+													<td>{{fix_number this.avg_score}}</td>
+													<td>{{fix_number this.avg_workload}}</td>
+													<td>{{fix_number this.avg_difficulty}}</td>
+													<td>{{fix_number this.avg_enjoyment}}</td>
+													<td>{{fix_number this.avg_teacher_score}}</td>
+													<td>{{#if this.grade_total}} {{fix_number this.avg_grade}} ({{this.grade_total}}) {{else}} {{/if}}</td>
+												</tr>
+												{{/each}}
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="flex flex-col pb-2">
+							<div class="w-full text-center font-bold text-3xl">
+								Teachers
+							</div>
+							<div class="w-full grid grid-cols-2 place-items-center items-center justify-center">
+								{{#each teacher}}
+								<div class="w-full px-2 flex flex-col">
+									<div class="w-full text-center font-semibold text-2xl">
+										{{this.name}}
+									</div>
+									<div>
+										<table id="teacher_{{remove_spaces this.name}}_table" class="display">
+											<thead>
+												<tr class="text-center">
+													<th>Term</th>
+													<th title="Number of students that have inputted data for this term">#</th>
+													<th title="Overall rating of the class, scale of 0(Awful)-10(Best)">SCO</th>
+													<th title="Average amount of time spent on HW in this class per week">WRK</th>
+													<th title="Overall difficulty of the class, scale of 0(Easy)-10(Hard)">DIFF</th>
+													<th title="Overall enjoyment of the class, scale of 0(No enjoyment)-10(Very enjoyable)">ENJ</th>
+													<th title="Overall rating of the teacher, scale of 0(Awful)-10(Best)">TCH</th>
+													<th title="Average grade of the students (Number of responses)">GRD</th>
+												</tr>
+											</thead>
+											<tbody>
+												{{#each this.terms}}
+												<tr>
+													<td data-order="{{this.term_order}}">{{this.term}}</td>
+													<td>{{this.total}}</td>
+													<td>{{fix_number this.class_score}}</td>
+													<td>{{fix_number this.workload}}</td>
+													<td>{{fix_number this.difficulty}}</td>
+													<td>{{fix_number this.enjoyment}}</td>
+													<td>{{fix_number this.teacher_score}}</td>
+													<td>{{#if this.grade_total}} {{fix_number this.grade}} ({{this.grade_total}}) {{else}} {{/if}}</td>
+												</tr>
+												{{/each}}
+											</tbody>
+										</table>
+									</div>
+								</div>
+								{{/each}}
+							</div>
+						</div>
+						<div class="w-full flex flex-col">
+							<div class="w-full text-center font-bold text-3xl">
+								Reviews
+							</div>
+							{{#empty_key feedback}}
+							<div class="text-center text-xl font-bold">
+								There are no reviews for this class.
+							</div>
+							{{/empty_key}}
+							<div class="w-full flex flex-col place-items-center items-center justify-center">
+								{{#each feedback}}
+								<div class="w-full px-4 flex flex-col text-left py-2">
+									<div class="font-bold text-xl">
+										User{{random_number}}
+									</div>
+									<div class="text-base">
+										Posted on {{format_date review_time}} {{#if edited}}(edited on {{format_date edit_time}}){{/if}}
+									</div>
+									<div class="text-base">
+										<span><b>Score: </b>{{fix_number_profile class_score}}/10</span> | <span><b>Workload: </b>{{fix_number_profile workload}} hrs/wk</span> | <span><b>Difficulty: </b>{{fix_number_profile difficulty}}/10</span> | <span><b>Enjoyment: </b>{{fix_number_profile enjoyment}}/10</span> | <span><b>Teacher Score: </b>{{fix_number_profile teacher_score}}/10</span>
+									</div>
+									<div class="text-base">
+										<span><b>Term: </b>{{term}}</span>{{#if show_teacher}} | <span><b>Teacher: </b>{{teacher}}</span>{{/if}}
+									</div>
+									<div class="text-base">
+										<span id="{{this.review_id}}_like_counter">{{this.likes}} like{{plural this.likes}}</span> | <span id="{{this.review_id}}_dislike_counter">{{this.dislikes}} dislike{{plural this.dislikes}}</span> | <span id="{{this.review_id}}_funny_counter">{{this.funny}} {{people_person this.funny}}</span> found this funny
+									</div>
+									{{#if ../profile}}
+									<div class="text-base pb-1">
+										<input type="submit" value="Like" class="bg-white hover_pointer font-semibold border border-black px-1 {{#if this.user_like}}selected_like{{else}}review_feedback{{/if}}" id="{{this.review_id}}_like" onclick="like_review(this.id)"> <input type="submit" value="Dislike" class="bg-white hover_pointer font-semibold border border-black px-1 {{#if this.user_dislike}}selected_dislike{{else}}review_feedback{{/if}}" id="{{this.review_id}}_dislike" onclick="dislike_review(this.id)"> <input type="submit" value="Funny" class="bg-white hover_pointer font-semibold border border-black px-1 {{#if this.user_funny}}selected_funny{{else}}review_feedback{{/if}}" id="{{this.review_id}}_funny" onclick="funny_review(this.id)">
+									</div>
+									{{/if}}
+									<hr>
+									<div>
+										{{feedback}}
+									</div>
+								</div>
+								{{/each}}
+							</div>
+						</div>
+					</div>
+					{{/check_nonzero}}
 				</div>
-				{{/check_nonzero}}
 			</div>
-        </div>
-		{{> footer}}
+			{{> footer}}
+		</div>
 		<script type="text/javascript">
 			function plural(i) {
 				if (i == 1) {

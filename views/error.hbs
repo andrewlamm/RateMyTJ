@@ -9,11 +9,13 @@
 		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
 	</head>
 	<body>
-		{{> header}}
-        <div style="padding-left: 8px">
-            <h1>Sorry! That page does not exist</h1>
-            <h3>Please return to the homepage <a href="/">here</a>.</h3>
-        </div>
-        {{> footer}}
+		<div class="min-h-full flex flex-col">
+			{{> header}}
+			<div style="padding-left: 8px">
+				<h1>Sorry! That page does not exist</h1>
+				<h3>Please return to the homepage <a href="/">here</a>.</h3>
+			</div>
+			{{> footer}}
+		</div>
     </body>
 </html>

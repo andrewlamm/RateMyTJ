@@ -2,129 +2,176 @@
 <html>
 	<head>
 		<meta charset="utf-8">
+		<link href="https://unpkg.com/tailwindcss@2.0.2/dist/tailwind.min.css" rel="stylesheet">
 		<title>RateMyTJ</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.0/nouislider.min.css">
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
-		<link rel="stylesheet" href="/styles.css">
 		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+		<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.0/nouislider.min.js"></script>
+		<link rel="stylesheet" href="/styles.css">
 	</head>
 	<body>
-		{{> header}}
-		<div style="display: flex; flex-direction: row; padding:8px;">
-			<div style="width: 250px">
-				<div style="width: 100%; font-weight:600; text-align:center; font-size:1.5rem;">
-					Filters
+		<div class="min-h-full flex flex-col">
+			{{> header}}
+			<div class="flex flex-row p-2">
+				<div style="width: 250px" class="leading-tight">
+					<div class="w-full font-semibold text-center text-2xl">
+						Filters
+					</div>
+					<div>
+						<span class="text-xs underline"><a onclick="reset_filters()">Reset all filters</a></span><br>
+						<b>Category:</b><br>
+						<span class="text-xs underline"><a onclick="switchCategory(false)">Uncheck all</a> | <a onclick="switchCategory(true)">Check all</a></span><br>
+						<input type="checkbox" class="mr-0.5" value="Technology and Engineering" checked id="Technology and Engineering" onclick="filterChange(3)"><label for="Technology and Engineering">Technology and Engineering</label><br>
+						<input type="checkbox" class="mr-0.5" value="English" checked id="English" onclick="filterChange(3)"><label for="English">English</label><br>
+						<input type="checkbox" class="mr-0.5" value="Fine Arts: Music" checked id="Fine Arts: Music" onclick="filterChange(3)"><label for="Fine Arts: Music">Fine Arts: Music</label><br>
+						<input type="checkbox" class="mr-0.5" value="Fine Arts: Theatre Arts" checked id="Fine Arts: Theatre Arts" onclick="filterChange(3)"><label for="Fine Arts: Theatre Arts">Fine Arts: Theatre Arts</label><br>
+						<input type="checkbox" class="mr-0.5" value="Fine Arts: Visual Arts" checked id="Fine Arts: Visual Arts" onclick="filterChange(3)"><label for="Fine Arts: Visual Arts">Fine Arts: Visual Arts</label><br>
+						<input type="checkbox" class="mr-0.5" value="General" checked id="General" onclick="filterChange(3)"><label for="General">General</label><br>
+						<input type="checkbox" class="mr-0.5" value="Health/PE" checked id="Health/PE" onclick="filterChange(3)"><label for="Health/PE">Health/PE</label><br>
+						<input type="checkbox" class="mr-0.5" value="Mathematics" checked id="Mathematics" onclick="filterChange(3)"><label for="Mathematics">Mathematics</label><br>
+						<input type="checkbox" class="mr-0.5" value="Science" checked id="Science" onclick="filterChange(3)"><label for="Science">Science</label><br>
+						<input type="checkbox" class="mr-0.5" value="Social Studies" checked id="Social Studies" onclick="filterChange(3)"><label for="Social Studies">Social Studies</label><br>
+						<input type="checkbox" class="mr-0.5" value="World Languages" checked id="World Languages" onclick="filterChange(3)"><label for="World Languages">World Languages</label><br>
+					</div>
+					<div class="pt-2.5">
+						<b>Type:</b><br>
+						<input type="checkbox" class="mr-0.5" name="Core" checked onclick="filterChange(4)" id="Core"><label for="Core">Core</label><br>
+						<input type="checkbox" class="mr-0.5" name="Elective" checked onclick="filterChange(4)" id="Elective"><label for="Elective">Elective</label><br>
+					</div>
+					<div class="pt-2.5">
+						<b>Length:</b><br>
+						<input type="checkbox" class="mr-0.5" name="FullYear" checked onclick="filterChange(5)" id="Full Year"><label for="Full Year">Full Year</label><br>
+						<input type="checkbox" class="mr-0.5" name="Semester" checked onclick="filterChange(5)" id="Semester"><label for="Semester">Semester</label><br>
+					</div>
+					<div class="pt-2.5">
+						<b>Weight:</b><br>
+						<input type="checkbox" class="mr-0.5" name="Regular" checked onclick="filterChange(6)" id="+0.0"><label for="+0.0">Regular (+0.0)</label><br>
+						<input type="checkbox" class="mr-0.5" name="Honors" checked onclick="filterChange(6)" id="+0.5"><label for="+0.5">Honors (+0.5)</label><br>
+						<input type="checkbox" class="mr-0.5" name="AP" checked onclick="filterChange(6)" id="+1.0"><label for="+1.0">AP/Post-AP (+1.0)</label><br>
+					</div>
+					<div class="pt-2.5">
+						<b>Display:</b><br>
+						<input type="radio" class="mr-0.5" id="show_all" name="show" checked oninput="show_all_classes(true)" value="true"><label for="show_all">All Classes</label><br>
+						<input type="radio" class="mr-0.5" id="show_only" name="show" oninput="show_all_classes(false)" value="false"><label for="show_only">Only Classes with Reviews</label>
+					</div>
+					<div class="pr-6 pl-4 text-center">
+						<div>
+							<div class="pt-2.5">
+								<b>Class Score:</b><br>
+								<div class="flex flex-row pb-2 items-center justify-center">
+									<input type="number" class="border-2 border-gray-500 w-16 pl-1" name="MinClassScore" checked id="minclassscore" onkeyup="filterNumber(this.id, 8)" onclick="filterNumber(this.id, 8)" min="0" max="10">
+									<span>&nbsp;-&nbsp;</span>
+									<input type="number" class="border-2 border-gray-500 w-16 pl-1" name="MaxClassScore" checked id="maxclassscore" onkeyup="filterNumber(this.id, 8)" onclick="filterNumber(this.id, 8)" min="0" max="10">
+								</div>
+							</div>
+							<div id="class_score_slider" style="height:10px;"></div>
+						</div>
+						<div>
+							<div class="pt-2.5">
+								<b>Hours/Week:</b><br>
+								<div class="flex flex-row pb-2 items-center justify-center">
+									<input type="number" class="border-2 border-gray-500 w-16 pl-1" name="MinHrsWeek" checked id="minhrsweek" onkeyup="filterNumber(this.id, 9)" onclick="filterNumber(this.id, 9)" min="0" max="10">
+									<span>&nbsp;-&nbsp;</span>
+									<input type="number" class="border-2 border-gray-500 w-16 pl-1" name="MaxHrsWeek" checked id="maxhrsweek" onkeyup="filterNumber(this.id, 9)" onclick="filterNumber(this.id, 9)" min="0" max="10">
+								</div>
+							</div>
+							<div id="workload_slider" style="height:10px;"></div>
+						</div>
+						<div>
+							<div class="pt-2.5">
+								<b>Difficulty:</b><br>
+								<div class="flex flex-row pb-2 items-center justify-center">
+									<input type="number" class="border-2 border-gray-500 w-16 pl-1" name="MinDifficulty" checked id="mindifficulty" onkeyup="filterNumber(this.id, 10)" onclick="filterNumber(this.id, 10)" min="0" max="10">
+									<span>&nbsp;-&nbsp;</span>
+									<input type="number" class="border-2 border-gray-500 w-16 pl-1" name="MaxDifficulty" checked id="maxdifficulty" onkeyup="filterNumber(this.id, 10)" onclick="filterNumber(this.id, 10)" min="0" max="10">
+								</div>
+							</div>
+							<div id="difficulty_slider" style="height:10px;"></div>
+						</div>
+						<div>
+							<div class="pt-2.5">
+								<b>Enjoyment:</b><br>
+								<div class="flex flex-row pb-2 items-center justify-center">
+									<input type="number" class="border-2 border-gray-500 w-16 pl-1" name="MinEnjoyment" checked id="minenjoyment" onkeyup="filterNumber(this.id, 11)" onclick="filterNumber(this.id, 11)" min="0" max="10">
+									<span>&nbsp;-&nbsp;</span>
+									<input type="number" class="border-2 border-gray-500 w-16 pl-1" name="MaxEnjoyment" checked id="maxenjoyment" onkeyup="filterNumber(this.id, 11)" onclick="filterNumber(this.id, 11)" min="0" max="10">
+								</div>
+							</div>
+							<div id="enjoyment_slider" style="height:10px;"></div>
+						</div>
+						<div>
+							<div class="pt-2.5">
+								<b>Teacher Score:</b><br>
+								<div class="flex flex-row pb-2 items-center justify-center">
+									<input type="number" class="border-2 border-gray-500 w-16 pl-1" name="MinTeacherScore" checked id="minteacherscore" onkeyup="filterNumber(this.id, 12)" onclick="filterNumber(this.id, 12)" min="0" max="10">
+									<span>&nbsp;-&nbsp;</span>
+									<input type="number" class="border-2 border-gray-500 w-16 px-0.5" name="MaxTeacherScore" checked id="maxteacherscore" onkeyup="filterNumber(this.id, 12)" onclick="filterNumber(this.id, 12)" min="0" max="10">
+								</div>
+							</div>
+							<div id="teacherscore_slider" style="height:10px;"></div>
+						</div>
+						<div>
+							<div class="pt-2.5">
+								<b>Average Grade:</b><br>
+								<div class="flex flex-row pb-2 items-center justify-center">
+									<input type="number" class="border-2 border-gray-500 w-16 pl-1" name="MinGrade" checked id="mingrade" onkeyup="filterNumber(this.id, 13)" onclick="filterNumber(this.id, 13)" min="0" max="100">
+									<span>&nbsp;-&nbsp;</span>
+									<input type="number" class="border-2 border-gray-500 w-16 pl-1" name="MaxGrade" checked id="maxgrade" onkeyup="filterNumber(this.id, 13)" onclick="filterNumber(this.id, 13)" min="0" max="100">
+								</div>
+							</div>
+							<div id="grade_slider" style="height:10px;"></div>
+						</div>
+					</div>
 				</div>
 				<div>
-					<b>Category:</b><br>
-					<span style="font-size: 8pt;"><a onclick="switchCategory(false)" style="text-decoration: underline;">Uncheck all</a> | <a onclick="switchCategory(true)" style="text-decoration: underline;">Check all</a></span><br>
-					<input type="checkbox" value="Technology and Engineering" checked id="Technology and Engineering" onclick="filterChange(3)"><label for="Technology and Engineering">Technology and Engineering</label><br>
-					<input type="checkbox" value="English" checked id="English" onclick="filterChange(3)"><label for="English">English</label><br>
-					<input type="checkbox" value="Fine Arts: Music" checked id="Fine Arts: Music" onclick="filterChange(3)"><label for="Fine Arts: Music">Fine Arts: Music</label><br>
-					<input type="checkbox" value="Fine Arts: Theatre Arts" checked id="Fine Arts: Theatre Arts" onclick="filterChange(3)"><label for="Fine Arts: Theatre Arts">Fine Arts: Theatre Arts</label><br>
-					<input type="checkbox" value="Fine Arts: Visual Arts" checked id="Fine Arts: Visual Arts" onclick="filterChange(3)"><label for="Fine Arts: Visual Arts">Fine Arts: Visual Arts</label><br>
-					<input type="checkbox" value="General" checked id="General" onclick="filterChange(3)"><label for="General">General</label><br>
-					<input type="checkbox" value="Health/PE" checked id="Health/PE" onclick="filterChange(3)"><label for="Health/PE">Health/PE</label><br>
-					<input type="checkbox" value="Mathematics" checked id="Mathematics" onclick="filterChange(3)"><label for="Mathematics">Mathematics</label><br>
-					<input type="checkbox" value="Science" checked id="Science" onclick="filterChange(3)"><label for="Science">Science</label><br>
-					<input type="checkbox" value="Social Studies" checked id="Social Studies" onclick="filterChange(3)"><label for="Social Studies">Social Studies</label><br>
-					<input type="checkbox" value="World Languages" checked id="World Languages" onclick="filterChange(3)"><label for="World Languages">World Languages</label><br>
-				</div>
-				<div style="padding-top: 10px">
-					<b>Type:</b><br>
-					<input type="checkbox" name="Core" checked onclick="filterChange(4)" id="Core"><label for="Core">Core</label><br>
-					<input type="checkbox" name="Elective" checked onclick="filterChange(4)" id="Elective"><label for="Elective">Elective</label><br>
-				</div>
-				<div style="padding-top: 10px">
-					<b>Length:</b><br>
-					<input type="checkbox" name="FullYear" checked onclick="filterChange(5)" id="Full Year"><label for="Full Year">Full Year</label><br>
-					<input type="checkbox" name="Semester" checked onclick="filterChange(5)" id="Semester"><label for="Semester">Semester</label><br>
-				</div>
-				<div style="padding-top: 10px">
-					<b>Weight:</b><br>
-					<input type="checkbox" name="Regular" checked onclick="filterChange(6)" id="+0.0"><label for="+0.0">Regular (+0.0)</label><br>
-					<input type="checkbox" name="Honors" checked onclick="filterChange(6)" id="+0.5"><label for="+0.5">Honors (+0.5)</label><br>
-					<input type="checkbox" name="AP" checked onclick="filterChange(6)" id="+1.0"><label for="+1.0">AP/Post-AP (+1.0)</label><br>
-				</div>
-				<div style="display: grid; grid-template-columns: repeat(2,minmax(0,1fr));">
-					<div style="padding-top: 10px; padding-left:2px;">
-						<b>Class Score:</b><br>
-						<b>Min:</b><br><input type="number" name="MinClassScore" checked id="minclassscore" onkeyup="filterNumber(this.id, 8)" onclick="filterNumber(this.id, 8)" min="0" max="10"><br>
-						<b>Max:</b><br><input type="number" name="MaxClassScore" checked id="maxclassscore" onkeyup="filterNumber(this.id, 8)" onclick="filterNumber(this.id, 8)" min="0" max="10"><br>
-					</div>
-					<div style="padding-top: 10px;">
-						<b>Hours/Week:</b><br>
-						<b>Min:</b><br><input type="number" name="MinHrsWeek" checked id="minhrsweek" onkeyup="filterNumber(this.id, 9)" onclick="filterNumber(this.id, 9)" min="0" max="10"><br>
-						<b>Max:</b><br><input type="number" name="MaxHrsWeek" checked id="maxhrsweek" onkeyup="filterNumber(this.id, 9)" onclick="filterNumber(this.id, 9)" min="0" max="10"><br>
-					</div>
-					<div style="padding-top: 10px; padding-left:2px;">
-						<b>Difficulty:</b><br>
-						<b>Min:</b><br><input type="number" name="MinDifficulty" checked id="mindifficulty" onkeyup="filterNumber(this.id, 10)" onclick="filterNumber(this.id, 10)" min="0" max="10"><br>
-						<b>Max:</b><br><input type="number" name="MaxDifficulty" checked id="maxdifficulty" onkeyup="filterNumber(this.id, 10)" onclick="filterNumber(this.id, 10)" min="0" max="10"><br>
-					</div>
-					<div style="padding-top: 10px;">
-						<b>Enjoyment:</b><br>
-						<b>Min:</b><br><input type="number" name="MinEnjoyment" checked id="minenjoyment" onkeyup="filterNumber(this.id, 11)" onclick="filterNumber(this.id, 11)" min="0" max="10"><br>
-						<b>Max:</b><br><input type="number" name="MaxEnjoyment" checked id="maxenjoyment" onkeyup="filterNumber(this.id, 11)" onclick="filterNumber(this.id, 11)" min="0" max="10"><br>
-					</div>
-					<div style="padding-top: 10px; padding-left:2px;">
-						<b>Teacher Score:</b><br>
-						<b>Min:</b><br><input type="number" name="MinTeacherScore" checked id="minteacherscore" onkeyup="filterNumber(this.id, 12)" onclick="filterNumber(this.id, 12)" min="0" max="10"><br>
-						<b>Max:</b><br><input type="number" name="MaxTeacherScore" checked id="maxteacherscore" onkeyup="filterNumber(this.id, 12)" onclick="filterNumber(this.id, 12)" min="0" max="10"><br>
-					</div>
-					<div style="padding-top: 10px">
-						<b>Average Grade:</b><br>
-						<b>Min:</b><br><input type="number" name="MinGrade" checked id="mingrade" onkeyup="filterNumber(this.id, 13)" onclick="filterNumber(this.id, 13)" min="0" max="100"><br>
-						<b>Max:</b><br><input type="number" name="MaxGrade" checked id="maxgrade" onkeyup="filterNumber(this.id, 13)" onclick="filterNumber(this.id, 13)" min="0" max="100"><br>
+					<div id="classes_div" class="w-full">
+						<table id="classes_table" class="display">
+							<thead>
+								<tr>
+									<th>Class Name</th>
+									<th>Alternate</th>
+									<th class="text-center">ID</th>
+									<th class="text-center">Category</th>
+									<th class="text-center">Type</th>
+									<th class="text-center">Length</th>
+									<th class="text-center">Weight</th>
+									<th title="Number of students that have inputted data for this class">#</th>
+									<th title="Overall rating of the class, scale of 0(Awful)-10(Best)">SCO</th>
+									<th title="Average amount of time spent on HW in this class per week">WRK</th>
+									<th title="Overall difficulty of the class, scale of 0(Easy)-10(Hard)">DIFF</th>
+									<th title="Overall enjoyment of the class, scale of 0(No enjoyment)-10(Very enjoyable)">ENJ</th>
+									<th title="Overall rating of the teacher, scale of 0(Awful)-10(Best)">TCH</th>
+									<th title="Average grade of the students (Number of responses)">GRD</th>
+								</tr>
+							</thead>
+							<tbody>
+								{{#each classes}}
+								<tr>
+									<td><a href="/class/{{this.id}}" class="text-black no-underline">{{this.name}}</a></td>
+									<td>{{this.alt}}</td>
+									<td class="text-center">{{this.id}}</td>
+									<td class="text-center">{{this.category}}</td>
+									<td class="text-center">{{this.type}}</td>
+									<td class="text-center">{{this.length}}</td>
+									<td class="text-center">{{this.weight}}</td>
+									<td class="text-center">{{this.total}}</td>
+									<td class="text-center">{{#if this.total}} {{fix_number this.class_score}} {{else}} {{/if}}</td>
+									<td class="text-center">{{#if this.total}} {{fix_number this.workload}} {{else}} {{/if}}</td>
+									<td class="text-center">{{#if this.total}} {{fix_number this.difficulty}} {{else}} {{/if}}</td>
+									<td class="text-center">{{#if this.total}} {{fix_number this.enjoyment}} {{else}} {{/if}}</td>
+									<td class="text-center">{{#if this.total}} {{fix_number this.teacher_score}} {{else}} {{/if}}</td>
+									<td class="text-center" data-order="{{#if this.grade_inputs}}{{this.grade}}{{else}}{{/if}}">{{#if this.grade_inputs}}{{fix_number this.grade}} ({{this.grade_inputs}}) {{else}} {{/if}}</td>
+								</tr>
+								{{/each}}
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
-			<div>
-				<div id="classes_div" style="width: 100%">
-					<table id="classes_table" class="display">
-						<thead>
-							<tr>
-								<th>Class Name</th>
-								<th>Alternate</th>
-								<th style="text-align: center;">ID</th>
-								<th style="text-align: center;">Category</th>
-								<th style="text-align: center;">Type</th>
-								<th style="text-align: center;">Length</th>
-								<th style="text-align: center;">Weight</th>
-								<th title="Number of students that have inputted data for this class">#</th>
-								<th title="Overall rating of the class, scale of 0(Awful)-10(Best)">SCO</th>
-								<th title="Average amount of time spent on HW in this class per week">WRK</th>
-								<th title="Overall difficulty of the class, scale of 0(Easy)-10(Hard)">DIFF</th>
-								<th title="Overall enjoyment of the class, scale of 0(No enjoyment)-10(Very enjoyable)">ENJ</th>
-								<th title="Overall rating of the teacher, scale of 0(Awful)-10(Best)">TCH</th>
-								<th title="Average grade of the students (Number of responses)">GRD</th>
-							</tr>
-						</thead>
-						<tbody>
-							{{#each classes}}
-							<tr>
-								<td><a href="/class/{{this.id}}" style="color: black; text-decoration: none">{{this.name}}</a></td>
-								<td>{{this.alt}}</td>
-								<td style="text-align: center;">{{this.id}}</td>
-								<td style="text-align: center;">{{this.category}}</td>
-								<td style="text-align: center;">{{this.type}}</td>
-								<td style="text-align: center;">{{this.length}}</td>
-								<td style="text-align: center;">{{this.weight}}</td>
-								<td style="text-align: center;">{{this.total}}</td>
-								<td style="text-align: center;">{{#if this.total}} {{fix_number this.class_score}} {{else}} {{/if}}</td>
-								<td style="text-align: center;">{{#if this.total}} {{fix_number this.workload}} {{else}} {{/if}}</td>
-								<td style="text-align: center;">{{#if this.total}} {{fix_number this.difficulty}} {{else}} {{/if}}</td>
-								<td style="text-align: center;">{{#if this.total}} {{fix_number this.enjoyment}} {{else}} {{/if}}</td>
-								<td style="text-align: center;">{{#if this.total}} {{fix_number this.teacher_score}} {{else}} {{/if}}</td>
-								<td style="text-align: center;" data-order="{{#if this.grade_inputs}}{{this.grade}}{{else}}{{/if}}">{{#if this.grade_inputs}}{{fix_number this.grade}} ({{this.grade_inputs}}) {{else}} {{/if}}</td>
-							</tr>
-							{{/each}}
-						</tbody>
-					</table>
-				</div>
-			</div>
+			{{> footer}}
 		</div>
-		{{> footer}}
 		<script type="text/javascript">
 			var __emptyOnTop = function(a, b, high) {
 				a = parseFloat(a || high);
@@ -222,6 +269,46 @@
 				},
 			} );
 
+			function reset_filters() {
+				document.getElementById("Technology and Engineering").checked = true
+				document.getElementById("English").checked = true
+				document.getElementById("Fine Arts: Music").checked = true
+				document.getElementById("Fine Arts: Theatre Arts").checked = true
+				document.getElementById("Fine Arts: Visual Arts").checked = true
+				document.getElementById("General").checked = true
+				document.getElementById("Health/PE").checked = true
+				document.getElementById("Mathematics").checked = true
+				document.getElementById("Science").checked = true
+				document.getElementById("Social Studies").checked = true
+				document.getElementById("World Languages").checked = true
+
+				document.getElementById("Core").checked = true
+				document.getElementById("Elective").checked = true
+
+				document.getElementById("Full Year").checked = true
+				document.getElementById("Semester").checked = true
+
+				document.getElementById("+0.0").checked = true
+				document.getElementById("+0.5").checked = true
+				document.getElementById("+1.0").checked = true
+
+				document.getElementById("show_all").checked = true
+				document.getElementById("show_only").checked = false
+
+				class_score_slider.noUiSlider.set([0, 10])
+				workload_slider.noUiSlider.set([0, 10])
+				difficulty_slider.noUiSlider.set([0, 10])
+				enjoyment_slider.noUiSlider.set([0, 10])
+				teacherscore_slider.noUiSlider.set([0, 10])
+				grade_slider.noUiSlider.set([0, 100])
+
+				filterChange(3)
+				filterChange(4)
+				filterChange(5)
+				filterChange(6)
+				show_all_classes()
+			}
+
 			function switchCategory(state) {
 				document.getElementById("Technology and Engineering").checked = state
 				document.getElementById("English").checked = state
@@ -252,7 +339,13 @@
 						var min = parseFloat(document.getElementById('min' + element_id.substring(3)).value)
 						var max = parseFloat(document.getElementById('max' + element_id.substring(3)).value)
 						var score = parseFloat(rowData[row_index])
+						if (rowData[row_index]['@data-order'] !== undefined) {
+							score = parseFloat(rowData[row_index]['@data-order'])
+						}
 
+						if ((isNaN(min) || min === 0) && isNaN(score)) {
+							return true;
+						}
 						if ((isNaN(min) && isNaN(max)) || (isNaN(min) && score <= max) || (min <= score && isNaN(max)) || (min <= score && score <= max)) {
 							return true;
 						}
@@ -261,6 +354,183 @@
 				);
 				table.draw()
 			}
+
+			function show_all_classes() {
+				$.fn.dataTable.ext.search.push(
+					function( settings, searchData, index, rowData, counter ) {
+						return parseInt(rowData[7]) > 0 || document.getElementById('show_all').checked ? true : false
+					}
+				);
+				table.draw()
+			}
+
+			var class_score_slider = document.getElementById('class_score_slider');
+			noUiSlider.create(class_score_slider, {
+				start: [0, 10],
+				connect: true,
+				range: {
+					'min': 0,
+					'max': 10
+				}
+			});
+			var class_score_input_min = document.getElementById('minclassscore');
+			class_score_slider.noUiSlider.on('update', function (values, handle) {
+				class_score_input_min.value = values[0];
+				filterNumber('minclassscore', 8)
+			});
+			class_score_input_min.addEventListener('change', function () {
+				class_score_slider.noUiSlider.set([this.value, null]);
+				filterNumber('minclassscore', 8)
+			});
+			var class_score_input_max = document.getElementById('maxclassscore');
+			class_score_slider.noUiSlider.on('update', function (values, handle) {
+				class_score_input_max.value = values[1];
+				filterNumber('minclassscore', 8)
+			});
+			class_score_input_max.addEventListener('change', function () {
+				class_score_slider.noUiSlider.set([null, this.value]);
+				filterNumber('minclassscore', 8)
+			});
+
+			var workload_slider = document.getElementById('workload_slider');
+			noUiSlider.create(workload_slider, {
+				start: [0, 10],
+				connect: true,
+				range: {
+					'min': 0,
+					'max': 10
+				}
+			});
+			var workload_input_min = document.getElementById('minhrsweek');
+			workload_slider.noUiSlider.on('update', function (values, handle) {
+				workload_input_min.value = values[0];
+				filterNumber('minhrsweek', 9)
+			});
+			workload_input_min.addEventListener('change', function () {
+				workload_slider.noUiSlider.set([this.value, null]);
+				filterNumber('minhrsweek', 9)
+			});
+			var workload_input_max = document.getElementById('maxhrsweek');
+			workload_slider.noUiSlider.on('update', function (values, handle) {
+				workload_input_max.value = values[1];
+				filterNumber('minhrsweek', 9)
+			});
+			workload_input_max.addEventListener('change', function () {
+				workload_slider.noUiSlider.set([null, this.value]);
+				filterNumber('minhrsweek', 9)
+			});
+
+			var difficulty_slider = document.getElementById('difficulty_slider');
+			noUiSlider.create(difficulty_slider, {
+				start: [0, 10],
+				connect: true,
+				range: {
+					'min': 0,
+					'max': 10
+				}
+			});
+			var difficulty_input_min = document.getElementById('mindifficulty');
+			difficulty_slider.noUiSlider.on('update', function (values, handle) {
+				difficulty_input_min.value = values[0];
+				filterNumber('mindifficulty', 10)
+			});
+			difficulty_input_min.addEventListener('change', function () {
+				difficulty_slider.noUiSlider.set([this.value, null]);
+				filterNumber('mindifficulty', 10)
+			});
+			var difficulty_input_max = document.getElementById('maxdifficulty');
+			difficulty_slider.noUiSlider.on('update', function (values, handle) {
+				difficulty_input_max.value = values[1];
+				filterNumber('mindifficulty', 10)
+			});
+			difficulty_input_max.addEventListener('change', function () {
+				difficulty_slider.noUiSlider.set([null, this.value]);
+				filterNumber('mindifficulty', 10)
+			});
+
+			var enjoyment_slider = document.getElementById('enjoyment_slider');
+			noUiSlider.create(enjoyment_slider, {
+				start: [0, 10],
+				connect: true,
+				range: {
+					'min': 0,
+					'max': 10
+				}
+			});
+			var enjoyment_input_min = document.getElementById('minenjoyment');
+			enjoyment_slider.noUiSlider.on('update', function (values, handle) {
+				enjoyment_input_min.value = values[0];
+				filterNumber('minenjoyment', 11)
+			});
+			enjoyment_input_min.addEventListener('change', function () {
+				enjoyment_slider.noUiSlider.set([this.value, null]);
+				filterNumber('minenjoyment', 11)
+			});
+			var enjoyment_input_max = document.getElementById('maxenjoyment');
+			enjoyment_slider.noUiSlider.on('update', function (values, handle) {
+				enjoyment_input_max.value = values[1];
+				filterNumber('minenjoyment', 11)
+			});
+			enjoyment_input_max.addEventListener('change', function () {
+				enjoyment_slider.noUiSlider.set([null, this.value]);
+				filterNumber('minenjoyment', 11)
+			});
+
+			var teacherscore_slider = document.getElementById('teacherscore_slider');
+			noUiSlider.create(teacherscore_slider, {
+				start: [0, 10],
+				connect: true,
+				range: {
+					'min': 0,
+					'max': 10
+				}
+			});
+			var teacherscore_input_min = document.getElementById('minteacherscore');
+			teacherscore_slider.noUiSlider.on('update', function (values, handle) {
+				teacherscore_input_min.value = values[0];
+				filterNumber('minteacherscore', 12)
+			});
+			teacherscore_input_min.addEventListener('change', function () {
+				teacherscore_slider.noUiSlider.set([this.value, null]);
+				filterNumber('minteacherscore', 12)
+			});
+			var teacherscore_input_max = document.getElementById('maxteacherscore');
+			teacherscore_slider.noUiSlider.on('update', function (values, handle) {
+				teacherscore_input_max.value = values[1];
+				filterNumber('minteacherscore', 12)
+			});
+			teacherscore_input_max.addEventListener('change', function () {
+				teacherscore_slider.noUiSlider.set([null, this.value]);
+				filterNumber('minteacherscore', 12)
+			});
+
+			var grade_slider = document.getElementById('grade_slider');
+			noUiSlider.create(grade_slider, {
+				start: [0, 100],
+				connect: true,
+				range: {
+					'min': 0,
+					'max': 100
+				}
+			});
+			var grade_input_min = document.getElementById('mingrade');
+			grade_slider.noUiSlider.on('update', function (values, handle) {
+				grade_input_min.value = values[0];
+				filterNumber('mingrade', 13)
+			});
+			grade_input_min.addEventListener('change', function () {
+				grade_slider.noUiSlider.set([this.value, null]);
+				filterNumber('mingrade', 13)
+			});
+			var grade_input_max = document.getElementById('maxgrade');
+			grade_slider.noUiSlider.on('update', function (values, handle) {
+				grade_input_max.value = values[1];
+				filterNumber('mingrade', 13)
+			});
+			grade_input_max.addEventListener('change', function () {
+				grade_slider.noUiSlider.set([null, this.value]);
+				filterNumber('mingrade', 13)
+			});
 		</script>
 	</body>
 </html>
