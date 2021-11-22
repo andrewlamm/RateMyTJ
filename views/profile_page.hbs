@@ -53,7 +53,7 @@
                                 <tr>
                                     <form onsubmit="return submit_feedback()" action="submit_feedback" method="POST">
                                         <th class="text-left w-1/6" class="px-1">
-                                            <input type="search" list="class_names" name="class_name" class="pl-1 w-full border border-black" id="names_input" onfocusout="change_id()" autocomplete="off" required>
+                                            <input type="search" list="class_names" name="class_name" onfocus="change_helper(0)" class="pl-1 w-full border border-black" id="names_input" onfocusout="change_id()" autocomplete="off" required>
                                             <datalist id="class_names">
                                                 {{#each classes}}
                                                     <option value="{{this.name}}{{#if this.alt}} ({{this.alt}}){{/if}}">
@@ -61,7 +61,7 @@
                                             </datalist>
                                         </th>
                                         <th class="px-1">
-                                            <input type="search" list="class_id" name="class_id" class="pl-1 w-full border border-black" size="8" id="id_input" onfocusout="change_class()" autocomplete="off" required>
+                                            <input type="search" list="class_id" name="class_id" onfocus="change_helper(1)" class="pl-1 w-full border border-black" size="8" id="id_input" onfocusout="change_class()" autocomplete="off" required>
                                             <datalist id="class_id">
                                                 {{#each classes}}
                                                     <option value="{{this.id}}">
@@ -69,7 +69,7 @@
                                             </datalist>
                                         </th>
                                         <th class="px-1">
-                                            <input type="search" list="terms" name="term" class="pl-1 w-full border border-black" size="18" id="term_input" autocomplete="off" required>
+                                            <input type="search" list="terms" name="term" onfocus="change_helper(2)" class="pl-1 w-full border border-black" size="18" id="term_input" autocomplete="off" required>
                                             <datalist id="terms">
                                                 {{#each terms}}
                                                     <option value="{{this}}">
@@ -77,36 +77,41 @@
                                             </datalist>
                                         </th>
                                         <th class="px-1">
-                                            <input name="teacher" class="pl-1 w-full border border-black" size="10" id="teacher_input" autocomplete="off" required>
+                                            <input name="teacher" onfocus="change_helper(3)" class="pl-1 w-full border border-black" size="10" id="teacher_input" autocomplete="off" required>
                                         </th>
                                         <th class="px-1">
-                                            <input name="class_score" type="number" style="width: 50px;" step="any" class="pl-1 w-full border border-black" min="0" max="10" id="class_score_input" autocomplete="off" required>
+                                            <input name="class_score" onfocus="change_helper(4)" type="number" style="width: 50px;" step="any" class="pl-1 w-full border border-black" min="0" max="10" id="class_score_input" autocomplete="off" required>
                                         </th>
                                         <th class="px-1">
-                                            <input name="workload" type="number" style="width: 50px;" step="any" class="pl-1 w-full border border-black" min="0" id="workload_input" autocomplete="off" required>
+                                            <input name="workload" onfocus="change_helper(5)" type="number" style="width: 50px;" step="any" class="pl-1 w-full border border-black" min="0" id="workload_input" autocomplete="off" required>
                                         </th>
                                         <th class="px-1">
-                                            <input name="difficulty" type="number" style="width: 50px;" step="any" class="pl-1 w-full border border-black" min="0" max="10" id="difficulty_input" autocomplete="off" required>
+                                            <input name="difficulty" onfocus="change_helper(6)" type="number" style="width: 50px;" step="any" class="pl-1 w-full border border-black" min="0" max="10" id="difficulty_input" autocomplete="off" required>
                                         </th>
                                         <th class="px-1">
-                                            <input name="enjoyment" type="number" style="width: 50px;" step="any" class="pl-1 w-full border border-black" min="0" max="10" id="enjoyment_input" autocomplete="off" required>
+                                            <input name="enjoyment" onfocus="change_helper(7)" type="number" style="width: 50px;" step="any" class="pl-1 w-full border border-black" min="0" max="10" id="enjoyment_input" autocomplete="off" required>
                                         </th>
                                         <th>
                                             <div class="flex flex-row items-center justify-center">
-                                                <input name="teacher_score" type="number" style="width: 50px;" step="any" class="pl-1 w-full border border-black" min="0" max="10" id="teacher_score_input" autocomplete="off" required>&nbsp;
+                                                <input name="teacher_score" onfocus="change_helper(8)" type="number" style="width: 50px;" step="any" class="pl-1 w-full border border-black" min="0" max="10" id="teacher_score_input" autocomplete="off" required>&nbsp;
                                                 <input name="show_teacher" type="checkbox" id="show_teacher_input" checked>
                                             </div>
                                         </th>
                                         <th class="px-1">
-                                            <input name="grade" class="pl-1 w-full border border-black" size="4" id="grade_score_input" autocomplete="off">
+                                            <input name="grade" onfocus="change_helper(9)" class="pl-1 w-full border border-black" size="4" id="grade_score_input" autocomplete="off">
                                         </th>
                                         <th class="pl-1 w-1/4" class="px-1">
-                                            <textarea name="feedback" class="pl-1 w-full border border-black" id="feedback_input"></textarea>
+                                            <textarea name="feedback" onfocus="change_helper(10)" class="pl-1 w-full border border-black" id="feedback_input"></textarea>
                                         </th>
                                         <th class="font-semibold text-green-700">
                                             <input type="submit" value="Submit" class="bg-white hover_pointer font-semibold">
                                         </th>
                                     </form>
+                                </tr>
+                                <tr>
+                                    <th colspan="13" class="font-base text-base text-center" id="helper_text">
+
+                                    </th>
                                 </tr>
                             </tbody>
                         </table>
@@ -229,6 +234,22 @@
             return s.replace(/ /g, "-")
         }
 
+        function change_helper(index) {
+            var HELPER_TEXT = ["The name of the class you are inputting a review for.",
+                "The ID of the class you are inputting a review for. It will automatically be added once you select a class from the class name.",
+                "The term you took the class in. Year long classes are 20XX-20XY.",
+                "The teacher you had for this class",
+                "Your overall rating of the class, from a range of 0 (Awful) to 10 (The Best)",
+                "The amount of time you spent on working for this class in hours per week",
+                "How difficult you found the class to be, from a range of 0 (Very Easy) to 10 (Very Hard)",
+                "Your level of enjoyment from the class, from a range of 0 (No Enjoyment) to 10 (Very Enjoyable)",
+                "Your rating of the teacher of the class, from a range of 0 (Awful Teacher) to 10 (The Best Teacher). The checkbox may be deselected if you do not want your teacher to displayed on the reviews page if you write feedback on the course.",
+                "Your final grade of the class. Note that this input is not required. You may input a numerical answer, or a letter grade (A, A-, B+, B, ect.). When calculating average grade of a class, A=95, A-=91, B+=88, B=85, B-=81, C+=78, C=75, C-=71, D+=68, D=65, F=60",
+                "Written feedback for the class. Please remember to be civil. There is a max of 2500 characters."
+            ]
+
+            document.getElementById('helper_text').innerHTML = HELPER_TEXT[index]
+        }
         function toggle_add_class() {
             document.getElementById("add_class").classList.add('hidden');
             document.getElementById("cancel_add").classList.remove('hidden');
@@ -252,6 +273,7 @@
             document.getElementById("grade_score_input").value = ""
             document.getElementById("feedback_input").value = ""
             document.getElementById("error_msg").classList.add('hidden')
+            document.getElementById('helper_text').innerHTML = ""
         }
         function change_id() {
             var name = document.getElementById("names_input").value
@@ -291,40 +313,7 @@
             }
         }
         function change_class() {
-            var id = document.getElementById("id_input").value
-            if (id in id_to_name) {
-                document.getElementById("names_input").value = id_to_name[id]
-                if (name_to_length[id_to_name[id]] == "Full Year") {
-                    var x = document.getElementsByClassName("full_year")
-                    for (var i = 0; i < x.length; i++) {
-                        x[i].classList.remove('hidden')
-                    }
-                    var x = document.getElementsByClassName("semester")
-                    for (var i = 0; i < x.length; i++) {
-                        x[i].classList.add('hidden')
-                    }
-                }
-                else {
-                    var x = document.getElementsByClassName("full_year")
-                    for (var i = 0; i < x.length; i++) {
-                        x[i].classList.add('hidden')
-                    }
-                    var x = document.getElementsByClassName("semester")
-                    for (var i = 0; i < x.length; i++) {
-                        x[i].classList.remove('hidden')
-                    }
-                }
-            }
-            else {
-                document.getElementById("names_input").value = ""
-                for (var i = 0; i < x.length; i++) {
-                    x[i].classList.remove('hidden')
-                }
-                var x = document.getElementsByClassName("semester")
-                for (var i = 0; i < x.length; i++) {
-                    x[i].classList.remove('hidden')
-                }
-            }
+            return;
         }
         function display_edit(id) {
             var term = id.substring(id.indexOf('_')+1, id.indexOf('_', id.indexOf('_')+1))

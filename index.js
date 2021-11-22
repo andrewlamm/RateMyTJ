@@ -174,6 +174,26 @@ hbs.registerHelper('people_person', function(i) {
   return "people"
 })
 
+hbs.registerHelper('find_percentage', function(i, total) {
+  if (total === "%") {
+    return parseFloat(i)
+  }
+  else {
+    if (parseFloat(i) > 10) return 100
+    return parseFloat(i * 10)
+  }
+})
+
+hbs.registerHelper('find_percentage_opposite', function(i, total) {
+  if (total === "%") {
+    return 100-parseFloat(i)
+  }
+  else {
+    if (parseInt(i) > 10) return 0
+    return (10-parseFloat(i)) * 10
+  }
+})
+
 function checkAuthentication(req, res, next) {
   if ('authenticated' in req.session) {
     next()

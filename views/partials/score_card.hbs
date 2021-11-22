@@ -21,8 +21,15 @@
                 </div>
             </div>
         </div>
-        <div class="w-full font-normal text-xl">
-            {{turn_to_ordinal rank_category}} out of {{num_category}} classes in {{category}}
+        <div class="w-full">
+            <div class="py-2 px-4">
+                <div class="progress-bar-container">
+                    <div class="progress-bar-indicator" style="width:{{#if opposite}}{{find_percentage_opposite score score_text}}{{else}}{{find_percentage score score_text}}{{/if}}%"></div>
+                </div>
+            </div>
         </div>
+        {{!-- <div class="w-full font-normal text-xl">
+            {{turn_to_ordinal rank_category}} out of {{num_category}} classes in {{category}}
+        </div> --}}
     </div>
 </div>
