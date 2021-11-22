@@ -145,6 +145,13 @@ hbs.registerHelper('find_length', function(s) {
   return "semester"
 })
 
+hbs.registerHelper('find_term_list', function(s) {
+  if (s.indexOf(' ') == -1) {
+    return "terms_yr"
+  }
+  return "terms_sem"
+})
+
 hbs.registerHelper('turn_to_ordinal', function(num) {
   var ones = num % 10
   var tens = num % 100
@@ -1261,7 +1268,9 @@ app.get('/profile', [checkAuthentication, getProfileData, get_user_feedback, get
   }
   reviews.sort((a, b) => (a.term < b.term) ? 1 : -1)
   // console.log(reviews)
-  res.render('profile_page', {"profile": res.locals.profile, "reviews": reviews, "classes": res.locals.classes, "terms": TERMS})
+  // console.log([...TERMS_YR].reverse())
+  // console.log(TERMS_YR)
+  res.render('profile_page', {"profile": res.locals.profile, "reviews": reviews, "classes": res.locals.classes, "terms": TERMS, "terms_yr": [...TERMS_YR].reverse(), "terms_sem": [...TERMS_SEM].reverse()})
 })
 
 app.post('/submit_feedback', [checkAuthentication, getProfileData, get_reivew_id, submit_class_feedback, update_tables("class_score"), update_tables("workload"), update_tables("difficulty"), update_tables("enjoyment"), update_tables("teacher_score"), update_tables_grade, update_tables_total, update_tables_grade_total], (req, res) => {

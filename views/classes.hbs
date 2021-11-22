@@ -403,7 +403,7 @@
 				"order": [[ 0, "ASC" ]]
 			} );
 			{{#each teacher}}
-			var {{remove_spaces this.name}} = $('#teacher_{{remove_spaces this.name}}_table').DataTable( {
+			var teacher_{{remove_spaces this.name}} = $('#teacher_{{remove_spaces this.name}}_table').DataTable( {
 					'columnDefs': [
 						{
 							'searchable'    : false,
