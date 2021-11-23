@@ -153,6 +153,12 @@ hbs.registerHelper('find_term_list', function(s, c) {
   if (c === "Foundations of Computer Science" || c === "Ancient & Classical Civilizations" || c === "Chemistry 1") {
     return "terms_yr"
   }
+  if (c.indexOf('(Spring)') !== -1) {
+    return "terms_spring"
+  }
+  if (c.indexOf('(Fall)') !== -1) {
+    return "terms_fall"
+  }
   if (c === "TJ Math 5" || c === "TJ Research Stat 1") {
     return "terms_sem"
   }
@@ -160,6 +166,20 @@ hbs.registerHelper('find_term_list', function(s, c) {
     return "terms_yr_no_summer"
   }
   return "terms_sem_no_summer"
+})
+
+hbs.registerHelper('only_spring', function(s) {
+  if (s.indexOf("Spring") !== -1) {
+    return true
+  }
+  return false
+})
+
+hbs.registerHelper('only_fall', function(s) {
+  if (s.indexOf("Fall") !== -1) {
+    return true
+  }
+  return false
 })
 
 hbs.registerHelper('check_not_summer', function(s) {
@@ -278,7 +298,7 @@ async function convertCodeToToken(req, res, next) {
   }
   catch (error) {
       console.log('Access Token Error', error.message);
-       res.send(502);
+      res.render('error', {"login_link": authorizationUri})
   }
 }
 
@@ -294,10 +314,10 @@ let STATS = [["workload", "", "<="], ["difficulty","","<="], ["enjoyment", "DESC
 function get_class_info(req, res, next) {
   console.log('SELECT * FROM classes WHERE id="' + req.params.classID + '";')
   pool.query('SELECT * FROM classes WHERE id=?;', [req.params.classID], function(error, results) {
-    if (error) res.render('error');
+    if (error) res.render('error', {"login_link": authorizationUri});
     try {
       if (results.length != 1) {
-        res.render('error')
+        res.render('error', {"login_link": authorizationUri})
       }
       else {
         res.locals.results = results[0]
@@ -305,7 +325,7 @@ function get_class_info(req, res, next) {
       }
     } catch (error) {
       console.log(error)
-      res.render('error')
+      res.render('error', {"login_link": authorizationUri})
     }
   })
 }
@@ -1316,6 +1336,13 @@ app.post('/edit_feedback', [checkAuthentication, getProfileData, edit_class_feed
 app.post('/review_review', [getProfileData, check_if_exists, add_review_review, get_total_stat], (req, res) => {
   //console.log(req.body)
   res.send(res.locals.return_val)
+})
+
+app.use(function(req, res, next){
+  if (req.accepts('hbs')) {
+    res.render('error', {"login_link": authorizationUri});
+    return;
+  }
 })
 
 app.listen(port, () => {

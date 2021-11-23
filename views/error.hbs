@@ -1,6 +1,7 @@
-<!DOCTYPE html>
+<!DOCTYPE>
 <html>
 	<head>
+		<link href="https://unpkg.com/tailwindcss@2.0.2/dist/tailwind.min.css" rel="stylesheet">
 		<meta charset="utf-8">
 		<title>RateMyTJ</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -11,9 +12,13 @@
 	<body>
 		<div class="min-h-full flex flex-col">
 			{{> header}}
-			<div class="pl-2 flex-grow">
-				<h1>Sorry! That page does not exist</h1>
-				<h3>Please return to the homepage <a href="/">here</a>.</h3>
+			<div class="text-center flex-grow">
+				<div class="pl-2 font-bold text-5xl">
+					Sorry! That page does not exist<br>
+				</div>
+				<div class="pl-2 font-bold text-4xl">
+					Please return to the homepage <a href="/">here</a>.
+				</div>
 			</div>
 			{{> footer}}
 		</div>
