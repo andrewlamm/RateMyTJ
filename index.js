@@ -808,6 +808,8 @@ function submit_class_feedback(req, res, next) {
   let grade = req.body.grade
   let feedback = req.body.feedback
 
+  teacher = teacher.replace(/[^a-zA-Z\- 0-9]/g, "")
+
   feedback = feedback.trim()
   if (!(feedback === ""))
     feedback = filter.clean(feedback)
@@ -927,6 +929,8 @@ function edit_class_feedback(req, res, next) {
   let feedback = req.body.feedback
   let delete_feedback = req.body.delete_feedback
   let review_id = req.body.review_id
+
+  teacher = teacher.replace(/[^a-zA-Z\- 0-9]/g, "")
 
   feedback = feedback.trim()
   //console.log(feedback)
