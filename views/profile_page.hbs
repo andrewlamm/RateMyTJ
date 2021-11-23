@@ -448,6 +448,13 @@
                 return false
             }
 
+            teacher = inputs[3].replace(/[^a-zA-Z\- 0-9]/g, "")
+            if (teacher === "") {
+                document.getElementById("error_msg").innerHTML = "Error! Invalid teacher name."
+                document.getElementById("error_msg").classList.remove('hidden')
+                return false
+            }
+
             for (let i = 4; i < 9; i++) {
                 if (i == 5) {
                     if (parseFloat(inputs[i]) < 0) {
@@ -552,6 +559,13 @@
             if (!(TERMS.has(inputs[2]))) {
                 document.getElementById(class_id + "_" + term + "_error_msg_row").innerHTML = "Error! Not a valid term."
                 document.getElementById(class_id + "_" + term + "_error_msg").classList.remove('hidden')
+                return false
+            }
+
+            teacher = inputs[3].replace(/[^a-zA-Z\- 0-9]/g, "")
+            if (teacher === "") {
+                document.getElementById("error_msg").innerHTML = "Error! Invalid teacher name."
+                document.getElementById("error_msg").classList.remove('hidden')
                 return false
             }
 

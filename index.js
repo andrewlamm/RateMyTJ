@@ -123,6 +123,10 @@ hbs.registerHelper('remove_spaces', function(s) {
   return s.replace(/ /g, "_")
 })
 
+hbs.registerHelper('remove_dashes', function(s) {
+  return s.replace(/-/g, "")
+})
+
 hbs.registerHelper('remove_spaces_dashes', function(s) {
   return s.replace(/ /g, "-")
 })
