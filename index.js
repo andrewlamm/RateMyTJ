@@ -145,11 +145,24 @@ hbs.registerHelper('find_length', function(s) {
   return "semester"
 })
 
-hbs.registerHelper('find_term_list', function(s) {
-  if (s.indexOf(' ') == -1) {
+hbs.registerHelper('find_term_list', function(s, c) {
+  if (c === "Foundations of Computer Science" || c === "Ancient & Classical Civilizations" || c === "Chemistry 1") {
     return "terms_yr"
   }
-  return "terms_sem"
+  if (c === "TJ Math 5" || c === "TJ Research Stat 1") {
+    return "terms_sem"
+  }
+  if (s.indexOf(' ') == -1) {
+    return "terms_yr_no_summer"
+  }
+  return "terms_sem_no_summer"
+})
+
+hbs.registerHelper('check_not_summer', function(s) {
+  if (s.indexOf('Summer') == -1) {
+    return true
+  }
+  return false
 })
 
 hbs.registerHelper('turn_to_ordinal', function(num) {
@@ -227,7 +240,7 @@ function getProfileData(req,res,next) {
 
       response.on('end', function() {
         res.locals.profile = JSON.parse(rawData);
-        console.log(res.locals.profile)
+        // console.log(res.locals.profile)
         if (res.locals.profile.id === undefined) {
           res.redirect('/logout')
         }
@@ -561,7 +574,7 @@ function median_stat(stat) {
       while (curr_ind < r.length) {
         let curr_term = r[curr_ind].term
         let total_nums = res.locals.term_stats[res.locals.term_to_index[curr_term]].total
-        if (stat == "grade") {
+        if (stat === "grade") {
           total_nums = res.locals.term_stats[res.locals.term_to_index[curr_term]].grade_total
         }
 
@@ -634,7 +647,7 @@ function overall_teacher_stat(stat) {
           curr_teacher = r[curr_index].teacher
           let total = 0
           for (let i = 0; i < res.locals.teachers[res.locals.teacher_to_index[curr_teacher]].terms.length-1; i++) {
-            if (stat == "grade") {
+            if (stat === "grade") {
               total += res.locals.teachers[res.locals.teacher_to_index[curr_teacher]].terms[i].grade_total
             }
             else {
@@ -791,12 +804,12 @@ function submit_class_feedback(req, res, next) {
   let difficulty = parseFloat(req.body.difficulty)
   let enjoyment = parseFloat(req.body.enjoyment)
   let teacher_score = parseFloat(req.body.teacher_score)
-  let show_teacher = req.body.show_teacher == "on" ? true : false
+  let show_teacher = req.body.show_teacher === "on" ? true : false
   let grade = req.body.grade
   let feedback = req.body.feedback
 
   feedback = feedback.trim()
-  if (!(feedback == ""))
+  if (!(feedback === ""))
     feedback = filter.clean(feedback)
 
   let grade_input = 0
@@ -804,7 +817,7 @@ function submit_class_feedback(req, res, next) {
     grade = grade.substring(0, 5)
   }
 
-  if (grade == "") {
+  if (grade === "") {
     grade_input = "NULL"
     grade = "NULL"
   }
@@ -876,7 +889,7 @@ function submit_class_feedback(req, res, next) {
     new_review_id = Math.random() * 1000000
   }
 
-  if (grade == "NULL") {
+  if (grade === "NULL") {
     pool.query('INSERT INTO class_' + class_id + ' VALUES (? , NOW(), ?, ?, ?, ?, ?, 0, ?, ?, ?, NULL, ?, NULL, ?, ?, 0, 0, 0);', [res.locals.profile.id, term, teacher, class_score, workload, feedback, difficulty, enjoyment, teacher_score, show_teacher, term_order, new_review_id], function(e, r) {
       // console.log(e, r)
       pool.query('INSERT INTO user_feedback_' + res.locals.profile.id + ' VALUES (?, ?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?, ?, NULL, ?, NULL, NULL, ?);', [res.locals.profile.id, res.locals.profile.ion_username, class_id, term, teacher, class_score, workload, feedback, difficulty, enjoyment, teacher_score, show_teacher, new_review_id], function(e, r) {
@@ -909,7 +922,7 @@ function edit_class_feedback(req, res, next) {
   let difficulty = parseFloat(req.body.difficulty)
   let enjoyment = parseFloat(req.body.enjoyment)
   let teacher_score = parseFloat(req.body.teacher_score)
-  let show_teacher = req.body.show_teacher == "on" ? true : false
+  let show_teacher = req.body.show_teacher === "on" ? true : false
   let grade = req.body.grade
   let feedback = req.body.feedback
   let delete_feedback = req.body.delete_feedback
@@ -917,7 +930,7 @@ function edit_class_feedback(req, res, next) {
 
   feedback = feedback.trim()
   //console.log(feedback)
-  if (!(feedback == ""))
+  if (!(feedback === ""))
     feedback = filter.clean(feedback)
 
   let grade_input = 0
@@ -925,7 +938,7 @@ function edit_class_feedback(req, res, next) {
     grade = grade.substring(0, 5)
   }
 
-  if (grade == "") {
+  if (grade === "") {
     grade_input = "NULL"
     grade = "NULL"
   }
@@ -1002,7 +1015,7 @@ function edit_class_feedback(req, res, next) {
     })
   }
   else {
-    if (grade == "NULL") {
+    if (grade === "NULL") {
       pool.query('UPDATE user_feedback_' + res.locals.profile.id + ' SET term=?, teacher=?, class_score=?, workload=?, difficulty=?, enjoyment=?, teacher_score=?, show_teacher=?, grade=NULL, grade_input=NULL, feedback=?, edit_time=NOW() WHERE class_id=? AND user_id=? AND term=?;', [term, teacher, class_score, workload, difficulty, enjoyment, teacher_score, show_teacher, feedback, class_id, res.locals.profile.id, original_term], function(e, r) {
         pool.query('UPDATE class_' + class_id + ' SET term=?, teacher=?, class_score=?, workload=?, difficulty=?, enjoyment=?, teacher_score=?, show_teacher=?, grade=NULL, term_order=?, feedback=?, edit_time=NOW(), edited=1 WHERE user_id=? AND term=?;', [term, teacher, class_score, workload, difficulty, enjoyment, teacher_score, show_teacher, term_order, feedback, res.locals.profile.id, original_term], function(e, r) {
           if (feedback === "") {

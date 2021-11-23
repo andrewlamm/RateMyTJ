@@ -254,7 +254,7 @@
 			}
 
 			function like_review(id) {
-				var review_id = id.substring(0, id.indexOf('_'))
+				let review_id = id.substring(0, id.indexOf('_'))
 				document.getElementById(review_id + '_like').classList.toggle('selected_like')
 				document.getElementById(review_id + '_like').classList.toggle('review_feedback')
 				document.getElementById(review_id + '_dislike').classList.remove('selected_dislike')
@@ -285,7 +285,7 @@
 			}
 
 			function dislike_review(id) {
-				var review_id = id.substring(0, id.indexOf('_'))
+				let review_id = id.substring(0, id.indexOf('_'))
 				document.getElementById(review_id + '_dislike').classList.toggle('selected_dislike')
 				document.getElementById(review_id + '_dislike').classList.toggle('review_feedback')
 				document.getElementById(review_id + '_like').classList.remove('selected_like')
@@ -316,7 +316,7 @@
 			}
 
 			function funny_review(id) {
-				var review_id = id.substring(0, id.indexOf('_'))
+				let review_id = id.substring(0, id.indexOf('_'))
 				document.getElementById(review_id + '_funny').classList.toggle('selected_funny')
 				document.getElementById(review_id + '_funny').classList.toggle('review_feedback')
 
@@ -343,7 +343,7 @@
 				}
 			}
 
-			var __emptyOnTop = function(a, b, high) {
+			let __emptyOnTop = function(a, b, high) {
 				a = parseFloat(a || high);
 				b = parseFloat(b || high);
 				return ((a < b) ? -1 : ((a > b) ? 1 : 0));
@@ -364,7 +364,7 @@
 				}
 			});
 
-			var avg_table = $('#average_term_table').DataTable( {
+			let avg_table = $('#average_term_table').DataTable( {
 				'columnDefs': [
 					{
 						'searchable'    : false,
@@ -383,7 +383,7 @@
 				},
 				"order": [[ 0, "ASC" ]]
 			} );
-			var median_table = $('#median_term_table').DataTable( {
+			let median_table = $('#median_term_table').DataTable( {
 				'columnDefs': [
 					{
 						'searchable'    : false,
@@ -403,7 +403,7 @@
 				"order": [[ 0, "ASC" ]]
 			} );
 			{{#each teacher}}
-			var teacher_{{remove_spaces this.name}} = $('#teacher_{{remove_spaces this.name}}_table').DataTable( {
+			let teacher_{{remove_spaces this.name}} = $('#teacher_{{remove_spaces this.name}}_table').DataTable( {
 					'columnDefs': [
 						{
 							'searchable'    : false,

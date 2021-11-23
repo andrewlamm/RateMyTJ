@@ -86,6 +86,20 @@
                                                         <option value="{{this}}">
                                                     {{/each}}
                                                 </datalist>
+                                                <datalist id="terms_yr_no_summer">
+                                                    {{#each terms_yr}}
+                                                        {{#if (check_not_summer this)}}
+                                                            <option value="{{this}}">
+                                                        {{/if}}
+                                                    {{/each}}
+                                                </datalist>
+                                                <datalist id="terms_sem_no_summer">
+                                                    {{#each terms_sem}}
+                                                        {{#if (check_not_summer this)}}
+                                                            <option value="{{this}}">
+                                                        {{/if}}
+                                                    {{/each}}
+                                                </datalist>
                                             </th>
                                             <th class="px-1">
                                                 <input name="teacher" onfocus="change_helper(3)" class="pl-1 w-full border border-black" size="10" id="teacher_input" autocomplete="off" required>
@@ -183,7 +197,7 @@
                                                 <th>
                                                     <input name="review_id" class="pl-1 w-full border border-black hidden " size="18" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_review_id" autocomplete="off" required value="{{this.review_id}}" data-original="{{this.review_id}}">
                                                     <input name="original_term" class="pl-1 w-full border border-black hidden " size="18" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_original_term" autocomplete="off" required value="{{this.term}}" data-original="{{this.term}}">
-                                                    <input type="search" list="{{find_term_list this.term}}" name="term" class="pl-1 w-full border border-black" size="18" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_term_input" autocomplete="off" required value="{{this.term}}" data-original="{{this.term}}">
+                                                    <input type="search" list="{{find_term_list this.term this.name}}" name="term" class="pl-1 w-full border border-black" size="18" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_term_input" autocomplete="off" required value="{{this.term}}" data-original="{{this.term}}">
                                                 </th>
                                                 <th><input name="teacher" class="pl-1 w-full border border-black" size="10" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_teacher_input" autocomplete="off" required value={{this.teacher}} data-original="{{this.teacher}}"></th>
                                                 <th><input name="class_score" type="number" style="width: 50px;" step="any" class="pl-1 border border-black" min="0" max="10" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_class_score_input" autocomplete="off" required value={{fix_number_profile this.class_score}} data-original={{fix_number_profile this.class_score}}></th>
@@ -228,16 +242,16 @@
         </div>
     </body>
     <script>
-        var id_to_name = {}
-        var name_to_id = {}
-        var name_to_length = {}
+        let id_to_name = {}
+        let name_to_id = {}
+        let name_to_length = {}
         {{#each classes}}
             id_to_name["{{this.id}}"] = "{{this.name}}{{#if this.alt}} ({{this.alt}}){{/if}}"
             name_to_id["{{this.name}}{{#if this.alt}} ({{this.alt}}){{/if}}"] = "{{this.id}}"
             name_to_length["{{this.name}}{{#if this.alt}} ({{this.alt}}){{/if}}"] = "{{this.length}}"
         {{/each}}
 
-        var TERMS = new Set()
+        let TERMS = new Set()
         {{#each terms}}
             TERMS.add("{{this}}")
         {{/each}}
@@ -247,7 +261,7 @@
         }
 
         function change_helper(index) {
-            var HELPER_TEXT = ["The name of the class you are inputting a review for.",
+            let HELPER_TEXT = ["The name of the class you are inputting a review for.",
                 "The ID of the class you are inputting a review for. It will automatically be added once you select a class from the class name.",
                 "The term you took the class in. Year long classes are 20XX-20XY.",
                 "The teacher you had for this class",
@@ -288,15 +302,24 @@
             document.getElementById('helper_text').innerHTML = ""
         }
         function change_id() {
-            var name = document.getElementById("names_input").value
+            let name = document.getElementById("names_input").value
             if (name in name_to_id) {
                 document.getElementById("id_input").value = name_to_id[name]
-                if (name_to_length[name] == "Full Year") {
-                    console.log("pog")
-                    document.getElementById('term_input').setAttribute('list', 'terms_yr')
+                if (name_to_length[name] === "Full Year") {
+                    if (!(name === "Foundations of Computer Science (Foundations CS)" || name === "Ancient & Classical Civilizations" || name === "Chemistry 1" || name === "TJ Math 5" || name === "TJ Research Stat 1 (RS1)")) {
+                        document.getElementById('term_input').setAttribute('list', 'terms_yr_no_summer')
+                    }
+                    else {
+                        document.getElementById('term_input').setAttribute('list', 'terms_yr')
+                    }
                 }
                 else {
-                    document.getElementById('term_input').setAttribute('list', 'terms_sem')
+                    if (!(name === "Foundations of Computer Science (Foundations CS)" || name === "Ancient & Classical Civilizations" || name === "Chemistry 1" || name === "TJ Math 5" || iname === "TJ Research Stat 1 (RS1)")) {
+                        document.getElementById('term_input').setAttribute('list', 'terms_sem_no_summer')
+                    }
+                    else {
+                        document.getElementById('term_input').setAttribute('list', 'terms_sem')
+                    }
                 }
             }
             else {
@@ -304,14 +327,24 @@
             }
         }
         function change_class() {
-            var id = document.getElementById("id_input").value
+            let id = document.getElementById("id_input").value
             if (id in id_to_name) {
                 document.getElementById("names_input").value = id_to_name[id]
-                if (name_to_length[id_to_name[id]] == "Full Year") {
-                    document.getElementById('term_input').setAttribute('list', 'terms_yr')
+                if (name_to_length[id_to_name[id]] === "Full Year") {
+                    if (!(id_to_name[id] === "Foundations of Computer Science (Foundations CS)" || id_to_name[id] === "Ancient & Classical Civilizations" || id_to_name[id] === "Chemistry 1" || id_to_name[id] === "TJ Math 5" || id_to_name[id] === "TJ Research Stat 1 (RS1)")) {
+                        document.getElementById('term_input').setAttribute('list', 'terms_yr_no_summer')
+                    }
+                    else {
+                        document.getElementById('term_input').setAttribute('list', 'terms_yr')
+                    }
                 }
                 else {
-                    document.getElementById('term_input').setAttribute('list', 'terms_sem')
+                    if (!(id_to_name[id] === "Foundations of Computer Science (Foundations CS)" || id_to_name[id] === "Ancient & Classical Civilizations" || id_to_name[id] === "Chemistry 1" || id_to_name[id] === "TJ Math 5" || id_to_name[id] === "TJ Research Stat 1 (RS1)")) {
+                        document.getElementById('term_input').setAttribute('list', 'terms_sem_no_summer')
+                    }
+                    else {
+                        document.getElementById('term_input').setAttribute('list', 'terms_sem')
+                    }
                 }
             }
             else {
@@ -319,15 +352,15 @@
             }
         }
         function display_edit(id) {
-            var term = id.substring(id.indexOf('_')+1, id.indexOf('_', id.indexOf('_')+1))
+            let term = id.substring(id.indexOf('_')+1, id.indexOf('_', id.indexOf('_')+1))
             term = replace_dash(term)
             // console.log(term)
             document.getElementById(id.substring(0, id.indexOf("_")) + "_" + term + "_const").classList.add('hidden');
             document.getElementById(id.substring(0, id.indexOf("_")) + "_" + term + "_inputs").classList.remove('hidden');
         }
         function cancel_edit(id) {
-            var class_id = id.substring(0, id.indexOf("_"))
-            var term = id.substring(id.indexOf('_')+1, id.indexOf('_', id.indexOf('_')+1))
+            let class_id = id.substring(0, id.indexOf("_"))
+            let term = id.substring(id.indexOf('_')+1, id.indexOf('_', id.indexOf('_')+1))
             term = replace_dash(term)
             document.getElementById(class_id + "_" + term + "_const").classList.remove('hidden');
             document.getElementById(class_id + "_" + term + "_inputs").classList.add('hidden');
@@ -350,28 +383,28 @@
             document.getElementById(class_id + "_" + term + "_error_msg").classList.add('hidden')
         }
         function delete_edit(id) {
-            var class_id = id.substring(0, id.indexOf("_"))
-            var term = id.substring(id.indexOf('_')+1, id.indexOf('_', id.indexOf('_')+1))
+            let class_id = id.substring(0, id.indexOf("_"))
+            let term = id.substring(id.indexOf('_')+1, id.indexOf('_', id.indexOf('_')+1))
             term = replace_dash(term)
             document.getElementById(class_id + "_" + term + "_delete_confirm").classList.remove('hidden')
         }
         function cancel_delete(id) {
-            var class_id = id.substring(0, id.indexOf("_"))
-            var term = id.substring(id.indexOf('_')+1, id.indexOf('_', id.indexOf('_')+1))
+            let class_id = id.substring(0, id.indexOf("_"))
+            let term = id.substring(id.indexOf('_')+1, id.indexOf('_', id.indexOf('_')+1))
             term = replace_dash(term)
             document.getElementById(class_id + "_" + term + "_delete_confirm").classList.add('hidden')
         }
         function change_delete(id) {
-            var class_id = id.substring(0, id.indexOf("_"))
-            var term = id.substring(id.indexOf('_')+1, id.indexOf('_', id.indexOf('_')+1))
+            let class_id = id.substring(0, id.indexOf("_"))
+            let term = id.substring(id.indexOf('_')+1, id.indexOf('_', id.indexOf('_')+1))
             term = replace_dash(term)
             document.getElementById(class_id + "_" + term + "_delete_input").value = 1
         }
         function submit_feedback() {
             document.getElementById("error_msg").classList.add('hidden')
 
-            var input_names =["Class Name", "ID", "Term", "Teacher", "Class Score", "Workload", "Difficulty", "Enjoyment", "Teacher Score", "Grade Score", "Feedback"]
-            var inputs = []
+            let input_names =["Class Name", "ID", "Term", "Teacher", "Class Score", "Workload", "Difficulty", "Enjoyment", "Teacher Score", "Grade Score", "Feedback"]
+            let inputs = []
             inputs.push(document.getElementById("names_input").value)
             inputs.push(document.getElementById("id_input").value)
             inputs.push(document.getElementById("term_input").value)
@@ -384,8 +417,8 @@
             inputs.push(document.getElementById("grade_score_input").value)
             inputs.push(document.getElementById("feedback_input").value)
 
-            for (var i = 0; i < inputs.length-2; i++) {
-                if (inputs[i] == "") {
+            for (let i = 0; i < inputs.length-2; i++) {
+                if (inputs[i] === "") {
                     document.getElementById("error_msg").innerHTML = "Error! " + input_names[i] + " field is required."
                     document.getElementById("error_msg").classList.remove('hidden')
                     return false
@@ -415,7 +448,7 @@
                 return false
             }
 
-            for (var i = 4; i < 9; i++) {
+            for (let i = 4; i < 9; i++) {
                 if (i == 5) {
                     if (parseFloat(inputs[i]) < 0) {
                         document.getElementById("error_msg").innerHTML = "Error! " + input_names[i] + " input is outside the valid range (0-99)."
@@ -433,8 +466,8 @@
 
             }
 
-            if (!(inputs[9] == "")) {
-                var grades = new Set(["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "F"])
+            if (!(inputs[9] === "")) {
+                let grades = new Set(["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "F"])
 
                 if (isNaN(inputs[9])) {
                     if (!(grades.has(inputs[9].toUpperCase()))) {
@@ -458,14 +491,14 @@
                 return false
             }
 
-            if (name_to_length[inputs[0]] == "Full Year" && !((inputs[0] == "Foundations of Computer Science (Foundations CS)" || inputs[0] == "Ancient & Classical Civilizations" || inputs[0] == "Chemistry 1") && !(inputs[2].indexOf('Summer') == -1))) {
+            if (name_to_length[inputs[0]] === "Full Year" && !((inputs[0] === "Foundations of Computer Science (Foundations CS)" || inputs[0] === "Ancient & Classical Civilizations" || inputs[0] === "Chemistry 1") && !(inputs[2].indexOf('Summer') == -1))) {
                 if (!(inputs[2].indexOf(' ') == -1)) {
                     document.getElementById("error_msg").innerHTML = "Error! Term and class name mismatch."
                     document.getElementById("error_msg").classList.remove('hidden')
                     return false
                 }
             }
-            if (!(name_to_length[inputs[0]] == "Full Year")) {
+            if (!(name_to_length[inputs[0]] === "Full Year")) {
                 if (inputs[2].indexOf(' ') == -1) {
                     document.getElementById("error_msg").innerHTML = "Error! Term and class name mismatch."
                     document.getElementById("error_msg").classList.remove('hidden')
@@ -474,7 +507,7 @@
             }
 
             if (!(inputs[2].indexOf('Summer') == -1)) {
-                if (!(inputs[0] == "Foundations of Computer Science (Foundations CS)" || inputs[0] == "Ancient & Classical Civilizations" || inputs[0] == "Chemistry 1" || inputs[0] == "TJ Math 5" || inputs[0] == "TJ Research Stat 1 (RS1)")) {
+                if (!(inputs[0] === "Foundations of Computer Science (Foundations CS)" || inputs[0] === "Ancient & Classical Civilizations" || inputs[0] === "Chemistry 1" || inputs[0] === "TJ Math 5" || inputs[0] === "TJ Research Stat 1 (RS1)")) {
                     document.getElementById("error_msg").innerHTML = "Error! This class is not offered in the summer."
                     document.getElementById("error_msg").classList.remove('hidden')
                     return false
@@ -484,8 +517,8 @@
             return true
         }
         function edit_feedback(id) {
-            var class_id = id.substring(0, id.indexOf("_"))
-            var term = id.substring(id.indexOf('_')+1, id.indexOf('_', id.indexOf('_')+1))
+            let class_id = id.substring(0, id.indexOf("_"))
+            let term = id.substring(id.indexOf('_')+1, id.indexOf('_', id.indexOf('_')+1))
             term = replace_dash(term)
             // console.log(document.getElementById(class_id + "_" + term + "_delete_input").value)
             if(document.getElementById(class_id + "_" + term + "_delete_input").value == 1) {
@@ -494,8 +527,8 @@
 
             document.getElementById(class_id + "_" + term + "_error_msg").classList.add('hidden')
 
-            var input_names =["Class Name", "ID", "Term", "Teacher", "Class Score", "Workload", "Difficulty", "Enjoyment", "Teacher Score", "Grade Score", "Feedback"]
-            var inputs = []
+            let input_names =["Class Name", "ID", "Term", "Teacher", "Class Score", "Workload", "Difficulty", "Enjoyment", "Teacher Score", "Grade Score", "Feedback"]
+            let inputs = []
             inputs.push(document.getElementById(class_id + "_" + term + "_names_input").value)
             inputs.push(document.getElementById(class_id + "_" + term + "_id_input").value)
             inputs.push(document.getElementById(class_id + "_" + term + "_term_input").value)
@@ -508,8 +541,8 @@
             inputs.push(document.getElementById(class_id + "_" + term + "_grade_score_input").value)
             inputs.push(document.getElementById(class_id + "_" + term + "_feedback_input").value)
 
-            for (var i = 0; i < inputs.length-2; i++) {
-                if (inputs[i] == "") {
+            for (let i = 0; i < inputs.length-2; i++) {
+                if (inputs[i] === "") {
                     document.getElementById(class_id + "_" + term + "_error_msg_row").innerHTML = "Error! " + input_names[i] + " field is required."
                     document.getElementById(class_id + "_" + term + "_error_msg").classList.remove('hidden')
                     return false
@@ -522,7 +555,7 @@
                 return false
             }
 
-            for (var i = 4; i < 9; i++) {
+            for (let i = 4; i < 9; i++) {
                 if (i == 5) {
                     if (parseFloat(inputs[i]) < 0) {
                         document.getElementById(class_id + "_" + term + "_error_msg_row").innerHTML = "Error! " + input_names[i] + " input is outside the valid range (0-99)."
@@ -540,8 +573,8 @@
 
             }
 
-            if (!(inputs[9] == "")) {
-                var grades = new Set(["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "F"])
+            if (!(inputs[9] === "")) {
+                let grades = new Set(["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "F"])
 
                 if (isNaN(inputs[9])) {
                     if (!(grades.has(inputs[9].toUpperCase()))) {
@@ -565,14 +598,14 @@
                 return false
             }
 
-            if (name_to_length[inputs[0]] == "Full Year" && !((inputs[0] == "Foundations of Computer Science (Foundations CS)" || inputs[0] == "Ancient & Classical Civilizations" || inputs[0] == "Chemistry 1") && !(inputs[2].indexOf('Summer') == -1))) {
+            if (name_to_length[inputs[0]] === "Full Year" && !((inputs[0] === "Foundations of Computer Science (Foundations CS)" || inputs[0] === "Ancient & Classical Civilizations" || inputs[0] === "Chemistry 1") && !(inputs[2].indexOf('Summer') == -1))) {
                 if (inputs[2].indexOf('-') == -1) {
                     document.getElementById(class_id + "_" + term + "_error_msg_row").innerHTML = "Error! Term and class name mismatch."
                     document.getElementById(class_id + "_" + term + "_error_msg").classList.remove('hidden')
                     return false
                 }
             }
-            if (!(name_to_length[inputs[0]] == "Full Year")) {
+            if (!(name_to_length[inputs[0]] === "Full Year")) {
                 if (!(inputs[2].indexOf('-') == -1)) {
                     document.getElementById(class_id + "_" + term + "_error_msg_row").innerHTML = "Error! Term and class name mismatch."
                     document.getElementById(class_id + "_" + term + "_error_msg").classList.remove('hidden')
@@ -581,7 +614,7 @@
             }
 
             if (!(inputs[2].indexOf('Summer') == -1)) {
-                if (!(inputs[0] == "Foundations of Computer Science (Foundations CS)" || inputs[0] == "Ancient & Classical Civilizations" || inputs[0] == "Chemistry 1" || inputs[0] == "TJ Math 5" || inputs[0] == "TJ Research Stat 1 (RS1)")) {
+                if (!(inputs[0] === "Foundations of Computer Science (Foundations CS)" || inputs[0] === "Ancient & Classical Civilizations" || inputs[0] === "Chemistry 1" || inputs[0] === "TJ Math 5" || inputs[0] === "TJ Research Stat 1 (RS1)")) {
                     document.getElementById(class_id + "_" + term + "_error_msg_row").innerHTML = "Error! This class is not offered in the summer."
                     document.getElementById(class_id + "_" + term + "_error_msg").classList.remove('hidden')
                     return false
