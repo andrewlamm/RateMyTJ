@@ -34,6 +34,16 @@
 							<div class="width-full text-left">
 								{{class_info.description}}
 							</div>
+							{{#if class_info.prereq}}
+							<div class="w-full text-left pt-2">
+								<span class="font-bold">Prerequisites: </span><br>{{{find_reqs class_info.prereq}}}
+							</div>
+							{{/if}}
+							{{#if class_info.coreq}}
+							<div class="w-full text-left pt-2">
+								<span class="font-bold">Corequisites: </span><br>{{{find_reqs class_info.coreq}}}
+							</div>
+							{{/if}}
 						</div>
 						<div class="w-2/3 px-5 flex flex-col">
 							{{#check_zero class_info.total}}

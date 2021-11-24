@@ -220,7 +220,8 @@ hbs.registerHelper('people_person', function(i) {
 
 hbs.registerHelper('find_percentage', function(i, total) {
   if (total === "%") {
-    return parseFloat(i)
+    if (i > 60) return 64 + Math.pow(36, (i-64)/36)
+    return Math.pow(64, i/64)
   }
   else {
     if (parseFloat(i) > 10) return 100
@@ -236,6 +237,38 @@ hbs.registerHelper('find_percentage_opposite', function(i, total) {
     if (parseInt(i) > 10) return 0
     return (10-parseFloat(i)) * 10
   }
+})
+
+hbs.registerHelper('find_reqs', function(s) {
+  let words = s.split(' ')
+  let return_s = ""
+  for (let i = 0; i < words.length; i++) {
+    if (words[i].charAt(0) === '(') {
+      let class_name = words[i].substring(1)
+      return_s += ` (<a href="/class/${class_name}">${CLASSES[class_name]}</a>`
+    }
+    else if (words[i].charAt(words[i].length-1) === ')') {
+      let class_name = words[i].substring(0, words[i].length-1)
+      return_s += ` <a href="/class/${class_name}">${CLASSES[class_name]}</a>)`
+    }
+    else {
+      if (words[i] in CLASSES) {
+        return_s += ` <a href="/class/${words[i]}">${CLASSES[words[i]]}</a>`
+      }
+      else {
+        if (words[i] === 'OR') {
+          return_s += ` ${words[i]}`
+        }
+        else if (words[i] === 'AND') {
+          return_s += `, `
+        }
+        else {
+          return_s += ` ${words[i]}`
+        }
+      }
+    }
+  }
+  return return_s
 })
 
 function checkAuthentication(req, res, next) {
@@ -311,8 +344,15 @@ let pool = mysql.createPool({
 })
 let STATS = [["workload", "", "<="], ["difficulty","","<="], ["enjoyment", "DESC", ">="], ["teacher_score", "DESC", ">="], ["grade", "DESC", ">="]]
 
+let CLASSES = {}
+pool.query('SELECT name, id FROM classes;', function(e, r) {
+  for (let i = 0; i < r.length; i++) {
+    CLASSES[r[i].id] = r[i].name
+  }
+})
+
 function get_class_info(req, res, next) {
-  console.log('SELECT * FROM classes WHERE id="' + req.params.classID + '";')
+  // console.log('SELECT * FROM classes WHERE id="' + req.params.classID + '";')
   pool.query('SELECT * FROM classes WHERE id=?;', [req.params.classID], function(error, results) {
     if (error) res.render('error', {"login_link": authorizationUri});
     try {
