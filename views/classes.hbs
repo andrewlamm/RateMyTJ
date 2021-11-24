@@ -161,7 +161,7 @@
 										{{this.name}}
 									</div>
 									<div>
-										<table id="teacher_{{remove_spaces this.name}}_table" class="display">
+										<table id="teacher_{{remove_dots (remove_dashes (remove_spaces this.name))}}_table" class="display">
 											<thead>
 												<tr class="text-center text-sm">
 													<th>Term</th>
@@ -413,7 +413,7 @@
 				"order": [[ 0, "ASC" ]]
 			} );
 			{{#each teacher}}
-			let teacher_{{remove_dashes (remove_spaces this.name)}} = $('#teacher_{{remove_spaces this.name}}_table').DataTable( {
+			let teacher_{{remove_dots (remove_dashes (remove_spaces this.name))}} = $('#teacher_{{remove_dots (remove_dashes (remove_spaces this.name))}}_table').DataTable( {
 					'columnDefs': [
 						{
 							'searchable'    : false,

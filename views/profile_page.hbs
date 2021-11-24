@@ -213,7 +213,7 @@
                                                     <input name="original_term" class="pl-1 w-full border border-black hidden " size="18" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_original_term" autocomplete="off" required value="{{this.term}}" data-original="{{this.term}}">
                                                     <input type="search" list="{{find_term_list this.term this.name}}" name="term" class="pl-1 w-full border border-black" size="18" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_term_input" autocomplete="off" required value="{{this.term}}" data-original="{{this.term}}">
                                                 </th>
-                                                <th><input name="teacher" class="pl-1 w-full border border-black" size="10" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_teacher_input" autocomplete="off" required value={{this.teacher}} data-original="{{this.teacher}}"></th>
+                                                <th><input name="teacher" class="pl-1 w-full border border-black" size="10" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_teacher_input" autocomplete="off" required value="{{this.teacher}}" data-original="{{this.teacher}}"></th>
                                                 <th><input name="class_score" type="number" style="width: 50px;" step="any" class="pl-1 border border-black" min="0" max="10" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_class_score_input" autocomplete="off" required value={{fix_number_profile this.class_score}} data-original={{fix_number_profile this.class_score}}></th>
                                                 <th><input name="workload" type="number" style="width: 50px;" step="any" class="pl-1 border border-black" min="0" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_workload_input" autocomplete="off" required value={{fix_number_profile this.workload}} data-original={{fix_number_profile this.workload}}></th>
                                                 <th><input name="difficulty" type="number" style="width: 50px;" step="any" class="pl-1 border border-black" min="0" max="10" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_difficulty_input" autocomplete="off" required value={{fix_number_profile this.difficulty}} data-original={{fix_number_profile this.difficulty}}></th>
@@ -411,6 +411,7 @@
             document.getElementById(class_id + "_" + term + "_feedback_input").value = document.getElementById(class_id + "_" + term + "_feedback_input").dataset.original
             document.getElementById(class_id + "_" + term + "_delete_confirm").classList.add('hidden')
             document.getElementById(class_id + "_" + term + "_error_msg").classList.add('hidden')
+            document.getElementById(class_id + "_" + term + "_error_msg_row").innerHTML = ""
         }
         function delete_edit(id) {
             let class_id = id.substring(0, id.indexOf("_"))
@@ -482,8 +483,13 @@
                 return false
             }
 
-            teacher = inputs[3].replace(/[^a-zA-Z\- 0-9]/g, "")
-            if (teacher === "") {
+            if (/[^a-zA-Z]/.test(inputs[3][0])) {
+                document.getElementById("error_msg").innerHTML = "Error! Invalid teacher name."
+                document.getElementById("error_msg").classList.remove('hidden')
+                document.getElementById("teacher_input").focus()
+                return false
+            }
+            if (/[^a-zA-Z\-. ]/.test(inputs[3])) {
                 document.getElementById("error_msg").innerHTML = "Error! Invalid teacher name."
                 document.getElementById("error_msg").classList.remove('hidden')
                 document.getElementById("teacher_input").focus()
@@ -600,13 +606,20 @@
             if (!(TERMS.has(inputs[2]))) {
                 document.getElementById(class_id + "_" + term + "_error_msg_row").innerHTML = "Error! Not a valid term."
                 document.getElementById(class_id + "_" + term + "_error_msg").classList.remove('hidden')
+                document.getElementById(class_id + "_" + term + "_term_input").focus()
                 return false
             }
 
-            teacher = inputs[3].replace(/[^a-zA-Z\- 0-9]/g, "")
-            if (teacher === "") {
-                document.getElementById(class_id + "_" + term + "_error_msg").innerHTML = "Error! Invalid teacher name."
+            if (/[^a-zA-Z]/.test(inputs[3][0])) {
+                document.getElementById(class_id + "_" + term + "_error_msg_row").innerHTML = "Error! Invalid teacher name."
                 document.getElementById(class_id + "_" + term + "_error_msg").classList.remove('hidden')
+                document.getElementById(class_id + "_" + term + "_teacher_input").focus()
+                return false
+            }
+            if (/[^a-zA-Z\-. ]/.test(inputs[3])) {
+                document.getElementById(class_id + "_" + term + "_error_msg_row").innerHTML = "Error! Invalid teacher name."
+                document.getElementById(class_id + "_" + term + "_error_msg").classList.remove('hidden')
+                document.getElementById(class_id + "_" + term + "_teacher_input").focus()
                 return false
             }
 
@@ -635,6 +648,7 @@
                     if (!(grades.has(inputs[9].toUpperCase()))) {
                         document.getElementById(class_id + "_" + term + "_error_msg_row").innerHTML = "Error! Invalid grade input."
                         document.getElementById(class_id + "_" + term + "_error_msg").classList.remove('hidden')
+                        document.getElementById(class_id + "_" + term + "_grade_score_input").focus()
                         return false
                     }
                 }
@@ -642,6 +656,7 @@
                     if (parseFloat(inputs[9]) < 0 || parseFloat(inputs[9]) > 100) {
                         document.getElementById(class_id + "_" + term + "_error_msg_row").innerHTML = "Error! Grade input is outside the valid range."
                         document.getElementById(class_id + "_" + term + "_error_msg").classList.remove('hidden')
+                        document.getElementById(class_id + "_" + term + "_grade_score_input").focus()
                         return false
                     }
                 }
@@ -650,6 +665,7 @@
             if (inputs[10].length > 2500) {
                 document.getElementById(class_id + "_" + term + "_error_msg_row").innerHTML = "Error! Feedback is too long (max 2500 characters)!"
                 document.getElementById(class_id + "_" + term + "_error_msg").classList.remove('hidden')
+                document.getElementById(class_id + "_" + term + "_feedback_input").focus()
                 return false
             }
 
@@ -657,6 +673,7 @@
                 if (inputs[2].indexOf('-') == -1) {
                     document.getElementById(class_id + "_" + term + "_error_msg_row").innerHTML = "Error! Term and class name mismatch."
                     document.getElementById(class_id + "_" + term + "_error_msg").classList.remove('hidden')
+                    document.getElementById(class_id + "_" + term + "_term_input").focus()
                     return false
                 }
             }
@@ -664,6 +681,7 @@
                 if (!(inputs[2].indexOf('-') == -1)) {
                     document.getElementById(class_id + "_" + term + "_error_msg_row").innerHTML = "Error! Term and class name mismatch."
                     document.getElementById(class_id + "_" + term + "_error_msg").classList.remove('hidden')
+                    document.getElementById(class_id + "_" + term + "_term_input").focus()
                     return false
                 }
             }
@@ -672,6 +690,7 @@
                 if (!(inputs[0] === "Foundations of Computer Science (Foundations CS)" || inputs[0] === "Ancient & Classical Civilizations" || inputs[0] === "Chemistry 1" || inputs[0] === "TJ Math 5" || inputs[0] === "TJ Research Stat 1 (RS1)")) {
                     document.getElementById(class_id + "_" + term + "_error_msg_row").innerHTML = "Error! This class is not offered in the summer."
                     document.getElementById(class_id + "_" + term + "_error_msg").classList.remove('hidden')
+                    document.getElementById(class_id + "_" + term + "_term_input").focus()
                     return false
                 }
             }

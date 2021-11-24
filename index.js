@@ -127,6 +127,10 @@ hbs.registerHelper('remove_dashes', function(s) {
   return s.replace(/-/g, "")
 })
 
+hbs.registerHelper('remove_dots', function(s) {
+  return s.replace(/\./g, "")
+})
+
 hbs.registerHelper('remove_spaces_dashes', function(s) {
   return s.replace(/ /g, "-")
 })
@@ -856,6 +860,18 @@ function get_review_id(req, res, next) {
   })
 }
 
+function capitalize_teacher(s) {
+  s = s.toLowerCase();
+  let arr = [...s]
+  arr[0] = arr[0].toUpperCase()
+  for (let i = 0; i < s.length; i++) {
+    if (arr[i] === '.' || arr[i] === '-' || arr[i] === ' ') {
+      arr[i+1] = arr[i+1].toUpperCase()
+    }
+  }
+  return arr.join('')
+}
+
 function submit_class_feedback(req, res, next) {
   // console.log(res.locals.review_id)
 
@@ -872,7 +888,8 @@ function submit_class_feedback(req, res, next) {
   let grade = req.body.grade
   let feedback = req.body.feedback
 
-  teacher = teacher.replace(/[^a-zA-Z\- 0-9]/g, "")
+  teacher = teacher.trim()
+  teacher = capitalize_teacher(teacher)
 
   feedback = feedback.trim()
   if (!(feedback === ""))
@@ -994,7 +1011,8 @@ function edit_class_feedback(req, res, next) {
   let delete_feedback = req.body.delete_feedback
   let review_id = req.body.review_id
 
-  teacher = teacher.replace(/[^a-zA-Z\- 0-9]/g, "")
+  teacher = teacher.trim()
+  teacher = capitalize_teacher(teacher)
 
   feedback = feedback.trim()
   //console.log(feedback)
