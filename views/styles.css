@@ -20,6 +20,9 @@ a:hover {
 th {
     font-weight: normal;
 }
+table.dataTable tbody .nopadding{
+    padding: 0;
+}
 .hover_pointer:hover {
     cursor: pointer;
 }

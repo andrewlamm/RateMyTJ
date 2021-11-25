@@ -1,15 +1,6 @@
 <!DOCTYPE>
 <html>
 	<head>
-		<!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-1PBDTQB9FM"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-1PBDTQB9FM');
-        </script>
         <link href="https://unpkg.com/tailwindcss@2.0.2/dist/tailwind.min.css" rel="stylesheet">
 		<meta charset="utf-8">
 		<title>{{class_info.name}}</title>
@@ -35,8 +26,8 @@
 				</div>
 
 				<div class="flex flex-col">
-					<div class="w-full flex flex-row">
-						<div class="w-1/3 px-5">
+					<div class="w-full flex flex-row" id="top_container">
+						<div class="w-1/3 px-5" id="description_div">
 							<div class="width-full text-center font-semibold text-3xl">
 								Description
 							</div>
@@ -54,7 +45,7 @@
 							</div>
 							{{/if}}
 						</div>
-						<div class="w-2/3 px-5 flex flex-col">
+						<div class="w-2/3 px-5 flex flex-col" id="stat_container">
 							{{#check_zero class_info.total}}
 								<div class="flex flex-col w-full">
 									<div class="width-full text-center font-bold text-3xl">
@@ -63,15 +54,11 @@
 								</div>
 							{{/check_zero}}
 							{{#check_nonzero class_info.total}}
-							<div class="w-full px-1 flex flex-row pb-2">
+							<div class="grid grid-cols-2 gap-y-2 place-items-center items-center justify-center" id="stat_div">
 								{{> score_card score_name="Class Score" score=class_info.class_score rank=class_info.class_score_rank num_classes=class_info.num_classes score_text="/10" rank_category=class_info.class_score_category_rank num_category=class_info.num_category category=class_info.category opposite=false}}
 								{{> score_card score_name="Workload" score=class_info.workload rank=class_info.workload_rank num_classes=class_info.num_classes score_text="hrs/week" rank_category=class_info.workload_category_rank num_category=class_info.num_category category=class_info.category opposite=true}}
-							</div>
-							<div class="w-full px-1 flex flex-row py-2">
 								{{> score_card score_name="Difficulty" score=class_info.difficulty rank=class_info.difficulty_rank num_classes=class_info.num_classes score_text="/10" rank_category=class_info.difficulty_category_rank num_category=class_info.num_category category=class_info.category opposite=true}}
 								{{> score_card score_name="Enjoyment" score=class_info.enjoyment rank=class_info.enjoyment_rank num_classes=class_info.num_classes score_text="/10" rank_category=class_info.enjoyment_category_rank num_category=class_info.num_category category=class_info.category opposite=false}}
-							</div>
-							<div class="w-full px-1 flex flex-row pt-2">
 								{{> score_card score_name="Teacher Score" score=class_info.teacher_score rank=class_info.teacher_score_rank num_classes=class_info.num_classes score_text="/10" rank_category=class_info.teacher_score_category_rank num_category=class_info.num_category category=class_info.category opposite=false}}
 								{{#if class_info.grade_inputs}}{{> score_card score_name="Grade" score=class_info.grade rank=class_info.grade_rank num_classes=class_info.num_grade score_text="%" rank_category=class_info.grade_category_rank num_category=class_info.num_category category=class_info.category opposite=false}}
 								{{else}}{{> empty_score_card score_name="Grade"}}
@@ -86,8 +73,8 @@
 							<div class="w-full text-center font-bold text-3xl">
 								Historical Data
 							</div>
-							<div class="w-full flex flex-row">
-								<div class="w-1/2 px-2 flex flex-col">
+							<div class="w-full flex flex-row" id="historical_container">
+								<div class="w-1/2 px-2 flex flex-col" id="median_container">
 									<div class="w-full text-center font-semibold text-2xl">
 										Median
 									</div>
@@ -108,21 +95,21 @@
 											<tbody>
 												{{#each term_stats}}
 												<tr>
-													<td data-order="{{this.term_order}}">{{this.term}}</td>
-													<td>{{this.total}}</td>
-													<td>{{fix_number this.med_score}}</td>
-													<td>{{fix_number this.med_workload}}</td>
-													<td>{{fix_number this.med_difficulty}}</td>
-													<td>{{fix_number this.med_enjoyment}}</td>
-													<td>{{fix_number this.med_teacher_score}}</td>
-													<td>{{#if this.grade_total}} {{fix_number this.med_grade}} ({{this.grade_total}}) {{else}} {{/if}}</td>
+													<td style="width: 150px;" class="term_td" data-order="{{this.term_order}}">{{this.term}}</td>
+													<td class="text-center">{{this.total}}</td>
+													<td class="text-center">{{fix_number this.med_score}}</td>
+													<td class="text-center">{{fix_number this.med_workload}}</td>
+													<td class="text-center">{{fix_number this.med_difficulty}}</td>
+													<td class="text-center">{{fix_number this.med_enjoyment}}</td>
+													<td class="text-center">{{fix_number this.med_teacher_score}}</td>
+													<td class="text-center" class="grade_td" style="width: 100px;">{{#if this.grade_total}} {{fix_number this.med_grade}} ({{this.grade_total}}) {{else}} {{/if}}</td>
 												</tr>
 												{{/each}}
 											</tbody>
 										</table>
 									</div>
 								</div>
-								<div class="w-1/2 px-2 flex flex-col">
+								<div class="w-1/2 px-2 flex flex-col" id="average_container">
 									<div class="w-full text-center font-semibold text-2xl">
 										Average
 									</div>
@@ -143,14 +130,14 @@
 											<tbody>
 												{{#each term_stats}}
 												<tr>
-													<td data-order="{{this.term_order}}">{{this.term}}</td>
-													<td>{{this.total}}</td>
-													<td>{{fix_number this.avg_score}}</td>
-													<td>{{fix_number this.avg_workload}}</td>
-													<td>{{fix_number this.avg_difficulty}}</td>
-													<td>{{fix_number this.avg_enjoyment}}</td>
-													<td>{{fix_number this.avg_teacher_score}}</td>
-													<td>{{#if this.grade_total}} {{fix_number this.avg_grade}} ({{this.grade_total}}) {{else}} {{/if}}</td>
+													<td style="width: 150px;" class="term_td" data-order="{{this.term_order}}">{{this.term}}</td>
+													<td class="text-center">{{this.total}}</td>
+													<td class="text-center">{{fix_number this.avg_score}}</td>
+													<td class="text-center">{{fix_number this.avg_workload}}</td>
+													<td class="text-center">{{fix_number this.avg_difficulty}}</td>
+													<td class="text-center">{{fix_number this.avg_enjoyment}}</td>
+													<td class="text-center">{{fix_number this.avg_teacher_score}}</td>
+													<td class="text-center" class="grade_td" style="width: 100px;">{{#if this.grade_total}} {{fix_number this.avg_grade}} ({{this.grade_total}}) {{else}} {{/if}}</td>
 												</tr>
 												{{/each}}
 											</tbody>
@@ -163,7 +150,7 @@
 							<div class="w-full text-center font-bold text-3xl">
 								Teachers
 							</div>
-							<div class="w-full grid grid-cols-2 place-items-center items-center justify-center">
+							<div class="w-full grid grid-cols-2 place-items-center items-center justify-center" id="teacher_div">
 								{{#each teacher}}
 								<div class="w-full px-2 flex flex-col">
 									<div class="w-full text-center font-semibold text-2xl">
@@ -186,14 +173,14 @@
 											<tbody>
 												{{#each this.terms}}
 												<tr>
-													<td data-order="{{this.term_order}}">{{this.term}}</td>
-													<td>{{this.total}}</td>
-													<td>{{fix_number this.class_score}}</td>
-													<td>{{fix_number this.workload}}</td>
-													<td>{{fix_number this.difficulty}}</td>
-													<td>{{fix_number this.enjoyment}}</td>
-													<td>{{fix_number this.teacher_score}}</td>
-													<td>{{#if this.grade_total}} {{fix_number this.grade}} ({{this.grade_total}}) {{else}} {{/if}}</td>
+													<td style="width: 150px" class="term_td" data-order="{{this.term_order}}">{{this.term}}</td>
+													<td class="text-center">{{this.total}}</td>
+													<td class="text-center">{{fix_number this.class_score}}</td>
+													<td class="text-center">{{fix_number this.workload}}</td>
+													<td class="text-center">{{fix_number this.difficulty}}</td>
+													<td class="text-center">{{fix_number this.enjoyment}}</td>
+													<td class="text-center">{{fix_number this.teacher_score}}</td>
+													<td class="text-center" class="grade_td" style="width: 100px;">{{#if this.grade_total}} {{fix_number this.grade}} ({{this.grade_total}}) {{else}} {{/if}}</td>
 												</tr>
 												{{/each}}
 											</tbody>
@@ -393,8 +380,6 @@
 						targets: [7],
 						type: 'empty-on-top'
 					},
-					{ "width": '150px', "targets": 0 },
-					{ "width": '100px', "targets": 7 }
 				],
 				"iDisplayLength": 10,
 				"language": {
@@ -412,8 +397,6 @@
 						targets: [7],
 						type: 'empty-on-top'
 					},
-					{ "width": '150px', "targets": 0 },
-					{ "width": '100px', "targets": 7 }
 				],
 				"iDisplayLength": 10,
 				"language": {
@@ -428,12 +411,10 @@
 							'searchable'    : false,
 							'targets'       : [1, 2, 3, 4, 5, 6, 7]
 						},
-						{ "width": '150px', "targets": 0 },
 						{
 							targets: [7],
 							type: 'empty-on-top'
 						},
-						{ "width": '100px', "targets": 7 }
 					],
 					"iDisplayLength": 10,
 					"language": {
@@ -442,6 +423,72 @@
 					"order": [[ 0, "DESC" ]]
 				} );
 			{{/each}}
+
+			jQuery(document).ready(function($) {
+				var alterClass = function() {
+					var ww = document.body.clientWidth;
+					if (ww < 850) {
+						$('#stat_div').removeClass('grid grid-cols-2 gap-y-2')
+						$('#stat_container').removeClass('w-2/3')
+						$('#description_div').removeClass('w-1/3')
+						$('#stat_container').addClass('w-full')
+						$('#description_div').addClass('w-full')
+						$('#top_container').removeClass('flex-row')
+						$('#top_container').addClass('flex-col')
+						$('#historical_container').removeClass('flex-row')
+						$('#historical_container').addClass('flex-col')
+						$('#median_container').removeClass('w-1/2')
+						$('#median_container').addClass('w-full')
+						$('#average_container').removeClass('w-1/2')
+						$('#average_container').addClass('w-full')
+						median_table.columns.adjust().draw()
+						avg_table.columns.adjust().draw()
+						$('#teacher_div').removeClass('grid grid-cols-2')
+						{{#each teacher}}
+						teacher_{{remove_dots (remove_dashes (remove_spaces this.name))}}.columns.adjust().draw()
+						{{/each}}
+					}
+					else if (ww < 1400) {
+						$('#historical_container').removeClass('flex-row')
+						$('#historical_container').addClass('flex-col')
+						$('#median_container').removeClass('w-1/2')
+						$('#median_container').addClass('w-full')
+						$('#average_container').removeClass('w-1/2')
+						$('#average_container').addClass('w-full')
+						median_table.columns.adjust().draw()
+						avg_table.columns.adjust().draw()
+						$('#teacher_div').removeClass('grid grid-cols-2')
+						{{#each teacher}}
+						teacher_{{remove_dots (remove_dashes (remove_spaces this.name))}}.columns.adjust().draw()
+						{{/each}}
+					}
+					else {
+						$('#stat_div').addClass('grid grid-cols-2 gap-y-2')
+						$('#stat_container').addClass('w-2/3')
+						$('#description_div').addClass('w-1/3')
+						$('#stat_container').removeClass('w-full')
+						$('#description_div').removeClass('w-full')
+						$('#top_container').addClass('flex-row')
+						$('#top_container').removeClass('flex-col')
+						$('#historical_container').addClass('flex-row')
+						$('#historical_container').removeClass('flex-col')
+						$('#median_container').addClass('w-1/2')
+						$('#median_container').removeClass('w-full')
+						$('#average_container').addClass('w-1/2')
+						$('#average_container').removeClass('w-full')
+						median_table.columns.adjust().draw()
+						avg_table.columns.adjust().draw()
+						$('#teacher_div').addClass('grid grid-cols-2')
+						{{#each teacher}}
+						teacher_{{remove_dots (remove_dashes (remove_spaces this.name))}}.columns.adjust().draw()
+						{{/each}}
+					}
+				}
+				$(window).resize(function(){
+					alterClass()
+				})
+				alterClass()
+			});
 
 		</script>
     </body>

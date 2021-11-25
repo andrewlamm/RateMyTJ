@@ -1,15 +1,6 @@
 <!DOCTYPE>
 <html>
 	<head>
-		<!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-1PBDTQB9FM"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-1PBDTQB9FM');
-        </script>
 		<meta charset="utf-8">
 		<link href="https://unpkg.com/tailwindcss@2.0.2/dist/tailwind.min.css" rel="stylesheet">
 		<title>RateMyTJ</title>
@@ -158,13 +149,13 @@
 							<tbody>
 								{{#each classes}}
 								<tr>
-									<td><a href="/class/{{this.id}}" class="text-black no-underline">{{this.name}}</a></td>
-									<td>{{this.alt}}</td>
-									<td class="text-center">{{this.id}}</td>
-									<td class="text-center">{{this.category}}</td>
-									<td class="text-center">{{this.type}}</td>
-									<td class="text-center">{{this.length}}</td>
-									<td class="text-center">{{this.weight}}</td>
+									<td class="nopadding"><a href="/class/{{this.id}}"><div class="text-black no-underline w-full h-full px-2.5 py-2">{{this.name}}</div></a></td>
+									<td class="nopadding"><a href="/class/{{this.id}}"><div class="text-black no-underline w-full h-full px-2.5 py-2">{{this.alt}}</div></a></td>
+									<td class="text-center nopadding"><a href="/class/{{this.id}}"><div class="text-black no-underline w-full h-full px-2.5 py-2">{{this.id}}</div></a></td>
+									<td class="text-center nopadding"><a href="/class/{{this.id}}"><div class="text-black no-underline w-full h-full px-2.5 py-2">{{this.category}}</div></a></td>
+									<td class="text-center nopadding"><a href="/class/{{this.id}}"><div class="text-black no-underline w-full h-full px-2.5 py-2">{{this.type}}</div></a></td>
+									<td class="text-center nopadding"><a href="/class/{{this.id}}"><div class="text-black no-underline w-full h-full px-2.5 py-2">{{this.length}}</div></a></td>
+									<td class="text-center nopadding"><a href="/class/{{this.id}}"><div class="text-black no-underline w-full h-full px-2.5 py-2">{{this.weight}}</div></a></td>
 									<td class="text-center">{{this.total}}</td>
 									<td class="text-center">{{#if this.total}} {{fix_number this.class_score}} {{else}} {{/if}}</td>
 									<td class="text-center">{{#if this.total}} {{fix_number this.workload}} {{else}} {{/if}}</td>
