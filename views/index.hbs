@@ -1,6 +1,15 @@
 <!DOCTYPE>
 <html>
 	<head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-1PBDTQB9FM"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-1PBDTQB9FM');
+        </script>
 		<meta charset="utf-8">
 		<link href="https://unpkg.com/tailwindcss@2.0.2/dist/tailwind.min.css" rel="stylesheet">
 		<title>RateMyTJ</title>
@@ -126,8 +135,8 @@
 					</div>
 				</div>
 				<div class="w-full">
-					<div id="classes_div" class="w-full">
-						<table id="classes_table" class="display w-full hidden m-0" style="width:100%">
+					<div id="classes_div" class="w-full hidden">
+						<table id="classes_table" class="display w-full m-0" style="width:100%">
 							<thead>
 								<tr class="text-sm">
 									<th>Class Name</th>
@@ -195,6 +204,7 @@
 			});
 
 			let table = $('#classes_table').DataTable( {
+				// 'scrollX': true,
 				'columnDefs': [
 					{
 						'searchable'    : false,
@@ -270,7 +280,7 @@
 				},
 				"initComplete": function( settings, json ) {
 					let api = this.api()
-					$('#classes_table').removeClass('hidden');
+					$('#classes_div').removeClass('hidden');
 					api.columns.adjust().draw()
 				}
 			} );
