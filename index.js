@@ -1336,7 +1336,7 @@ function get_total_stat(req, res, next) {
 }
 
 function report_review(req, res, next) {
-  pool.query(`INSERT INTO reports VALUES (${res.locals.profile.id}, "${req.body.class_id}", ${req.body.review_id})`, function(e, r) {
+  pool.query(`INSERT INTO reports VALUES (?, ?, ?, ?)`, [res.locals.profile.id, req.body.class_id, req.body.review_id, req.body.reason], function(e, r) {
     next()
   })
 }

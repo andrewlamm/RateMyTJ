@@ -127,3 +127,15 @@ table.dataTable {
     border-collapse: separate;
     border-spacing: 0;
 }
+
+.report_popup_animation {
+    animation: slidedown 1s;
+}
+@keyframes slidedown {
+    from {
+        top: 0%
+    }
+    to {
+        top: 50%
+    }
+}

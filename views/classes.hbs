@@ -1,7 +1,7 @@
 <!DOCTYPE>
 <html>
 	<head>
-        <link href="https://unpkg.com/tailwindcss@2.0.2/dist/tailwind.min.css" rel="stylesheet">
+        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 		<meta charset="utf-8">
 		<title>{{class_info.name}}</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -13,7 +13,7 @@
 	<body>
 		<div class="min-h-full flex flex-col">
 			{{> header}}
-			<div class="text-center flex-grow">
+			<div class="text-center flex-grow" id="main_div">
 				<div class="text-6xl font-bold pb-1">
 					{{class_info.name}} {{#check_empty class_info.alt}} ({{class_info.alt}}) {{/check_empty}}
 				</div>
@@ -234,7 +234,7 @@
 											<img src="/img/smile-beam-{{#if this.user_funny}}solid{{else}}regular{{/if}}.png" class="h-4 w-4" id="{{this.review_id}}_funny_img"><span class="">&nbsp;Funny</span>
 										</button>
 										<div id="report_button" class="font-bold">
-											<button class="bg-white hover_pointer font-semibold border border-black px-1 flex items-center review_feedback" id="{{this.review_id}}_report" onclick="report_review(this.id)" onmouseover="hover_report(this.id)" onmouseout="unhover_report(this.id)">
+											<button class="bg-white hover_pointer font-semibold border border-black px-1 flex items-center review_feedback" id="{{this.review_id}}_report" onclick="open_report_popup(this.id)" onmouseover="hover_report(this.id)" onmouseout="unhover_report(this.id)">
 												<img src="/img/flag-regular.png" class="h-4 w-4" id="{{this.review_id}}_report_img"><span class="">&nbsp;Report</span>
 											</button>
 										</div>
@@ -250,6 +250,19 @@
 						</div>
 					</div>
 					{{/check_nonzero}}
+				</div>
+			</div>
+			<div id="report_review_popup" class="hidden z-10 m-1/2 fixed top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 bg-gray-200 rounded-3xl py-3 px-5">
+				<b>Please select a reason for your report:</b><br>
+				<div class="text-left py-2">
+					<input type="checkbox" class="mr-0.5 my-1" value="Cursing/Foul Language" id="Cursing"><label for="Cursing">Cursing/Foul Language</label><br>
+					<input type="checkbox" class="mr-0.5 my-1" value="Incorrect/Invalid Information" id="Incorrect"><label for="Incorrect">Incorrect/Invalid Information</label><br>
+					<input type="checkbox" class="mr-0.5 my-1" value="Contains Personal Information" id="Personal"><label for="Personal">Contains Personal Information</label><br>
+					<input type="checkbox" class="mr-0.5 my-1" value="Other" id="Other" onclick="toggle_other()"><label for="Other">Other: </label><input type="text" class="mr-0.5 px-1 border border-black" id="Other_text" disabled><br>
+				</div>
+				<div class="flex flex-row items-center justify-center">
+					<input type="submit" class="px-2 rounded-lg text-blue-700 pointer mr-3 border border-black cursor-pointer review" onclick="close_report_popup()" value="Cancel">
+					<input type="submit" class="px-2 rounded-lg pointer border border-black cursor-pointer" data-review_id="" value="Submit" id="submit_report_button" onclick="report_review()">
 				</div>
 			</div>
 			{{> footer}}
@@ -269,16 +282,80 @@
 				return "people"
 			}
 
-			function report_review(id) {
+			function toggle_other() {
+				if (document.getElementById('Other_text').disabled) {
+					document.getElementById('Other_text').disabled = false
+				}
+				else {
+					document.getElementById('Other_text').disabled = true
+					document.getElementById('Other_text').value = ""
+				}
+			}
+
+			function open_report_popup(id) {
 				let review_id = id.substring(0, id.indexOf('_'))
+				document.getElementById('report_review_popup').classList.remove('hidden')
+				document.getElementById('report_review_popup').classList.add('report_popup_animation')
+				document.getElementById('header').classList.add('filter')
+				document.getElementById('header').classList.add('blur-lg')
+				document.getElementById('footer').classList.add('filter')
+				document.getElementById('footer').classList.add('blur-lg')
+				document.getElementById('main_div').classList.add('filter')
+				document.getElementById('main_div').classList.add('blur-lg')
+				document.getElementById(review_id + '_report_img').setAttribute('src', '/img/flag-regular.png')
+				$(':button').prop('disabled', true)
+				document.getElementById('main_div').style.pointerEvents = 'none'
+				document.getElementById('header').style.pointerEvents = 'none'
+				document.getElementById('footer').style.pointerEvents = 'none'
+				document.getElementById('submit_report_button').dataset.review_id = review_id
+			}
+
+			function close_report_popup() {
+				document.getElementById('report_review_popup').classList.add('hidden')
+				document.getElementById('report_review_popup').classList.remove('report_popup_animation')
+				document.getElementById('header').classList.remove('filter')
+				document.getElementById('header').classList.remove('blur-lg')
+				document.getElementById('footer').classList.remove('filter')
+				document.getElementById('footer').classList.remove('blur-lg')
+				document.getElementById('main_div').classList.remove('filter')
+				document.getElementById('main_div').classList.remove('blur-lg')
+				$(':button').prop('disabled', false)
+				document.getElementById('main_div').style.pointerEvents = 'auto'
+				document.getElementById('header').style.pointerEvents = 'auto'
+				document.getElementById('footer').style.pointerEvents = 'auto'
+				document.getElementById('submit_report_button').dataset.review_id = ""
+			}
+
+			function report_review() {
+				let review_id = document.getElementById('submit_report_button').dataset.review_id
 				document.getElementById('report_button').innerHTML = "Report Submitted!"
+
+				let reason_s = ""
+				if (document.getElementById('Cursing').checked) {
+					reason_s += "Cursing/Foul Language,"
+				}
+				if (document.getElementById('Incorrect').checked) {
+					reason_s += "Incorrect/Invalid Information,"
+				}
+				if (document.getElementById('Personal').checked) {
+					reason_s += "Contains Personal Information,"
+				}
+				if (document.getElementById('Other').checked) {
+					reason_s += document.getElementById('Other_text').value
+				}
+
+				if (reason_s.length > 2000) {
+					reason_s = reason_s.substring(0, 2000)
+				}
 
 				let request = new XMLHttpRequest();
                 request.open('POST', '../report_review');
 				request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
                 request.responseType = 'json';
-                request.send('class_id={{class_info.id}}&review_id=' + review_id);
+                request.send(`class_id={{class_info.id}}&review_id=${review_id}&reason=${reason_s}`);
+
+				close_report_popup()
 			}
 
 			function hover_report(id) {
