@@ -230,9 +230,14 @@
 										<button class="bg-white hover_pointer font-semibold border border-black px-1 flex items-center mx-2 {{#if this.user_dislike}}selected_dislike{{else}}review_feedback{{/if}}" id="{{this.review_id}}_dislike" onclick="dislike_review(this.id)">
 											<img src="/img/thumbs-down-{{#if this.user_dislike}}solid{{else}}regular{{/if}}.png" class="h-4 w-4" id="{{this.review_id}}_dislike_img"><span class="">&nbsp;Dislike</span>
 										</button>
-										<button class="bg-white hover_pointer font-semibold border border-black px-1 flex items-center {{#if this.user_funny}}selected_funny{{else}}review_feedback{{/if}}" id="{{this.review_id}}_funny" onclick="funny_review(this.id)">
+										<button class="bg-white hover_pointer font-semibold border border-black px-1 flex items-center mr-2 {{#if this.user_funny}}selected_funny{{else}}review_feedback{{/if}}" id="{{this.review_id}}_funny" onclick="funny_review(this.id)">
 											<img src="/img/smile-beam-{{#if this.user_funny}}solid{{else}}regular{{/if}}.png" class="h-4 w-4" id="{{this.review_id}}_funny_img"><span class="">&nbsp;Funny</span>
 										</button>
+										<div id="report_button" class="font-bold">
+											<button class="bg-white hover_pointer font-semibold border border-black px-1 flex items-center review_feedback" id="{{this.review_id}}_report" onclick="report_review(this.id)" onmouseover="hover_report(this.id)" onmouseout="unhover_report(this.id)">
+												<img src="/img/flag-regular.png" class="h-4 w-4" id="{{this.review_id}}_report_img"><span class="">&nbsp;Report</span>
+											</button>
+										</div>
 									</div>
 									{{/if}}
 									<hr>
@@ -262,6 +267,28 @@
 					return "person"
 				}
 				return "people"
+			}
+
+			function report_review(id) {
+				let review_id = id.substring(0, id.indexOf('_'))
+				document.getElementById('report_button').innerHTML = "Report Submitted!"
+
+				let request = new XMLHttpRequest();
+                request.open('POST', '../report_review');
+				request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+                request.responseType = 'json';
+                request.send('class_id={{class_info.id}}&review_id=' + review_id);
+			}
+
+			function hover_report(id) {
+				let review_id = id.substring(0, id.indexOf('_'))
+				document.getElementById(review_id + '_report_img').setAttribute('src', '/img/flag-solid.png')
+			}
+
+			function unhover_report(id) {
+				let review_id = id.substring(0, id.indexOf('_'))
+				document.getElementById(review_id + '_report_img').setAttribute('src', '/img/flag-regular.png')
 			}
 
 			function like_review(id) {

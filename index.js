@@ -57,7 +57,7 @@ hbs.registerPartials(`${__dirname}/views/partials`)
 hbs.registerHelper('fix_number', function(num) {
   if (num === undefined) return "";
   if (num == null) return "";
-  return num.toFixed(2);
+  return num.toFixed(1);
 });
 
 hbs.registerHelper('fix_number_profile', function(num) {
@@ -65,7 +65,7 @@ hbs.registerHelper('fix_number_profile', function(num) {
   if (num == null) return "";
   if ((num+"").substring((num+"").indexOf(".")+1).length < 2) return num;
   if ((num) == 10) return num;
-  return num.toFixed(2);
+  return num.toFixed(1);
 });
 
 hbs.registerHelper('random_number', function(num) {
@@ -1335,6 +1335,12 @@ function get_total_stat(req, res, next) {
   })
 }
 
+function report_review(req, res, next) {
+  pool.query(`INSERT INTO reports VALUES (${res.locals.profile.id}, "${req.body.class_id}", ${req.body.review_id})`, function(e, r) {
+    next()
+  })
+}
+
 app.get('/login_worker', [convertCodeToToken], function(req, res) {
   req.session.authenticated = true;
   req.session.token = res.locals.token;
@@ -1409,6 +1415,10 @@ app.post('/edit_feedback', [checkAuthentication, getProfileData, edit_class_feed
 app.post('/review_review', [getProfileData, check_if_exists, add_review_review, get_total_stat], (req, res) => {
   //console.log(req.body)
   res.send(res.locals.return_val)
+})
+
+app.post('/report_review', [getProfileData, report_review], (req, res) => {
+  res.send()
 })
 
 app.use(function(req, res, next){

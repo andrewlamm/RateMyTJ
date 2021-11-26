@@ -381,7 +381,7 @@
 			});
 			let class_score_input_min = document.getElementById('minclassscore');
 			class_score_slider.noUiSlider.on('update', function (values, handle) {
-				class_score_input_min.value = values[0];
+				class_score_input_min.value = parseFloat(values[0]).toFixed(1);
 				filterNumber('minclassscore', 8)
 			});
 			class_score_input_min.addEventListener('change', function () {
@@ -390,7 +390,7 @@
 			});
 			let class_score_input_max = document.getElementById('maxclassscore');
 			class_score_slider.noUiSlider.on('update', function (values, handle) {
-				class_score_input_max.value = values[1];
+				class_score_input_max.value = parseFloat(values[1]).toFixed(1);
 				filterNumber('minclassscore', 8)
 			});
 			class_score_input_max.addEventListener('change', function () {
@@ -409,7 +409,7 @@
 			});
 			let workload_input_min = document.getElementById('minhrsweek');
 			workload_slider.noUiSlider.on('update', function (values, handle) {
-				workload_input_min.value = values[0];
+				workload_input_min.value = parseFloat(values[0]).toFixed(1);
 				filterNumber('minhrsweek', 9)
 			});
 			workload_input_min.addEventListener('change', function () {
@@ -418,7 +418,7 @@
 			});
 			let workload_input_max = document.getElementById('maxhrsweek');
 			workload_slider.noUiSlider.on('update', function (values, handle) {
-				workload_input_max.value = values[1];
+				workload_input_max.value = parseFloat(values[1]).toFixed(1);
 				filterNumber('minhrsweek', 9)
 			});
 			workload_input_max.addEventListener('change', function () {
@@ -437,7 +437,7 @@
 			});
 			let difficulty_input_min = document.getElementById('mindifficulty');
 			difficulty_slider.noUiSlider.on('update', function (values, handle) {
-				difficulty_input_min.value = values[0];
+				difficulty_input_min.value = parseFloat(values[0]).toFixed(1);
 				filterNumber('mindifficulty', 10)
 			});
 			difficulty_input_min.addEventListener('change', function () {
@@ -446,7 +446,7 @@
 			});
 			let difficulty_input_max = document.getElementById('maxdifficulty');
 			difficulty_slider.noUiSlider.on('update', function (values, handle) {
-				difficulty_input_max.value = values[1];
+				difficulty_input_max.value = parseFloat(values[1]).toFixed(1);
 				filterNumber('mindifficulty', 10)
 			});
 			difficulty_input_max.addEventListener('change', function () {
@@ -465,7 +465,7 @@
 			});
 			let enjoyment_input_min = document.getElementById('minenjoyment');
 			enjoyment_slider.noUiSlider.on('update', function (values, handle) {
-				enjoyment_input_min.value = values[0];
+				enjoyment_input_min.value = parseFloat(values[0]).toFixed(1);
 				filterNumber('minenjoyment', 11)
 			});
 			enjoyment_input_min.addEventListener('change', function () {
@@ -474,7 +474,7 @@
 			});
 			let enjoyment_input_max = document.getElementById('maxenjoyment');
 			enjoyment_slider.noUiSlider.on('update', function (values, handle) {
-				enjoyment_input_max.value = values[1];
+				enjoyment_input_max.value = parseFloat(values[1]).toFixed(1);
 				filterNumber('minenjoyment', 11)
 			});
 			enjoyment_input_max.addEventListener('change', function () {
@@ -493,7 +493,7 @@
 			});
 			let teacherscore_input_min = document.getElementById('minteacherscore');
 			teacherscore_slider.noUiSlider.on('update', function (values, handle) {
-				teacherscore_input_min.value = values[0];
+				teacherscore_input_min.value = parseFloat(values[0]).toFixed(1);
 				filterNumber('minteacherscore', 12)
 			});
 			teacherscore_input_min.addEventListener('change', function () {
@@ -502,7 +502,7 @@
 			});
 			let teacherscore_input_max = document.getElementById('maxteacherscore');
 			teacherscore_slider.noUiSlider.on('update', function (values, handle) {
-				teacherscore_input_max.value = values[1];
+				teacherscore_input_max.value = parseFloat(values[1]).toFixed(1);
 				filterNumber('minteacherscore', 12)
 			});
 			teacherscore_input_max.addEventListener('change', function () {
@@ -521,7 +521,7 @@
 			});
 			let grade_input_min = document.getElementById('mingrade');
 			grade_slider.noUiSlider.on('update', function (values, handle) {
-				grade_input_min.value = values[0];
+				grade_input_min.value = parseFloat(values[0]).toFixed(1);
 				filterNumber('mingrade', 13)
 			});
 			grade_input_min.addEventListener('change', function () {
@@ -530,7 +530,7 @@
 			});
 			let grade_input_max = document.getElementById('maxgrade');
 			grade_slider.noUiSlider.on('update', function (values, handle) {
-				grade_input_max.value = values[1];
+				grade_input_max.value = parseFloat(values[1]).toFixed(1);
 				filterNumber('mingrade', 13)
 			});
 			grade_input_max.addEventListener('change', function () {
