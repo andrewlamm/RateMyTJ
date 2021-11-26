@@ -44,6 +44,11 @@
 								<span class="font-bold">Corequisites: </span><br>{{{find_reqs class_info.coreq}}}
 							</div>
 							{{/if}}
+							{{#if class_info.next_class}}
+							<div class="w-full text-left pt-2">
+								<span class="font-bold">This class is a requisite for the following classes: </span><br>{{{find_next_class class_info.next_class}}}
+							</div>
+							{{/if}}
 						</div>
 						<div class="w-2/3 px-5 flex flex-col" id="stat_container">
 							{{#check_zero class_info.total}}

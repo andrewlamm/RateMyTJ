@@ -275,6 +275,20 @@ hbs.registerHelper('find_reqs', function(s) {
   return return_s
 })
 
+hbs.registerHelper('find_next_class', function(s) {
+  let words = s.split(' ')
+  let return_s = ""
+  for (let i = 1; i < words.length; i++) {
+    if (i == words.length-1) {
+      return_s += `<a href="/class/${words[i]}">${CLASSES[words[i]]}</a>`
+    }
+    else {
+      return_s += `<a href="/class/${words[i]}">${CLASSES[words[i]]}</a>, `
+    }
+  }
+  return return_s
+})
+
 function checkAuthentication(req, res, next) {
   if ('authenticated' in req.session) {
     next()
@@ -354,6 +368,7 @@ pool.query('SELECT name, id FROM classes;', function(e, r) {
     CLASSES[r[i].id] = r[i].name
   }
 })
+let TEACHERS = ["Ahn", "Ament", "Anderson", "Anderson Lodge", "Arthur", "Auerbach", "Bailey", "Ballard", "Bass", "Behling", "Billington", "Bourjaily", "Boyle", "Burnett", "Castaldo", "Chen", "Chhabra", "Choi", "Conklin", "Culbertson", "De Megret", "Del Cerro", "Desiraju", "Ebrahim", "Eckel", "Elder", "Evans", "Field", "Fisher", "Gabor", "Gabriel", "Geiger", "Gilbert", "Glotfelty", "Hamrick", "Hannum", "Harris", "Henry", "Hitchcock", "Holman", "Iyengar", "James", "Jibladze", "Jirari Scavotto", "Jones", "Jurj", "Juster", "Kadir", "Kennedy", "Kim", "Klein", "Kochman", "Kosek", "Kucko", "Kuriki", "Laffey", "Lampazzi", "Boswell", "Larson", "Lebryk-Chao", "Lee", "Lightner", "Lister", "Litchford", "Locklear", "Lord", "Mateo", "Matricardi", "McFee", "Miller", "Mills", "Morris", "Morrow", "Nelson", "Ng", "Osborne", "Oszko", "Pendleton", "Phillips", "Pollet", "Porcelli", "Potoker", "Rayas Abundis", "Razzino", "Reid", "Rose", "Sacks", "Sandstrom", "Savran", "Schmitt", "Scott", "Seavey", "Seyler", "Smith", "Smolinsky", "Spoden", "Stewart", "Stickler", "Stile", "Stuart", "Taylor", "Taylor", "Thompson", "Tinkelman", "Torbert", "Tra", "Van De Kamp Washington", "White", "Williams", "Woodwell", "Wright", "Xu", "Yi", "Yilmaz"]
 
 function get_class_info(req, res, next) {
   // console.log(`SELECT * FROM classes WHERE id="${req.params.classID}";`)
@@ -1380,7 +1395,7 @@ app.get('/profile', [checkAuthentication, getProfileData, create_user_table, get
   // console.log(reviews)
   // console.log([...TERMS_YR].reverse())
   // console.log(TERMS_YR)
-  res.render('profile_page', {"profile": res.locals.profile, "reviews": reviews, "classes": res.locals.classes, "terms": TERMS, "terms_yr": [...TERMS_YR].reverse(), "terms_sem": [...TERMS_SEM].reverse()})
+  res.render('profile_page', {"profile": res.locals.profile, "reviews": reviews, "classes": res.locals.classes, "terms": TERMS, "terms_yr": [...TERMS_YR].reverse(), "terms_sem": [...TERMS_SEM].reverse(), "teachers": TEACHERS})
 })
 
 app.post('/submit_feedback', [checkAuthentication, getProfileData, get_review_id, submit_class_feedback, update_tables("class_score"), update_tables("workload"), update_tables("difficulty"), update_tables("enjoyment"), update_tables("teacher_score"), update_tables_grade, update_tables_total, update_tables_grade_total], (req, res) => {

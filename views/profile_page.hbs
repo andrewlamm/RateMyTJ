@@ -116,7 +116,12 @@
                                                 </datalist>
                                             </th>
                                             <th class="px-1">
-                                                <input name="teacher" onfocus="change_helper(3)" class="pl-1 w-full border border-black" size="10" id="teacher_input" autocomplete="off" required>
+                                                <input name="teacher" list="teacher_list" onfocus="change_helper(3)" class="pl-1 w-full border border-black" size="10" id="teacher_input" autocomplete="off" required>
+                                                <datalist id="teacher_list">
+                                                    {{#each teachers}}
+                                                        <option value="{{this}}">
+                                                    {{/each}}
+                                                </datalist>
                                             </th>
                                             <th class="px-1">
                                                 <input name="class_score" onfocus="change_helper(4)" type="number" style="width: 50px;" step="any" class="pl-1 w-full border border-black" min="0" max="10" id="class_score_input" autocomplete="off" required>
@@ -213,7 +218,7 @@
                                                     <input name="original_term" class="pl-1 w-full border border-black hidden " size="18" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_original_term" autocomplete="off" required value="{{this.term}}" data-original="{{this.term}}">
                                                     <input type="search" list="{{find_term_list this.term this.name}}" name="term" class="pl-1 w-full border border-black" size="18" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_term_input" autocomplete="off" required value="{{this.term}}" data-original="{{this.term}}">
                                                 </th>
-                                                <th><input name="teacher" class="pl-1 w-full border border-black" size="10" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_teacher_input" autocomplete="off" required value="{{this.teacher}}" data-original="{{this.teacher}}"></th>
+                                                <th><input name="teacher" list="teacher_list" class="pl-1 w-full border border-black" size="10" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_teacher_input" autocomplete="off" required value="{{this.teacher}}" data-original="{{this.teacher}}"></th>
                                                 <th><input name="class_score" type="number" style="width: 50px;" step="any" class="pl-1 border border-black" min="0" max="10" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_class_score_input" autocomplete="off" required value={{fix_number_profile this.class_score}} data-original={{fix_number_profile this.class_score}}></th>
                                                 <th><input name="workload" type="number" style="width: 50px;" step="any" class="pl-1 border border-black" min="0" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_workload_input" autocomplete="off" required value={{fix_number_profile this.workload}} data-original={{fix_number_profile this.workload}}></th>
                                                 <th><input name="difficulty" type="number" style="width: 50px;" step="any" class="pl-1 border border-black" min="0" max="10" id="{{this.class_id}}_{{remove_spaces_dashes this.term}}_difficulty_input" autocomplete="off" required value={{fix_number_profile this.difficulty}} data-original={{fix_number_profile this.difficulty}}></th>
@@ -277,8 +282,8 @@
         function change_helper(index) {
             let HELPER_TEXT = ["The name of the class you are inputting a review for.",
                 "The ID of the class you are inputting a review for. It will automatically be added once you select a class from the class name.",
-                "The term you took the class in. Year long classes are 20XX-20XY.",
-                "The teacher you had for this class",
+                "The term you took the class in. Year long classes are 20XX-20XY. Semester classes are Fall/Spring/Summer XX, where XX is the year.",
+                "The last name of the teacher you had for this class. Current TJHSST teachers may be selected from the dropdown list, however if your teacher is not teaching here anymore, you will need to type your teacher name out.",
                 "Your overall rating of the class, from a range of 0 (Awful) to 10 (The Best)",
                 "The amount of time you spent on working for this class in hours per week",
                 "How difficult you found the class to be, from a range of 0 (Very Easy) to 10 (Very Hard)",
