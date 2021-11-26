@@ -235,6 +235,7 @@
 										</button>
 										<div id="report_button" class="font-bold">
 											<button class="bg-white hover_pointer font-semibold border border-black px-1 flex items-center review_feedback" id="{{this.review_id}}_report" onclick="open_report_popup(this.id)" onmouseover="hover_report(this.id)" onmouseout="unhover_report(this.id)">
+												<img src="/img/flag-solid.png" class="h-4 w-4 hidden">
 												<img src="/img/flag-regular.png" class="h-4 w-4" id="{{this.review_id}}_report_img"><span class="">&nbsp;Report</span>
 											</button>
 										</div>
@@ -258,11 +259,11 @@
 					<input type="checkbox" class="mr-0.5 my-1" value="Cursing/Foul Language" id="Cursing"><label for="Cursing">Cursing/Foul Language</label><br>
 					<input type="checkbox" class="mr-0.5 my-1" value="Incorrect/Invalid Information" id="Incorrect"><label for="Incorrect">Incorrect/Invalid Information</label><br>
 					<input type="checkbox" class="mr-0.5 my-1" value="Contains Personal Information" id="Personal"><label for="Personal">Contains Personal Information</label><br>
-					<input type="checkbox" class="mr-0.5 my-1" value="Other" id="Other" onclick="toggle_other()"><label for="Other">Other: </label><input type="text" class="mr-0.5 px-1 border border-black" id="Other_text" disabled><br>
+					<input type="checkbox" class="mr-0.5 my-1" value="Other" id="Other" onclick="toggle_other()"><label for="Other">Other: </label><input type="text" class="mr-0.5 px-1 border border-black" id="Other_text" disabled autocomplete="off"><br>
 				</div>
 				<div class="flex flex-row items-center justify-center">
-					<input type="submit" class="px-2 rounded-lg text-blue-700 pointer mr-3 border border-black cursor-pointer review" onclick="close_report_popup()" value="Cancel">
-					<input type="submit" class="px-2 rounded-lg pointer border border-black cursor-pointer" data-review_id="" value="Submit" id="submit_report_button" onclick="report_review()">
+					<input type="submit" class="px-2 rounded-lg text-blue-700 pointer mr-3 border border-black cursor-pointer review report_buttons" onclick="close_report_popup()" value="Cancel">
+					<input type="submit" class="px-2 rounded-lg pointer border border-black cursor-pointer report_buttons" data-review_id="" value="Submit" id="submit_report_button" onclick="report_review()">
 				</div>
 			</div>
 			{{> footer}}
@@ -394,7 +395,7 @@
                     const data = request.response;
                     // console.log(data)
 					document.getElementById(review_id + '_like_counter').innerHTML = data.likes + " like" + plural(data.likes)
-					document.getElementById(review_id + '_dislike_counter').innerHTML = data.dislikes + " dislike" + plural(data.likes)
+					document.getElementById(review_id + '_dislike_counter').innerHTML = data.dislikes + " dislike" + plural(data.dislikes)
 					document.getElementById(review_id + '_funny_counter').innerHTML = data.funny + " " + people_person(data.funny)
 				}
 			}
