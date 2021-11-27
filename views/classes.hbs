@@ -426,7 +426,7 @@
                     const data = request.response;
                     // console.log(data)
 					document.getElementById(review_id + '_like_counter').innerHTML = data.likes + " like" + plural(data.likes)
-					document.getElementById(review_id + '_dislike_counter').innerHTML = data.dislikes + " dislike" + plural(data.likes)
+					document.getElementById(review_id + '_dislike_counter').innerHTML = data.dislikes + " dislike" + plural(data.dislikes)
 					document.getElementById(review_id + '_funny_counter').innerHTML = data.funny + " " + people_person(data.funny)
 				}
 			}
@@ -454,7 +454,7 @@
                     const data = request.response;
                     // console.log(data)
 					document.getElementById(review_id + '_like_counter').innerHTML = data.likes + " like" + plural(data.likes)
-					document.getElementById(review_id + '_dislike_counter').innerHTML = data.dislikes + " dislike" + plural(data.likes)
+					document.getElementById(review_id + '_dislike_counter').innerHTML = data.dislikes + " dislike" + plural(data.dislikes)
 					document.getElementById(review_id + '_funny_counter').innerHTML = data.funny + " " + people_person(data.funny)
 				}
 			}
