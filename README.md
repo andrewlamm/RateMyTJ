@@ -2,7 +2,7 @@
 
 ### Andrew Lam
 
-Project for Mobile and Web App Senior Research Lab
+Project for Mobile and Web App Senior Research Lab            
 Visit it at https://rate-my-tj.sites.tjhsst.edu/
 
 ## What is RateMyTJ?
@@ -15,10 +15,10 @@ The [current TJHSST course catalog](https://insys.fcps.edu/CourseCatOnline/front
 
 ## Technologies Used
 
-For the backend, I used [ExpressJS](https://expressjs.com/) and [MySQL](https://www.mysql.com/) to host the website and database.
-For the frontend, I used [handlebars](https://handlebarsjs.com/) and used [Tailwind CSS](https://tailwindcss.com/) for the style of the website.
-I utilized the [noUISlider](https://refreshless.com/nouislider/) library for the slider filter and the [DataTablesJS](https://datatables.net/) library for the tables found on the website.
-For account authentication, I used [OAuth 2.0](https://oauth.net/2/) and [TJHSST Ion](https://tjcsl.github.io/ion/) and hosted the website on [TJHSST Director](https://documentation.tjhsst.edu/services/director).
+For the backend, I used [ExpressJS](https://expressjs.com/) and [MySQL](https://www.mysql.com/) to host the website and database.         
+For the frontend, I used [handlebars](https://handlebarsjs.com/) and used [Tailwind CSS](https://tailwindcss.com/) for the style of the website.          
+I utilized the [noUISlider](https://refreshless.com/nouislider/) library for the slider filter and the [DataTablesJS](https://datatables.net/) library for the tables found on the website.              
+For account authentication, I used [OAuth 2.0](https://oauth.net/2/) and [TJHSST Ion](https://tjcsl.github.io/ion/) and hosted the website on [TJHSST Director](https://documentation.tjhsst.edu/services/director).     
 
 ## How it Works
 
