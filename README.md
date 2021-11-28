@@ -26,7 +26,7 @@ Information displayed on the main page are retrieved from the ```classes``` tabl
 
 Users may also input their own feedback by first logging in through Ion and then visiting their [profile page](https://rate-my-tj.sites.tjhsst.edu/profile). When a user first visits their [profile page](https://rate-my-tj.sites.tjhsst.edu/profile), a table naamed ```user_feedback_userID``` is created, and all of their inputted class feedback will be stored there. On the profile page, users may add, edit, and delete feedback. Every time they do so, In addition, their class feedback will be also stored in the corresponding ```class_classID``` table and will update the main ```classes``` table.
 
-Please report any suggestions and bugs by creating a [new issue](https://github.com/superandybean/RateMyTJ/issues/new) and use the create label. Use the ```bug``` label to report bugs, the ```enhancement``` label for new features and suggestions, and the ```fix class information```  label for incorrect, vague, or missing class information (such as its description).
+Please report any suggestions and bugs by creating a [new issue](https://github.com/superandybean/RateMyTJ/issues/new) and use the correct label. Use the ```bug``` label to report bugs, the ```enhancement``` label for new features and suggestions, and the ```fix class information```  label for incorrect, vague, or missing class information (such as its description).
 
 ## Possible Improvements
 
