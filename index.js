@@ -1176,7 +1176,10 @@ function update_tables(stat) {
 function update_tables_grade(req, res, next) {
   pool.query(`SELECT grade, ROW_NUMBER() OVER(ORDER BY grade) AS row_num FROM class_${req.body.class_id} WHERE grade IS NOT NULL;`, function(e, r) {
     if (r.length == 0) {
-      res.locals.class_median.grade = 'NULL'
+      res.locals.class_median.grade = '0'
+      pool.query(`UPDATE classes SET grade=NULL WHERE id=?;`, [req.body.class_id], function(e, r) {
+        next()
+      })
     }
     else {
       if (r.length % 2 == 0) {
