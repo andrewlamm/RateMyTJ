@@ -1421,9 +1421,9 @@ app.post('/report_review', [getProfileData, report_review], (req, res) => {
   res.send()
 })
 
-app.use(function(req, res, next){ //fix it so it takes middleware functions
+app.use([getProfileData, get_class_list], function(req, res, next){
   if (req.accepts('hbs')) {
-    res.render('error', {"login_link": authorizationUri});
+    res.render('error', {"login_link": authorizationUri, "profile": res.locals.profile, "class_list": res.locals.class_list});
     return;
   }
 })
