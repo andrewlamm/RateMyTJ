@@ -129,14 +129,16 @@ table.dataTable {
 }
 
 .report_popup_animation {
-    animation: slidedown 1s;
+    animation: slidedown 0.5s;
 }
 @keyframes slidedown {
     from {
-        top: 0%
+        top: 25%;
+        opacity: 0%;
     }
     to {
-        top: 50%
+        top: 50%;
+        opacity: 100%;
     }
 }
 

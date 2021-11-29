@@ -1354,7 +1354,7 @@ app.get('/logout', function (req, res) {
   res.redirect('/');
 })
 
-let base_middleware = [get_class_info, get_total_classes, num_category, total_grade, avg_terms, avg_overall, grade_num, get_feedback, get_user_reviews_on_feedback]
+let base_middleware = [get_class_list, get_class_info, get_total_classes, num_category, total_grade, avg_terms, avg_overall, grade_num, get_feedback, get_user_reviews_on_feedback]
 let score_middleware = [get_score_rank, score_category, median_score, teacher_class_score, overall_teacher_score, median_overall_score]
 let workload_middleware = [get_stat_rank("workload", "", "<="), stat_category("workload", "", "<="), median_stat("workload"), teacher_stat("workload"), overall_teacher_stat("workload"), median_overall_stat("workload")]
 let difficulty_middleware = [get_stat_rank("difficulty", "", "<="), stat_category("difficulty", "", "<="), median_stat("difficulty"), teacher_stat("difficulty"), overall_teacher_stat("difficulty"), median_overall_stat("difficulty")]
@@ -1366,10 +1366,10 @@ let stats_middleware = workload_middleware.concat(difficulty_middleware).concat(
 
 // document.getElementById('ice-cream-choice').setAttribute('list', "ice-cream-flavors")
 
-app.get('/', [getProfileData], (req, res) => {
+app.get('/', [getProfileData, get_class_list], (req, res) => {
   pool.query("SELECT * FROM classes;", function(error, results) {
     // console.log(res.locals.profile)
-    res.render('index', {"classes": results, "profile": res.locals.profile, "login_link": authorizationUri})
+    res.render('index', {"classes": results, "profile": res.locals.profile, "login_link": authorizationUri, "class_list": res.locals.class_list})
   })
 })
 
@@ -1388,10 +1388,10 @@ app.get('/class/:classID', [getProfileData].concat(base_middleware).concat(score
     }
     return a.term_order < b.term_order ? 1 : -1
   })
-  res.render('classes', {"class_info": res.locals.results, "term_stats": res.locals.term_stats, "teacher": res.locals.teachers, "feedback": feedback, "profile": res.locals.profile, "login_link": authorizationUri})
+  res.render('classes', {"class_info": res.locals.results, "term_stats": res.locals.term_stats, "teacher": res.locals.teachers, "feedback": feedback, "profile": res.locals.profile, "login_link": authorizationUri, "class_list": res.locals.class_list})
 })
 
-app.get('/profile', [checkAuthentication, getProfileData, create_user_table, get_user_feedback, get_classes], (req, res) => {
+app.get('/profile', [checkAuthentication, getProfileData, create_user_table, get_user_feedback, get_classes, get_class_list], (req, res) => {
   // console.log(res.locals.classes)
   let reviews = []
   for (const [key, value] of Object.entries(res.locals.review_term)) {
@@ -1401,7 +1401,7 @@ app.get('/profile', [checkAuthentication, getProfileData, create_user_table, get
   // console.log(reviews)
   // console.log([...TERMS_YR].reverse())
   // console.log(TERMS_YR)
-  res.render('profile_page', {"profile": res.locals.profile, "reviews": reviews, "classes": res.locals.classes, "terms": TERMS, "terms_yr": [...TERMS_YR].reverse(), "terms_sem": [...TERMS_SEM].reverse(), "teachers": TEACHERS})
+  res.render('profile_page', {"profile": res.locals.profile, "reviews": reviews, "classes": res.locals.classes, "terms": TERMS, "terms_yr": [...TERMS_YR].reverse(), "terms_sem": [...TERMS_SEM].reverse(), "teachers": TEACHERS, "class_list": res.locals.class_list})
 })
 
 app.post('/submit_feedback', [checkAuthentication, getProfileData, get_review_id, submit_class_feedback, update_tables("class_score"), update_tables("workload"), update_tables("difficulty"), update_tables("enjoyment"), update_tables("teacher_score"), update_tables_grade, update_tables_total, update_tables_grade_total], (req, res) => {
@@ -1421,7 +1421,7 @@ app.post('/report_review', [getProfileData, report_review], (req, res) => {
   res.send()
 })
 
-app.use(function(req, res, next){
+app.use(function(req, res, next){ //fix it so it takes middleware functions
   if (req.accepts('hbs')) {
     res.render('error', {"login_link": authorizationUri});
     return;

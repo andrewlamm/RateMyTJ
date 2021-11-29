@@ -4,14 +4,14 @@
                 <a href="/" class="text-white">RateMyTJ</a>
             </div>
             <div class="flex flex-row w-full pt-0">
-                {{!-- <div class="w-1/2 font-semibold text-left text-base leading-8">
-                    <input type="search" list="class_names" name="class_name" class="text-white pt-px pb-0.5 leading-normal font-base border border-black" size="50" id="names_input" autocomplete="off">
-                    <datalist id="class_names">
-                        {{#each class_list}}
-                        <option data-value={{this.id}} value="{{this.name}} {{#if this.alt}}({{this.alt}}) {{/if}}- {{this.id}}">
-                        {{/each}}
-                    </datalist>
-                </div> --}}
+                <div class="w-1/2 font-semibold text-left text-base leading-8 flex flex-row cursor-pointer" onclick="toggle_searchbar()">
+                    <div class="flex items-center align-center">
+                        <img src="/img/search-solid.png" width="26">
+                    </div>
+                    <div class="flex items-center align-center px-1">
+                        <img src="/img/caret-up-solid.png" width="13" height="13" id="arrow_direction">
+                    </div>
+                </div>
                 <div class="text-base leading-8 text-right font-semibold text-white w-full">
                     {{#if profile}}
                     Hello, {{profile.display_name}}. <a href="/profile" class="aheader">View Profile</a> | <a href="/logout" class="aheader">Logout</a>
@@ -21,4 +21,58 @@
                 </div>
             </div>
         </div>
+        <div class="py-2 px-10 hidden" id="search_div">
+            <div class="w-full font-semibold text-left text-base leading-8">
+                <input type="search" name="class_name" class="text-black py-1 px-2 leading-normal font-base border border-black w-full" id="search_input" autocomplete="off" placeholder="Search..." onkeyup="update_search_list()" onsearch="search_class_event()">
+                <datalist id="class_names_list">
+                    {{#each class_list}}
+                    <option data-value={{this.id}} value="{{this.name}} {{#if this.alt}}({{this.alt}}) {{/if}}- {{this.id}}">
+                    {{/each}}
+                </datalist>
+            </div>
+        </div>
     </div>
+    <script>
+        function toggle_searchbar() {
+            document.getElementById("search_input").value = ""
+            document.getElementById("search_div").classList.toggle("hidden")
+            if (document.getElementById("arrow_direction").getAttribute('src').indexOf('up') !== -1) {
+                document.getElementById("arrow_direction").setAttribute('src', '/img/caret-down-solid.png')
+            }
+            else {
+                document.getElementById("arrow_direction").setAttribute('src', '/img/caret-up-solid.png')
+            }
+        }
+
+        function update_search_list() {
+            if (document.getElementById("search_input").value.length > 0) {
+                document.getElementById("search_input").setAttribute('list', 'class_names_list')
+            }
+            else {
+                document.getElementById("search_input").setAttribute('list', '')
+            }
+        }
+
+        let SEARCH_CLASS_LIST_SET = new Set()
+        {{#each class_list}}
+            SEARCH_CLASS_LIST_SET.add("{{this.name}} {{#if this.alt}}({{this.alt}}) {{/if}}- {{this.id}}")
+        {{/each}}
+
+        document.getElementById('search_input').addEventListener('input', function () {
+            if (SEARCH_CLASS_LIST_SET.has(document.getElementById("search_input").value)) {
+                location.href = `/class/${document.getElementById("search_input").value.substring(document.getElementById("search_input").value.indexOf("-")+2)}`
+            }
+            else if (document.getElementById("search_input").value === "") {
+                document.getElementById("search_input").setAttribute('list', '')
+            }
+        });
+
+        function search_class_event() {
+            if (SEARCH_CLASS_LIST_SET.has(document.getElementById("search_input").value)) {
+                location.href = `/class/${document.getElementById("search_input").value.substring(document.getElementById("search_input").value.indexOf("-")+2)}`
+            }
+            else if (document.getElementById("search_input").value === "") {
+                document.getElementById("search_input").setAttribute('list', '')
+            }
+        }
+    </script>
