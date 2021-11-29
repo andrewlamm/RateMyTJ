@@ -146,3 +146,17 @@ table.dataTable {
     color:white;
     background-color: gray;
 }
+
+.search_bar_animation {
+    animation: searchslidedown 0.5s;
+}
+@keyframes searchslidedown {
+    from {
+        top: -10px;
+        opacity: 0%;
+    }
+    to {
+        top: 0px;
+        opacity: 100%;
+    }
+}

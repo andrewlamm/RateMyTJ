@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <div class="py-2 px-10 hidden" id="search_div">
+        <div class="py-2 px-10 relative hidden" id="search_div">
             <div class="w-full font-semibold text-left text-base leading-8">
                 <input type="search" name="class_name" class="text-black py-1 px-2 leading-normal font-base border border-black w-full" id="search_input" autocomplete="off" placeholder="Search..." onkeyup="update_search_list()" onsearch="search_class_event()">
                 <datalist id="class_names_list">
@@ -36,6 +36,7 @@
         function toggle_searchbar() {
             document.getElementById("search_input").value = ""
             document.getElementById("search_div").classList.toggle("hidden")
+            document.getElementById("search_div").classList.toggle("search_bar_animation")
             if (document.getElementById("arrow_direction").getAttribute('src').indexOf('up') !== -1) {
                 document.getElementById("arrow_direction").setAttribute('src', '/img/caret-down-solid.png')
             }
