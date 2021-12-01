@@ -60,19 +60,21 @@
         {{/each}}
 
         document.getElementById('search_input').addEventListener('input', function () {
-            if (SEARCH_CLASS_LIST_SET.has(document.getElementById("search_input").value)) {
+            const search_val = document.getElementById("search_input").value.replace('&', '&amp;')
+            if (SEARCH_CLASS_LIST_SET.has(search_val)) {
                 location.href = `/class/${document.getElementById("search_input").value.substring(document.getElementById("search_input").value.indexOf("-")+2)}`
             }
-            else if (document.getElementById("search_input").value === "") {
+            else if (search_val === "") {
                 document.getElementById("search_input").setAttribute('list', '')
             }
         });
 
         function search_class_event() {
-            if (SEARCH_CLASS_LIST_SET.has(document.getElementById("search_input").value)) {
+            const search_val = document.getElementById("search_input").value.replace('&', '&amp;')
+            if (SEARCH_CLASS_LIST_SET.has(search_val)) {
                 location.href = `/class/${document.getElementById("search_input").value.substring(document.getElementById("search_input").value.indexOf("-")+2)}`
             }
-            else if (document.getElementById("search_input").value === "") {
+            else if (search_val === "") {
                 document.getElementById("search_input").setAttribute('list', '')
             }
         }

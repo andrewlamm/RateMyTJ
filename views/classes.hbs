@@ -219,11 +219,15 @@
 									<div class="text-base">
 										<span><b>Term: </b>{{term}}</span>{{#if show_teacher}} | <span><b>Teacher: </b>{{teacher}}</span>{{/if}}
 									</div>
-									<div class="text-base">
+									<hr>
+									<div>
+										{{feedback}}
+									</div>
+									<div class="text-sm pt-1">
 										<span id="{{this.review_id}}_like_counter">{{this.likes}} like{{plural this.likes}}</span> | <span id="{{this.review_id}}_dislike_counter">{{this.dislikes}} dislike{{plural this.dislikes}}</span> | <span id="{{this.review_id}}_funny_counter">{{this.funny}} {{people_person this.funny}}</span> found this funny
 									</div>
 									{{#if ../profile}}
-									<div class="text-base pb-1 flex flex-row align-center">
+									<div class="text-sm pb-1 flex flex-row align-center">
 										<button class="bg-white hover_pointer font-semibold border border-black px-1 flex items-center {{#if this.user_like}}selected_like{{else}}review_feedback{{/if}}" id="{{this.review_id}}_like" onclick="like_review(this.id)">
 											<img src="/img/thumbs-up-{{#if this.user_like}}solid{{else}}regular{{/if}}.png" class="h-4 w-4" id="{{this.review_id}}_like_img"><span class="">&nbsp;Like</span>
 										</button>
@@ -241,10 +245,6 @@
 										</div>
 									</div>
 									{{/if}}
-									<hr>
-									<div>
-										{{feedback}}
-									</div>
 								</div>
 								{{/each}}
 							</div>
@@ -358,6 +358,12 @@
 
 				close_report_popup()
 			}
+
+			document.addEventListener('keydown', function(event){
+				if(event.key === "Escape"){
+					close_report_popup()
+				}
+			});
 
 			function hover_report(id) {
 				let review_id = id.substring(0, id.indexOf('_'))
