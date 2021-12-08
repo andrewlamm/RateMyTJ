@@ -1,0 +1,161 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+		<meta charset="utf-8">
+		<title>Four Year Plan</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+        <link rel="stylesheet" href="/styles.css">
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+	</head>
+	<body>
+		<div class="min-h-full flex flex-col">
+			{{> header}}
+			<div class="flex-grow">
+                <div id="sidebar_div" class="w-1/3 p-2 mx-2 h-full">
+                    <input type="search" name="find_class" class="text-black py-1 px-2 leading-normal font-base border box-border border-black w-full" id="class_search" autocomplete="off" placeholder="Find A Class" onkeyup="find_class()">
+                    <div id="class_list">
+                        {{#each classes}}
+                        <div class="my-2 px-2">
+                            <div class="text-center font-bold text-3xl bg-gray-600 text-white py-2 rounded-t-3xl rounded-b-3xl flex items-center justify-center" id="{{@key}}_title">
+                                <span class="flex-grow">{{@key}}</span>
+                                <button class="plusminus z-10" id="{{@key}}_toggle_button" onclick="toggle_class_list(this.id)">
+                                    <span class="plusminusspan plusminusspanfirst"></span>
+                                    <span class="plusminusspan plusminusspansecond"></span>
+                                </button>
+                            </div>
+                            <div>
+                                <div class="rounded-b-3xl px-2 pt-2 pb-px bg-gray-300 hidden" id="{{@key}}_class_list">
+                                    {{#each this}}
+                                        <div class="p-2 bg-gray-400 mb-2 rounded-3xl" id="{{remove_spaces this.name}}_{{remove_spaces this.alt}}_{{this.id}}">
+                                            <div class="flex items-center justify-center">
+                                                <span class="flex-grow text-left font-bold">{{this.name}} {{#if this.alt}}({{this.alt}}){{/if}}</span>
+                                                <button class="plusminus_class" id="{{this.id}}_toggle_button" onclick="toggle_class_info(this.id)">
+                                                    <span class="plusminusspan plusminusspanfirst"></span>
+                                                    <span class="plusminusspan plusminusspansecond"></span>
+                                                </button>
+                                            </div>
+                                            <div class="hidden" id="{{this.id}}_class_info">
+                                                <div class="flex flex-row items-center justify-center">
+                                                    <div class="flex flex-col w-1/3">
+                                                        <div class="text-center font-semibold">
+                                                            Length
+                                                        </div>
+                                                        <div class="text-center">
+                                                            {{this.length}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex flex-col w-1/3">
+                                                        <div class="text-center font-semibold">
+                                                            Weight
+                                                        </div>
+                                                        <div class="text-center">
+                                                            {{this.weight}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex flex-col w-1/3">
+                                                        <div class="text-center font-semibold">
+                                                            # of Reviews
+                                                        </div>
+                                                        <div class="text-center">
+                                                            {{this.total}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="flex flex-row items-center justify-center">
+                                                    <div class="flex flex-col w-1/3">
+                                                        <div class="text-center font-semibold">
+                                                            Class Score
+                                                        </div>
+                                                        <div class="text-center">
+                                                            {{#if this.class_score}} {{fix_number this.class_score}}/10 {{else}} None {{/if}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex flex-col w-1/3">
+                                                        <div class="text-center font-semibold">
+                                                            Workload
+                                                        </div>
+                                                        <div class="text-center">
+                                                            {{#if this.workload}} {{fix_number this.workload}} hrs/wk {{else}} None {{/if}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex flex-col w-1/3">
+                                                        <div class="text-center font-semibold">
+                                                            Difficulty
+                                                        </div>
+                                                        <div class="text-center">
+                                                            {{#if this.difficulty}} {{fix_number this.difficulty}}/10 {{else}} None {{/if}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="flex flex-row items-center justify-center">
+                                                    <div class="flex flex-col w-1/3">
+                                                        <div class="text-center font-semibold">
+                                                            Enjoyment
+                                                        </div>
+                                                        <div class="text-center">
+                                                            {{#if this.enjoyment}} {{fix_number this.enjoyment}}/10 {{else}} None {{/if}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex flex-col w-1/3">
+                                                        <div class="text-center font-semibold">
+                                                            Teacher Score
+                                                        </div>
+                                                        <div class="text-center">
+                                                            {{#if this.teacher_score}} {{fix_number this.teacher_score}}/10 {{else}} None {{/if}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex flex-col w-1/3">
+                                                        <div class="text-center font-semibold">
+                                                            Grade
+                                                        </div>
+                                                        <div class="text-center">
+                                                            {{#if this.grade}} {{fix_number this.grade}}% ({{this.grade_inputs}}) {{else}} None {{/if}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {{/each}}
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+			</div>
+			{{> footer}}
+		</div>
+        <script>
+            function toggle_class_list(id) {
+                const key_id = id.substring(0, id.indexOf('_'))
+                document.getElementById(id).classList.toggle("toggle_button_animation")
+                document.getElementById(key_id + "_class_list").classList.toggle("hidden")
+                document.getElementById(key_id + "_title").classList.toggle("rounded-b-3xl")
+            }
+            function toggle_class_info(id) {
+                const key_id = id.substring(0, id.indexOf('_'))
+                document.getElementById(id).classList.toggle("toggle_button_animation")
+                document.getElementById(key_id + "_class_info").classList.toggle("hidden")
+            }
+            function find_class() {
+                const val = document.getElementById("class_search").value
+                for (let i = 0; i < document.getElementById("class_list").children.length; i++) {
+                    for (let j = 0; j < document.getElementById("class_list").children[i].children[1].children[0].children.length; j++) {
+                        const class_id = document.getElementById("class_list").children[i].children[1].children[0].children[j].id
+                        if (val === "") {
+                            document.getElementById("class_list").children[i].children[1].children[0].children[j].classList.remove("hidden")
+                        }
+                        else if (class_id.match(new RegExp(val, 'gi'))) {
+                            document.getElementById("class_list").children[i].children[1].children[0].children[j].classList.remove("hidden")
+                        }
+                        else {
+                            document.getElementById("class_list").children[i].children[1].children[0].children[j].classList.add("hidden")
+                        }
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>

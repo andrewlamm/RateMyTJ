@@ -3,7 +3,7 @@
 ### Andrew Lam
 
 Project for Mobile and Web App Senior Research Lab            
-Visit it at https://rate-my-tj.sites.tjhsst.edu/
+Visit it at https://ratemytj.sites.tjhsst.edu/
 
 ## What is RateMyTJ?
 

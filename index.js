@@ -862,6 +862,20 @@ function get_classes(req, res, next) {
   })
 }
 
+function create_class_list_category(req, res, next) {
+  res.locals.class_list_category = {}
+  next()
+}
+
+function get_classes_category(category) {
+  return function(req, res, next) {
+    pool.query(`SELECT * FROM classes WHERE category="${category}";`, function(e,r) {
+      res.locals.class_list_category[category] = r
+      next()
+    })
+  }
+}
+
 let TERMS_YR = ["Summer 18", "2018-19", "Summer 19", "2019-20", "Summer 20", "2020-21", "Summer 21", "2021-22"]
 let TERMS_SEM = ["Summer 18", "Fall 18", "Spring 19", "Summer 19", "Fall 19", "Spring 20", "Summer 20", "Fall 20", "Spring 21", "Summer 21", "Fall 21", "Spring 22"]
 
@@ -1422,6 +1436,12 @@ app.post('/review_review', [getProfileData, check_if_exists, add_review_review, 
 
 app.post('/report_review', [getProfileData, report_review], (req, res) => {
   res.send()
+})
+
+app.get('/four_year_plan', [getProfileData, get_class_list, create_class_list_category, get_classes_category("Mathematics"), get_classes_category("English"), get_classes_category("Fine Arts: Theatre Arts"), get_classes_category("Fine Arts: Visual Arts"), get_classes_category("Fine Arts: Music"), get_classes_category("Social Studies"), get_classes_category("Science"), get_classes_category("World Languages"), get_classes_category("General"), get_classes_category("Health/PE"), get_classes_category("Engineering")], (req, res) => {
+  pool.query("SELECT * FROM classes GROUP BY category;", function(error, results) {
+    res.render('four_year_plan', {"classes": res.locals.class_list_category, "profile": res.locals.profile, "login_link": authorizationUri, "class_list": res.locals.class_list})
+  })
 })
 
 app.use([getProfileData, get_class_list], function(req, res, next){
