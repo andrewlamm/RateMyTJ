@@ -1358,6 +1358,20 @@ function report_review(req, res, next) {
   })
 }
 
+function get_search_results(req, res, next) {
+  const text = '%' + req.body.text + '%'
+  pool.query(`SELECT name, id FROM classes WHERE name LIKE ? OR id LIKE ? OR alt LIKE ?`, [text, text, text], function(e, r) {
+    if (r.length == 1) {
+      res.redirect(`/class/${r[0].id}`)
+    }
+    else {
+      res.locals.search_total = r.length
+      res.locals.search_results = r
+      next()
+    }
+  })
+}
+
 app.get('/login_worker', [convertCodeToToken], function(req, res) {
   req.session.authenticated = true;
   req.session.token = res.locals.token;
@@ -1432,6 +1446,11 @@ app.post('/edit_feedback', [checkAuthentication, getProfileData, edit_class_feed
 app.post('/review_review', [getProfileData, check_if_exists, add_review_review, get_total_stat], (req, res) => {
   //console.log(req.body)
   res.send(res.locals.return_val)
+})
+
+app.post('/search', [getProfileData, get_search_results, get_class_list], (req, res) => {
+  //console.log(req.body)
+  res.render('search', {"profile": res.locals.profile, "class_list": res.locals.class_list, "search_results": res.locals.search_results, "search_query": req.body.text, "search_total": res.locals.search_total})
 })
 
 app.post('/report_review', [getProfileData, report_review], (req, res) => {

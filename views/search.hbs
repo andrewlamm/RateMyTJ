@@ -1,0 +1,33 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+		<title>RateMyTJ</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.0/nouislider.min.css">
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+		<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.0/nouislider.min.js"></script>
+		<link rel="stylesheet" href="/styles.css">
+	</head>
+	<body>
+		<div class="min-h-full flex flex-col">
+			{{> header}}
+			<div class="flex flex-col p-2 flex-grow">
+                <div class="font-bold text-2xl">
+                    There were {{search_total}} result{{plural search_total}} for your search.
+                </div>
+                <div>
+                    <ul>
+                        {{#each search_results}}
+                            <li><a href="/class/{{this.id}}">{{this.name}} {{#if this.alt}}({{this.alt}}) {{/if}}- {{this.id}}</a></li>
+                        {{/each}}
+                    </ul>
+                </div>
+
+            </div>
+            {{> footer}}
+        </div>
+	</body>
+</html>
