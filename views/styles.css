@@ -161,6 +161,16 @@ table.dataTable {
     }
 }
 
+.index_div {
+    width: calc(100% - 13rem);
+}
+@media only screen and (max-width: 767px) {
+    .index_div {
+        width: 100%
+    }
+}
+
+
 .plusminus {
     color: #ecf0f1;
     width: 40px;
