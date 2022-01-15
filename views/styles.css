@@ -147,6 +147,9 @@ table.dataTable {
     background-color: gray;
 }
 
+.filters_animation {
+    animation: slideup 0.5s;
+}
 .search_bar_animation {
     animation: searchslidedown 0.5s;
 }
@@ -160,6 +163,15 @@ table.dataTable {
         opacity: 100%;
     }
 }
+@keyframes slideup {
+    from {
+        top: 100px;
+    }
+    to {
+        top: 0px;
+        opacity: 100%;
+    }
+}
 
 .index_div {
     width: calc(100% - 13rem);
@@ -167,6 +179,12 @@ table.dataTable {
 @media only screen and (max-width: 767px) {
     .index_div {
         width: 100%
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .filters_width {
+        height: 50vh
     }
 }
 

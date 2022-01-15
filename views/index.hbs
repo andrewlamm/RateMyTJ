@@ -1,23 +1,23 @@
-<!DOCTYPE>
+	<!DOCTYPE>
 <html>
 	{{> head_tag title="RateMyTJ"}}
 	<body>
 		<div class="min-h-full flex flex-col">
 			{{> header}}
-			<div class="flex flex-col md:flex-row p-2 flex-grow">
-				<div class="leading-tight hidden pr-2 w-full md:w-52" id="filter_div">
+			<div class="flex flex-col md:flex-row md:p-2 flex-grow">
+				<div class="leading-tight hidden md:pr-2 w-full h-full md:w-52" id="filter_div">
 					<div class="w-full flex flex-row font-semibold items-center justify-center text-center text-2xl" id="filter_button">
 						<div class="hidden md:block">
 							Filters
 						</div>
-						<div class="block cursor-pointer md:hidden flex flex-row" onclick="toggle_filters()">
+						<div class="w-full pt-2.5 pb-2 text-center block z-20 bg-white cursor-pointer md:hidden flex flex-row items-center justify-center drop-shadow-md" onclick="toggle_filters()" id="filter_mobile">
 							Filters
 							<div class="flex items-center align-center px-1 block md:hidden">
 								<img src="/img/caret-up-solid.png" width="13" height="13" id="filter_arrow">
 							</div>
 						</div>
 					</div>
-					<div class="hidden md:block" id="actual_filters">
+					<div class="hidden p-2 md:p-0 z-10 fixed filters_width md:static md:block md:z-0 w-full bg-white overflow-y-auto md:overflow-y-visible drop-shadow-md md:drop-shadow-none rounded-b-2xl md:rounded-none" id="actual_filters">
 						<div>
 							<span class="text-xs underline"><a onclick="reset_filters()">Reset all filters</a></span><br>
 							<b>Category:</b><br>
@@ -52,8 +52,8 @@
 						</div>
 						<div class="pt-2.5">
 							<b>Display:</b><br>
-							<input type="radio" class="mr-0.5" id="show_all" name="show" checked oninput="show_all_classes(true)" value="true"><label for="show_all">All Classes</label><br>
-							<input type="radio" class="mr-0.5" id="show_only" name="show" oninput="show_all_classes(false)" value="false"><label for="show_only">Only Classes with Reviews</label>
+							<input type="radio" class="mr-0.5" id="show_all" name="show" checked oninput="show_all_classes()" value="true"><label for="show_all">All Classes</label><br>
+							<input type="radio" class="mr-0.5" id="show_only" name="show" oninput="show_all_classes()" value="false"><label for="show_only">Only Classes with Reviews</label>
 						</div>
 						<div class="pr-6 pl-4 text-center">
 							<div>
@@ -125,7 +125,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="index_div">
+				<div class="index_div relative md:static pt-2 md:pt-0" id="index_div_id">
 					<div id="classes_div" class="w-full overflow-x-auto hidden">
 						<table id="classes_table" class="display w-full m-0" style="width:100%">
 							<thead>
@@ -173,14 +173,50 @@
 			{{> footer}}
 		</div>
 		<script type="text/javascript">
+			let filter_menu = false
+			let change_filter = false
+			let change_number = false
+			let change_all = false
 			function toggle_filters() {
+				if (filter_menu) {
+					filter_menu = false
+					table.order([0, 'asc'])
+					table.search('')
+
+					if (change_filter) filterChange(3)
+					if (change_number) filterNumber('minclassscore', 8)
+					if (change_all) show_all_classes()
+
+					change_filter = false
+					change_number = false
+					change_all = false
+				}
+				else {
+					filter_menu = true
+				}
+
+				document.getElementById("actual_filters").scrollTop = 0
+				if(document.body.scrollTop > document.getElementById('header').offsetHeight || document.documentElement.scrollTop > document.getElementById('header').offsetHeight) {
+					document.getElementById("actual_filters").classList.toggle("top-12")
+					document.getElementById("actual_filters").classList.add("fixed")
+				}
+				else {
+					document.getElementById("actual_filters").classList.remove("top-12")
+					document.getElementById("actual_filters").classList.remove("fixed")
+				}
 				document.getElementById("actual_filters").classList.toggle("hidden")
+				// document.getElementById("actual_filters").classList.toggle("filters_animation")
 				if (document.getElementById("filter_arrow").getAttribute('src').indexOf('up') !== -1) {
 					document.getElementById("filter_arrow").setAttribute('src', '/img/caret-down-solid.png')
 				}
 				else {
 					document.getElementById("filter_arrow").setAttribute('src', '/img/caret-up-solid.png')
 				}
+				document.body.classList.toggle("overflow-x-hidden")
+				document.body.classList.toggle("overflow-y-hidden")
+				document.getElementById("classes_div").classList.toggle("overflow-x-auto")
+				document.getElementById("classes_div").classList.toggle("overflow-x-hidden")
+				document.getElementById("index_div_id").classList.toggle("blur-lg")
 			}
 
 			let __emptyOnTop = function(a, b, high) {
@@ -288,8 +324,6 @@
 			} );
 
 			function reset_filters() {
-				table.order([0, 'asc'])
-				table.columns.adjust().draw()
 				document.getElementById("Engineering").checked = true
 				document.getElementById("English").checked = true
 				document.getElementById("Fine Arts: Music").checked = true
@@ -322,9 +356,12 @@
 				teacherscore_slider.noUiSlider.set([0, 10])
 				grade_slider.noUiSlider.set([0, 100])
 
-				table.search('').draw()
-
-				filterChange(3)
+				if (!filter_menu) {
+					table.search('').draw()
+					table.order([0, 'asc'])
+					table.columns.adjust().draw()
+					filterChange(3)
+				}
 			}
 
 			function switchCategory(state) {
@@ -343,43 +380,58 @@
 			}
 
 			function filterChange(row_index) {
-				$.fn.dataTable.ext.search.push(
-					function( settings, searchData, index, rowData, counter ) {
-						return document.getElementById(rowData[row_index].substring(rowData[row_index].indexOf('>', 30)+1, rowData[row_index].indexOf('<', 30))).checked ? true : false
-					}
-				);
-				table.draw()
+				if (!filter_menu) {
+					$.fn.dataTable.ext.search.push(
+						function( settings, searchData, index, rowData, counter ) {
+							return document.getElementById(rowData[row_index].substring(rowData[row_index].indexOf('>', 30)+1, rowData[row_index].indexOf('<', 30))).checked ? true : false
+						}
+					);
+					table.draw()
+				}
+				else {
+					change_filter = true
+				}
 			}
 
 			function filterNumber(element_id, row_index) {
-				$.fn.dataTable.ext.search.push(
-					function( settings, searchData, index, rowData, counter ) {
-						let min = parseFloat(document.getElementById('min' + element_id.substring(3)).value)
-						let max = parseFloat(document.getElementById('max' + element_id.substring(3)).value)
-						let score = parseFloat(rowData[row_index])
-						if (rowData[row_index]['@data-order'] !== undefined) {
-							score = parseFloat(rowData[row_index]['@data-order'])
-						}
+				if (!filter_menu) {
+					$.fn.dataTable.ext.search.push(
+						function( settings, searchData, index, rowData, counter ) {
+							let min = parseFloat(document.getElementById('min' + element_id.substring(3)).value)
+							let max = parseFloat(document.getElementById('max' + element_id.substring(3)).value)
+							let score = parseFloat(rowData[row_index])
+							if (rowData[row_index]['@data-order'] !== undefined) {
+								score = parseFloat(rowData[row_index]['@data-order'])
+							}
 
-						if ((isNaN(min) || min === 0) && isNaN(score)) {
-							return true;
+							if ((isNaN(min) || min === 0) && isNaN(score)) {
+								return true;
+							}
+							if ((isNaN(min) && isNaN(max)) || (isNaN(min) && score <= max) || (min <= score && isNaN(max)) || (min <= score && score <= max)) {
+								return true;
+							}
+							return false;
 						}
-						if ((isNaN(min) && isNaN(max)) || (isNaN(min) && score <= max) || (min <= score && isNaN(max)) || (min <= score && score <= max)) {
-							return true;
-						}
-						return false;
-					}
-				);
-				table.draw()
+					);
+					table.draw()
+				}
+				else {
+					change_number = true
+				}
 			}
 
 			function show_all_classes() {
-				$.fn.dataTable.ext.search.push(
-					function( settings, searchData, index, rowData, counter ) {
-						return parseInt(rowData[7]) > 0 || document.getElementById('show_all').checked ? true : false
-					}
-				);
-				table.draw()
+				if (!filter_menu) {
+					$.fn.dataTable.ext.search.push(
+						function( settings, searchData, index, rowData, counter ) {
+							return parseInt(rowData[7]) > 0 || document.getElementById('show_all').checked ? true : false
+						}
+					);
+					table.draw()
+				}
+				else {
+					change_all = true
+				}
 			}
 
 			let class_score_slider = document.getElementById('class_score_slider');
@@ -549,6 +601,24 @@
 				grade_slider.noUiSlider.set([null, this.value]);
 				filterNumber('mingrade', 13)
 			});
+
+			function check_scroll() {
+				if (window.outerWidth < 767) {
+					if(document.body.scrollTop > document.getElementById('header').offsetHeight || document.documentElement.scrollTop > document.getElementById('header').offsetHeight) {
+						document.getElementById('filter_mobile').classList.add("fixed", "top-0")
+						document.getElementById('index_div_id').classList.add("top-12")
+						document.getElementById("footer").style.top = `48px`
+					}
+					else {
+						document.getElementById('filter_mobile').classList.remove("fixed", "top-0")
+						document.getElementById('index_div_id').classList.remove("top-12")
+						document.getElementById("footer").style.top = ``
+					}
+				}
+			}
+			window.onscroll = function () {
+				check_scroll()
+			}
 		</script>
 	</body>
 </html>
