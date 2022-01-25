@@ -153,6 +153,20 @@ table.dataTable {
 .search_bar_animation {
     animation: searchslidedown 0.5s;
 }
+.filter_animation_one {
+    animation: filter_slidedown_one_animation 0.5s;
+}
+.filter_animation_two {
+
+}
+@keyframes filter_slidedown_one_animation {
+    from {
+        top: -200px;
+    }
+    to {
+        top: 0px;
+    }
+}
 @keyframes searchslidedown {
     from {
         top: -10px;
