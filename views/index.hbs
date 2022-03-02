@@ -10,9 +10,9 @@
 						<div class="hidden md:block">
 							Filters
 						</div>
-						<div class="w-full pt-2.5 pb-2 text-center block fixed z-30 bg-white cursor-pointer md:hidden flex flex-row items-center justify-center drop-shadow-md" onclick="toggle_filters()" id="filter_mobile">
+						<div class="w-full pt-2.5 pb-2 text-center fixed z-30 bg-white cursor-pointer md:hidden flex flex-row items-center justify-center drop-shadow-md" onclick="toggle_filters()" id="filter_mobile">
 							Filters
-							<div class="flex items-center align-center px-1 block md:hidden">
+							<div class="flex items-center align-center px-1 md:hidden">
 								<img src="/img/caret-up-solid.png" width="13" height="13" id="filter_arrow">
 							</div>
 						</div>
@@ -181,30 +181,30 @@
 			let change_number = []
 			let change_all = false
 			function toggle_filters() {
-				if (filter_menu) {
-					filter_menu = false
-					table.order([0, 'asc'])
-					table.search('')
+				// if (filter_menu) {
+				//   filter_menu = false
+				//   table.order([0, 'asc'])
+				//   table.search('')
 
-					for (let i = 0; i < change_filter.length; i++) {
-						filterChange(change_filter[i])
-					}
-					for (let i = 0; i < change_number.length; i++) {
-						filterNumber(change_number[i][0], change_number[i][1])
-					}
-					if (change_all) show_all_classes()
+				//   for (let i = 0; i < change_filter.length; i++) {
+				//     filterChange(change_filter[i])
+				//   }
+				//   for (let i = 0; i < change_number.length; i++) {
+				//     filterNumber(change_number[i][0], change_number[i][1])
+				//   }
+				//   if (change_all) show_all_classes()
 
-					change_filter = []
-					change_number = []
-					change_all = false
-				}
-				else {
-					filter_menu = true
-				}
+				//   change_filter = []
+				//   change_number = []
+				//   change_all = false
+				// }
+				// else {
+				//   filter_menu = true
+				// }
 
 				document.getElementById("white_box").classList.toggle("hidden")
 
-				document.getElementById("actual_filters").scrollTop = 0
+				// document.getElementById("actual_filters").scrollTop = 0
 				if(document.body.scrollTop > document.getElementById('header').offsetHeight || document.documentElement.scrollTop > document.getElementById('header').offsetHeight) {
 					document.getElementById("actual_filters").classList.toggle("top-12")
 					document.getElementById("actual_filters").classList.add("fixed")
@@ -369,12 +369,14 @@
 				teacherscore_slider.noUiSlider.set([0, 10])
 				grade_slider.noUiSlider.set([0, 100])
 
-				if (!filter_menu) {
+				// if (!filter_menu) {
 					table.search('').draw()
 					table.order([0, 'asc'])
 					table.columns.adjust().draw()
 					filterChange(3)
-				}
+					toggle_filters()
+					toggle_filters()
+				// }
 			}
 
 			function switchCategory(state) {
@@ -393,21 +395,23 @@
 			}
 
 			function filterChange(row_index) {
-				if (!filter_menu) {
+				// if (!filter_menu) {
 					$.fn.dataTable.ext.search.push(
 						function( settings, searchData, index, rowData, counter ) {
 							return document.getElementById(rowData[row_index].substring(rowData[row_index].indexOf('>', 30)+1, rowData[row_index].indexOf('<', 30))).checked ? true : false
 						}
 					);
 					table.draw()
-				}
-				else {
-					change_filter.push(row_index)
-				}
+					toggle_filters()
+					toggle_filters()
+				// }
+				// else {
+					// change_filter.push(row_index)
+				// }
 			}
 
 			function filterNumber(element_id, row_index) {
-				if (!filter_menu) {
+				// if (!filter_menu) {
 					$.fn.dataTable.ext.search.push(
 						function( settings, searchData, index, rowData, counter ) {
 							let min = parseFloat(document.getElementById('min' + element_id.substring(3)).value)
@@ -427,24 +431,28 @@
 						}
 					);
 					table.draw()
-				}
-				else {
-					change_number.push([element_id, row_index])
-				}
+					toggle_filters()
+					toggle_filters()
+				// }
+				// else {
+					// change_number.push([element_id, row_index])
+				// }
 			}
 
 			function show_all_classes() {
-				if (!filter_menu) {
+				// if (!filter_menu) {
 					$.fn.dataTable.ext.search.push(
 						function( settings, searchData, index, rowData, counter ) {
 							return parseInt(rowData[7]) > 0 || document.getElementById('show_all').checked ? true : false
 						}
 					);
 					table.draw()
-				}
-				else {
-					change_all = true
-				}
+					toggle_filters()
+					toggle_filters()
+				// }
+				// else {
+					// change_all = true
+				// }
 			}
 
 			let class_score_slider = document.getElementById('class_score_slider');

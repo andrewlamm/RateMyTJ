@@ -26,7 +26,7 @@
 								Description
 							</div>
 							<div class="width-full text-left">
-								{{class_info.description}}
+								{{class_info.description}} {{#if profile}}<sup class="text-blue-400 text-xs"><a href="/submit_class_info?class_id={{class_info.id}}">Submit your own description!</a></sup>{{/if}}
 							</div>
 							{{#if class_info.prereq}}
 							<div class="w-full text-left pt-2">
@@ -96,7 +96,7 @@
 												<tr>
 													<td style="width: 150px;" class="term_td" data-order="{{this.term_order}}">{{this.term}}</td>
 													<td class="text-center">{{this.total}}</td>
-													<td class="text-center">{{fix_number this.med_score}}</td>
+													<td class="text-center">{{fix_number this.med_class_score}}</td>
 													<td class="text-center">{{fix_number this.med_workload}}</td>
 													<td class="text-center">{{fix_number this.med_difficulty}}</td>
 													<td class="text-center">{{fix_number this.med_enjoyment}}</td>

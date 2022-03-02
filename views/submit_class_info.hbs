@@ -1,0 +1,66 @@
+<!DOCTYPE>
+<html>
+	{{> head_tag title="RateMyTJ"}}
+	<body>
+		<div class="min-h-full flex flex-col">
+			{{> header}}
+			<div class="flex flex-col p-2 flex-grow">
+                <div class="w-full flex justify-center px-4">
+                    <div class="w-full md:w-full lg:w-2/3">
+                        <form onsubmit="return info_submit_function()">
+                            Class Name:
+                            <select name="classes" class="text-black py-1 px-2 leading-normal font-base border border-black w-full mb-2" id="class_name" required onchange="change_description()">
+                                <option data-value="none" disabled selected value class="hidden">Select an Option</option>
+                                {{#each class_list}}
+                                <option data-value="{{this.id}}" value={{this.id}} id={{this.id}}>{{this.name}} {{#if this.alt}}({{this.alt}}) {{/if}}- {{this.id}}</option>
+                                {{/each}}
+                            </select>
+                            New Class Description:
+                            <textarea name="feedback" class="px-2 w-full border border-black mb-4" id="feedback_input" rows="20" required></textarea>
+                            <input type="submit" class="px-2 border border-black cursor-pointer" id="submit_button"> <span id="success_text"></span>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {{> footer}}
+        </div>
+	</body>
+    <script>
+        const original_feedback = {}
+        {{#each class_list}}
+        original_feedback["{{this.id}}"] = "{{this.description}}"
+        {{/each}}
+
+        const curr_class = new URL(window.location.href).searchParams.get("class_id")
+
+        function change_description() {
+            document.getElementById("feedback_input").value = original_feedback[document.getElementById("class_name").value.replace('&', '&amp;')]
+        }
+
+        if (curr_class) {
+            document.getElementById("class_name").value = curr_class
+
+            change_description()
+        }
+
+        function info_submit_function() {
+            const class_id = document.getElementById("class_name").value.substring(document.getElementById("class_name").value.indexOf("-")+1)
+            // console.log(class_id)
+
+            let request = new XMLHttpRequest();
+            request.open('POST', '/class_info_submit');
+            request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            request.responseType = 'json';
+            request.send(`class_id=${class_id}&description=${document.getElementById("feedback_input").value}`);
+
+            document.getElementById("feedback_input").setAttribute("disabled", true)
+            document.getElementById("class_name").setAttribute("disabled", true)
+            document.getElementById("submit_button").setAttribute("disabled", true)
+
+            document.getElementById("success_text").innerHTML = "Info submitted!"
+
+            return false
+        }
+    </script>
+</html>
