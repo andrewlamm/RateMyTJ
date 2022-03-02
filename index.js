@@ -4,7 +4,6 @@ const {  AuthorizationCode } = require('simple-oauth2');
 let https = require('https');
 let hbs = require('hbs')
 let mysql = require('mysql');
-const { RSA_NO_PADDING } = require('constants');
 const app = express()
 const port = 3000
 
@@ -900,18 +899,36 @@ function capitalize_teacher(s) {
 function submit_class_feedback(req, res, next) {
   // console.log(res.locals.review_id)
 
-  let class_name = req.body.class_name
-  let class_id = req.body.class_id
-  let term = req.body.term
-  let teacher = req.body.teacher
-  let class_score = parseFloat(req.body.class_score)
-  let workload = parseFloat(req.body.workload)
-  let difficulty = parseFloat(req.body.difficulty)
-  let enjoyment = parseFloat(req.body.enjoyment)
-  let teacher_score = parseFloat(req.body.teacher_score)
-  let show_teacher = req.body.show_teacher === "on" ? true : false
-  let grade = req.body.grade
-  let feedback = req.body.feedback
+  let class_name = ""
+  let class_id = ""
+  let term = ""
+  let teacher = ""
+  let class_score = ""
+  let workload = ""
+  let difficulty = ""
+  let enjoyment = ""
+  let teacher_score = ""
+  let show_teacher = ""
+  let grade = ""
+  let feedback = ""
+
+  try {
+    class_name = req.body.class_name
+    class_id = req.body.class_id
+    term = req.body.term
+    teacher = req.body.teacher
+    class_score = parseFloat(req.body.class_score)
+    workload = parseFloat(req.body.workload)
+    difficulty = parseFloat(req.body.difficulty)
+    enjoyment = parseFloat(req.body.enjoyment)
+    teacher_score = parseFloat(req.body.teacher_score)
+    show_teacher = req.body.show_teacher === "on" ? true : false
+    grade = req.body.grade
+    feedback = req.body.feedback
+  }
+  catch (e) {
+    next()
+  }
 
   teacher = teacher.trim()
   teacher = capitalize_teacher(teacher)
@@ -999,42 +1016,68 @@ function submit_class_feedback(req, res, next) {
 
   if (grade === "NULL") {
     pool.query(`INSERT INTO class_${class_id} VALUES (? , NOW(), ?, ?, ?, ?, ?, 0, ?, ?, ?, NULL, ?, NULL, ?, ?, 0, 0, 0);`, [res.locals.profile.id, term, teacher, class_score, workload, feedback, difficulty, enjoyment, teacher_score, show_teacher, term_order, new_review_id], function(e, r) {
-      // console.log(e, r)
-      pool.query(`INSERT INTO user_feedback_${res.locals.profile.id} VALUES (?, ?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?, ?, NULL, ?, NULL, NULL, ?);`, [res.locals.profile.id, res.locals.profile.ion_username, class_id, term, teacher, class_score, workload, feedback, difficulty, enjoyment, teacher_score, show_teacher, new_review_id], function(e, r) {
-        // console.log(e, r)
-        res.locals.class_median = {}
-        next()
-      })
+      if (e) next()
+      else {
+        pool.query(`INSERT INTO user_feedback_${res.locals.profile.id} VALUES (?, ?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?, ?, NULL, ?, NULL, NULL, ?);`, [res.locals.profile.id, res.locals.profile.ion_username, class_id, term, teacher, class_score, workload, feedback, difficulty, enjoyment, teacher_score, show_teacher, new_review_id], function(e, r) {
+          // console.log(e, r)
+          res.locals.class_median = {}
+          next()
+        })
+      }
     })
   }
   else {
     pool.query(`INSERT INTO class_${class_id} VALUES (?, NOW(), ?, ?, ?, ?, ?, 0, ?, ?, ?, ?, ?, NULL, ?, ?, 0, 0, 0);`, [res.locals.profile.id, term, teacher, class_score , workload, feedback, difficulty, enjoyment, teacher_score, grade_input, show_teacher, term_order, new_review_id], function(e, r) {
-      pool.query(`INSERT INTO user_feedback_${res.locals.profile.id} VALUES (?, ?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, ?);`, [res.locals.profile.id, res.locals.profile.ion_username, class_id, term, teacher, class_score, workload, feedback, difficulty, enjoyment, teacher_score, grade_input, show_teacher, grade, new_review_id], function(e, r) {
-        // console.log(e)
-        res.locals.class_median = {}
-        next()
-      })
+      if (e) next()
+      else {
+        pool.query(`INSERT INTO user_feedback_${res.locals.profile.id} VALUES (?, ?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, ?);`, [res.locals.profile.id, res.locals.profile.ion_username, class_id, term, teacher, class_score, workload, feedback, difficulty, enjoyment, teacher_score, grade_input, show_teacher, grade, new_review_id], function(e, r) {
+          // console.log(e)
+          res.locals.class_median = {}
+          next()
+        })
+      }
     })
   }
 }
 
 function edit_class_feedback(req, res, next) {
   res.locals.class_median = {}
-  let class_name = req.body.class_name
-  let class_id = req.body.class_id
-  let original_term = req.body.original_term
-  let term = req.body.term
-  let teacher = req.body.teacher
-  let class_score = parseFloat(req.body.class_score)
-  let workload = parseFloat(req.body.workload)
-  let difficulty = parseFloat(req.body.difficulty)
-  let enjoyment = parseFloat(req.body.enjoyment)
-  let teacher_score = parseFloat(req.body.teacher_score)
-  let show_teacher = req.body.show_teacher === "on" ? true : false
-  let grade = req.body.grade
-  let feedback = req.body.feedback
-  let delete_feedback = req.body.delete_feedback
-  let review_id = req.body.review_id
+  let class_name = ""
+  let class_id = ""
+  let original_term = ""
+  let term = ""
+  let teacher = ""
+  let class_score = ""
+  let workload = ""
+  let difficulty = ""
+  let enjoyment = ""
+  let teacher_score = ""
+  let show_teacher = ""
+  let grade = ""
+  let feedback = ""
+  let delete_feedback = ""
+  let review_id = ""
+
+  try {
+    class_name = req.body.class_name
+    class_id = req.body.class_id
+    original_term = req.body.original_term
+    term = req.body.term
+    teacher = req.body.teacher
+    class_score = parseFloat(req.body.class_score)
+    workload = parseFloat(req.body.workload)
+    difficulty = parseFloat(req.body.difficulty)
+    enjoyment = parseFloat(req.body.enjoyment)
+    teacher_score = parseFloat(req.body.teacher_score)
+    show_teacher = req.body.show_teacher === "on" ? true : false
+    grade = req.body.grade
+    feedback = req.body.feedback
+    delete_feedback = req.body.delete_feedback
+    review_id = req.body.review_id
+  }
+  catch (e) {
+    next()
+  }
 
   teacher = teacher.trim()
   teacher = capitalize_teacher(teacher)
@@ -1118,10 +1161,13 @@ function edit_class_feedback(req, res, next) {
   if (delete_feedback == 1) {
     pool.query(`DELETE FROM user_feedback_${res.locals.profile.id} WHERE class_id=? AND user_id=? AND term=?;`, [class_id, res.locals.profile.id, original_term], function(e, r) {
       pool.query(`DELETE FROM class_${class_id} WHERE user_id=? AND term=?;`, [res.locals.profile.id, original_term], function(e, r) {
+        if (e) next()
+        else {
           pool.query(`DELETE FROM class_${class_id}_feedback WHERE review_id=?;`, [review_id], function(e, r) {
-          // console.log(e, r)
-          next()
-        })
+            // console.log(e, r)
+            next()
+          })
+        }
       })
     })
   }
@@ -1129,15 +1175,18 @@ function edit_class_feedback(req, res, next) {
     if (grade === "NULL") {
       pool.query(`UPDATE user_feedback_${res.locals.profile.id} SET term=?, teacher=?, class_score=?, workload=?, difficulty=?, enjoyment=?, teacher_score=?, show_teacher=?, grade=NULL, grade_input=NULL, feedback=?, edit_time=NOW() WHERE class_id=? AND user_id=? AND term=?;`, [term, teacher, class_score, workload, difficulty, enjoyment, teacher_score, show_teacher, feedback, class_id, res.locals.profile.id, original_term], function(e, r) {
         pool.query(`UPDATE class_${class_id} SET term=?, teacher=?, class_score=?, workload=?, difficulty=?, enjoyment=?, teacher_score=?, show_teacher=?, grade=NULL, term_order=?, feedback=?, edit_time=NOW(), edited=1 WHERE user_id=? AND term=?;`, [term, teacher, class_score, workload, difficulty, enjoyment, teacher_score, show_teacher, term_order, feedback, res.locals.profile.id, original_term], function(e, r) {
-          if (feedback === "") {
-            pool.query(`DELETE from class_${class_id}_feedback WHERE review_id=?;`, [review_id], function(e, r) {
-              pool.query(`UPDATE class_${class_id} SET likes=0, dislikes=0, funny=0 WHERE user_id=? AND term=?;`, [res.locals.profile.id, original_term], function (e, r) {
-                next()
-              })
-            })
-          }
+          if (e) next()
           else {
-            next()
+            if (feedback === "") {
+              pool.query(`DELETE from class_${class_id}_feedback WHERE review_id=?;`, [review_id], function(e, r) {
+                pool.query(`UPDATE class_${class_id} SET likes=0, dislikes=0, funny=0 WHERE user_id=? AND term=?;`, [res.locals.profile.id, original_term], function (e, r) {
+                  next()
+                })
+              })
+            }
+            else {
+              next()
+            }
           }
         })
       })
@@ -1145,15 +1194,18 @@ function edit_class_feedback(req, res, next) {
     else {
       pool.query(`UPDATE user_feedback_${res.locals.profile.id} SET term=?, teacher=?, class_score=?, workload=?, difficulty=?, enjoyment=?, teacher_score=?, show_teacher=?, grade=?, grade_input=?, feedback=?, edit_time=NOW() WHERE class_id=? AND user_id=? AND term=?;`, [term, teacher, class_score, workload, difficulty, enjoyment, teacher_score, show_teacher, grade_input, grade, feedback, class_id, res.locals.profile.id , original_term], function(e, r) {
         pool.query(`UPDATE class_${class_id} SET term=?, teacher=?, class_score=?, workload=?, difficulty=?, enjoyment=?, teacher_score=?, show_teacher=?, grade=?, term_order=?, feedback=?, edit_time=NOW(), edited=1 WHERE user_id=? AND term=?`, [term, teacher, class_score, workload, difficulty, enjoyment, teacher_score, show_teacher, grade_input, term_order, feedback, res.locals.profile.id, original_term], function(e, r) {
-          if (feedback === "") {
-            pool.query(`DELETE from class_${class_id}_feedback WHERE review_id=?;`, [review_id], function(e, r) {
-              pool.query(`UPDATE class_${class_id} SET likes=0, dislikes=0, funny=0 WHERE user_id=? AND term=?;`, [res.locals.profile.id, original_term], function (e, r) {
-                next()
-              })
-            })
-          }
+          if (e) next()
           else {
-            next()
+            if (feedback === "") {
+              pool.query(`DELETE from class_${class_id}_feedback WHERE review_id=?;`, [review_id], function(e, r) {
+                pool.query(`UPDATE class_${class_id} SET likes=0, dislikes=0, funny=0 WHERE user_id=? AND term=?;`, [res.locals.profile.id, original_term], function (e, r) {
+                  next()
+                })
+              })
+            }
+            else {
+              next()
+            }
           }
         })
       })
@@ -1244,6 +1296,7 @@ function check_if_exists(req, res, next) {
 
 function add_review_review(req, res, next) {
   if ('authenticated' in req.session) {
+    if (!(req.body.class_id in CLASSES)) next()
     if (parseInt(req.body.funny)) {
       if (res.locals.review_exists) {
         if (res.locals.original_funny) {

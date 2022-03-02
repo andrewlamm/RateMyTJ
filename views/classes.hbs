@@ -247,7 +247,10 @@
 					{{/check_nonzero}}
 				</div>
 			</div>
-			<div id="report_review_popup" class="hidden z-10 m-1/2 fixed top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 bg-gray-200 rounded-3xl py-3 px-5">
+			<div id="report_background" class="fixed w-full hidden h-full z-10" onclick="close_report_popup()">
+
+			</div>
+			<div id="report_review_popup" class="hidden z-20 m-1/2 fixed top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 bg-gray-200 rounded-3xl py-4 px-6">
 				<b>Please select a reason for your report:</b><br>
 				<div class="text-left py-2">
 					<input type="checkbox" class="mr-0.5 my-1" value="Cursing/Foul Language" id="Cursing"><label for="Cursing">Cursing/Foul Language</label><br>
@@ -290,6 +293,8 @@
 			function open_report_popup(id) {
 				let review_id = id.substring(0, id.indexOf('_'))
 				document.getElementById('report_review_popup').classList.remove('hidden')
+				document.getElementById('report_background').classList.remove('hidden')
+				document.body.classList.add('overflow-y-hidden')
 				document.getElementById('report_review_popup').classList.add('report_popup_animation')
 				document.getElementById('header').classList.add('filter')
 				document.getElementById('header').classList.add('blur-lg')
@@ -307,7 +312,9 @@
 
 			function close_report_popup() {
 				document.getElementById('report_review_popup').classList.add('hidden')
+				document.getElementById('report_background').classList.add('hidden')
 				document.getElementById('report_review_popup').classList.remove('report_popup_animation')
+				document.body.classList.remove('overflow-y-hidden')
 				document.getElementById('header').classList.remove('filter')
 				document.getElementById('header').classList.remove('blur-lg')
 				document.getElementById('footer').classList.remove('filter')
